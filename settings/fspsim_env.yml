@@ -23,8 +23,8 @@ dependencies:
     - requests
     - sgp4
     - wget
-    - cartopy
     - matplotlib
     - pandas
     - numba==0.53.0
     - numpy==1.19
+    - flask
