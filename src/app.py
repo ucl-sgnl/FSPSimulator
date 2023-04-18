@@ -96,6 +96,5 @@ def update_external_cat():
         # return an old version of the celestrak
         return jsonify({'error': 'Invalid type parameter'}), 400
 
-
 if __name__ == '__main__':
     app.run(debug=True) # use this for development, in production use app.run()
