@@ -56,30 +56,18 @@ def post_json():
     
 
 # Get endpoint that will return the json file with the GUID as the name
-@app.route('/get', methods=['GET'])
+@app.route('/getfile', methods=['GET'])
 def get_json():
-
     fileType = request.args.get('type')
     id = request.args.get('id')
-
-    if (fileType == 'policy'):
-        filename = os.path.join(os.getcwd(), 'src', 'data', 'policy', f'{id}.json')
-        if os.path.isfile(filename):
-            with open(filename, 'r') as f:
-                data = json.load(f)
-                return jsonify(data), 200
-        else:
-            return jsonify({'error': 'File not found'}), 400
-    elif (fileType == 'results'):
-        filename = os.path.join(os.getcwd(), 'src', 'data', 'results', f'{id}.json')
-        if os.path.isfile(filename):
-            with open(filename, 'r') as f:
-                data = json.load(f)
-                return jsonify(data), 200
-        else:
-            return jsonify({'error': 'File not found'}), 400
+    filename = os.path.join(os.getcwd(), 'src', 'data', fileType, f'{id}.json')
+    if os.path.isfile(filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+            return jsonify(data), 200
     else:
-        return jsonify({'error': 'Invalid type parameter'}), 400
+        return jsonify({'error': 'File not found'}), 400
+
     
 # Get endpoint that will update the external catalogue
 @app.route('/updatecatalogue', methods=['GET'])
@@ -91,7 +79,7 @@ def update_external_cat():
     elif (request.args.get('type') == 'celestrak'):
         update_catalogue_celestrak()
         return jsonify({'success': True}), 201
-    
+     
     else:
         # return an old version of the celestrak
         return jsonify({'error': 'Invalid type parameter'}), 400
