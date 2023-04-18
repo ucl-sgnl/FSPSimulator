@@ -72,17 +72,20 @@ def get_json():
 # Get endpoint that will update the external catalogue
 @app.route('/updatecatalogue', methods=['GET'])
 def update_external_cat():
-    if (request.args.get('type') == 'jsr'):
-        update_catalogue_jsr()
-        return jsonify({'success': True}), 201
-    
-    elif (request.args.get('type') == 'celestrak'):
-        update_catalogue_celestrak()
-        return jsonify({'success': True}), 201
-     
-    else:
-        # return an old version of the celestrak
-        return jsonify({'error': 'Invalid type parameter'}), 400
+    try:
+        if (request.args.get('type') == 'jsr'):
+            update_catalogue_jsr()
+            return jsonify({'success': True}), 201
+
+        elif (request.args.get('type') == 'celestrak'):
+            update_catalogue_celestrak()
+            return jsonify({'success': True}), 201
+
+        else:
+            # return an old version of the celestrak
+            return jsonify({'error': 'Invalid type parameter'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True) # use this for development, in production use app.run()
