@@ -1,0 +1,1 @@
+### class for an individual space object
