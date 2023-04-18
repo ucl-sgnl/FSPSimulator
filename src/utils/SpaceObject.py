@@ -36,6 +36,7 @@ class Satellite:
         self.argp = argp
         self.rann = raan
         self.train = tran
+    
         
     # This is a private method because its name starts with an underscore
     def _compute_catid(self):
