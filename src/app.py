@@ -29,24 +29,24 @@ def post_json():
     # except jsonschema.exceptions.ValidationError as e:
     #     return {'message': f'Invalid JSON data: {e}'}, 400
 
-    data = request.json
+    policy_data = request.json
 
     # Create a json file with GUID as the name, this will be used as an audit record.
-    id = data.get('id')
+    id = policy_data.get('id')
     if id:
         filename = os.path.join(os.getcwd(), 'src', 'data', 'policy', f'{id}.json')
         file_created = False
         if os.path.isfile(filename):
             with open(filename, 'w') as f:
-                json.dump(data, f)
+                json.dump(policy_data, f)
                 file_created = True
         else:
             with open(filename, 'w') as f:
-                json.dump(data, f)
+                json.dump(policy_data, f)
                 file_created = True
         
         if (file_created):
-            run_simulation()
+            run_simulation(policy_data)
         else:
             return jsonify({'error': 'File not created and simulation not found'}), 400
         
