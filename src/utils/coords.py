@@ -103,6 +103,24 @@ def expo_simplified(altitude, alt_type='geometric'):
 
     return rho
 
+def orbit_classify(altitude):
+    # Classifies the orbit based on the altitude
+    #TODO: expand to include all possible altitudes. Classifications must be set to match JSR/Celestrak orbit classifications
+    # if less than 160 km, it is deorbiting
+    if altitude < 160:
+        orbit_class = 'Deorbiting'
+    # if between 160 and 2000 km, it is low earth orbit
+    elif altitude >= 160 and altitude < 2000:
+        orbit_class = 'LEO'
+    # between 2000 and 10000 km, it is medium earth orbit
+    elif altitude >= 2000 and altitude < 10000:
+        orbit_class = 'MEO'
+    # between 10000 and 36000 km, it is GEO
+    elif altitude >= 35000 and altitude < 36000:
+        orbit_class = 'GEO'
+    else:
+        orbit_class = 'Other'
+    return orbit_class
 
 def tle_parse(tle_string):
 
