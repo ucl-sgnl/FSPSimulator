@@ -7,6 +7,26 @@ from astropy.time import Time
 from poliastro.bodies import Earth
 from poliastro.twobody import Orbit
 
+def utc_to_jd(time_stamps):
+    """Converts UTC time to Julian Date.
+    Args: 
+        time_stamps(list): list of UTC times datetime.datetime objects that need to be converted to JD.
+    Returns:
+        jd(list): is a list of Julian Date times.
+    """
+    UTC_string = []
+    for i in range(0,len(time_stamps),1):
+        UTC_string.append(time_stamps[i].strftime('%Y-%m-%d %H:%M:%S'))
+
+    t = Time(UTC_string, format='iso', scale='utc') #astropy time object
+    jd = t.to_value('jd', 'long') #convert to jd
+
+    jd_vals = []
+    for i in range (0, len(jd),1):
+        jd_vals.append(float(jd[i]))
+    
+    return jd_vals
+
 def kep2car(a, e, i, w, W, V):
     # Suppress the UserWarning for true anomaly wrapping
     with warnings.catch_warnings():
@@ -53,7 +73,6 @@ def calculate_kozai_mean_motion(a, mu):
 
     return no_kozai_rad_min
 
-
 def expo_simplified(altitude, alt_type='geometric'):
     #Simple atmospheric density model based on Vallado 2013
     # altitude: altitude in km
@@ -88,7 +107,7 @@ def expo_simplified(altitude, alt_type='geometric'):
 def tle_parse(tle_string):
 
     """
-    Parses a TLE string (e.g. as provided by SpaceTrack.org) and returns all the data in a dictionary.
+    Parses a 3LE/TLE string (e.g. as provided by SpaceTrack.org) and returns all the data in a dictionary.
     Args:
         tle_string (string): TLE string to be parsed
     Returns:
