@@ -5,7 +5,7 @@ import datetime
 import numpy as np
 import sgp4
 from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion
+from coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion
 
 class Satellite:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
