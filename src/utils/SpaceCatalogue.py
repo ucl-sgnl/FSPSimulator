@@ -1,13 +1,22 @@
-from utils.SpaceObject import Satellite
+from SpaceObject import Satellite
+from UpdateCatalogue import update_catalogue_jsr
+import pandas as pd
 
 class SpaceCatalogue:
     def __init__(self):
         self.PullCatalogue()
         self.Satellites = []
+        self.Catalogue = None
 
     def PullCatalogue(self):
         # pull in the latest data based from data/external/catalogue.csv
-        pass
+        # update the jsr catalogue if it is older than 1 day
+        update_catalogue_jsr()
+
+        # then pull the most recent file form data/external/currentcat.tsv
+        self.Catalogue = pd.read_csv('data/external/currentcat.tsv', sep='\t')
+
+
     
     # Adds JSR satellites to the catalogue
     def AddSatellitesTSV(self, catalogue):
@@ -32,5 +41,9 @@ class SpaceCatalogue:
             temp_satellite.LaunchVehicle = row['LaunchVehicle']
        
 
+if __name__ == '__main__':
+    catalogue = SpaceCatalogue()
+    catalogue.AddSatellitesTSV(catalogue.Catalogue)
+    print(catalogue.Catalogue)
 
             
