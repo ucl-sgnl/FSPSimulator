@@ -17,10 +17,18 @@ class SpaceCatalogue:
 
         # then pull the most recent file form data/external/currentcat.tsv
         jsr_cat = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/currentcat.tsv'), sep='\t')
-        print(jsr_cat.head())
+        celestrak_cat = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/celestrak_active.txt'), sep='\n', header=None)
 
-       
+        # convert the celestrak 3LE into one string
+        with open(os.path.join(os.getcwd(), 'src/data/external/celestrak_active.txt'), 'r') as f:
+            three_line_elements = [line.strip() for line in f.readlines()]
 
+        tles = []
+        for i in range(0, len(three_line_elements), 3):
+            tles.append(three_line_elements[i:i+3])
+
+        # then strip the 
+        print(tles[0:10])
 if __name__ == '__main__':
     catalogue = SpaceCatalogue()
 
