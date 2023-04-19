@@ -19,7 +19,10 @@ dependencies:
   - pip:
     - datetime
     - seaborn
+    - astropy
+    - poliastro
     - spacetrack
+    - pyatmos
     - requests
     - sgp4
     - wget
