@@ -19,11 +19,13 @@ dependencies:
   - pip:
     - datetime
     - seaborn
+    - astropy
+    - poliastro
     - spacetrack
+    - pyatmos
     - requests
     - sgp4
     - wget
-    - cartopy
     - matplotlib
     - pandas
     - numba==0.53.0
