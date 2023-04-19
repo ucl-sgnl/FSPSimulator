@@ -33,7 +33,7 @@ def kep2car(a, e, i, w, W, V):
 
 def trueanom2meananom(tran, e):
     """Converts true anomaly to mean anomaly."""
-    E = 2 * math.atan2(math.sqrt((1 - e) / (1 + e)) * math.tan(tran / 2)) #Eccentric anomaly
+    E = 2 * math.atan(math.sqrt((1 - e) / (1 + e)) * math.tan(tran / 2)) #Eccentric anomaly
     mean_anomaly = E - e * math.sin(E) # Kepler's equation for mean anomaly
     return mean_anomaly
 
