@@ -7,7 +7,8 @@ import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
 from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified
-
+#import cm from matplotlib
+import matplotlib.cm as cm
 class Satellite:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
                  orbital_status_code=None, launch_site=None, decay_date=None, mass=None, maneuverable=False, spin_stabilized=False, 
@@ -107,11 +108,13 @@ class Satellite:
 
     
 if __name__ == "__main__":
-    sat = Satellite(sma = 6378.137+500, perigee_altitude=500, apogee_altitude=500, ecc=0.0004, inc = np.deg2rad(53.9), argp = np.deg2rad(58), raan=np.deg2rad(88), tran=np.deg2rad(60), characteristic_area=20.0, mass = 100, epoch = "2022-04-16 00:00:00")
+    sat = Satellite(sma = 6378.137+500, perigee_altitude=250, apogee_altitude=250, ecc=0.0004, inc = np.deg2rad(85.9), argp = np.deg2rad(58), raan=np.deg2rad(88), tran=np.deg2rad(60), characteristic_area=20.0, mass = 100, epoch = "2022-04-16 00:00:00")
     print(sat.GUID)
     print("epoch: ", sat.epoch)
     ephemeris = []
-    date_range = np.arange(2460050, 2460064, 0.125/4)
+    start_day = 2460050
+    end_day = 2488188
+    date_range = np.arange(start_day, end_day, 365)
     for date in date_range:
         sat.sgp4_prop(date)
         ephemeris.append(sat.cart_state)
@@ -120,11 +123,17 @@ if __name__ == "__main__":
     ephemeris = np.array(ephemeris)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(ephemeris[:,0], ephemeris[:,1], ephemeris[:,2], color="xkcd:dark blue", s=1)
+    ax.scatter(ephemeris[:,0], ephemeris[:,1], ephemeris[:,2], c=date_range, s=1)
     #force aspect ratio to be 1:1:1
     ax.set_xlim(-7000, 7000)
     ax.set_ylim(-7000, 7000)
     ax.set_zlim(-7000, 7000)
+    ax.legend()
+    #add colorbar
+    m = cm.ScalarMappable(cmap=cm.jet)
+    m.set_array(date_range)
+    fig.colorbar(m)
+
 
     plt.show()
 
