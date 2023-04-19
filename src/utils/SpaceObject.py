@@ -4,9 +4,11 @@ import math
 import datetime
 import numpy as np
 import sgp4
+import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion
-
+from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified
+#import cm from matplotlib
+import matplotlib.cm as cm
 class Satellite:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
                  orbital_status_code=None, launch_site=None, decay_date=None, mass=None, maneuverable=False, spin_stabilized=False, 
@@ -63,6 +65,15 @@ class Satellite:
         # convert to number of days
         sgp4epoch = sgp4epoch.days
         return sgp4epoch
+    
+    def get_density(self, altitude, model = "exponential"):
+        if model == "exponential":
+            print("fetching density from exponential density model")
+            return expo_simplified(altitude)
+        #TODO: other density models here when ready (USSA 76 probably only one we need)
+        else:
+            print("fetching density from placeholder value")
+        return 1e-12 #Placeholder value #in kg/m^3
 
     def sgp4_prop(self, jd):
         #jd is julian date of the epoch we want to propagate to
@@ -72,7 +83,8 @@ class Satellite:
         # But they do at least get saved to the satellite object, and written out if you write 
         # the parameters to a TLE or OMM file (see the “Export” section, above).
         sgp4_object = Satrec()
-        density = self.get_density()
+        altitude = (self.perigee_altitude + self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
+        density = self.get_density(altitude, model = "exponential")
         print("density is: ", density)
         self.bstar = (self.C_d * self.characteristic_area * density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
         print("bstar is: ", self.bstar)
@@ -82,7 +94,7 @@ class Satellite:
         print("mean anomaly is: ", self.meananomaly)
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
         print("mean motion is: ", self.no_kozai)
-        self.satnum = 25544 #Placeholder value. Believe this is NORAD ID?
+        self.satnum = 0 #Placeholder value. Believe this is NORAD ID? But doesnt really matter as not used in SGP4
         sgp4epoch = self.sgp4_epoch()
         print("sgp4 epoch is: ", sgp4epoch)
         sgp4_object.sgp4init(WGS72, 'i', self.satnum, sgp4epoch, self.bstar, self.ndot, self.nddot, self.eccentricity, self.argp, self.inc, self.meananomaly, self.no_kozai, self.raan)
@@ -94,17 +106,37 @@ class Satellite:
         else :
             self.cart_state = np.array(position + velocity)
 
-    def get_density(self):
-        print("fetching density from X Model")
-        return 1e-12 #Placeholder value #in kg/m^3
     
 if __name__ == "__main__":
-    sat = Satellite(sma = 6378.137+500, ecc=0.0004, inc = np.deg2rad(45), argp = np.deg2rad(180), raan=np.deg2rad(175), tran=np.deg2rad(60), characteristic_area=5000.0, mass = 100, epoch = "2020-01-01 00:00:00")
+    sat = Satellite(sma = 6378.137+500, perigee_altitude=250, apogee_altitude=250, ecc=0.0004, inc = np.deg2rad(85.9), argp = np.deg2rad(58), raan=np.deg2rad(88), tran=np.deg2rad(60), characteristic_area=20.0, mass = 100, epoch = "2022-04-16 00:00:00")
     print(sat.GUID)
     print("epoch: ", sat.epoch)
-    sat.generate_cart()
-    sat.sgp4_prop(2460050.5000000)
-    print(sat.cart_state)
-    print("altitude:",np.linalg.norm(sat.cart_state[0:3])-6378.137)
+    ephemeris = []
+    start_day = 2460050
+    end_day = 2488188
+    date_range = np.arange(start_day, end_day, 365)
+    for date in date_range:
+        sat.sgp4_prop(date)
+        ephemeris.append(sat.cart_state)
+        print("altitude:",np.linalg.norm(sat.cart_state[0:3])-6378.137)
+
+    ephemeris = np.array(ephemeris)
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(ephemeris[:,0], ephemeris[:,1], ephemeris[:,2], c=date_range, s=1)
+    #force aspect ratio to be 1:1:1
+    ax.set_xlim(-7000, 7000)
+    ax.set_ylim(-7000, 7000)
+    ax.set_zlim(-7000, 7000)
+    ax.legend()
+    #add colorbar
+    m = cm.ScalarMappable(cmap=cm.jet)
+    m.set_array(date_range)
+    fig.colorbar(m)
+
+
+    plt.show()
+
+    
 
    
