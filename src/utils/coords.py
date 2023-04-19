@@ -98,8 +98,7 @@ def tle_parse(tle_string):
     # This function takes a TLE string and returns a dictionary of the TLE data
     tle_lines = tle_string.split('\n')
     tle_dict = {}
-    line_one, line_two, line_three = tle_lines[0],tle_lines[1], tle_lines[2]
-    
+    line_zero, line_one, line_two = tle_lines[0],tle_lines[1], tle_lines[2]
     #Parse the first line
     tle_dict['line number'] = line_one[0]
     tle_dict['satellite catalog number'] = line_one[2:7]
