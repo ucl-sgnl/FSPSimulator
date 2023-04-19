@@ -21,12 +21,11 @@ class Satellite:
         self.cospar_id = str(cospar_id)
         self.rso_name = str(rso_name)
         self.rso_type = str(rso_type)
-        self.payload_operational_status = payload_operational_status
+        self.payload_operational_status = str(payload_operational_status)
         self.object_type = str(object_type)
-        self.orbit_type = orbit_type
-        self.application = application
+        self.application = str(application)
         self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
-        self.orbital_status_code = str(orbital_status_code)
+        self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
         self.launch_site = str(launch_site)
         if decay_date is None:
             self.decay_date = None
@@ -41,21 +40,24 @@ class Satellite:
         self.radar_cross_section = float(radar_cross_section) #in meters^2
         self.characteristic_area = float(characteristic_area) #in meters^2
         self.characteristic_length = float(characteristic_length) #in meters
-        self.propulsion_type = propulsion_type
+        self.propulsion_type = str(propulsion_type)
         #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
         if epoch is None:
             self.epoch = None
         else:
             self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
-        self.sma = sma #in km
-        self.inc = inc
-        self.argp = argp
-        self.raan = raan
-        self.tran = tran
-        self.eccentricity = ecc
+        self.sma = float(sma) #in km
+        self.inc = float(inc)
+        self.argp = float(argp)
+        self.raan = float(raan)
+        self.tran = float(tran)
+        self.eccentricity = float(ecc)
+
+        # These are attributes that are not required to be specified on instantiation, but are to be computed later on
         self.meananomaly = None
         self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
         self.C_d = 2.2 #Drag coefficient
+        self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination
 
         self._validate_types()
 
@@ -70,8 +72,8 @@ class Satellite:
             raise ValueError('spin_stabilized must be one of the following: {}'.format(possible_spin_stabilized))
         
         possible_maneuverable = ['y', 'n']
-        if self.spin_stabilized not in possible_spin_stabilized:
-            raise ValueError('spin_stabilized must be one of the following: {}'.format(possible_spin_stabilized))
+        if self.maneuverable not in possible_maneuverable:
+            raise ValueError('maneuverable must be one of the following: {}'.format(possible_maneuverable))
         
         possible_launch_sites = ['AFETR','AFWTR','CAS','DLS','ERAS','FRGUI','HGSTR','JSC','KODAK','KSCUT','KWAJ','KYMSC','NSC','PLMSC','RLLB','SEAL',
                                  'SEMLS','SMTS','SNMLP','SRILR','SUBL','SVOBO','TAISC','TANSC','TYMSC','UNK','VOSTO','WLPIS','WOMRA','WRAS','WSC','XICLF','YAVNE','YUN']
@@ -247,6 +249,9 @@ def test_sgp4_prop():
     fig.colorbar(m)
     plt.show()
 
+def example_object():
+    # make an instance of the object populated with example data
+    pass
 if __name__ == "__main__":
     test_sgp4_prop()
     
