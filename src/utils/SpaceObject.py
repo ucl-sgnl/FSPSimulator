@@ -12,7 +12,7 @@ import matplotlib.cm as cm
 class Satellite:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
                  orbital_status_code=None, launch_site=None, decay_date=None, mass=None, maneuverable=False, spin_stabilized=False, 
-                 orbital_period=None, inclination=None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
+                 orbital_period=None, object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
                  argp=None, raan=None, tran=None, ecc=None):
         
@@ -22,17 +22,20 @@ class Satellite:
         self.rso_name = str(rso_name)
         self.rso_type = str(rso_type)
         self.payload_operational_status = payload_operational_status
-
+        self.object_type = str(object_type)
         self.orbit_type = orbit_type
         self.application = application
-        self.source = source # http://celestrak.org/satcat/sources.php
+        self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
         self.orbital_status_code = str(orbital_status_code)
         self.launch_site = str(launch_site)
-        self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d %H:%M:%S') #in UTC
+        if decay_date is None:
+            self.decay_date = None
+        else:
+            self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d %H:%M:%S')
         self.mass = float(mass) #in Kg
         self.maneuverable = str(maneuverable)
         self.spin_stabilized = str(spin_stabilized)# I have left spin_stabilized and maneuverable as strings in case we later want to add more options than just True/False (for example different thruster types resulting in different kinds of maneuverability)
-        self.orbital_period = float(orbital_period) #in minutes
+        self.orbital_period = float(orbital_period) #in minutes #TODO: I don't think we need this, can be calculated from sma
         self.apogee_altitude = float(apogee_altitude) #in Km
         self.perigee_altitude = float(perigee_altitude) #in Km
         self.radar_cross_section = float(radar_cross_section) #in meters^2
@@ -40,7 +43,10 @@ class Satellite:
         self.characteristic_length = float(characteristic_length) #in meters
         self.propulsion_type = propulsion_type
         #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
-        self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+        if epoch is None:
+            self.epoch = None
+        else:
+            self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
         self.sma = sma #in km
         self.inc = inc
         self.argp = argp
@@ -51,7 +57,10 @@ class Satellite:
         self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
         self.C_d = 2.2 #Drag coefficient
 
-        #Value Checks
+        self._validate_types()
+
+    def _validate_types(self):
+        # function to validate the types and values of the parameters
         possible_operational_status = ['+', '-', 'P', 'B', 'S', 'X', 'D', '?'] #https://celestrak.org/satcat/status.php
         if self.payload_operational_status not in possible_operational_status:
             raise ValueError('payload_operational_status must be one of the following: {}'.format(possible_operational_status))
@@ -64,11 +73,14 @@ class Satellite:
         if self.spin_stabilized not in possible_spin_stabilized:
             raise ValueError('spin_stabilized must be one of the following: {}'.format(possible_spin_stabilized))
         
-        possible_launch_sites = ['CCSFS', 'KSC', 'VAFB', 'Kwajalein', 'Other'] #TODO: update with actual values
+        possible_launch_sites = ['AFETR','AFWTR','CAS','DLS','ERAS','FRGUI','HGSTR','JSC','KODAK','KSCUT','KWAJ','KYMSC','NSC','PLMSC','RLLB','SEAL',
+                                 'SEMLS','SMTS','SNMLP','SRILR','SUBL','SVOBO','TAISC','TANSC','TYMSC','UNK','VOSTO','WLPIS','WOMRA','WRAS','WSC','XICLF','YAVNE','YUN']
         if self.launch_site not in possible_launch_sites:
             raise ValueError('launch_site must be one of the following: {}'.format(possible_launch_sites))
         
-        possible_orbital_status_codes = ['EA0']
+        possible_object_types = ['DEB', 'PAY', 'R/B', 'UNK']
+        if self.object_type not in possible_object_types:
+            raise ValueError('object_type must be one of the following: {}'.format(possible_object_types))
         
         #check that inc, argp, raan and tran are all between 0 and 2pi
         if self.inc < 0 or self.inc > 2*math.pi:
@@ -82,9 +94,76 @@ class Satellite:
         
         if self.ecc<0 or self.ecc>1:
             raise ValueError('eccentricity must be between 0 and 1')
+        
 
-    # This is a private method because its name starts with an underscore
+    def decode(self, code):
+        # This function decodes all the codes that are associated with an object. Basically a legend associated to each instance of the class
+        #"code" is the attribute you want to decode
+        code_mapping = {
+            'object_type': {
+                'DEB': 'Debris',
+                'PAY': 'Payload',
+                'R/B': 'Rocket Body',
+                'UNK': 'Unknown'
+            },
+            'launch_site': {
+                'AFETR': 'Air Force Eastern Test Range, Florida, USA',
+                'AFWTR': 'Air Force Western Test Range, California, USA',
+                'CAS': 'Canaries Airspace',
+                'DLS': 'Dombarovskiy Launch Site, Russia',
+                'ERAS': 'Eastern Range Airspace',
+                'FRGUI': "Europe's Spaceport, Kourou, French Guiana",
+                'HGSTR': 'Hammaguira Space Track Range, Algeria',
+                'JSC': 'Jiuquan Space Center, PRC',
+                'KODAK': 'Kodiak Launch Complex, Alaska, USA',
+                'KSCUT': 'Uchinoura Space Center (Formerly Kagoshima Space Center—University of Tokyo, Japan)',
+                'KWAJ': 'US Army Kwajalein Atoll (USAKA)',
+                'KYMSC': 'Kapustin Yar Missile and Space Complex, Russia',
+                'NSC': 'Naro Space Complex, Republic of Korea',
+                'PLMSC': 'Plesetsk Missile and Space Complex, Russia',
+                'RLLB': 'Rocket Lab Launch Base, Mahia Peninsula, New Zealand',
+                'SEAL': 'Sea Launch Platform (mobile)',
+                'SEMLS': 'Semnan Satellite Launch Site, Iran',
+                'SMTS': 'Shahrud Missile Test Site, Iran',
+                'SNMLP': 'San Marco Launch Platform, Indian Ocean (Kenya)',
+                'SRILR': 'Satish Dhawan Space Centre, India (Formerly Sriharikota Launching Range)',
+                'SUBL': 'Submarine Launch Platform (mobile)',
+                'SVOBO': 'Svobodnyy Launch Complex, Russia',
+                'TAISC': 'Taiyuan Space Center, PRC',
+                'TANSC': 'Tanegashima Space Center, Japan',
+                'TYMSC': 'Tyuratam Missile and Space Center, Kazakhstan (Also known as Baikonur Cosmodrome)',
+                'UNK': 'Unknown',
+                'VOSTO': 'Vostochny Cosmodrome, Russia',
+                'WLPIS': 'Wallops Island, Virginia, USA',
+                'WOMRA': 'Woomera, Australia',
+                'WRAS': 'Western Range Airspace',
+                'WSC': 'Wenchang Satellite Launch Site, PRC',
+                'XICLF': 'Xichang Launch Facility, PRC',
+                'YAVNE': 'Yavne Launch Facility, Israel',
+                'YUN': "Yunsong Launch Site (Sohae Satellite Launching Station), Democratic People's Republic of Korea"
+            },
+            'operational_status': {
+                '+': 'Operational',
+                '-': 'Nonoperational',
+                'P': 'Partially Operational',
+                'B': 'Backup/Standby',
+                'S': 'Spare',
+                'X': 'Extended Mission',
+                'D': 'Decayed',
+                '?': 'Unknown'
+            },
+            # Add other mappings here as/when needed
+        }
+
+        for key, value in code_mapping.items():
+            if code in value:
+                return value[code]
+            else:
+                print('Code not found in mapping. Returning None')
+        return None
+
     def _compute_catid(self):
+        # generate a unique ID for the object. This is the internal ID used in this catalog.
         return uuid.uuid4()
     
     def generate_cart(self):
