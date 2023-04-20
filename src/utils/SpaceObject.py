@@ -11,54 +11,56 @@ import matplotlib.cm as cm
 
 class SpaceObject:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
-                 orbital_status_code=None, launch_site=None, decay_date=None, mass=None, maneuverable=False, spin_stabilized=False, 
+                 orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, 
                  orbital_period=None, object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, ecc=None, operator=None):
+                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None,):
         
         self.CATID = None # This is a computed property based on the GUID and isn't included as a parameter
         self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
+        self.launch_date = launch_date
+        self.decay_date = decay_date
         self.cospar_id = str(cospar_id)
         self.rso_name = str(rso_name)
-        self.rso_type = str(rso_type)
+        # self.rso_type = str(rso_type)
         self.payload_operational_status = str(payload_operational_status)
         self.object_type = str(object_type)
         self.application = str(application)
         self.operator = str(operator)
-        self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
-        self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
+        # self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
+        # self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
         self.launch_site = str(launch_site)
-        if decay_date is None:
-            self.decay_date = None
-        else:
-            self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d %H:%M:%S')
+        # if decay_date is None:
+        #     self.decay_date = None
+        # else:
+        #     self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d %H:%M:%S')
         self.mass = float(mass) #in Kg
         self.maneuverable = str(maneuverable)
         self.spin_stabilized = str(spin_stabilized)# I have left spin_stabilized and maneuverable as strings in case we later want to add more options than just True/False (for example different thruster types resulting in different kinds of maneuverability)
-        self.orbital_period = float(orbital_period) #in minutes #TODO: I don't think we need this, can be calculated from sma
-        self.apogee_altitude = float(apogee_altitude) #in Km
-        self.perigee_altitude = float(perigee_altitude) #in Km
+        # self.orbital_period = float(orbital_period) #in minutes #TODO: I don't think we need this, can be calculated from sma
+        # self.apogee_altitude = float(apogee_altitude) #in Km
+        # self.perigee_altitude = float(perigee_altitude) #in Km
         self.radar_cross_section = float(radar_cross_section) #in meters^2
         self.characteristic_area = float(characteristic_area) #in meters^2
         self.characteristic_length = float(characteristic_length) #in meters
         self.propulsion_type = str(propulsion_type)
         #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
-        if epoch is None:
-            self.epoch = None
-        else:
-            self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+        # if epoch is None:
+        #     self.epoch = None
+        # else:
+        #     self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
         self.sma = float(sma) #in km
         self.inc = float(inc)
         self.argp = float(argp)
         self.raan = float(raan)
         self.tran = float(tran)
-        self.eccentricity = float(ecc)
+        self.eccentricity = float(eccentricity)
 
         # These are attributes that are not required to be specified on instantiation, but are to be computed later on
         self.meananomaly = None
         self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
         self.C_d = 2.2 #Drag coefficient
-        self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination
+        # self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination. I wrote the function just call it here
 
         self._validate_types()
 
@@ -90,12 +92,12 @@ class SpaceObject:
             raise ValueError('inc must be in Radians. Current value not between 0 and 2pi')
         if self.argp < 0 or self.argp > 2*math.pi:
             raise ValueError('argp must be in Radians. Current value not between 0 and 2pi')
-        if self.raan < 0 or self.raan > 2*math.pi:
+        if self.raan < -2*math.pi or self.raan > 2*math.pi:
             raise ValueError('raan must be in Radians. Current value not between 0 and 2pi')
-        if self.tran < 0 or self.tran > 2*math.pi:
+        if self.tran < -2*math.pi or self.tran > 2*math.pi:
             raise ValueError('tran must be in Radians. Current value not between 0 and 2pi')
         
-        if self.ecc<0 or self.ecc>1:
+        if self.eccentricity<0 or self.eccentricity>1:
             raise ValueError('eccentricity must be between 0 and 1')
         
 

@@ -73,7 +73,6 @@ def satellite_metadata(file_path):
     #function that reads in the excel file predictions and generates a dicitonary of metadate for each subconsetllation
     # this subconstellation metadata will then be used to generate the correct SpaceObject instances later on
 
-
     sat_df = pd.read_csv(file_path, sep=',') # this is the csv file with all the satellite data
 
     # slice the dataframe to remove all the rows that have missing values or nan values in the 'Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor' columns
@@ -189,13 +188,12 @@ def global_launch_schedule(sub_constellation_metadata_dicts, monthly_ton_capacit
         total_mass += int(sub_constellation['_mass']) * int(sub_constellation['N']) #need to make sure the units here are always kg
         print(f'total mass of:',sub_constellation['_soname'],':',(sub_constellation['_mass'] * sub_constellation['N'])/1000,'(T)')
         total_cost += (sub_constellation['_mass'] * sub_constellation['N']) * LEO_launchers[rocket]['cost_per_kg']
-        print(f'total cost of launches:',sub_constellation['_soname'],':',total_cost,'(USD)')
+        print(f"cost in Millions of USD:",total_cost/1000000)
     # calculate the number of launches required to put all the satellites in orbit based on the monthly ton capacity
     total_mass_tons = total_mass / 1000 # convert from kg to tons
     max_ton_per_launch = LEO_launchers[rocket]['capacity']
     monthly_launches_frequency = math.ceil(monthly_ton_capacity / max_ton_per_launch) 
     print('number of launches per month required to put specified monthly tonnage in orbit:',monthly_launches_frequency)
-    print("cost ")
     # now how many months are required to launch the total mass of satellites
     months_required = math.ceil(total_mass_tons / monthly_ton_capacity)
     print('number of months required to put all satellites in orbit:',months_required)
@@ -205,9 +203,10 @@ def global_launch_schedule(sub_constellation_metadata_dicts, monthly_ton_capacit
     sub_constellation_launches_required = {}
     for sub_constellation in sub_constellation_metadata_dicts:
         constellation_mass = sub_constellation['_mass'] * sub_constellation['N']
+        constellation_launch_cost = constellation_mass * LEO_launchers[rocket]['cost_per_kg']
         constellation_mass_tons = constellation_mass / 1000
         no_launches_required = math.ceil(constellation_mass_tons / monthly_ton_capacity)
-        print(f"constellation: {sub_constellation['_soname']}, mass: {constellation_mass_tons} tons, launches required: {no_launches_required}")
+        print(f"{sub_constellation['_soname']}, mass: {constellation_mass_tons} T, #Launches: {no_launches_required}, M$: {constellation_launch_cost/1000000} M")
         sub_constellation_launches_required[sub_constellation['_soname']] = no_launches_required
 
     # now we need to calculate the launch dates for each sub constellation
@@ -255,18 +254,18 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
     subconstellation_Space_Objects = []
     apogee_alt = h  # assuming circular orbit
     perigee_alt = h  # assuming circular orbit
-    launch_site = "NA"
+    launch_site = "JSC"
 
     soname = _soname
-    sotype = "plat" # As we are only dealing with satellites this is the only option (https://celestrak.org/satcat/satcat-format.php)
-    operationalstatus = "1" # assuming they are all operational on launch this should also be the only option (https://celestrak.org/satcat/status.php)
+    sotype = "PAY" # As we are only dealing with satellites this is the only option (https://celestrak.org/satcat/satcat-format.php)
+    operationalstatus = "+" # assuming they are all operational on launch this should also be the only option (https://celestrak.org/satcat/status.php)
     orbit_type = orbit_classify(h) #calculated based on altitude
     application = _application #this comes directly from the CSV file
     owner = _owner  #this comes directly from the CSV file
     orbit_info_status = "EA0" #All Earth orbiting so all "EA0"
 
     mass = _mass # this comes directly from the CSV file
-    maneuverable = _maneuverable #this comes directly from the CSV file
+    maneuverable = 'y' #this comes directly from the CSV file
     spin_stabilized = 'n' #setting to always no ->  all LEO so no spin stabilization
     radar_cs = "2" #TODO: unhardcode this -> decide on a way to determine this
     area = _area  #computed based on form factor
@@ -310,57 +309,45 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
         launch_number = int(n)
         launch_piece = "A" # TODO: unhardcode this -> decide on a way to determine this
         object_cospar_id = generate_cospar_id(launch_year, launch_number, launch_piece)
-
-        subconstellation_Space_Objects.append(SpaceObject(sotype, operationalstatus, 
-                                                          orbit_type, application, owner, orbit_info_status, 
-                                                          mass, maneuverable, spin_stabilized, radar_cs, area, length, 
-                                                          propulsion, a_n, e_n, i_n, omega_n, Omega_n, TRAN_n, period, 
-                                                          launch_site, launch_schedule[n], decay_schedule[n], 
-                                                          object_cospar_id,operator=soname))
+        subconstellation_Space_Objects.append(SpaceObject(object_type=sotype, payload_operational_status=operationalstatus, 
+                                                          application=application, operator=owner, 
+                                                          mass=mass, maneuverable=maneuverable, spin_stabilized=spin_stabilized, 
+                                                          radar_cross_section=radar_cs, characteristic_area=area, characteristic_length=length, 
+                                                          propulsion_type=propulsion, sma=a_n, eccentricity=e_n, inc=np.deg2rad(i_n), argp=np.deg2rad(omega_n), 
+                                                          raan=np.deg2rad(Omega_n), tran=np.deg2rad(TRAN_n), launch_site=launch_site, launch_date=launch_schedule[n], 
+                                                          decay_date=decay_schedule[n], cospar_id=object_cospar_id,rso_name=soname))
 
     return subconstellation_Space_Objects
 
 
-def Prediction2SpaceObjects(out_txt_name, in_csv_name, policy_json):
+def Prediction2SpaceObjects(in_csv_path, policy_json):
     """Generate instances of the SpaceObject class for each of the satellties in the prediction data excel file
 
     Args:
         out_txt_name (_type_): _description_
-        in_csv_name (_type_): _description_
+        in_csv_path (_type_): _description_
         policy_json (_type_): _description_
     """
-    cwd_path = os.getcwd()
-    config_path = cwd_path + '/config/'
-    outtxt_path_full = cwd_path + '/Output/' + out_txt_name
-    incsv_path_full = cwd_path + '/Input/' + in_csv_name
-    if os.path.exists(outtxt_path_full):
-        os.remove(outtxt_path_full)
-    
-    policy = import_configuration_json(os.path.join(config_path, policy_json))
+
+    policy = import_configuration_json(policy_json)
     print("Selected policies: ", policy)
     # get the values from the policy json file
     monthly_ton_cap = float(policy['monthly_ton_capacity'])
     launch_start_date = policy['launch_start_date']
     # starup_failure_rate = float(policy['starup_failure_rate'])
 
+    all_space_objects = []
     # Create a launch schedule for each sub constellation
-    metadata_dicts = satellite_metadata(file_path=incsv_path_full, startup_failure_rate=0)
+    metadata_dicts = satellite_metadata(file_path=in_csv_path)
     global_launch_schedule(sub_constellation_metadata_dicts=metadata_dicts)
     sub_constellation_launch_dates = global_launch_schedule(sub_constellation_metadata_dicts = metadata_dicts, monthly_ton_capacity=monthly_ton_cap, launches_start_date = launch_start_date)
+    print("sub_constellation_launch_dates:", sub_constellation_launch_dates)
     for dict in metadata_dicts: #TODO: use the JSON file to set the agressivity and max launch rate etc.
-        launch_entries = create_fsp_launch_entry(N=int(dict['N']), i = float(dict['i']), h=float(dict['h']), _soname=dict['_soname'], _application = dict['_application'], _owner= dict['_owner'], launch_schedule = sub_constellation_launch_dates[dict['_soname']], _mass=dict['_mass'], _area=dict['_area'], _length=dict['_length'], _maneuverable= dict['_maneuverable'], _propulsion=dict['_propulsion'])
-
-        with open(outtxt_path_full, 'a') as f:
-            for line in launch_entries:
-                for value in line.values():
-                    f.write(str(value) + '\t')
-                f.write('\n') 
-
-    # re-order the file by launch date to make it work with FSP
-    order_by_date(outtxt_path_full)
+        subconstellation_Space_Objects = create_subconstellation_Space_Objects(N=int(dict['N']), i = float(dict['i']), h=float(dict['h']), _soname=dict['_soname'], _application = dict['_application'], _owner= dict['_owner'], launch_schedule = sub_constellation_launch_dates[dict['_soname']], _mass=dict['_mass'], _area=dict['_area'], _length=dict['_length'], _maneuverable= dict['_maneuverable'], _propulsion=dict['_propulsion'])
+        all_space_objects.extend(subconstellation_Space_Objects)
+    return all_space_objects
 
 if __name__ == '__main__':
-    out_file = '170423_launch_fsp.txt'
-    in_file = '04_04_23_fsp.csv'
-    policy = 'policy_fsptest.json'
-    create_all_launch_file(out_file, in_file, policy)
+    in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
+    policy = 'src/data/prediction_csv/policy_fsptest.json'
+    Prediction2SpaceObjects(in_file, policy)
