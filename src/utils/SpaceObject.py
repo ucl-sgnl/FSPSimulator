@@ -9,12 +9,12 @@ from sgp4.api import Satrec, WGS72
 from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd
 import matplotlib.cm as cm
 
-class Satellite:
+class SpaceObject:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
                  orbital_status_code=None, launch_site=None, decay_date=None, mass=None, maneuverable=False, spin_stabilized=False, 
                  orbital_period=None, object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, ecc=None):
+                 argp=None, raan=None, tran=None, ecc=None, operator=None):
         
         self.CATID = None # This is a computed property based on the GUID and isn't included as a parameter
         self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
@@ -24,6 +24,7 @@ class Satellite:
         self.payload_operational_status = str(payload_operational_status)
         self.object_type = str(object_type)
         self.application = str(application)
+        self.operator = str(operator)
         self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
         self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
         self.launch_site = str(launch_site)
@@ -219,7 +220,7 @@ class Satellite:
 
 def test_sgp4_prop():
     # quick test to make sure sgp4 propagator is working
-    sat = Satellite(sma = 6378.137+500, perigee_altitude=250, apogee_altitude=250, ecc=0.0004, inc = np.deg2rad(85.9), argp = np.deg2rad(58), raan=np.deg2rad(88), tran=np.deg2rad(60), characteristic_area=20.0, mass = 100, epoch = "2022-04-16 00:00:00")
+    sat = SpaceObject(sma = 6378.137+500, perigee_altitude=250, apogee_altitude=250, ecc=0.0004, inc = np.deg2rad(85.9), argp = np.deg2rad(58), raan=np.deg2rad(88), tran=np.deg2rad(60), characteristic_area=20.0, mass = 100, epoch = "2022-04-16 00:00:00")
     print(sat.GUID)
     ephemeris = []
     dt_startday = datetime.datetime.strptime('2022-04-16 00:00:00', '%Y-%m-%d %H:%M:%S')

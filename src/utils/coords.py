@@ -246,6 +246,7 @@ def tle_convert(tle_dict, display=False):
     return keplerian_dict
 
 def TLE_time(TLE):
+
     """Find the time of a TLE in julian day format"""
     #find the epoch section of the TLE
     epoch = TLE[18:32]
@@ -259,3 +260,42 @@ def TLE_time(TLE):
     #convert the date to a julian date
     jd = (date - datetime.datetime(1858, 11, 17)).total_seconds() / 86400.0 + 2400000.5
     return jd
+
+def orbital_period(semi_major_axis):
+    G = 6.67430 * 10**(-11)  # Gravitational constant in m^3 kg^-1 s^-2
+    a = semi_major_axis*1000      # Semi-major axis in Km
+    M = 5.972 * 10**24       # Mass of Earth in kg
+    
+    # Calculate orbital period using Kepler's Third Law
+    orbital_period_seconds = 2 * math.pi * math.sqrt(a**3 / (G * M))
+    # convert orbital period to minutes
+    orbital_period_minutes = orbital_period_seconds / 60
+    
+    return orbital_period_minutes
+
+
+def generate_cospar_id(launch_year, launch_number, launch_piece):
+    """
+    Generates a COSPAR ID for a spacecraft.
+
+    Args:
+    launch_year (int): The launch year of the spacecraft.
+    launch_number (int): The launch number of the spacecraft.
+    launch_piece (str): The piece of the launch.
+
+    Returns:
+    str: The generated COSPAR ID.
+    """
+    # Format the launch year by taking the last two digits
+    year_str = str(launch_year)
+
+    # Format the launch number to have a minimum width of 3 digits, padded with zeros
+    launch_number_str = f"{launch_number:03d}"
+    # chop the launch number to 3 digits if it is longer than 3 digits
+    if len(launch_number_str) > 3:
+        launch_number_str = launch_number_str[-3:]
+
+    # Combine the formatted parts to create the COSPAR ID
+    cospar_id = f"{year_str}{launch_number_str}{launch_piece}"
+
+    return cospar_id
