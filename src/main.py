@@ -1,6 +1,6 @@
-from utils.SpaceObject import Satellite
-from utils.SpaceCatalogue import SpaceCatalogue
-import pandas as pd
+from src.utils.SpaceObject import SpaceObject
+from src.utils.SpaceCatalogue import SpaceCatalogue
+from src.utils.LaunchModel import Prediction2SpaceObjects
 
 # def run_simulation(policy):
 def run_simulation():
@@ -8,12 +8,18 @@ def run_simulation():
     # print(f'Running simulation for policy {id}')
 
     # First load in the most recent version of JSR catalogue
-    space_catalogue = SpaceCatalogue()
+    catalogue = SpaceCatalogue()
+    catalogue.create_merged_space_catalogue()
+    catalogue.Catalogue2SpaceObjects()
+
+    # Load in up to date launch files
+    in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
+    policy = 'src/data/prediction_csv/policy_fsptest.json'
+    launch_file_object = Prediction2SpaceObjects(in_file, policy)
 
     # Load it into the UCL Space Catalogue
-    currentcat = pd.read_csv("src\data\external\currentcat.tsv", sep='\t')
-    space_catalogue.AddSatellitesTSV(currentcat)
-
+    currentcat_objects = catalogue.Catalogue2SpaceObjects("src/data/prediction_csv/policy_fsptest.json")
+    print(currentcat_objects)
 
 if __name__ == '__main__':
     run_simulation()
