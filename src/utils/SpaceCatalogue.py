@@ -29,21 +29,21 @@ class SpaceCatalogue:
             test = ''.join(tle)
             tles_parsed.append(tle_parse(test))
 
-
         # first convert the list of tles to a dataframe
         tles_dict = pd.DataFrame(tles_parsed)
+        tles_dict.set_index('satellite catalog number', inplace=True)
 
         # then merge the two dataframes
-        self.Catalogue = pd.merge(jsr_cat, tles_dict, left_on='Satcat', right_on='satellite catalog number')
+        self.Catalogue = tles_dict.merge(jsr_cat, right_on='Satcat', left_on='satellite catalog number')
 
-        self.Catalogue.to_csv(os.path.join(os.getcwd(), 'src/data/external/output_test.tsv'), index=False)
+        self.Catalogue.to_csv(os.path.join(os.getcwd(), 'src/data/external/output_test.csv'), index=False)
         
 
 
     # create a dataframe from the 3LE
     def PullCatalogue(self):
-        update_catalogue_jsr()
-        update_catalogue_celestrak()
+        # update_catalogue_jsr()
+        # update_catalogue_celestrak()
         self.create_merged_space_catalogue()
 
 if __name__ == '__main__':

@@ -35,8 +35,8 @@ def update_catalogue_jsr():
     tsv_cat_path = external_dir + 'currentcat.tsv'
     payload_cat_path = external_dir + 'payloadcat.tsv'
 
-    urls = {tsv_cat_path: 'https://planet4589.org/space/gcat/tsv/derived/currentcat.tsv',
-        payload_cat_path: 'https://planet4589.org/space/gcat/tsv/cat/psatcat.tsv'}
+    urls = {tsv_cat_path: 'http://planet4589.org/space/gcat/tsv/derived/currentcat.tsv',
+        payload_cat_path: 'http://planet4589.org/space/gcat/tsv/cat/psatcat.tsv'}
 
     for path, url in urls.items():
         jsr_download_if_newer(path, url)
@@ -46,7 +46,7 @@ def update_catalogue_celestrak():
     cwd = os.getcwd()
     external_dir = os.path.join(cwd, 'src/data/external/')
     celestrak_path = external_dir + f'celestrak_active.txt'
-    url = 'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'
+    url = 'http://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'
     r = requests.get(url, stream=True)
     if r.status_code != 200:
         raise Exception("Failed to download file")
