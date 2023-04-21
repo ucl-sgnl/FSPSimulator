@@ -1,0 +1,5 @@
+{
+    "monthly_ton_capacity": "60",
+    "launch_start_date":"2023-05-01",
+    "startup_failure_rate": "0.1"
+  }
