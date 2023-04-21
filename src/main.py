@@ -19,7 +19,8 @@ def run_simulation():
 
     # Load it into the UCL Space Catalogue
     currentcat_objects = catalogue.Catalogue2SpaceObjects("src/data/prediction_csv/policy_fsptest.json")
-    print(currentcat_objects)
+
+    # Run the simulation
 
 if __name__ == '__main__':
     run_simulation()

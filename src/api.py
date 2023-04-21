@@ -4,9 +4,9 @@ from flask import Flask, request, jsonify
 from main import run_simulation
 from utils.UpdateCatalogue import update_catalogue_celestrak, update_catalogue_jsr
 
-app = Flask(__name__)
+api = Flask(__name__)
 
-@app.route('/')
+@api.route('/')
 def hello():
     return 'Hello, welcome to the UCL Future Space Populations API!'
 
@@ -20,7 +20,7 @@ def hello():
 #     "required": ["name", "age"]
 # }
 
-@app.route('/newsim', methods=['POST'])
+@api.route('/newsim', methods=['POST'])
 def post_json():
 
     # validate JSON data against schema
@@ -56,7 +56,7 @@ def post_json():
     
 
 # Get endpoint that will return the json file with the GUID as the name
-@app.route('/getfile', methods=['GET'])
+@api.route('/getfile', methods=['GET'])
 def get_json():
     fileType = request.args.get('type')
     id = request.args.get('id')
@@ -70,7 +70,7 @@ def get_json():
 
     
 # Get endpoint that will update the external catalogue
-@app.route('/updatecatalogue', methods=['GET'])
+@api.route('/updatecatalogue', methods=['GET'])
 def update_external_cat():
     try:
         if (request.args.get('type') == 'jsr'):
@@ -88,4 +88,4 @@ def update_external_cat():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True) # use this for development, in production use app.run()
+    api.run(debug=True) # use this for development, in production use api.run()
