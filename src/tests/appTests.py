@@ -1,12 +1,12 @@
 import json
 import os
 import unittest
-from src.app import app
+from src.api import api
 
 class TestAPI(unittest.TestCase):
     def setUp(self):
-        app.testing = True
-        self.client = app.test_client()
+        api.testing = True
+        self.client = api.test_client()
 
     def test_hello(self):
         response = self.client.get('/')
