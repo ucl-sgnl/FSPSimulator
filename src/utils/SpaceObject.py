@@ -22,48 +22,47 @@ class SpaceObject:
         self.decay_date = decay_date
         self.cospar_id = str(cospar_id)
         self.rso_name = str(rso_name)
-        # self.rso_type = str(rso_type)
+        self.rso_type = str(rso_type) if rso_type is not None else None
         self.payload_operational_status = str(payload_operational_status)
         self.object_type = str(object_type)
         self.application = str(application)
         self.operator = str(operator)
-        # self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
+        self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
         # self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
         self.launch_site = str(launch_site)
-        # if decay_date is None:
-        #     self.decay_date = None
-        # else:
-        #     self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d %H:%M:%S')
+        self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d') if (self.decay_date is not None and self.decay_date != '-') else None
         self.mass = float(mass) if mass is not None else None #in Kg
         self.maneuverable = str(maneuverable)
         self.spin_stabilized = str(spin_stabilized)# I have left spin_stabilized and maneuverable as strings in case we later want to add more options than just True/False (for example different thruster types resulting in different kinds of maneuverability)
-        # self.orbital_period = float(orbital_period) #in minutes #TODO: I don't think we need this, can be calculated from sma
+        self.orbital_period = float(orbital_period) if orbital_period is not None else None #in minutes #TODO: I don't think we need this, can be calculated from sma
         self.apogee_altitude = float(apogee_altitude) #in Km
         self.perigee_altitude = float(perigee_altitude) #in Km
         self.radar_cross_section = float(radar_cross_section) if radar_cross_section is not None else None #in meters^2
         self.characteristic_area = float(characteristic_area) if characteristic_area is not None else None #in meters^2
         self.characteristic_length = float(characteristic_length) if characteristic_length is not None else None #in meters
         self.propulsion_type = str(propulsion_type)
-        #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
-        # if epoch is None:
-        #     self.epoch = None
-        # else:
-        #     self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
-        # self.sma = float(sma) if sma is not None else None #in km
+        if epoch is None:
+            self.epoch = None #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
+        else:
+            self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+        self.sma = float(sma) if sma is not None else None #in km
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
         self.tran = float(tran) if tran is not None else None
         self.eccentricity = float(eccentricity)
+        if (self.tran is not None):
+            self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
 
         # These are attributes that are not required to be specified on instantiation, but are to be computed later on
-        self.meananomaly = trueanom2meananom(self.tran, self.eccentricity) #mean anomaly to be computed using trueanom2meananom (from true anomaly)
+        #mean anomaly to be computed using trueanom2meananom (from true anomaly)
         self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
         self.C_d = 2.2 #Drag coefficient
         # self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination. I wrote the function just call it here
 
-        # self._validate_types()
+        # this cannot be used currently as it is not set up to validate JSR's catalogue
+        #self._validate_types()
 
     def _validate_types(self):
         # function to validate the types and values of the parameters
