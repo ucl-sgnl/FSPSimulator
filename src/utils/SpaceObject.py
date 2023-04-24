@@ -49,7 +49,8 @@ class SpaceObject:
         #     self.epoch = None
         # else:
         #     self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
-        self.sma = float(sma) if sma is not None else None #in km
+        # self.sma = float(sma) if sma is not None else None #in km
+        self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
@@ -57,7 +58,7 @@ class SpaceObject:
         self.eccentricity = float(eccentricity)
 
         # These are attributes that are not required to be specified on instantiation, but are to be computed later on
-        self.meananomaly = None
+        self.meananomaly = trueanom2meananom(self.tran, self.eccentricity) #mean anomaly to be computed using trueanom2meananom (from true anomaly)
         self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
         self.C_d = 2.2 #Drag coefficient
         # self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination. I wrote the function just call it here
