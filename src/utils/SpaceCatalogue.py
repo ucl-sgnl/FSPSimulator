@@ -10,7 +10,7 @@ class SpaceCatalogue:
         self.PullCatalogue()
         self.Satellites = []
         self.Catalogue = []
-        self.CurrentCatalogue = None
+        self.CurrentCatalogue = []
 
     def create_merged_space_catalogue(self):
     # then pull the most recent file form data/external/currentcat.tsv
@@ -77,10 +77,20 @@ class SpaceCatalogue:
                                                     launch_date=row['LDate'], 
                                                     decay_date=row['DDate'], 
                                                     cospar_id=row['Piece'],
-                                                    rso_name=row['Name'])
+                                                    rso_name=row['Name'],
+                                                    perigee_altitude=row['Perigee'],
+                                                    apogee_altitude=row['Apogee'])
                                                     )
         return self.Catalogue
+    
+    def CleanCatalogue():
+        """
+            As there are discrepencies in each of the catalogues, this function will clean it. Either by removing satellties that have decayed
+            Or by adding in extra information if non-existant, specifically the mass of the satellite
+        """
 
+    def ReturnCatalogue(self):
+        return self.Catalogue
 
 if __name__ == '__main__':
     catalogue = SpaceCatalogue() # for testing purposes only
