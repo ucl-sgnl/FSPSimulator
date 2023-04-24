@@ -311,6 +311,7 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
         object_cospar_id = generate_cospar_id(launch_year, launch_number, launch_piece)
         subconstellation_Space_Objects.append(SpaceObject(object_type=sotype, payload_operational_status=operationalstatus, 
                                                           application=application, operator=owner, 
+                                                          apogee_altitude=apogee_alt, perigee_altitude=perigee_alt,
                                                           mass=mass, maneuverable=maneuverable, spin_stabilized=spin_stabilized, 
                                                           radar_cross_section=radar_cs, characteristic_area=area, characteristic_length=length, 
                                                           propulsion_type=propulsion, sma=a_n, eccentricity=e_n, inc=np.deg2rad(i_n), argp=np.deg2rad(omega_n), 
@@ -341,7 +342,6 @@ def Prediction2SpaceObjects(in_csv_path, policy_json):
     metadata_dicts = satellite_metadata(file_path=in_csv_path)
     global_launch_schedule(sub_constellation_metadata_dicts=metadata_dicts)
     sub_constellation_launch_dates = global_launch_schedule(sub_constellation_metadata_dicts = metadata_dicts, monthly_ton_capacity=monthly_ton_cap, launches_start_date = launch_start_date)
-    print("sub_constellation_launch_dates:", sub_constellation_launch_dates)
     for dict in metadata_dicts: #TODO: use the JSON file to set the agressivity and max launch rate etc.
         subconstellation_Space_Objects = create_subconstellation_Space_Objects(N=int(dict['N']), i = float(dict['i']), h=float(dict['h']), _soname=dict['_soname'], _application = dict['_application'], _owner= dict['_owner'], launch_schedule = sub_constellation_launch_dates[dict['_soname']], _mass=dict['_mass'], _area=dict['_area'], _length=dict['_length'], _maneuverable= dict['_maneuverable'], _propulsion=dict['_propulsion'])
         all_space_objects.extend(subconstellation_Space_Objects)

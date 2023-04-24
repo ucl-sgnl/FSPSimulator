@@ -12,7 +12,7 @@ def run_simulation():
     catalogue = SpaceCatalogue()
 
     # pull down and merge JSR and Celestrak catalogues
-    catalogue.create_merged_space_catalogue()
+    catalogue.CreateMergedSatelliteCatalogue()
     # create list of space objects from the merged catalogue
     catalogue.Catalogue2SpaceObjects()
 
