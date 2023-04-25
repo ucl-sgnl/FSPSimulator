@@ -299,7 +299,7 @@ def generate_cospar_id(launch_year, launch_number, launch_piece):
         launch_number_str = launch_number_str[-3:]
 
     # Combine the formatted parts to create the COSPAR ID
-    cospar_id = f"{year_str}{launch_number_str}{launch_piece}"
+    cospar_id = f"{year_str}-{launch_number_str}{launch_piece}"
 
     return cospar_id
 
@@ -332,8 +332,6 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     split_tle = TLE.split('\n')
     s = split_tle[0]
     r = split_tle[1]
-    print("s: ", s)
-    print("r: ", r)
 
     fr = 0.0 # precise fraction (SGP4 docs for more info)
     
@@ -355,3 +353,67 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
             time += dt_jd
 
     return ephemeris
+
+def tle_exponent_format(value):
+    # Format a value in scientific notation used in TLEs
+    if value == 0:
+        return "00000-0"
+
+    exponent = int('{:e}'.format(value).split('e')[-1])
+    mantissa = '{:.5e}'.format(abs(value)).replace('.', '')[:5]
+    sign = '-' if value < 0 else '+'
+    exponent_sign = '-' if exponent < 0 else '+'
+    exponent_str = '{}{}'.format(exponent_sign, abs(exponent)).rstrip('0')
+    formatted_value = "{}{}{}".format(sign, mantissa, exponent_str)
+    return formatted_value
+
+
+def tle_checksum(line):
+    checksum = 0
+    for char in line[:-1]:
+        if char.isdigit():
+            checksum += int(char)
+        elif char == '-':
+            checksum += 1
+    return checksum % 10
+
+def build_tle(catalog_number, classification, launch_year, launch_number, launch_piece,
+              epoch_year, epoch_day, first_derivative, second_derivative, drag_term,
+              ephemeris_type, element_set_number,
+              inclination, raan, eccentricity, arg_perigee, mean_anomaly, mean_motion,
+              revolution_number):
+
+    formatted_drag_term = tle_exponent_format(drag_term)
+    formatted_second_derivative = tle_exponent_format(second_derivative)
+    first_derivative= "-.00002182"
+    l1_col1 = '1'
+    l1_col2 = ' '
+    l1_col3_7 = '{:05d}'.format(catalog_number)
+    l1_col8 = classification
+    l1_col9_10 = ' '
+    l1_col10_11 = '{:02d}'.format(launch_year)
+    l1_col12_14 = '{:03d}'.format(launch_number)
+    l1_col15_17 = '{:3s}'.format(launch_piece)
+    l1_col18 = ' '
+    l1_col19_20 = '{:02d}'.format(epoch_year)
+    l1_col21_32 = '{:012.8f}'.format(epoch_day)
+    l1_col33 = ' '
+    l1_col34_43 = '{:11.8s}'.format(first_derivative)
+    l1_col44 = ' '
+    l1_col45_52 = '{:8.8s}'.format(formatted_second_derivative)
+    l1_col54_61 = '{:8.8s}'.format(formatted_drag_term)
+    l1_col62 = ' '
+    l1_col63 = '{:01d}'.format(ephemeris_type)
+    l1_col64 = ' '
+    l1_col65_68 = '{:04d}'.format(element_set_number)
+    l1_upto_68 = l1_col1 + l1_col2 + l1_col3_7 + l1_col8 + l1_col9_10 + l1_col10_11 + l1_col12_14 + l1_col15_17 + l1_col18 + l1_col19_20 + l1_col21_32 + l1_col33 + l1_col34_43 + l1_col44 + l1_col45_52  + l1_col54_61 + l1_col62 + l1_col63 + l1_col64 + l1_col65_68
+    l1_col69 = tle_checksum(l1_upto_68)
+    l1 = l1_upto_68 + str(l1_col69)
+    print(l1)
+
+
+
+
+
+
+
