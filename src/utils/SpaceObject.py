@@ -50,26 +50,18 @@ class SpaceObject:
         self.characteristic_length = float(characteristic_length) if characteristic_length is not None else None #in meters
         self.propulsion_type = str(propulsion_type)
         #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         # if epoch is None:
         #     self.epoch = None
         # else:
         #     self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
         # self.sma = float(sma) if sma is not None else None #in km
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         if epoch is None:
             self.epoch = None
         else:
             self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
         self.sma = float(sma) if sma is not None else None #in km
->>>>>>> Stashed changes
+
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
@@ -211,18 +203,10 @@ class SpaceObject:
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             return 1e-12 #Placeholder value #in kg/m^3
-<<<<<<< Updated upstream
             return 1e-12 #Placeholder value #in kg/m^3
 
     def sgp4_prop_myTLEs(self, jd):
         #PROPAGATION THAT FABRICATES TLES
-    def sgp4_prop_myTLEs(self, jd):
-        #PROPAGATION THAT FABRICATES TLES
-=======
-
-    def sgp4_prop_myTLEs(self, jd):
-        #PROPAGATION THAT FABRICATES TLES
->>>>>>> Stashed changes
         #jd is julian date of the epoch we want to propagate to
         #NOTE: from sgp4 docs
         # Note that ndot and nddot are ignored by the SGP4 propagator, 
@@ -271,7 +255,6 @@ def test_sgp4_prop():
     ########## ACTUAL TLE SATELLITE ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
     valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
-<<<<<<< Updated upstream
     # MADE UP TLE SATELLITE
     valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
@@ -294,8 +277,6 @@ def test_sgp4_prop():
     ########## ACTUAL TLE SATELLITE ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
     valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
-=======
->>>>>>> Stashed changes
 
     #valid_tle_ephem is a list of tuples (time, position, velocity)
     valid_tle_position = []
@@ -304,7 +285,6 @@ def test_sgp4_prop():
     valid_tle_position = np.array(valid_tle_position)
     valid_altitude = np.linalg.norm(valid_tle_position[:,0:3], axis=1)-6378.137
     print("valid_altitude:", valid_altitude)
-<<<<<<< Updated upstream
     #valid_tle_ephem is a list of tuples (time, position, velocity)
     valid_tle_position = []
     for valid_tle_ephem_point in valid_tle_ephem:
@@ -312,16 +292,10 @@ def test_sgp4_prop():
     valid_tle_position = np.array(valid_tle_position)
     valid_altitude = np.linalg.norm(valid_tle_position[:,0:3], axis=1)-6378.137
     print("valid_altitude:", valid_altitude)
-=======
->>>>>>> Stashed changes
     #plot ephemeris
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
-<<<<<<< Updated upstream
-    ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
-=======
->>>>>>> Stashed changes
     #force aspect ratio to be 1:1:1
     ax.set_xlim(-7000, 7000)
     ax.set_ylim(-7000, 7000)
@@ -330,10 +304,6 @@ def test_sgp4_prop():
     #add colorbar
     m = cm.ScalarMappable(cmap=cm.jet)
     m.set_array(test_date_range)
-<<<<<<< Updated upstream
-    m.set_array(test_date_range)
-=======
->>>>>>> Stashed changes
     fig.colorbar(m)
     plt.show()
 
