@@ -48,6 +48,7 @@ class SpaceObject:
         else:
             self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
+
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
@@ -196,8 +197,6 @@ class SpaceObject:
 
     def sgp4_prop_myTLEs(self, jd):
         #PROPAGATION THAT FABRICATES TLES
-    def sgp4_prop_myTLEs(self, jd):
-        #PROPAGATION THAT FABRICATES TLES
         #jd is julian date of the epoch we want to propagate to
         #NOTE: from sgp4 docs
         # Note that ndot and nddot are ignored by the SGP4 propagator, 
@@ -287,7 +286,6 @@ def test_sgp4_prop():
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
-    ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
     #force aspect ratio to be 1:1:1
     ax.set_xlim(-7000, 7000)
     ax.set_ylim(-7000, 7000)
@@ -295,7 +293,6 @@ def test_sgp4_prop():
     ax.legend()
     #add colorbar
     m = cm.ScalarMappable(cmap=cm.jet)
-    m.set_array(test_date_range)
     m.set_array(test_date_range)
     fig.colorbar(m)
     plt.show()
