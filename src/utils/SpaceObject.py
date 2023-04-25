@@ -46,6 +46,7 @@ class SpaceObject:
         self.propulsion_type = str(propulsion_type)
         #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         # if epoch is None:
         #     self.epoch = None
         # else:
@@ -53,6 +54,8 @@ class SpaceObject:
         # self.sma = float(sma) if sma is not None else None #in km
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
 =======
+=======
+>>>>>>> Stashed changes
         if epoch is None:
             self.epoch = None
         else:
