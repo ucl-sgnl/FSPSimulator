@@ -45,13 +45,7 @@ class SpaceObject:
             self.epoch = None #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
         else:
             self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
-        self.sma = float(sma) if sma is not None else None #in km
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
-        if epoch is None:
-            self.epoch = None
-        else:
-            self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
-        self.sma = float(sma) if sma is not None else None #in km
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
