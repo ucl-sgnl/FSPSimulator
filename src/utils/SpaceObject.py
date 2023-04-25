@@ -7,8 +7,11 @@ import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72, CustomSatrec
 from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE
+<<<<<<< Updated upstream
 from sgp4.api import Satrec, WGS72, CustomSatrec
 from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE
+=======
+>>>>>>> Stashed changes
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -24,7 +27,7 @@ class SpaceObject:
         self.decay_date = decay_date
         self.cospar_id = str(cospar_id)
         self.rso_name = str(rso_name)
-        # self.rso_type = str(rso_type)
+        self.rso_type = str(rso_type)
         self.payload_operational_status = str(payload_operational_status)
         self.object_type = str(object_type)
         self.application = str(application)
@@ -32,10 +35,10 @@ class SpaceObject:
         # self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
         # self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
         self.launch_site = str(launch_site)
-        # if decay_date is None:
-        #     self.decay_date = None
-        # else:
-        #     self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d %H:%M:%S')
+        if decay_date is None:
+            self.decay_date = None
+        else:
+            self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d %H:%M:%S')
         self.mass = float(mass) if mass is not None else None #in Kg
         self.maneuverable = str(maneuverable)
         self.spin_stabilized = str(spin_stabilized)# I have left spin_stabilized and maneuverable as strings in case we later want to add more options than just True/False (for example different thruster types resulting in different kinds of maneuverability)
@@ -49,6 +52,7 @@ class SpaceObject:
         #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         # if epoch is None:
         #     self.epoch = None
         # else:
@@ -56,6 +60,8 @@ class SpaceObject:
         # self.sma = float(sma) if sma is not None else None #in km
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         if epoch is None:
@@ -205,12 +211,18 @@ class SpaceObject:
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             return 1e-12 #Placeholder value #in kg/m^3
+<<<<<<< Updated upstream
             return 1e-12 #Placeholder value #in kg/m^3
 
     def sgp4_prop_myTLEs(self, jd):
         #PROPAGATION THAT FABRICATES TLES
     def sgp4_prop_myTLEs(self, jd):
         #PROPAGATION THAT FABRICATES TLES
+=======
+
+    def sgp4_prop_myTLEs(self, jd):
+        #PROPAGATION THAT FABRICATES TLES
+>>>>>>> Stashed changes
         #jd is julian date of the epoch we want to propagate to
         #NOTE: from sgp4 docs
         # Note that ndot and nddot are ignored by the SGP4 propagator, 
@@ -259,6 +271,7 @@ def test_sgp4_prop():
     ########## ACTUAL TLE SATELLITE ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
     valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
+<<<<<<< Updated upstream
     # MADE UP TLE SATELLITE
     valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
@@ -281,6 +294,8 @@ def test_sgp4_prop():
     ########## ACTUAL TLE SATELLITE ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
     valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
+=======
+>>>>>>> Stashed changes
 
     #valid_tle_ephem is a list of tuples (time, position, velocity)
     valid_tle_position = []
@@ -289,6 +304,7 @@ def test_sgp4_prop():
     valid_tle_position = np.array(valid_tle_position)
     valid_altitude = np.linalg.norm(valid_tle_position[:,0:3], axis=1)-6378.137
     print("valid_altitude:", valid_altitude)
+<<<<<<< Updated upstream
     #valid_tle_ephem is a list of tuples (time, position, velocity)
     valid_tle_position = []
     for valid_tle_ephem_point in valid_tle_ephem:
@@ -296,11 +312,16 @@ def test_sgp4_prop():
     valid_tle_position = np.array(valid_tle_position)
     valid_altitude = np.linalg.norm(valid_tle_position[:,0:3], axis=1)-6378.137
     print("valid_altitude:", valid_altitude)
+=======
+>>>>>>> Stashed changes
     #plot ephemeris
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
+<<<<<<< Updated upstream
     ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
+=======
+>>>>>>> Stashed changes
     #force aspect ratio to be 1:1:1
     ax.set_xlim(-7000, 7000)
     ax.set_ylim(-7000, 7000)
@@ -309,7 +330,10 @@ def test_sgp4_prop():
     #add colorbar
     m = cm.ScalarMappable(cmap=cm.jet)
     m.set_array(test_date_range)
+<<<<<<< Updated upstream
     m.set_array(test_date_range)
+=======
+>>>>>>> Stashed changes
     fig.colorbar(m)
     plt.show()
 
