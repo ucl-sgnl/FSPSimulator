@@ -1,6 +1,3 @@
-def update_catalogue_celestrak():
-    print('Updating celestrak files')
-
 import os
 import datetime
 import requests
@@ -24,7 +21,7 @@ def jsr_download_if_newer(local_path, url):
 
     wget.download(url, local_path)
 
-def update_catalogue_jsr():
+def UpdateCatalogueJSR():
     """Update the JSR catalogue files."""
     cwd = os.getcwd()
     external_dir = os.path.join(cwd, 'src/data/external/')
@@ -37,6 +34,19 @@ def update_catalogue_jsr():
     for path, url in urls.items():
         jsr_download_if_newer(path, url)
 
+def UpdateCatalogueCelestrak():
+    """Pull down the latest Active Satellites from Celestrak"""
+    cwd = os.getcwd()
+    external_dir = os.path.join(cwd, 'src/data/external/')
+    celestrak_path = external_dir + f'celestrak_active.txt'
+    url = 'http://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'
+    r = requests.get(url, stream=True)
+    if r.status_code != 200:
+        raise Exception("Failed to download file")
+    with open(celestrak_path, "wb") as f:
+        for chunk in r.iter_content(chunk_size=1024):
+            f.write(chunk)
+    
 if __name__ == '__main__':
-    update_catalogue_jsr()
-    # update_catalogue_celestrak()
+    UpdateCatalogueJSR()
+    # UpdateCatalogueCelestrak()
