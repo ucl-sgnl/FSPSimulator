@@ -164,7 +164,7 @@ def tle_parse(tle_string):
     tle_dict['mean anomaly'] = line_two[43:51]
     tle_dict['mean motion'] = line_two[52:63]
     tle_dict['revolution number at epoch'] = line_two[63:68]
-
+    tle_dict['TLE'] = tle_string
     return tle_dict
 
 def tle_convert(tle_dict, display=False):

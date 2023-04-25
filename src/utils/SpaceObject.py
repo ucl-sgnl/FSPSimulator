@@ -15,7 +15,7 @@ class SpaceObject:
                  orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, 
                  orbital_period=None, object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None,):
+                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None):
         
         self.CATID = None # This is a computed property based on the GUID and isn't included as a parameter
         self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
@@ -63,7 +63,7 @@ class SpaceObject:
         self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
         self.C_d = 2.2 #Drag coefficient
         # self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination. I wrote the function just call it here
-
+        self.tle = tle if tle is not None else None
         # this cannot be used currently as it is not set up to validate JSR's catalogue
         #self._validate_types()
 

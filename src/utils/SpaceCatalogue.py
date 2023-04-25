@@ -1,7 +1,7 @@
 # from SpaceObject import Satellite
 from src.utils.UpdateCatalogue import UpdateCatalogueJSR, UpdateCatalogueCelestrak
 from src.utils.SpaceObject import SpaceObject
-from src.utils.Coords import tle_parse
+from src.utils.coords import tle_parse
 import pandas as pd
 import os
 
@@ -29,11 +29,11 @@ class SpaceCatalogue:
         for i in range(0, len(three_line_elements), 3):
             tles.append(three_line_elements[i:i+3])
 
-        # read in 3LE correctly
+        # read in 3LE correctly, this will also have the entire TLE string as an extra parameter
         tles_parsed= []
         for tle in tles:
-            test = ''.join(tle)
-            tles_parsed.append(tle_parse(test))
+            temp = ''.join(tle)
+            tles_parsed.append(tle_parse(temp))
 
         # first convert the list of tles to a dataframe
         tles_dict = pd.DataFrame(tles_parsed)
@@ -109,7 +109,8 @@ class SpaceCatalogue:
                                                     cospar_id=row['Piece'],
                                                     rso_name=row['Name'],
                                                     perigee_altitude=row['Perigee'],
-                                                    apogee_altitude=row['Apogee']
+                                                    apogee_altitude=row['Apogee'],
+                                                    tle=row['TLE']
                                                 ))
         return self.Catalogue
 
