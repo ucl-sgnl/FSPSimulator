@@ -1,5 +1,5 @@
 # from SpaceObject import Satellite
-from src.utils.UpdateCatalogue import update_catalogue_jsr, update_catalogue_celestrak
+from src.utils.UpdateCatalogue import UpdateCatalogueJSR, UpdateCatalogueCelestrak
 from src.utils.SpaceObject import SpaceObject
 from src.utils.Coords import tle_parse
 import pandas as pd
