@@ -5,8 +5,9 @@ import datetime
 import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
-from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE
+from sgp4.api import Satrec, WGS72, CustomSatrec
+from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle
+from sgp4.api import Satrec, WGS72, CustomSatrec 
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -27,6 +28,8 @@ class SpaceObject:
         self.object_type = str(object_type)
         self.application = str(application)
         self.operator = str(operator)
+        self.tle = None
+        self.sgp4_ephemeris = None
         self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
         # self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
         self.launch_site = str(launch_site)
@@ -64,6 +67,17 @@ class SpaceObject:
         # this cannot be used currently as it is not set up to validate JSR's catalogue
         #self._validate_types()
 
+        #Calculate TLE components
+        altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
+        density = self.get_density(altitude, model = "exponential")
+        self.bstar = (self.C_d * self.characteristic_area * density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+        self.ndot = 0.0
+        self.nddot = 0.0
+        self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
+        self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
+        self.satnum = 0 #TODO: update this placeholder value with NORAD ID. Does not affect result of SGP4 propagation
+        self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
+
     def _validate_types(self):
         # function to validate the types and values of the parameters
         possible_operational_status = ['+', '-', 'P', 'B', 'S', 'X', 'D', '?'] #https://celestrak.org/satcat/status.php
@@ -100,7 +114,6 @@ class SpaceObject:
         if self.eccentricity<0 or self.eccentricity>1:
             raise ValueError('eccentricity must be between 0 and 1')
         
-
     def decode(self, code):
         # This function decodes all the codes that are associated with an object. Basically a legend associated to each instance of the class
         #"code" is the attribute you want to decode
@@ -191,112 +204,83 @@ class SpaceObject:
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             return 1e-12 #Placeholder value #in kg/m^3
-            return 1e-12 #Placeholder value #in kg/m^3
+        
+    def sgp4_prop_catobjects(self, jd_start, jd_stop, step_size):
+        #TODO: make it so that this is only applied if a TLE is not already available
+        if self.tle is None:
+            print("No TLE available for this object. Generating one from the catalog data")
+            # generate a TLE from the data in the catalog object
+            new_TLE = build_tle(
+                int(25654),  # catalog_number
+                "U",  # classification
+                int(22),  # launch_year
+                int(10),  # launch_number
+                'AAA',  # launch_piece
+                self.epoch.year % 100,  # epoch_year
+                self.epoch.day,  # epoch_day
+                self.ndot,  # first_derivative
+                self.nddot,  # second_derivative
+                self.bstar,  # drag_term
+                0,  # ephemeris_type
+                0,  # element_set_number
+                self.inc,
+                self.raan,
+                self.eccentricity,
+                self.argp,
+                self.meananomaly,
+                self.no_kozai,
+                0,  # revolution_number
+            )
 
-    def sgp4_prop_myTLEs(self, jd):
-        #PROPAGATION THAT FABRICATES TLES
-        #jd is julian date of the epoch we want to propagate to
-        #NOTE: from sgp4 docs
-        # Note that ndot and nddot are ignored by the SGP4 propagator, 
-        # so you can leave them 0.0 without any effect on the resulting satellite positions. 
-        # But they do at least get saved to the satellite object, and written out if you write 
-        # the parameters to a TLE or OMM file (see the “Export” section, above).
-        sgp4_object = Satrec()
-        altitude = (self.perigee_altitude + self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
-        density = self.get_density(altitude, model = "exponential")
-        self.bstar = (self.C_d * self.characteristic_area * density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
-        self.ndot = 0.0
-        self.nddot = 0.0
-        self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
-        self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
-        self.satnum = 0 #Placeholder value. Believe this is NORAD ID? But doesnt really matter as not used in SGP4
-        sgp4epoch = self.sgp4_epoch()
-        sgp4_object.sgp4init(WGS72, 'i', self.satnum, sgp4epoch, self.bstar, self.ndot, self.nddot, self.eccentricity, self.argp, self.inc, self.meananomaly, self.no_kozai, self.raan)
-        fr = 0.0
-        error, position, velocity = sgp4_object.sgp4(jd, fr)
-        if error != 0:
-            print("Error in SGP4 propagation")
-            return None
-        else :
-            self.cart_state = np.array(position + velocity)
+            # assign the new TLE to the object
+            self.tle = new_TLE
+            print("new TLE: ", self.tle)
+        # propagate the TLE and return the ephemeris 
+        self.sgp4_ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
+
 
 def test_sgp4_prop():
-    # MADE UP TLE SATELLITE
+
+    startday = [datetime.datetime.strptime('2023-04-26 00:00:00', '%Y-%m-%d %H:%M:%S')]
+    enday = [datetime.datetime.strptime('2023-04-26 00:00:00', '%Y-%m-%d %H:%M:%S')]
+    start_jd = utc_to_jd(startday)
+    end_jd = utc_to_jd(enday)
+
+    # Random 3LE from SpaceTrack SATELLITE
     valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
+    #make my own TLE
     tle_dict = tle_parse(valid_tle)
     tle_kepels = tle_convert(tle_dict)
-    test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']/2, apogee_altitude=tle_kepels['a']/2, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=20.0, mass = 100, epoch = '2023-04-25 00:00:00')
-    test_ephemeris = []
-    test_dt_startday = datetime.datetime.strptime('2023-04-25 00:00:00', '%Y-%m-%d %H:%M:%S')
-    test_dt_enday = datetime.datetime.strptime('2023-04-26 00:00:00', '%Y-%m-%d %H:%M:%S')
-    test_start_day = utc_to_jd([test_dt_startday])
-    test_end_day = utc_to_jd([test_dt_enday])
-    test_step_size = 0.125/2 #in days
-    test_date_range = np.arange(test_start_day[0], test_end_day[0], test_step_size)
-    for test_date in test_date_range:
-        test_sat.sgp4_prop_myTLEs(test_date)
-        test_ephemeris.append(test_sat.cart_state)
-        print("altitude:",np.linalg.norm(test_sat.cart_state[0:3])-6378.137)
-    test_ephemeris = np.array(test_ephemeris)
-
-    ########## ACTUAL TLE SATELLITE ##########
+    test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=20.0, mass = 100, epoch = '2023-04-26 00:00:00')
+    test_sat.sgp4_prop_catobjects(start_jd, end_jd, 600)
+    test_sat_ephem = test_sat.sgp4_ephemeris
+    print("testsat ephem:", test_sat_ephem)
+    ########## TLE (not 3LE) ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
-    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
-    # MADE UP TLE SATELLITE
-    valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
+    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd, jd_end=end_jd, dt=600)
+    print("valid tle ephemeris: ", valid_tle_ephem)
 
-    tle_dict = tle_parse(valid_tle)
-    tle_kepels = tle_convert(tle_dict)
-    test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']/2, apogee_altitude=tle_kepels['a']/2, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=20.0, mass = 100, epoch = '2023-04-25 00:00:00')
-    test_ephemeris = []
-    test_dt_startday = datetime.datetime.strptime('2023-04-25 00:00:00', '%Y-%m-%d %H:%M:%S')
-    test_dt_enday = datetime.datetime.strptime('2023-04-26 00:00:00', '%Y-%m-%d %H:%M:%S')
-    test_start_day = utc_to_jd([test_dt_startday])
-    test_end_day = utc_to_jd([test_dt_enday])
-    test_step_size = 0.125/2 #in days
-    test_date_range = np.arange(test_start_day[0], test_end_day[0], test_step_size)
-    for test_date in test_date_range:
-        test_sat.sgp4_prop_myTLEs(test_date)
-        test_ephemeris.append(test_sat.cart_state)
-        print("altitude:",np.linalg.norm(test_sat.cart_state[0:3])-6378.137)
-    test_ephemeris = np.array(test_ephemeris)
-
-    ########## ACTUAL TLE SATELLITE ##########
-    valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
-    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
-
-    #valid_tle_ephem is a list of tuples (time, position, velocity)
-    valid_tle_position = []
-    for valid_tle_ephem_point in valid_tle_ephem:
-        valid_tle_position.append(valid_tle_ephem_point[1])
-    valid_tle_position = np.array(valid_tle_position)
-    valid_altitude = np.linalg.norm(valid_tle_position[:,0:3], axis=1)-6378.137
-    print("valid_altitude:", valid_altitude)
-    #valid_tle_ephem is a list of tuples (time, position, velocity)
-    valid_tle_position = []
-    for valid_tle_ephem_point in valid_tle_ephem:
-        valid_tle_position.append(valid_tle_ephem_point[1])
-    valid_tle_position = np.array(valid_tle_position)
-    valid_altitude = np.linalg.norm(valid_tle_position[:,0:3], axis=1)-6378.137
-    print("valid_altitude:", valid_altitude)
-    #plot ephemeris
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
-    #force aspect ratio to be 1:1:1
-    ax.set_xlim(-7000, 7000)
-    ax.set_ylim(-7000, 7000)
-    ax.set_zlim(-7000, 7000)
-    ax.legend()
-    #add colorbar
-    m = cm.ScalarMappable(cmap=cm.jet)
-    m.set_array(test_date_range)
-    fig.colorbar(m)
-    plt.show()
+    # #plot ephemeris
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111, projection='3d')
+    # ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
+    # #force aspect ratio to be 1:1:1
+    # ax.set_xlim(-7000, 7000)
+    # ax.set_ylim(-7000, 7000)
+    # ax.set_zlim(-7000, 7000)
+    # ax.legend()
+    # #add colorbar
+    # m = cm.ScalarMappable(cmap=cm.jet)
+    # m.set_array(test_date_range)
+    # fig.colorbar(m)
+    # plt.show()
 
 if __name__ == "__main__":
     test_sgp4_prop()
-    
+# 1 25654U 22010AAA 23026.00000000 -.000021    00000-0 +84175-7 0 00009
+# 1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
 
-   
+
+# 2 25654 000.9248 005.6496 0003539 000.9293 000.1584 00.07115372 000000
+# 2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537
