@@ -63,19 +63,23 @@ def trueanom2meananom(tran, e):
     return mean_anomaly
 
 def calculate_kozai_mean_motion(a, mu):
-    #TODO: check if mean motion can be used in place of kozai mean motion in the sgp4 propagator
-    # I think Kozai mean motion is the mean motion of the osculating orbit, which is not the same as the mean motion of the orbit
-
     # a: semi-major axis in meters
     # mu: standard gravitational parameter in m^3/s^2 (e.g., Earth's mu = 3.986004418e14)
-    
+
     # Calculate mean motion (no_kozai) in radians/second
     no_kozai_rad_sec = math.sqrt(mu / a**3)
 
     # Convert mean motion to radians/minute
     no_kozai_rad_min = no_kozai_rad_sec * 60
 
-    return no_kozai_rad_min
+    # Convert mean motion to radians/day
+    no_kozai_rad_day = no_kozai_rad_min * 60 * 24
+
+    # Convert mean motion to revolutions/day
+    no_kozai_revs_day = no_kozai_rad_day / (2 * math.pi)
+
+    return no_kozai_revs_day
+
 
 def expo_simplified(altitude, alt_type='geometric'):
     #Simple atmospheric density model based on Vallado 2013
@@ -332,7 +336,6 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     split_tle = TLE.split('\n')
     s = split_tle[0]
     r = split_tle[1]
-
     fr = 0.0 # precise fraction (SGP4 docs for more info)
     
     #create a satellite object
@@ -346,7 +349,6 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
         # Velocity is the rate at which the position is changing, expressed in kilometers per second
         error, position, velocity = satellite.sgp4(time, fr)
         if error != 0:
-            print('Satellite position could not be computed')
             break
         else:
             ephemeris.append([time,position, velocity]) #jd time, pos, vel
@@ -386,7 +388,7 @@ def build_tle(catalog_number, classification, launch_year, launch_number, launch
     formatted_drag_term = tle_exponent_format(drag_term)
     formatted_second_derivative = tle_exponent_format(second_derivative)
     first_derivative= "-.00002182"
-    l1_col1 = '1'
+    l1_col1 = ' 1'
     l1_col2 = ' '
     l1_col3_7 = '{:05d}'.format(catalog_number)
     l1_col8 = classification
@@ -409,11 +411,28 @@ def build_tle(catalog_number, classification, launch_year, launch_number, launch
     l1_upto_68 = l1_col1 + l1_col2 + l1_col3_7 + l1_col8 + l1_col9_10 + l1_col10_11 + l1_col12_14 + l1_col15_17 + l1_col18 + l1_col19_20 + l1_col21_32 + l1_col33 + l1_col34_43 + l1_col44 + l1_col45_52  + l1_col54_61 + l1_col62 + l1_col63 + l1_col64 + l1_col65_68
     l1_col69 = tle_checksum(l1_upto_68)
     l1 = l1_upto_68 + str(l1_col69)
-    print(l1)
 
+    l2_col1 = '2'
+    l2_col2 = ' '
+    l2_col3_7 = '{:05d}'.format(catalog_number)
+    l2_col8 = ' '
+    l2_col9_16 = '{:8.4f}'.format(inclination)
+    l2_col17 = ' '
+    l2_col18_25 = '{:8.4f}'.format(raan)
+    l2_col26 = ' '
+    l2_col27_33 = '{:7.7s}'.format(str(eccentricity)[2:]) #remove the 0. from the beginning
+    l2_col34 = ' '
+    l2_col35_42 = '{:8.4f}'.format(arg_perigee)
+    l2_col43 = ' '
+    l2_col44_51 = '{:8.4f}'.format(mean_anomaly)
+    l2_col52 = ' '
+    l2_col53_63 = '{:11.8f}'.format(mean_motion)
+    l2_col65_68 = '{:5d}'.format(revolution_number)
+    l2_upto_68 = l2_col1 + l2_col2 + l2_col3_7 + l2_col8 + l2_col9_16 + l2_col17 + l2_col18_25 + l2_col26 + l2_col27_33 + l2_col34 + l2_col35_42 + l2_col43 + l2_col44_51 + l2_col52 + l2_col53_63  + l2_col65_68
+    l2_col69 = tle_checksum(l2_upto_68)
+    l2 = l2_upto_68 + str(l2_col69)
 
+    #combine l1 and l2 with a new line character
+    newtle = l1 + '\n' + l2
 
-
-
-
-
+    return newtle
