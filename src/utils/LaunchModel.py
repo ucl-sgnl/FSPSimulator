@@ -6,7 +6,7 @@ import os
 import json 
 import numpy as np
 from datetime import timedelta
-from src.utils.Coords import orbit_classify, orbital_period, generate_cospar_id
+from src.utils.coords import orbit_classify, orbital_period, generate_cospar_id
 from src.utils.SpaceObject import SpaceObject
 
 def import_configuration_json(filename):
