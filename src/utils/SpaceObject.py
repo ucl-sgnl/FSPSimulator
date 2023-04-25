@@ -241,11 +241,13 @@ class SpaceObject:
 
 def test_sgp4_prop():
 
-    startday = [datetime.datetime.strptime('2023-04-26 00:00:00', '%Y-%m-%d %H:%M:%S')]
+    startday = [datetime.datetime.strptime('2023-04-24 00:00:00', '%Y-%m-%d %H:%M:%S')]
     enday = [datetime.datetime.strptime('2023-04-26 00:00:00', '%Y-%m-%d %H:%M:%S')]
     start_jd = utc_to_jd(startday)
     end_jd = utc_to_jd(enday)
 
+    print("Start JD: ", start_jd)
+    print("End JD: ", end_jd)
     # Random 3LE from SpaceTrack SATELLITE
     valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
@@ -253,34 +255,22 @@ def test_sgp4_prop():
     tle_dict = tle_parse(valid_tle)
     tle_kepels = tle_convert(tle_dict)
     test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=20.0, mass = 100, epoch = '2023-04-26 00:00:00')
-    test_sat.sgp4_prop_catobjects(start_jd, end_jd, 600)
+    test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], 600)
     test_sat_ephem = test_sat.sgp4_ephemeris
-    print("testsat ephem:", test_sat_ephem)
+    # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
+    test_pos = [x[1] for x in test_sat_ephem]
+    test_altitudes = [np.linalg.norm(x)-6378.137 for x in test_pos]
+    print("test_altitudes :", test_altitudes)
+
     ########## TLE (not 3LE) ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
-    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd, jd_end=end_jd, dt=600)
-    print("valid tle ephemeris: ", valid_tle_ephem)
+    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd[0], jd_end=end_jd[0], dt=600)
+    valid_tle_pos = [x[1] for x in valid_tle_ephem]
+    valid_tle_altitudes = [np.linalg.norm(x)-6378.137 for x in valid_tle_pos]
+    print("valid_tle_altitudes :", valid_tle_altitudes)
 
-    # #plot ephemeris
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, projection='3d')
-    # ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
-    # #force aspect ratio to be 1:1:1
-    # ax.set_xlim(-7000, 7000)
-    # ax.set_ylim(-7000, 7000)
-    # ax.set_zlim(-7000, 7000)
-    # ax.legend()
-    # #add colorbar
-    # m = cm.ScalarMappable(cmap=cm.jet)
-    # m.set_array(test_date_range)
-    # fig.colorbar(m)
-    # plt.show()
-
+    plt.plot(test_altitudes)
+    plt.plot(valid_tle_altitudes)
+    plt.show()
 if __name__ == "__main__":
     test_sgp4_prop()
-# 1 25654U 22010AAA 23026.00000000 -.000021    00000-0 +84175-7 0 00009
-# 1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
-
-
-# 2 25654 000.9248 005.6496 0003539 000.9293 000.1584 00.07115372 000000
-# 2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537
