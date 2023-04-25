@@ -7,6 +7,8 @@ import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72, CustomSatrec
 from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE
+from sgp4.api import Satrec, WGS72, CustomSatrec
+from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -190,7 +192,10 @@ class SpaceObject:
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             return 1e-12 #Placeholder value #in kg/m^3
+            return 1e-12 #Placeholder value #in kg/m^3
 
+    def sgp4_prop_myTLEs(self, jd):
+        #PROPAGATION THAT FABRICATES TLES
     def sgp4_prop_myTLEs(self, jd):
         #PROPAGATION THAT FABRICATES TLES
         #jd is julian date of the epoch we want to propagate to
@@ -241,7 +246,36 @@ def test_sgp4_prop():
     ########## ACTUAL TLE SATELLITE ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
     valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
+    # MADE UP TLE SATELLITE
+    valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
+    tle_dict = tle_parse(valid_tle)
+    tle_kepels = tle_convert(tle_dict)
+    test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']/2, apogee_altitude=tle_kepels['a']/2, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=20.0, mass = 100, epoch = '2023-04-25 00:00:00')
+    test_ephemeris = []
+    test_dt_startday = datetime.datetime.strptime('2023-04-25 00:00:00', '%Y-%m-%d %H:%M:%S')
+    test_dt_enday = datetime.datetime.strptime('2023-04-26 00:00:00', '%Y-%m-%d %H:%M:%S')
+    test_start_day = utc_to_jd([test_dt_startday])
+    test_end_day = utc_to_jd([test_dt_enday])
+    test_step_size = 0.125/2 #in days
+    test_date_range = np.arange(test_start_day[0], test_end_day[0], test_step_size)
+    for test_date in test_date_range:
+        test_sat.sgp4_prop_myTLEs(test_date)
+        test_ephemeris.append(test_sat.cart_state)
+        print("altitude:",np.linalg.norm(test_sat.cart_state[0:3])-6378.137)
+    test_ephemeris = np.array(test_ephemeris)
+
+    ########## ACTUAL TLE SATELLITE ##########
+    valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
+    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=test_start_day[0], jd_end=test_end_day[0], dt=120)
+
+    #valid_tle_ephem is a list of tuples (time, position, velocity)
+    valid_tle_position = []
+    for valid_tle_ephem_point in valid_tle_ephem:
+        valid_tle_position.append(valid_tle_ephem_point[1])
+    valid_tle_position = np.array(valid_tle_position)
+    valid_altitude = np.linalg.norm(valid_tle_position[:,0:3], axis=1)-6378.137
+    print("valid_altitude:", valid_altitude)
     #valid_tle_ephem is a list of tuples (time, position, velocity)
     valid_tle_position = []
     for valid_tle_ephem_point in valid_tle_ephem:
@@ -253,6 +287,7 @@ def test_sgp4_prop():
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
+    ax.scatter(test_ephemeris[:,0], test_ephemeris[:,1],test_ephemeris[:,2], c=test_date_range, s=1)
     #force aspect ratio to be 1:1:1
     ax.set_xlim(-7000, 7000)
     ax.set_ylim(-7000, 7000)
@@ -260,6 +295,7 @@ def test_sgp4_prop():
     ax.legend()
     #add colorbar
     m = cm.ScalarMappable(cmap=cm.jet)
+    m.set_array(test_date_range)
     m.set_array(test_date_range)
     fig.colorbar(m)
     plt.show()
