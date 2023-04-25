@@ -28,7 +28,7 @@ def jsr_download_if_newer(local_path, url):
 
     wget.download(url, local_path)
 
-def update_catalogue_jsr():
+def UpdateCatalogueJSR():
     """Update the JSR catalogue files."""
     cwd = os.getcwd()
     external_dir = os.path.join(cwd, 'src/data/external/')
@@ -41,7 +41,7 @@ def update_catalogue_jsr():
     for path, url in urls.items():
         jsr_download_if_newer(path, url)
 
-def update_catalogue_celestrak():
+def UpdateCatalogueCelestrak():
     """Pull down the latest Active Satellites from Celestrak"""
     cwd = os.getcwd()
     external_dir = os.path.join(cwd, 'src/data/external/')
@@ -55,5 +55,5 @@ def update_catalogue_celestrak():
             f.write(chunk)
     
 if __name__ == '__main__':
-    update_catalogue_jsr()
-    # update_catalogue_celestrak()
+    UpdateCatalogueJSR()
+    # UpdateCatalogueCelestrak()
