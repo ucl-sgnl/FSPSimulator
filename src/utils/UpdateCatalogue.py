@@ -1,6 +1,3 @@
-def update_catalogue_celestrak():
-    print('Updating celestrak files')
-
 import os
 import datetime
 import requests
@@ -10,10 +7,6 @@ import math
 import pandas as pd
 
 cwd_path = os.getcwd()
-
-def read_csv(file_path):
-    df = pd.read_csv(file_path, sep=',')
-    return df
 
 def jsr_download_if_newer(local_path, url):
     """Download a file from a URL if it is newer than the local file."""
@@ -35,8 +28,8 @@ def UpdateCatalogueJSR():
     tsv_cat_path = external_dir + 'currentcat.tsv'
     payload_cat_path = external_dir + 'payloadcat.tsv'
 
-    urls = {tsv_cat_path: 'http://planet4589.org/space/gcat/tsv/derived/currentcat.tsv',
-        payload_cat_path: 'http://planet4589.org/space/gcat/tsv/cat/psatcat.tsv'}
+    urls = {tsv_cat_path: 'https://planet4589.org/space/gcat/tsv/derived/currentcat.tsv',
+        payload_cat_path: 'https://planet4589.org/space/gcat/tsv/cat/psatcat.tsv'}
 
     for path, url in urls.items():
         jsr_download_if_newer(path, url)
