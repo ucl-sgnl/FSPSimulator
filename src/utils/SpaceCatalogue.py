@@ -5,7 +5,7 @@ import wget
 import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
-from datetime import datetime
+import datetime
 from src.utils.SpaceObject import SpaceObject
 from src.utils.coords import tle_parse
 
@@ -179,10 +179,10 @@ class SpaceCatalogue:
                                                         decay_date=row['DECAY_DATE'], 
                                                         cospar_id=row['OBJECT_ID'],
                                                         rso_name=row['OBJECT_NAME'],
-                                                        perigee_altitude=row['Perigee'],
+                                                        perigee_altitude=row['PERIAPSIS'],
                                                         apogee_altitude=row['APOAPSIS'],
                                                         tle=tle,
-                                                        # epoch=row['EPOCH']
+                                                        epoch=row['EPOCH']
                                                     ))
         return self.Catalogue
     
@@ -301,10 +301,10 @@ class SpaceCatalogue:
 
         During testing, some of these may be commented out due to the time it takes to pull the data.
         """
-        # self.PullCatalogueJSR()
-        # self.PullCatalogueCelestrakActive()
-        # self.PullCatalogueSpaceTrackAll()
-        pass
+        self.PullCatalogueJSR()
+        self.PullCatalogueCelestrakActive()
+        self.PullCatalogueSpaceTrackAll()
+        # pass
 
 if __name__ == '__main__':
     with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/policy_fsptest.json'), 'r') as f:
