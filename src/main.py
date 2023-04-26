@@ -1,9 +1,12 @@
+# if your debugger or python console is not working, try adding the following lines to the top of the file
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
+import json
+import pickle
 from src.utils.SpaceObject import SpaceObject
 from src.utils.SpaceCatalogue import SpaceCatalogue
 from src.utils.LaunchModel import Prediction2SpaceObjects
-import json
-import os
-import pickle
 
 def run_simulation(policy):
     # First load in the most recent version of JSR catalogue, this will occur in initialisation of the SpaceCatalogue Class

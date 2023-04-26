@@ -74,7 +74,10 @@ class SpaceCatalogue:
         self.CurrentCatalogueDF = self.CurrentCatalogueDF[self.CurrentCatalogueDF['Perigee'] != '-']     
 
         # Export for audit purposes
-        self.CurrentCatalogueDF.to_csv(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_celestrak_latest.csv'), index=False)
+        # Open the file in 'w' mode (write mode, overwrite if exists)
+        with open(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_celestrak_latest.csv'), 'w') as f:
+            # Write the header and data to the file
+            self.CurrentCatalogueDF.to_csv(f, index=False)
 
     def CreateCatalogueAll(self):
         """
@@ -179,7 +182,7 @@ class SpaceCatalogue:
                                                         perigee_altitude=row['Perigee'],
                                                         apogee_altitude=row['APOAPSIS'],
                                                         tle=tle,
-                                                        epoch=row['EPOCH']
+                                                        # epoch=row['EPOCH']
                                                     ))
         return self.Catalogue
     
