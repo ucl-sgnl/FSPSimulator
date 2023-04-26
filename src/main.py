@@ -46,7 +46,7 @@ def run_simulation(policy):
         
         # Run the simulation
         for satellite in SATCAT_before_prop:
-            satellite.sgp4_prop(policy["sim_end_date"])
+            satellite.sgp4_prop_catobjects(policy["sim_end_date"])
         
     # Create graphs
 
