@@ -14,7 +14,7 @@ If you get module import errors, the first to show will be 'src' not found if yo
 Mac:
 Navigate to project root:
 ``` bash
-export PYTHONPATH="$(pwd)"    
+export PYTHONPATH="$(pwd)" >> ~/.zshrc
 ```
 
 Windows: 

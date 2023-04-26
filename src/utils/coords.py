@@ -387,7 +387,7 @@ def build_tle(catalog_number, classification, launch_year, launch_number, launch
 
     formatted_drag_term = tle_exponent_format(drag_term)
     formatted_second_derivative = tle_exponent_format(second_derivative)
-    first_derivative= "-.00002182"
+    first_derivative= "-.00002182" #TODO: unhardcode this
     l1_col1 = ' 1'
     l1_col2 = ' '
     l1_col3_7 = '{:05d}'.format(catalog_number)
