@@ -1,6 +1,10 @@
 {
-    "monthly_ton_capacity": "60",
-    "launch_start_date":"2023-05-01",
-    "startup_failure_rate": "0.1",
-    "sim_end_date":"2028-12-31"
-  }
+  "monthly_ton_capacity": "60",
+  "launch_start_date":"2023-05-01",
+  "startup_failure_rate": "0.1",
+  "sim_end_date":"2028-12-31",
+  "sim_object_type": "all_objects",
+  "sim_propogation_type": "sgp4",
+  "sim_object_catalogue" : "all",
+  "environment": "development"
+}

@@ -5,9 +5,9 @@ import datetime
 import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
-from sgp4.api import Satrec, WGS72, CustomSatrec
+from sgp4.api import Satrec, WGS72
 from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle
-from sgp4.api import Satrec, WGS72, CustomSatrec 
+from sgp4.api import Satrec, WGS72 
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -47,9 +47,11 @@ class SpaceObject:
         if epoch is None:
             self.epoch = None #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
         else:
-            self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+            try:
+                self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+            except:
+                self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%dT%H:%M:%S.%f') # this is space-track
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
-
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
