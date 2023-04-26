@@ -6,8 +6,7 @@ import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period
-from sgp4.api import Satrec, WGS72 
+from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -73,14 +72,14 @@ class SpaceObject:
         self.raan = float(raan)
         self.tran = float(tran) if tran is not None else None
         self.eccentricity = float(eccentricity)
-        if (self.tran is not None):
-            self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
-        else:
-            self.tran = 0 # this can be 0 as it doesn't really change much for the time scale we are looking at
+        self.tran = 30
+        self.meananomaly = true_to_mean_anomaly(self.tran, self.eccentricity)
+            # this can be 0 as it doesn't really change much for the time scale we are looking at
         self.altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
         self.atmos_density = self.get_atmospheric_density(model = "exponential")            #BStar = rho0 
         self.C_d = 2.2 #Drag coefficient
-        self.bstar = (self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+        self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+        print(self.bstar)
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
 
@@ -287,14 +286,13 @@ def test_sgp4_prop():
     start_jd = utc_to_jd(startday)
     end_jd = utc_to_jd(enday)
 
-    print("Start JD: ", start_jd)
-    print("End JD: ", end_jd)
     # Random 3LE from SpaceTrack SATELLITE
     valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
     #make my own TLE
     tle_dict = tle_parse(valid_tle)
     tle_kepels = tle_convert(tle_dict)
+    print("TLE Kepels: ", tle_kepels)
     test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=12000.0, mass = 100, epoch = '2023-04-26 00:00:00')
     test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], 60)
     test_sat_ephem = test_sat.sgp4_ephemeris
