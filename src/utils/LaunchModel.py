@@ -4,6 +4,7 @@ from datetime import datetime
 from datetime import timedelta
 import os
 import json 
+import random
 import numpy as np
 from datetime import timedelta
 from src.utils.coords import orbit_classify, orbital_period, generate_cospar_id
@@ -176,7 +177,6 @@ def global_launch_schedule(sub_constellation_metadata_dicts, monthly_ton_capacit
     """
 
     # monthly ton capacity taken from: https://www.spacexstats.xyz/#payloads-upmass-per-year
-
     possible_launchers = list(LEO_launchers.keys())
     if rocket not in possible_launchers:
         raise ValueError(f'rocket must be one of the following: {possible_launchers}')
@@ -320,6 +320,39 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
 
     return subconstellation_Space_Objects
 
+def remove_items_from_dict(dict, number):
+    # calculate the number of items to remove
+    num_items_to_remove = round(len(dict) * float(number))
+
+     # randomly select items to remove
+    indices_to_remove = random.sample(range(len(dict)), num_items_to_remove)
+
+    # create a new list of dictionaries without the selected items
+    new_dict = [v for i, v in enumerate(dict) if i not in indices_to_remove]
+
+    return new_dict
+
+def apply_policy_at_organisation_level(metadata_dicts, policy):
+    # firstly, remove the the start ups
+    print(len(metadata_dicts))
+    metadata_dicts_policy_applied = remove_items_from_dict(metadata_dicts, policy['startup_failure_rate'])
+    print(len(metadata_dicts_policy_applied))
+
+    # handle cinammon
+    if policy["espace"] == False:
+        metadata_dicts_policy_applied = {key: value for key, value in metadata_dicts_policy_applied.items() if value["Mega-Constellation"] != "E-Space"}
+
+    return metadata_dicts_policy_applied
+
+def apply_policy_at_constellation_level(metadata_dicts, policy):
+    list_of_dicts_policy_applied = []
+    for metadata_dict in metadata_dicts:
+        num_launches = np.random.normal(float(policy['satellite_failure']), 0.25, 10)[0]
+        metadata_dict["N"] = round(num_launches * metadata_dict["N"])
+        list_of_dicts_policy_applied.append(metadata_dict)
+
+    return list_of_dicts_policy_applied
+
 
 def Prediction2SpaceObjects(in_csv_path, policy_json):
     """Generate instances of the SpaceObject class for each of the satellties in the prediction data excel file
@@ -329,19 +362,26 @@ def Prediction2SpaceObjects(in_csv_path, policy_json):
         in_csv_path (_type_): _description_
         policy_json (_type_): _description_
     """
-
+    # import the policy file
     policy = import_configuration_json(policy_json)
     print("Selected policies: ", policy)
-    # get the values from the policy json file
-    monthly_ton_cap = float(policy['monthly_ton_capacity'])
-    launch_start_date = policy['launch_start_date']
-    # starup_failure_rate = float(policy['starup_failure_rate'])
 
+    # starup_failure_rate = float(policy['starup_failure_rate'])
     all_space_objects = []
     # Create a launch schedule for each sub constellation
     metadata_dicts = satellite_metadata(file_path=in_csv_path)
+
+    # need to be able to policy to the constellation companies, then at constellation level (i.e number of satellites that have failed)
+    metadata_dicts = apply_policy_at_organisation_level(metadata_dicts, policy)
+    metadata_dicts = apply_policy_at_constellation_level(metadata_dicts, policy)
+
     global_launch_schedule(sub_constellation_metadata_dicts=metadata_dicts)
-    sub_constellation_launch_dates = global_launch_schedule(sub_constellation_metadata_dicts = metadata_dicts, monthly_ton_capacity=monthly_ton_cap, launches_start_date = launch_start_date)
+    sub_constellation_launch_dates = global_launch_schedule(
+                                                            sub_constellation_metadata_dicts = metadata_dicts, 
+                                                            monthly_ton_capacity=float(policy['monthly_ton_capacity']), 
+                                                            launches_start_date = policy['launch_start_date']
+                                                        )
+    
     for dict in metadata_dicts: #TODO: use the JSON file to set the agressivity and max launch rate etc.
         subconstellation_Space_Objects = create_subconstellation_Space_Objects(N=int(dict['N']), i = float(dict['i']), h=float(dict['h']), _soname=dict['_soname'], _application = dict['_application'], _owner= dict['_owner'], launch_schedule = sub_constellation_launch_dates[dict['_soname']], _mass=dict['_mass'], _area=dict['_area'], _length=dict['_length'], _maneuverable= dict['_maneuverable'], _propulsion=dict['_propulsion'])
         all_space_objects.extend(subconstellation_Space_Objects)
