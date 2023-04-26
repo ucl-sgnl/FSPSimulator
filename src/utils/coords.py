@@ -175,11 +175,11 @@ def tle_convert(tle_dict, display=False):
     """
     Converts a TLE dictionary into the corresponding keplerian elements
     
-    Args:
-        tle_dict (dict): dictionary of TLE data as provided by the tle_parse function
+    ### Args:
+        - tle_dict (dict): dictionary of TLE data as provided by the tle_parse function
 
-    Returns:
-        keplerian_dict(dict): dictionary containing Keplerian elements
+    ### Returns:
+        - keplerian_dict(dict): dictionary containing Keplerian elements
     """
 
     # Standard gravitational parameter for the Earth

@@ -5,9 +5,9 @@ import datetime
 import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
-from sgp4.api import Satrec, WGS72, CustomSatrec
+from sgp4.api import Satrec, WGS72
 from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle
-from sgp4.api import Satrec, WGS72, CustomSatrec 
+from sgp4.api import Satrec, WGS72 
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -44,12 +44,15 @@ class SpaceObject:
         self.characteristic_area = float(characteristic_area) if characteristic_area is not None else None #in meters^2
         self.characteristic_length = float(characteristic_length) if characteristic_length is not None else None #in meters
         self.propulsion_type = str(propulsion_type)
-        if epoch is None:
-            self.epoch = None #epoch must be cast to datetime object and be specified in UTC time in the format: datetime(year-month-day hour:minute:second)
+        self.epoch = epoch
+        if self.epoch is None:
+            self.epoch = datetime.datetime.utcnow()
         else:
-            self.epoch = datetime.datetime.strptime(epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+            try:
+                self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+            except:
+                self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%dT%H:%M:%S.%f') # this is space-track
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
-
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
@@ -65,15 +68,19 @@ class SpaceObject:
         # self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination. I wrote the function just call it here
         self.tle = tle if tle is not None else None
         # this cannot be used currently as it is not set up to validate JSR's catalogue
-        #self._validate_types()
+        # self._validate_types()
 
         #Calculate TLE components
-        altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
-        density = self.get_density(altitude, model = "exponential")
-        self.bstar = (self.C_d * self.characteristic_area * density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+        self.getdefaultdimensions() # calcualte, length, mass and area
+        self.altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
+        self.atmos_density = self.get_atmospheric_density(model = "exponential")
+        self.bstar = (self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
         self.ndot = 0.0
         self.nddot = 0.0
-        self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
+        if self.tran is not None:
+            self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
+        else:
+            self.tran = 0 # this needs to change 
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
         self.satnum = 0 #TODO: update this placeholder value with NORAD ID. Does not affect result of SGP4 propagation
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
@@ -114,6 +121,27 @@ class SpaceObject:
         if self.eccentricity<0 or self.eccentricity>1:
             raise ValueError('eccentricity must be between 0 and 1')
         
+    def getdefaultdimensions(self):
+        """
+        If no dimensions of the object exist, this will return a default value, based on Alfano, Oltrogge anbd Sheppard 2020
+
+        ### Returns
+            - integer: dimensions of the object
+        """
+        if self.object_type == 'PAYLOAD':
+            self.characteristic_length = 1.3
+            self.characteristic_area = 1.3 * 3
+            self.mass = 0.1646156590 * self.characteristic_length ** (-1.0554951607) #Uses Alfano, Oltrogge anbd Sheppard 2020 fitting equation for density and length
+        elif self.object_type == "ROCKET BODY":
+            self.characteristic_length = 8
+            self.characteristic_area = 8 * 3
+            self.mass = 0.1646156590 * self.characteristic_length ** (-1.0554951607)
+        else: 
+            # debris, unknown, TBA etc. 
+            self.characteristic_length = 0.75
+            self.characteristic_area = 0.75 * 0.75
+            self.mass = 0.1646156590 * self.characteristic_length ** (-1.0554951607) 
+
     def decode(self, code):
         # This function decodes all the codes that are associated with an object. Basically a legend associated to each instance of the class
         #"code" is the attribute you want to decode
@@ -198,9 +226,9 @@ class SpaceObject:
         sgp4epoch = sgp4epoch.days
         return sgp4epoch
     
-    def get_density(self, altitude, model = "exponential"):
+    def get_atmospheric_density(self, model = "exponential"):
         if model == "exponential":
-            return expo_simplified(altitude)
+            return expo_simplified(self.altitude)
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             return 1e-12 #Placeholder value #in kg/m^3
