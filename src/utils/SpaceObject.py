@@ -6,14 +6,14 @@ import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle
+from src.utils.coords import kep2car, trueanom2meananom, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period
 from sgp4.api import Satrec, WGS72 
 import matplotlib.cm as cm
 
 class SpaceObject:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
                  orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, 
-                 orbital_period=None, object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
+                object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
                  argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None):
         
@@ -28,7 +28,6 @@ class SpaceObject:
         self.object_type = str(object_type)
         self.application = str(application)
         self.operator = str(operator)
-
         # if any of the following if None then we call the function to compute them]
         if characteristic_area is None:
             self.impute_char_area()
@@ -42,22 +41,15 @@ class SpaceObject:
             self.impute_mass()
         else:
             self.mass = float(mass)
-
-        self.tle = None
-        self.ndot= None # ballistic coefficient
-        self.nddot = None # second time derivative of mean motion
-        self.sgp4_ephemeris = None
         self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
         # self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
         self.launch_site = str(launch_site)
         self.decay_date = datetime.datetime.strptime(decay_date, '%Y-%m-%d') if (self.decay_date is not None and self.decay_date != '-') else None
         self.maneuverable = str(maneuverable)
         self.spin_stabilized = str(spin_stabilized)# I have left spin_stabilized and maneuverable as strings in case we later want to add more options than just True/False (for example different thruster types resulting in different kinds of maneuverability)
-        self.orbital_period = float(orbital_period) if orbital_period is not None else None #in minutes #TODO: I don't think we need this, can be calculated from sma
         self.apogee_altitude = float(apogee_altitude) #in Km
         self.perigee_altitude = float(perigee_altitude) #in Km
         self.radar_cross_section = float(radar_cross_section) if radar_cross_section is not None else None #in meters^2
-
         self.propulsion_type = str(propulsion_type)
         self.epoch = epoch
         if self.epoch is None:
@@ -67,7 +59,15 @@ class SpaceObject:
                 self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S') #in UTC
             except:
                 self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%dT%H:%M:%S.%f') # this is space-track
+
+        #Variables for Propagation
+        self.tle = tle if tle is not None else None
+        # ballisitic coefficient. If none this is replaced with 0.00000140 #TODO: find correct value for this
+        self.ndot = 0.00000140
+        self.nddot = 0.0 # If none this is set to 0.0
+        self.sgp4_ephemeris = None # This is where the ephemeris of the SGP4 propagation will be stored
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
+        self.orbital_period = orbital_period(self.sma) #in minutes
         self.inc = float(inc)
         self.argp = float(argp) if sma is not None else None
         self.raan = float(raan)
@@ -75,39 +75,20 @@ class SpaceObject:
         self.eccentricity = float(eccentricity)
         if (self.tran is not None):
             self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
-
-        # These are attributes that are not required to be specified on instantiation, but are to be computed later on
-        #mean anomaly to be computed using trueanom2meananom (from true anomaly)
-        self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
-        self.C_d = 2.2 #Drag coefficient
-        # self.orbit_type = orbit_type #TODO: i think this is redundant on instantiation, we can calculate this from altitude and inclination. I wrote the function just call it here
-        self.tle = tle if tle is not None else None
-        # this cannot be used currently as it is not set up to validate JSR's catalogue
-        # self._validate_types()
-
-        #Calculate TLE components
-        self.getdefaultdimensions() # calcualte, length, mass and area
+        else:
+            self.tran = 0 # this can be 0 as it doesn't really change much for the time scale we are looking at
         self.altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
         self.atmos_density = self.get_atmospheric_density(model = "exponential")            #BStar = rho0 
-        print("atmospheric density is: ", self.atmos_density)
+        self.C_d = 2.2 #Drag coefficient
         self.bstar = (self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
-        print("bstar is: ", self.bstar)
-        print("characteristic area is: ", self.characteristic_area)
-        print("mass is: ", self.mass)
-
-        # ballisitic coefficient. If none this is replaced with 0.00000140
-        if self.ndot is None:
-            self.ndot = 0.00000140
-        else:
-            self.ndot = float(self.ndot)
-        self.nddot = 0.0 # If none this is set to 0.0
-        if self.tran is not None:
-            self.meananomaly = trueanom2meananom(self.tran, self.eccentricity)
-        else:
-            self.tran = 0 # this needs to change 
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
-        self.satnum = 0 #TODO: update this placeholder value with NORAD ID. Does not affect result of SGP4 propagation
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
+
+        #Variables that may be populated by functions during propagation
+        self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
+        
+        # this cannot be used currently as it is not set up to validate Celestrak/Spacetrack data
+        # self._validate_types()
 
     def _validate_types(self):
         # function to validate the types and values of the parameters
