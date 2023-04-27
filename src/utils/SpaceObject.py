@@ -6,7 +6,7 @@ import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period
+from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period, get_day_of_year_and_fractional_day
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -58,7 +58,8 @@ class SpaceObject:
                 self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S') #in UTC
             except:
                 self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%dT%H:%M:%S.%f') # this is space-track
-
+        print("EPoch: ", self.epoch)
+        self.day_of_year = get_day_of_year_and_fractional_day(self.epoch)
         #Variables for Propagation
         self.tle = tle if tle is not None else None
         # ballisitic coefficient. If none this is replaced with 0.00000140 #TODO: find correct value for this
@@ -76,7 +77,8 @@ class SpaceObject:
         self.meananomaly = true_to_mean_anomaly(self.tran, self.eccentricity)
             # this can be 0 as it doesn't really change much for the time scale we are looking at
         self.altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
-        self.atmos_density = self.get_atmospheric_density(model = "exponential")            #BStar = rho0 
+        self.atmos_density = 1e-12
+        # self.get_atmospheric_density(model = "exponential")            #BStar = rho0 
         self.C_d = 2.2 #Drag coefficient
         self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
         print(self.bstar)
@@ -252,18 +254,19 @@ class SpaceObject:
             print("No TLE available for this object. Generating one from the catalog data")
             # generate a TLE from the data in the catalog object
             new_TLE = build_tle(
-                int(00000),  # catalog_number -> this is a placeholder value and does not affect the propagation
+                int(12345),  # catalog_number -> this is a placeholder value and does not affect the propagation
                 "U",  # classification -> also a placeholder value
-                int(22),  # launch_year -> also a placeholder value
-                int(10),  # launch_number -> also a placeholder value
-                'AAA',  # launch_piece -> also a placeholder value
-                self.epoch.year % 100, # epoch_year
-                self.epoch.day, # epoch_day
+                int(19),  # launch_year -> also a placeholder value
+                int(29),  # launch_number -> also a placeholder value
+                'AN',  # launch_piece -> also a placeholder value
+                #last two digits of launch year
+                self.epoch.year % 100,
+                self.day_of_year, # epoch_day
                 self.ndot,  # first_derivative
                 self.nddot,  # second_derivative #Typically this is set to 0
                 self.bstar,  # drag_term
-                0,  # ephemeris_type
-                0,  # element_set_number
+                0,  # ephemeris_type: Always 0.
+                0,  # element_set_number. No impact on propagation this is just Elset Number.
                 self.inc,
                 self.raan,
                 self.eccentricity,
@@ -272,29 +275,29 @@ class SpaceObject:
                 self.no_kozai,
                 0,  # revolution_number
             )
+    # valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
             # assign the new TLE to the object
             self.tle = new_TLE
-            print("new TLE: ", self.tle)
+            print("newTLE: ", self.tle)
         # propagate the TLE and return the ephemeris 
         self.sgp4_ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
 
 def test_sgp4_prop():
 
     startday = [datetime.datetime.strptime('2023-04-24 00:00:00', '%Y-%m-%d %H:%M:%S')]
-    enday = [datetime.datetime.strptime('2023-04-27 00:00:00', '%Y-%m-%d %H:%M:%S')]
+    enday = [datetime.datetime.strptime('2056-04-27 00:00:00', '%Y-%m-%d %H:%M:%S')]
     start_jd = utc_to_jd(startday)
     end_jd = utc_to_jd(enday)
-
+    t_step = 60*60*24
     # Random 3LE from SpaceTrack SATELLITE
     valid_tle = "SPACEX\n 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
 
     #make my own TLE
     tle_dict = tle_parse(valid_tle)
     tle_kepels = tle_convert(tle_dict)
-    print("TLE Kepels: ", tle_kepels)
-    test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=12000.0, mass = 100, epoch = '2023-04-26 00:00:00')
-    test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], 60)
+    test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=12.0, mass = 150, epoch = '2020-10-14 04:25:16')
+    test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], t_step)
     test_sat_ephem = test_sat.sgp4_ephemeris
     # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
     test_pos = [x[1] for x in test_sat_ephem]
@@ -304,7 +307,7 @@ def test_sgp4_prop():
 
     ########## TLE (not 3LE) ##########
     valid_tle = " 1 44271U 19029AN  20288.57092606  .06839568  12140-4  13629-2 0  9994\n2 44271  52.9879 323.6967 0003539  53.2438  81.7998 16.30723255 78035 "
-    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd[0], jd_end=end_jd[0], dt=60)
+    valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd[0], jd_end=end_jd[0], dt=t_step)
     valid_tle_pos = [x[1] for x in valid_tle_ephem]
     valid_tle_pos = np.array(valid_tle_pos)
     valid_tle_times = [x[0] for x in valid_tle_ephem]
@@ -314,7 +317,7 @@ def test_sgp4_prop():
     diff_pos = [np.linalg.norm(test_pos[i] - valid_tle_pos[i]) for i in range(len(test_pos))]
     diff_pos = np.array(diff_pos)
     
-    #3D scatter plots of the positions
+    # 3D scatter plots of the positions
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(test_pos[:,0], test_pos[:,1], test_pos[:,2], s=1, label = "made-up TLE")
@@ -328,11 +331,11 @@ def test_sgp4_prop():
     
     # plt.plot(test_times, diff_pos)
     # plt.show()
-    # # plt.scatter(test_times, test_altitudes, s = 1, label = "made-up TLE")
-    # # plt.scatter(valid_tle_times, valid_tle_altitudes, s=1, label = "valid TLE")
-    # # plt.xlabel("Time (JD)")
-    # # plt.ylabel("Altitude (km)")
-    # # plt.legend()
-    # # plt.show()
+    # plt.scatter(test_times, test_altitudes, s = 1, label = "made-up TLE")
+    # plt.scatter(valid_tle_times, valid_tle_altitudes, s=1, label = "valid TLE")
+    # plt.xlabel("Time (JD)")
+    # plt.ylabel("Altitude (km)")
+    # plt.legend()
+    # plt.show()
 if __name__ == "__main__":
     test_sgp4_prop()
