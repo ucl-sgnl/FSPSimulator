@@ -19,23 +19,21 @@ def run_simulation(policy):
     policy_name = policy["scenario_name"]
 
 
-    # check if the simulation has already been run
+    # check if the simulation has already been run, if so load it in and just propagate
     if policy["environment"] == "development" and os.path.exists(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
-        # as an updated satellite object already exists, load it in
         with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle'), 'rb') as f:
-            # Load the data from the pickle file
             SATCAT_before_prop = pickle.load(f)
         
-        # Run the simulation
         for satellite in SATCAT_before_prop:
             satellite.sgp4_prop_catobjects(jd_start[0], jd_stop[0], step_size)
 
         with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'), 'wb') as f:
             pickle.dump(SATCAT_before_prop, f)
     else:
-        # create a merged catalogue based on the user definition
-        if policy["sim_object_type"] != "all":
+        if policy["sim_object_type"] == "active":
             catalogue.CreateCatalogueActive() # this will start with celestrak
+        if policy["sim_object_type"] == "debris":
+            return # Currently does not exist
         else:
             catalogue.CreateCatalogueAll() # this will start from space-track
 
@@ -46,6 +44,7 @@ def run_simulation(policy):
         print("Creating Launch Model...")
         in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
         policy = 'src/data/prediction_csv/policy_fsptest.json'
+        
         # applies policy to the launch model and then creates space objects
         launch_file_object = Prediction2SpaceObjects(in_file, policy)
 
