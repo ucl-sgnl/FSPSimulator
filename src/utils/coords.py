@@ -56,11 +56,24 @@ def kep2car(a, e, i, w, W, V):
 
     return x, y, z, vx, vy, vz
 
-def trueanom2meananom(tran, e):
-    """Converts true anomaly to mean anomaly."""
-    E = 2 * math.atan(math.sqrt((1 - e) / (1 + e)) * math.tan(tran / 2)) #Eccentric anomaly
-    mean_anomaly = E - e * math.sin(E) # Kepler's equation for mean anomaly
+
+def true_to_eccentric_anomaly(true_anomaly, eccentricity):
+    cos_E = (eccentricity + math.cos(true_anomaly)) / (1 + eccentricity * math.cos(true_anomaly))
+    sin_E = math.sqrt(1 - cos_E**2)
+    if true_anomaly > math.pi:
+        sin_E = -sin_E
+    eccentric_anomaly = math.atan2(sin_E, cos_E)
+    return eccentric_anomaly
+
+def eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity):
+    mean_anomaly = eccentric_anomaly - eccentricity * math.sin(eccentric_anomaly)
     return mean_anomaly
+
+def true_to_mean_anomaly(true_anomaly, eccentricity):
+    #TODO: i dont know where I have lost a minus sign but I made the output here the absolute value to deal wtih it. Needs fixing.
+    eccentric_anomaly = true_to_eccentric_anomaly(true_anomaly, eccentricity)
+    mean_anomaly = eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity)
+    return np.abs(mean_anomaly)
 
 def calculate_kozai_mean_motion(a, mu):
     # a: semi-major axis in meters
@@ -82,8 +95,16 @@ def calculate_kozai_mean_motion(a, mu):
 
 
 def expo_simplified(altitude, alt_type='geometric'):
-    #Simple atmospheric density model based on Vallado 2013
-    # altitude: altitude in km
+    """ Simple exponential atmospheric model.
+    TODO: find reference for this model
+
+    Args:
+        altitude (float): altitude in km
+        alt_type (str, optional): type of altitude. Either geopotential or geometric. Defaults to 'geometric'.
+
+    Returns:
+        float: density of air at altitude in kg/m^3
+    """
     zb = np.array([0., 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120,
                    130, 140, 150, 180, 200, 250, 300, 350, 400, 450,
                    500, 600, 700, 800, 900, 1000])
@@ -386,8 +407,11 @@ def build_tle(catalog_number, classification, launch_year, launch_number, launch
               revolution_number):
 
     formatted_drag_term = tle_exponent_format(drag_term)
+    #drop the sign 
+    formatted_drag_term = formatted_drag_term[1:]
     formatted_second_derivative = tle_exponent_format(second_derivative)
-    first_derivative= "-.00002182" #TODO: unhardcode this
+    print("formatted drag", formatted_drag_term)
+    first_derivative= "0.00000140" #TODO: unhardcode this
     l1_col1 = ' 1'
     l1_col2 = ' '
     l1_col3_7 = '{:05d}'.format(catalog_number)
@@ -416,15 +440,15 @@ def build_tle(catalog_number, classification, launch_year, launch_number, launch
     l2_col2 = ' '
     l2_col3_7 = '{:05d}'.format(catalog_number)
     l2_col8 = ' '
-    l2_col9_16 = '{:8.4f}'.format(inclination)
+    l2_col9_16 = '{:8.4f}'.format(np.rad2deg(inclination))
     l2_col17 = ' '
-    l2_col18_25 = '{:8.4f}'.format(raan)
+    l2_col18_25 = '{:8.4f}'.format(np.rad2deg(raan))
     l2_col26 = ' '
     l2_col27_33 = '{:7.7s}'.format(str(eccentricity)[2:]) #remove the 0. from the beginning
     l2_col34 = ' '
-    l2_col35_42 = '{:8.4f}'.format(arg_perigee)
+    l2_col35_42 = '{:8.4f}'.format(np.rad2deg(arg_perigee))
     l2_col43 = ' '
-    l2_col44_51 = '{:8.4f}'.format(mean_anomaly)
+    l2_col44_51 = '{:8.4f}'.format(np.rad2deg(mean_anomaly))
     l2_col52 = ' '
     l2_col53_63 = '{:11.8f}'.format(mean_motion)
     l2_col65_68 = '{:5d}'.format(revolution_number)
