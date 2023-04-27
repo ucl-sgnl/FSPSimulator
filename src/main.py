@@ -7,6 +7,7 @@ import pickle
 from src.utils.SpaceObject import SpaceObject
 from src.utils.SpaceCatalogue import SpaceCatalogue
 from src.utils.LaunchModel import Prediction2SpaceObjects
+from src.utils.coords import utc_to_jd
 
 def run_simulation(policy):
     # First load in the most recent version of JSR catalogue, this will occur in initialisation of the SpaceCatalogue Class
@@ -45,8 +46,12 @@ def run_simulation(policy):
             pickle.dump(SATCAT_before_prop, f)
         
         # Run the simulation
+        jd_start = utc_to_jd(policy["sim_start_date"])
+        jd_stop = utc_to_jd(policy["sim_end_date"])
+        step_size = 60*60*24*365 # 1 year
         for satellite in SATCAT_before_prop:
-            satellite.sgp4_prop_catobjects(policy["sim_end_date"])
+            satellite.sgp4_prop_catobjects(jd_start, jd_stop, step_size)
+            
         
     # Create graphs
 
