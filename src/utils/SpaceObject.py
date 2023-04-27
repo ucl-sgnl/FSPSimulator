@@ -249,7 +249,7 @@ class SpaceObject:
     def sgp4_prop_catobjects(self, jd_start, jd_stop, step_size):
         #TODO: make it so that this is only applied if a TLE is not already available
         if self.tle is None:
-            print("No TLE available for this object. Generating one from the catalog data")
+            #print("No TLE available for this object. Generating one from the catalog data")
             # generate a TLE from the data in the catalog object
             new_TLE = build_tle(
                 int(12345),  # catalog_number -> this is a placeholder value and does not affect the propagation
@@ -275,7 +275,7 @@ class SpaceObject:
             )
             # assign the new TLE to the object
             self.tle = new_TLE
-            print("newTLE: ", self.tle)
+            #print("newTLE: ", self.tle)
         # propagate the TLE and return the ephemeris 
         self.sgp4_ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
 

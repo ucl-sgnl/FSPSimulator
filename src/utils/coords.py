@@ -20,7 +20,11 @@ def utc_to_jd(time_stamps):
     """
     UTC_string = []
     for i in range(0,len(time_stamps),1):
-        UTC_string.append(time_stamps[i].strftime('%Y-%m-%d %H:%M:%S'))
+        try:
+            UTC_string.append(time_stamps[i].strftime('%Y-%m-%d %H:%M:%S'))
+        except:
+            time_str = datetime.datetime.strptime(time_stamps, '%Y-%m-%d')
+            UTC_string.append(time_str.strftime('%Y-%m-%d %H:%M:%S'))
 
     t = Time(UTC_string, format='iso', scale='utc') #astropy time object
     jd = t.to_value('jd', 'long') #convert to jd
@@ -356,8 +360,14 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
     #split at the new line
     split_tle = TLE.split('\n')
-    s = split_tle[0]
-    r = split_tle[1]
+
+    if len(split_tle) == 3:
+        # three line TLE
+        s = split_tle[1]
+        r = split_tle[2]
+    else:
+        s = split_tle[0]
+        r = split_tle[1]
     fr = 0.0 # precise fraction (SGP4 docs for more info)
     
     #create a satellite object
