@@ -257,11 +257,11 @@ def tle_convert(tle_dict, display=False):
     eccentric_anomaly = E
 
     # Compute True Anomaly
-    true_anomaly = 2 * np.arctan2(np.sqrt(1 + e) * np.sin(eccentric_anomaly / 2),
-                                  np.sqrt(1 - e) * np.cos(eccentric_anomaly / 2))
+    true_anomaly = (2 * np.arctan2(np.sqrt(1 + e) * np.sin(eccentric_anomaly / 2),
+                               np.sqrt(1 - e) * np.cos(eccentric_anomaly / 2))) % (2 * np.pi)
 
     # Dictionary of Keplerian elements
-    keplerian_dict = {'a': a, 'e': e, 'i': inclination, 'RAAN': RAAN, 'arg_p': arg_p, 'true_anomaly': np.degrees(true_anomaly)}
+    keplerian_dict = {'a': a, 'e': e, 'i': inclination, 'RAAN': RAAN, 'arg_p': arg_p, 'true_anomaly': (true_anomaly)}
     if display == True:
         print("Keplerian Elements:")
         print("a = {:.2f} km".format(keplerian_dict['a']))
@@ -300,7 +300,6 @@ def orbital_period(semi_major_axis):
     orbital_period_minutes = orbital_period_seconds / 60
     
     return orbital_period_minutes
-
 
 def generate_cospar_id(launch_year, launch_number, launch_piece):
     """
@@ -460,3 +459,10 @@ def build_tle(catalog_number, classification, launch_year, launch_number, launch
     newtle = l1 + '\n' + l2
 
     return newtle
+
+def get_day_of_year_and_fractional_day(epoch):
+    start_of_the_year = datetime.datetime(epoch.year, 1, 1)
+    day_of_year = (epoch - start_of_the_year).days + 1
+    seconds_since_midnight = (epoch - epoch.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
+    fractional_day = seconds_since_midnight / 86400
+    return day_of_year + fractional_day
