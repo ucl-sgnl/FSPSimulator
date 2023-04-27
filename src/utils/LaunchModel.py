@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
+
 import math
 import pandas as pd
 from datetime import datetime
@@ -340,14 +344,19 @@ def apply_policy_at_organisation_level(metadata_dicts, policy):
 
     # handle cinammon
     if policy["espace"] == False:
-        metadata_dicts_policy_applied = {key: value for key, value in metadata_dicts_policy_applied.items() if value["Mega-Constellation"] != "E-Space"}
+        new_list = []
+        for dictionary in metadata_dicts_policy_applied:
+            if dictionary["_owner"] != "E-Space":
+                new_list.append(dictionary)
+            
+        metadata_dicts_policy_applied = new_list
 
     return metadata_dicts_policy_applied
 
 def apply_policy_at_constellation_level(metadata_dicts, policy):
     list_of_dicts_policy_applied = []
     for metadata_dict in metadata_dicts:
-        num_launches = np.random.normal(float(policy['satellite_failure']), 0.25, 10)[0]
+        num_launches = np.maximum(np.random.normal(float(policy['satellite_failure']), 0.25, 10)[0], 1) # ensure not negative
         metadata_dict["N"] = round(num_launches * metadata_dict["N"])
         list_of_dicts_policy_applied.append(metadata_dict)
 

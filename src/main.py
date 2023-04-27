@@ -8,19 +8,30 @@ from src.utils.SpaceObject import SpaceObject
 from src.utils.SpaceCatalogue import SpaceCatalogue
 from src.utils.LaunchModel import Prediction2SpaceObjects
 from src.utils.coords import utc_to_jd
+import timeit
 
 def run_simulation(policy):
     # First load in the most recent version of JSR catalogue, this will occur in initialisation of the SpaceCatalogue Class
     catalogue = SpaceCatalogue(policy["sim_object_type"], policy["sim_object_catalogue"])
+    jd_start = utc_to_jd(policy["sim_start_date"])
+    jd_stop = utc_to_jd(policy["sim_end_date"])
+    step_size = 60*60*24*365 # 1 year
+    policy_name = policy["scenario_name"]
 
-    if policy["environment"] == "development" and os.path.exists(os.path.join(os.getcwd(), 'src/data/catalogue/SATCAT_before_prop.pickle')):
+
+    # check if the simulation has already been run
+    if policy["environment"] == "development" and os.path.exists(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
         # as an updated satellite object already exists, load it in
-        with open(os.path.join(os.getcwd(), 'src/data/catalogue/SATCAT_before_prop.pickle'), 'rb') as f:
+        with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle'), 'rb') as f:
             # Load the data from the pickle file
             SATCAT_before_prop = pickle.load(f)
+        
         # Run the simulation
-        for sat in SATCAT_before_prop:
-            sat.sgp4_prop(policy["sim_end_date"])
+        for satellite in SATCAT_before_prop:
+            satellite.sgp4_prop_catobjects(jd_start[0], jd_stop[0], step_size)
+
+        with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'), 'wb') as f:
+            pickle.dump(SATCAT_before_prop, f)
     else:
         # create a merged catalogue based on the user definition
         if policy["sim_object_type"] != "all":
@@ -32,6 +43,7 @@ def run_simulation(policy):
         catalogue.Catalogue2SpaceObjects()
 
         # Load in up to date future launch files
+        print("Creating Launch Model...")
         in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
         policy = 'src/data/prediction_csv/policy_fsptest.json'
         # applies policy to the launch model and then creates space objects
@@ -41,19 +53,14 @@ def run_simulation(policy):
         SATCAT_before_prop = catalogue.ReturnCatalogue()
         SATCAT_before_prop = SATCAT_before_prop + launch_file_object
 
-        # save the catalogue to a pickle file in the src/data folder
-        with open(os.path.join(os.getcwd(), 'src/data/catalogue/SATCAT_before_prop.pickle'), 'wb') as f:
-            pickle.dump(SATCAT_before_prop, f)
-        
         # Run the simulation
-        jd_start = utc_to_jd(policy["sim_start_date"])
-        jd_stop = utc_to_jd(policy["sim_end_date"])
-        step_size = 60*60*24*365 # 1 year
+        print("Propogating Satellites...")
         for satellite in SATCAT_before_prop:
-            satellite.sgp4_prop_catobjects(jd_start, jd_stop, step_size)
-            
-        
-    # Create graphs
+            satellite.sgp4_prop_catobjects(jd_start[0], jd_stop[0], step_size)
+
+        # save the final Satellite Catalogue in the data folder
+        with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'), 'wb') as f:
+            pickle.dump(SATCAT_before_prop, f)
 
 if __name__ == '__main__':
     with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/policy_fsptest.json'), 'r') as f:
