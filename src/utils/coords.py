@@ -151,20 +151,21 @@ def orbit_classify(altitude):
         orbit_class = 'Other'
     return orbit_class
 
-def tle_parse(tle_string):
-
+def tle_parse(tle_2le):
+    #NOTE: does not work on 3LE strings
     """
-    Parses a 3LE/TLE string (e.g. as provided by SpaceTrack.org) and returns all the data in a dictionary.
+    Parses a 2LE string (e.g. as provided by Celestrak) and returns all the data in a dictionary.
     Args:
-        tle_string (string): TLE string to be parsed
+        tle_2le (string): 2LE string to be parsed
     Returns:
-        tle_dict (dict): dictionary of all the data contained in the TLE string
+        2le_dict (dict): dictionary of all the data contained in the TLE string
     """
 
     # This function takes a TLE string and returns a dictionary of the TLE data
-    tle_lines = tle_string.split('\n')
+    tle_lines = tle_2le.split('\n')
     tle_dict = {}
-    line_zero, line_one, line_two = tle_lines[0],tle_lines[1], tle_lines[2]
+    line_one, line_two = tle_lines[0],tle_lines[1]
+    
     #Parse the first line
     tle_dict['line number'] = line_one[0]
     tle_dict['satellite catalog number'] = line_one[2:7]
@@ -189,8 +190,9 @@ def tle_parse(tle_string):
     tle_dict['mean anomaly'] = line_two[43:51]
     tle_dict['mean motion'] = line_two[52:63]
     tle_dict['revolution number at epoch'] = line_two[63:68]
-    tle_dict['TLE'] = tle_string
+
     return tle_dict
+
 
 def tle_convert(tle_dict, display=False):
     """
@@ -278,9 +280,9 @@ def TLE_time(TLE):
     """Find the time of a TLE in julian day format"""
     #find the epoch section of the TLE
     epoch = TLE[18:32]
+    #take the first tow numerical digits of the epoch (deal with white )
     #convert the first two digits of the epoch to the year
-    year = 2000+int(epoch[0:2])
-    
+    year = int(2000)+int(epoch[0:2])
     # the rest of the digits are the day of the year and fractional portion of the day
     day = float(epoch[2:])
     #convert the day of the year to a day, month, year format
@@ -369,6 +371,7 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
         # Velocity is the rate at which the position is changing, expressed in kilometers per second
         error, position, velocity = satellite.sgp4(time, fr)
         if error != 0:
+            print('error: ', error)
             break
         else:
             ephemeris.append([time,position, velocity]) #jd time, pos, vel
@@ -409,7 +412,6 @@ def build_tle(catalog_number, classification, launch_year, launch_number, launch
     #drop the sign 
     formatted_drag_term = formatted_drag_term[1:]
     formatted_second_derivative = tle_exponent_format(second_derivative)
-    print("formatted drag", formatted_drag_term)
     first_derivative= "0.00000140" #TODO: unhardcode this
     l1_col1 = ' 1'
     l1_col2 = ' '
@@ -466,3 +468,11 @@ def get_day_of_year_and_fractional_day(epoch):
     seconds_since_midnight = (epoch - epoch.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
     fractional_day = seconds_since_midnight / 86400
     return day_of_year + fractional_day
+
+def jd_to_utc(jd):
+    """Converts Julian Date to UTC time tag(datetime object) using Astropy"""
+    #convert jd to astropy time object
+    time = Time(jd, format='jd', scale='utc')
+    #convert astropy time object to datetime object
+    utc = time.datetime
+    return utc
