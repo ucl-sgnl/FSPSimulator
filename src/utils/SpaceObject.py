@@ -241,7 +241,7 @@ class SpaceObject:
     
     def get_atmospheric_density(self, model = "exponential"):
         if model == "exponential":
-            self.atmos_density = expo_simplified(self.altitude)
+            self.atmos_density = expo_simplified(self.altitude)*1e6 
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
@@ -302,11 +302,16 @@ def test_sgp4_prop():
     tseries_3D = [] #for each satellite, this will be a list of 3D position differences between the real and fabricated TLEs
     tseries_altitude = [] #for each satellite, this will contain two lists (one for the real and one for the fabricated TLE) of altitude values
     t_series_pos = [] #for each satellite, this will be a list of position differences between the real and fabricated TLEs
+    altitude_diffs = [] #for each satellite, this will be a list of altitude differences between the real and fabricated TLEs
+    inclination_diffs = [] #for each satellite, this will be a list of inclination differences between the real and fabricated TLEs
+
     for sat in test_tles:
         print("Propagating TLE for ", sat)
         sat_altitude = []#list of real and fabricated altitudes for this satellite
         sat_pos = []#list of real and fabricated positions for this satellite
-        ###### SECTION 1: Make TLEs and propagate them ######
+ 
+
+    ###### SECTION 1: Make TLEs and propagate them ######
         #Get the Keplerian elements from the TLE
         tle_dict = tle_parse(test_tles[sat])
         tle_kepels = tle_convert(tle_dict)
@@ -316,9 +321,11 @@ def test_sgp4_prop():
         # make a SpaceObject from the TLE
         tle_epoch_str = str(tle_epoch)
         epoch = tle_epoch_str.replace(' ', 'T')
-        test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=12.0, mass = 150, epoch = epoch)
+        test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=2.5, mass = 150, epoch = epoch)
+        print("testsat TLE:", test_sat.tle)
         test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], t_step)
         test_sat_ephem = test_sat.sgp4_ephemeris
+        print("testsat TLE:", test_sat.tle)
         # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
         test_pos = [x[1] for x in test_sat_ephem]
         test_pos = np.array(test_pos)
@@ -326,57 +333,83 @@ def test_sgp4_prop():
         test_altitudes = [np.linalg.norm(x)-6378.137 for x in test_pos]
         sat_altitude.append(test_altitudes)
         sat_pos.append(test_pos)
-
         ###### SECTION 2: Use existing TLEs and propagate them ######
         valid_tle = test_tles[sat]
         valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd[0], jd_end=end_jd[0], dt=t_step)
+        print("valid TLE:", valid_tle)
         valid_tle_pos = [x[1] for x in valid_tle_ephem]
         valid_tle_pos = np.array(valid_tle_pos)
         valid_tle_times = [x[0] for x in valid_tle_ephem]
         valid_tle_altitudes = [np.linalg.norm(x)-6378.137 for x in valid_tle_pos]
         sat_altitude.append(valid_tle_altitudes)
         sat_pos.append(valid_tle_pos)
-        
         tseries_altitude.append(sat_altitude)
         t_series_pos.append(sat_pos)
-
         ### calculate the RMS position differences time series
-        diff_pos = [np.linalg.norm(test_pos[i] - valid_tle_pos[i]) for i in range(len(test_pos))]
-        diff_pos = np.array(diff_pos)
-        tseries_3D.append(diff_pos)
-        RMS = np.sqrt(np.mean(diff_pos**2))
-        RMS_dict[sat] = RMS
-    
-    #3D scatter plot of position for each 
+        # diff_pos = [np.linalg.norm(test_pos[i] - valid_tle_pos[i]) for i in range(len(test_pos))]
+        # diff_pos = np.array(diff_pos)
+        # tseries_3D.append(diff_pos)
+        # RMS = np.sqrt(np.mean(diff_pos**2))
+        # RMS_dict[sat] = RMS
+        
+        ### calculate the altitude differences time series
+        sat_altitude_diffs = [sat_altitude[0][i] - sat_altitude[1][i] for i in range(len(sat_altitude[0]))]
+        altitude_diffs.append(sat_altitude_diffs)
+
+#plot the altitude of each satellite over time
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    for i in range(len(t_series_pos)):
-        ax.scatter(t_series_pos[i][0][:,0], t_series_pos[i][0][:,1], t_series_pos[i][0][:,2], label = list(test_tles.keys())[i] + ' real')
-        ax.scatter(t_series_pos[i][1][:,0], t_series_pos[i][1][:,1], t_series_pos[i][1][:,2], label = list(test_tles.keys())[i] + ' fabricated')
-    ax.set_xlabel('X (km)')
-    ax.set_ylabel('Y (km)')
-    ax.set_zlabel('Z (km)')
-    ax.set_title('3D Position Difference Between Real and Fabricated TLEs')
+    ax = fig.add_subplot(111)
+    for i in range(1):
+        ax.plot(tseries_altitude[i][0], label = list(test_tles.keys())[i] + ' real')
+        ax.plot(tseries_altitude[i][1], label = list(test_tles.keys())[i] + ' fabricated')
+    ax.set_xlabel('Time MJD')
+    ax.set_ylabel('Altitude (km)')
+    ax.set_title('Altitude of Satellites Over Time')
     ax.legend()
     plt.show()
-    
-    print("RMS values for each satellite: ", RMS_dict)
 
-    for i in range(len(tseries_3D)):
-        plt.plot(test_times, tseries_3D[i], label = list(test_tles.keys())[i])
-    plt.xlabel('Time (Julian Date)')
-    plt.ylabel('3D Position Difference (km)')
-    plt.title('3D Position Difference Between Real and Fabricated TLEs')
-    plt.legend()
+
+   #plot altitude differences time series
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    for i in range(len(altitude_diffs)):
+        ax.plot(altitude_diffs[i], label = list(test_tles.keys())[i])
+    ax.set_xlabel('Time MJD')
+    ax.set_ylabel('Altitude Difference (km)')
+    ax.set_title('Altitude Difference Between Real and Fabricated TLEs')    
+    ax.legend()
     plt.show()
 
-    for i in range(len(tseries_altitude)):
-        plt.plot(test_times, tseries_altitude[i][0], label = list(test_tles.keys())[i] + ' real')
-        plt.plot(test_times, tseries_altitude[i][1], label = list(test_tles.keys())[i] + ' fabricated')
-    plt.xlabel('Time (Julian Date)')
-    plt.ylabel('Altitude (km)')
-    plt.title('Altitude of Real and Fabricated TLEs')
-    plt.legend()
+
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111, projection='3d')
+    # for i in range(len(t_series_pos)):
+    #     ax.scatter(t_series_pos[i][0][:,0], t_series_pos[i][0][:,1], t_series_pos[i][0][:,2], label = list(test_tles.keys())[i] + ' real')
+    #     ax.scatter(t_series_pos[i][1][:,0], t_series_pos[i][1][:,1], t_series_pos[i][1][:,2], label = list(test_tles.keys())[i] + ' fabricated')
+    # ax.set_xlabel('X (km)')
+    # ax.set_ylabel('Y (km)')
+    # ax.set_zlabel('Z (km)')
+    # ax.set_title('3D Position Difference Between Real and Fabricated TLEs')
+    # ax.legend()
+    # plt.show()
+    
+    # print("RMS values for each satellite: ", RMS_dict)
+
+    # for i in range(len(tseries_3D)):
+    #     plt.plot(test_times, tseries_3D[i], label = list(test_tles.keys())[i])
+    # plt.xlabel('Time (Julian Date)')
+    # plt.ylabel('3D Position Difference (km)')
+    # plt.title('3D Position Difference Between Real and Fabricated TLEs')
+    # plt.legend()
+    # plt.show()
+    #
+    # for i in range(len(tseries_altitude)):
+    #     plt.plot(test_times, tseries_altitude[i][0], label = list(test_tles.keys())[i] + ' real')
+    #     plt.plot(test_times, tseries_altitude[i][1], label = list(test_tles.keys())[i] + ' fabricated')
+    # plt.xlabel('Time (Julian Date)')
+    # plt.ylabel('Altitude (km)')
+    # plt.title('Altitude of Real and Fabricated TLEs')
+    # plt.legend()
     plt.show()
 
 if __name__ == "__main__":
