@@ -241,7 +241,7 @@ class SpaceObject:
     
     def get_atmospheric_density(self, model = "exponential"):
         if model == "exponential":
-            self.atmos_density = expo_simplified(self.altitude)*1e6 
+            self.atmos_density = expo_simplified(self.altitude)*1e6 #fix units to kg/m^3 
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
@@ -322,10 +322,8 @@ def test_sgp4_prop():
         tle_epoch_str = str(tle_epoch)
         epoch = tle_epoch_str.replace(' ', 'T')
         test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=2.5, mass = 150, epoch = epoch)
-        print("testsat TLE:", test_sat.tle)
         test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], t_step)
         test_sat_ephem = test_sat.sgp4_ephemeris
-        print("testsat TLE:", test_sat.tle)
         # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
         test_pos = [x[1] for x in test_sat_ephem]
         test_pos = np.array(test_pos)
@@ -336,7 +334,6 @@ def test_sgp4_prop():
         ###### SECTION 2: Use existing TLEs and propagate them ######
         valid_tle = test_tles[sat]
         valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd[0], jd_end=end_jd[0], dt=t_step)
-        print("valid TLE:", valid_tle)
         valid_tle_pos = [x[1] for x in valid_tle_ephem]
         valid_tle_pos = np.array(valid_tle_pos)
         valid_tle_times = [x[0] for x in valid_tle_ephem]
