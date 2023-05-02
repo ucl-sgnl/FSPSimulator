@@ -6,7 +6,7 @@ import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc
+from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -14,7 +14,7 @@ class SpaceObject:
                  orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, bstar = None, 
                 object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None):
+                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None, station_keeping=None):
         
         self.CATID = None # This is a computed property based on the GUID and isn't included as a parameter
         self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
@@ -60,11 +60,26 @@ class SpaceObject:
                 self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%dT%H:%M:%S.%f') # this is space-track
         self.day_of_year = get_day_of_year_and_fractional_day(self.epoch)
         #Variables for Propagation
+        # if station_keeping is not None, if station_keeping is len(1) then this will be the date of the end of station keeping. If station_keeping is len(2), the first date is the start of station_keeping activities, and the second date is the end of station keeping activities
+        self.station_keeping = station_keeping
+        if self.station_keeping == True: # if station_keeping is just set to True, then  the object will station keep from launch to decay
+            self.station_keeping = [self.launch_date, self.decay_date] 
+        elif self.station_keeping == False or self.station_keeping == None:
+            self.station_keeping = None
+        else:
+            #if only one is specified then we assume that station keeping is from launch to that date
+            if len(self.station_keeping) == 1:
+                self.station_keeping = [datetime.datetime.strptime(self.station_keeping[0], '%Y-%m-%d %H:%M:%S'))]
+            #if two dates are specified, we assume these are the start and end dates of station keeping
+            elif len(self.station_keeping) == 2:
+                self.station_keeping = [datetime.datetime.strptime(self.station_keeping[0], '%Y-%m-%d %H:%M:%S'), datetime.datetime.strptime(self.station_keeping[1], '%Y-%m-%d')]
+            else:
+                raise ValueError('station_keeping must be either None, True, False or a list of length 1 or 2')
         self.tle = tle if tle is not None else None
         # ballisitic coefficient. If none this is replaced with 0.00000140 #TODO: find correct value for this
         self.ndot = 0.00000140
         self.nddot = 0.0 # If none this is set to 0.0
-        self.sgp4_ephemeris = None # This is where the ephemeris of the SGP4 propagation will be stored
+        self.ephemeris = None # This is where the ephemeris of the propagations will be stored
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
         self.orbital_period = orbital_period(self.sma) #in minutes
         self.inc = float(inc)
@@ -248,39 +263,54 @@ class SpaceObject:
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
-        
-    def sgp4_prop_catobjects(self, jd_start, jd_stop, step_size):
-        #TODO: make it so that this is only applied if a TLE is not already available
-        if self.tle is None:
-            #print("No TLE available for this object. Generating one from the catalog data")
-            # generate a TLE from the data in the catalog object
-            new_TLE = build_tle(
-                int(12345),  # catalog_number -> this is a placeholder value and does not affect the propagation
-                "U",  # classification -> also a placeholder value
-                int(self.epoch.year % 100),  # launch_year -> also a placeholder value
-                int(29),  # launch_number -> also a placeholder value
-                'AN',  # launch_piece -> also a placeholder value
-                #last two digits of launch year
-                self.epoch.year % 100,
-                self.day_of_year, # epoch_day
-                self.ndot,  # first_derivative
-                self.nddot,  # second_derivative #Typically this is set to 0
-                self.bstar,  # drag_term
-                0,  # ephemeris_type: Always 0.
-                0,  # element_set_number. No impact on propagation this is just Elset Number.
-                self.inc,
-                self.raan,
-                self.eccentricity,
-                self.argp,
-                self.meananomaly,
-                self.no_kozai,
-                0,  # revolution_number
-            )
-            # assign the new TLE to the object
-            self.tle = new_TLE
-            #print("newTLE: ", self.tle)
-        # propagate the TLE and return the ephemeris 
-        self.sgp4_ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
+ 
+    def build_TLE(self):
+        TLE = write_tle(
+            int(12345),  # catalog_number -> this is a placeholder value and does not affect the propagation TODO: decide whether we need to impute this correctly
+            "U",  # classification -> also a placeholder value TODO: impute correctly.
+            int(self.epoch.year % 100),  # launch_year -> also a placeholder value
+            int(29),  # launch_number -> also a placeholder value TODO: impute correctly.
+            'AN',  # launch_piece -> also a placeholder value TODO: impute correctly.
+            #last two digits of launch year
+            self.epoch.year % 100,
+            self.day_of_year, # epoch_day
+            self.ndot,  # first_derivative
+            self.nddot,  # second_derivative #Typically this is set to 0
+            self.bstar,  # drag_term
+            0,  # ephemeris_type: Always 0.
+            0,  # element_set_number. No impact on propagation this is just Elset Number.
+            self.inc,
+            self.raan,
+            self.eccentricity,
+            self.argp,
+            self.meananomaly,
+            self.no_kozai,
+            0,  # revolution_number
+        )
+        # assign the new TLE to the object
+        self.tle = TLE
+ 
+
+    def prop_catobjects(self, jd_start, jd_stop, step_size):
+        #TODO: make it so that we can specify a time window when station keeping is set to be active. Then the rest of the time the object just propagates using SGP4
+        #check if self.station_keeping is a list 
+        if isinstance(self.station_keeping, list):
+            # propagate using keplerian from the first element in the list to the second element in the list
+            # then propagate using SGP4 from the second element in the list to jd_stop
+            combined_ephemeris = []
+            ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+            combined_ephemeris.append(ephemeris_station_keep)
+            if self.tle is None:
+                self.build_TLE()
+            ephemeris_sgp4 = sgp4_prop(self.station_keeping[1], jd_stop, step_size, self.tle)
+            combined_ephemeris.append(ephemeris_sgp4)
+            self.ephemeris = np.concatenate(combined_ephemeris) # concatenate the two ephemeris arrays into one and append it to the ephemeris attribute
+        elif self.station_keeping == True:
+            self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+        elif self.station_keeping == False or self.station_keeping is None: 
+            if self.tle is None:
+                self.build_TLE()
+            self.ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
 
 def test_sgp4_prop():
 
@@ -325,9 +355,10 @@ def test_sgp4_prop():
         tle_epoch_str = str(tle_epoch)
         epoch = tle_epoch_str.replace(' ', 'T')
         test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=2.5, mass = 150, epoch = epoch)
-        test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], t_step)
-        test_sat_ephem = test_sat.sgp4_ephemeris
+        test_sat.prop_catobjects(start_jd[0], end_jd[0], t_step)
+        test_sat_ephem = test_sat.ephemeris
         # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
+        print("testpos:", test_sat_ephem[0][1])
         test_pos = [x[1] for x in test_sat_ephem]
         test_pos = np.array(test_pos)
         test_times = [x[0] for x in test_sat_ephem]
@@ -337,6 +368,7 @@ def test_sgp4_prop():
         ###### SECTION 2: Use existing TLEs and propagate them ######
         valid_tle = test_tles[sat]
         valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd[0], jd_end=end_jd[0], dt=t_step)
+        print("valid TLE:", valid_tle)
         valid_tle_pos = [x[1] for x in valid_tle_ephem]
         valid_tle_pos = np.array(valid_tle_pos)
         valid_tle_times = [x[0] for x in valid_tle_ephem]
