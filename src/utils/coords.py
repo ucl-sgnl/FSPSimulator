@@ -593,7 +593,7 @@ def tle_checksum(line):
             checksum += 1
     return checksum % 10
 
-def build_tle(catalog_number, classification, launch_year, launch_number, launch_piece,
+def write_tle(catalog_number, classification, launch_year, launch_number, launch_piece,
               epoch_year, epoch_day, first_derivative, second_derivative, drag_term,
               ephemeris_type, element_set_number,
               inclination, raan, eccentricity, arg_perigee, mean_anomaly, mean_motion,
