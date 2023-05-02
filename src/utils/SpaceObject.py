@@ -11,7 +11,7 @@ import matplotlib.cm as cm
 
 class SpaceObject:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
-                 orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, 
+                 orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, bstar = None, 
                 object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
                  argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None):
@@ -79,7 +79,10 @@ class SpaceObject:
         # self.atmos_density = 1e-12
         self.get_atmospheric_density(model = "exponential")            #BStar = rho0 #TODO: FIX
         self.C_d = 2.2 #Drag coefficient
-        self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+        if bstar is None:
+            self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+        else:
+            self.bstar = bstar
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
 
