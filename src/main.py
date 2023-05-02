@@ -8,7 +8,6 @@ from src.utils.SpaceObject import SpaceObject
 from src.utils.SpaceCatalogue import SpaceCatalogue
 from src.utils.LaunchModel import Prediction2SpaceObjects
 from src.utils.coords import utc_to_jd
-import timeit
 
 def run_simulation(policy):
     # First load in the most recent version of JSR catalogue, this will occur in initialisation of the SpaceCatalogue Class
@@ -51,7 +50,7 @@ def run_simulation(policy):
     # Run the simulation
     print("Propogating Satellites...")
     for satellite in SATCAT_before_prop:
-        satellite.sgp4_prop_catobjects(jd_start[0], jd_stop[0], step_size)
+        satellite.prop_catobjects(jd_start[0], jd_stop[0], step_size)
 
     # save the final Satellite Catalogue in the data folder
     with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'), 'wb') as f:
