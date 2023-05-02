@@ -441,5 +441,62 @@ def test_sgp4_prop():
     # plt.legend()
     plt.show()
 
+def test_station_keeping():
+    #TODO: validate whether station_keeping actually works
+    test_tle1 = "1 48859U 21054A   23116.83449170 -.00000109  00000-0  00000-0 0  9996\n2 48859  55.3054  18.4561 0008790 213.9679 183.6522  2.00556923 13748"
+    #OneWeb20, pulled on 27Apr2023
+    test_tle2 = "1 45133U 20008C   23116.69886660  .00000678  00000-0  19052-2 0  9998\n2 45133  87.8784 264.1991 0001687  89.2910 270.8411 13.10377378158066"
+    #Starlink70, pulled on 27Apr2023
+    test_tle3 = "1 56135U 23046AV  23117.00001157  .00046284  00000-0  35489-3 0  9999\n2 56135  43.0006  94.0710 0001704 259.7544 135.6794 15.71324535  4975"
+
+    #dictionary of TLEs
+    test_tles = {'navstar81': test_tle1, 'OneWeb20': test_tle2, 'Starlink70': test_tle3}
+
+    prop_start = [datetime.datetime.strptime('2023-01-24 12:45:00', '%Y-%m-%d %H:%M:%S')]
+    prop_end = [datetime.datetime.strptime('2024-04-27 01:48:00', '%Y-%m-%d %H:%M:%S')]
+    start_jd = utc_to_jd(prop_start)
+    end_jd = utc_to_jd(prop_end)
+    t_step = 60*60*24 #1 day in seconds
+
+    #test propagation of TLEs in test_tles
+    RMS_dict = {}     
+    tseries_3D = [] 
+    tseries_altitude = [] 
+    t_series_pos = [] 
+    altitude_diffs = []
+    inclination_diffs = [] 
+
+    for sat in test_tles:
+        print("Propagating TLE for ", sat)
+        sat_altitude = []#list of real and fabricated altitudes for this satellite
+        sat_pos = []#list of real and fabricated positions for this satellite
+# prop once with station keeping and once without -> check altitude difference over time
+# also check that inclination stays stable
+# also check that the station keeping keeps the satellite in the same place until the end date and that after that it switches over to SGP4 prop.
+
+    ###### SECTION 1: Make TLEs and propagate them ######
+        #Get the Keplerian elements from the TLE
+        tle_dict = tle_parse(test_tles[sat])
+        tle_kepels = tle_convert(tle_dict)
+        #Get the epoch from the TLE
+        tle_time = TLE_time(test_tles[sat])
+        tle_epoch = jd_to_utc(tle_time)
+        # make a SpaceObject from the TLE
+        tle_epoch_str = str(tle_epoch)
+        epoch = tle_epoch_str.replace(' ', 'T')
+        test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=2.5, mass = 150, epoch = epoch)
+        test_sat.prop_catobjects(start_jd[0], end_jd[0], t_step)
+        test_sat_ephem = test_sat.ephemeris
+        # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
+        print("testpos:", test_sat_ephem[0][1])
+        test_pos = [x[1] for x in test_sat_ephem]
+        test_pos = np.array(test_pos)
+        test_times = [x[0] for x in test_sat_ephem]
+        test_altitudes = [np.linalg.norm(x)-6378.137 for x in test_pos]
+        sat_altitude.append(test_altitudes)
+        sat_pos.append(test_pos)
+     
+    pass
+
 if __name__ == "__main__":
     test_sgp4_prop()
