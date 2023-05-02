@@ -60,6 +60,60 @@ def kep2car(a, e, i, w, W, V):
 
     return x, y, z, vx, vy, vz
 
+def car2kep(x, y, z, u, v, w, deg=False, arg_l=False):
+    """Convert cartesian to keplerian elements.
+
+    Args:
+        x (float): x position in km
+        y (float): y position in km
+        z (float): z position in km
+        u (float): x velocity in km/s
+        v (float): y velocity in km/s
+        w (float): z velocity in km/s
+        deg (bool, optional): If True, return angles in degrees. If False, return angles in radians. Defaults to False.
+        arg_l (bool, optional): If True, return argument of latitude in degrees. If False, return argument of latitude in radians. Defaults to False.
+
+    Returns:
+        tuple: a, e, i, w, W, V, arg_lat
+    """
+    #TODO: add argument of latitude
+    #make the vectors in as astropy Quantity objects
+    r = [x, y, z] * units.km
+    v = [u, v, w] * units.km / units.s
+
+    #convert to cartesian
+    orb = Orbit.from_vectors(Earth, r, v, plane=Planes.EARTH_EQUATOR)
+
+    #convert to keplerian
+    if deg == True:
+
+        a = orb.a.value
+        e = orb.ecc.value
+        i = np.rad2deg(orb.inc.value)
+        w = np.rad2deg(orb.raan.value)
+        W = np.rad2deg(orb.argp.value)
+        V = np.rad2deg(orb.nu.value)
+        # arg_lat = np.rad2deg(orb.arglat.value)
+
+        if arg_l == True:
+            return a, e, i, w, W, V
+        elif arg_l == False:
+            return a, e, i, w, W, V
+
+    elif deg == False:
+        a = orb.a.value
+        e = orb.ecc.value
+        i = orb.inc.value
+        w = orb.raan.value
+        W = orb.argp.value
+        V = orb.nu.value
+        # arg_lat = orb.arg_lat.value
+
+        if arg_l == True:
+            return a, e, i, w, W, V
+
+    return a, e, i, w, W, V                
+
 
 def true_to_eccentric_anomaly(true_anomaly, eccentricity):
     cos_E = (eccentricity + math.cos(true_anomaly)) / (1 + eccentricity * math.cos(true_anomaly))
@@ -389,6 +443,127 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
     return ephemeris
 
+def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
+    """Analytical Propagation. This function calculates the orbit of a
+    satellite around the Earth assuming two body-dynamics based
+    on Keplerian elements and step size.
+    Args:
+        jd_start:  starting time in Julian Date
+        jd_stop: ending time in Julian Date
+        step (int): sampling time of the orbit in seconds
+        a (float): semi-major axis in Kilometers
+        e (float): eccentricity of the orbit
+        i (float): inclination of the orbit in degrees
+        w (float): argument of periapsis in degrees
+        W (float): longitude of the ascending node in degrees
+        V (float): true anomaly in degrees
+    Returns:
+        ephemeris (list): list in the form [(time, position, velocity), (time, position, velocity), ...]
+    """
+
+    # Defining radial distance and semi-latus rectum
+    GM = 398600.4418  # km^3/s^2
+    p = a * (1 - (e**2))
+    r = p / (1 + e * np.cos(V))
+   
+    # empty list to store the time step in each iteration
+    ephemeris = []
+    # calculate the number of steps between jd_start and jd_stop if the step size is step_size seconds) 
+    t_diff = jd_stop-jd_start # time difference in Julian Days
+    t_diff_secs = 86400 * t_diff
+    current_jd = jd_start
+    for i in range(0, t_diff_secs, step_size):
+        # Compute the mean motion
+        n = np.sqrt(GM / (a**3))
+        
+        # Compute the eccentric anomaly at t=t0
+        cos_Eo = ((r * np.cos(V)) / a) + e
+        sin_Eo = (r * np.sin(V)) / (a * np.sqrt(1 - e**2))
+        # adding 2 pi for for very small values
+        # ensures that Eo stays in the range 0< Eo <2Pi
+        Eo = math.atan2(sin_Eo, cos_Eo)
+        if Eo < 0.0:
+            Eo = Eo + 2 * np.pi
+        else:
+            Eo = Eo
+        # Compute mean anomaly at start point
+        Mo = Eo - e * np.sin(Eo)  # From Kepler's equation
+        # Compute the mean anomaly at t+newdt
+        Mi = Mo + n * newdt
+        # Solve Kepler's equation to compute the eccentric anomaly at t+newdt
+        M = Mi
+        
+        # Initial Guess at Eccentric Anomaly
+        # (taken these conditions from
+        # Fundamentals of Astrodynamics by Roger.E.Bate)
+        if M < np.pi:
+            E = M + (e / 2)
+        if M > np.pi:
+            E = M - (e / 2)
+        # Initial Conditions
+        f = E - e * np.sin(E) - M
+        f_prime = 1 - e * np.cos(E)
+        ratio = f / f_prime
+        # Numerical iteration for ratio compared to level of accuracy wanted
+        while abs(ratio) > r_tol:
+            f = E - e * np.sin(E) - M
+            f_prime = 1 - e * np.cos(E)
+            ratio = f / f_prime
+            if abs(ratio) > r_tol:
+                E = E - ratio
+            if abs(ratio) < r_tol:
+                break
+
+        Ei = E
+        # Compute the gaussian vector component x,y
+        x_new = a * (np.cos(Ei) - e)
+        y_new = a * ((np.sqrt(1 - e**2)) * (np.sin(Ei)))
+        # Compute the in-orbital plane Gaussian Vectors
+        # This gives P and Q in ECI components
+        P = np.matrix(
+            [
+                [np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)],
+                [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)],
+                [np.sin(i) * np.sin(w)],
+            ]
+        )
+        Q = np.matrix(
+            [
+                [-np.cos(W) * np.sin(w) - np.sin(W) * np.cos(i) * np.cos(w)],
+                [-np.sin(W) * np.sin(w) + np.cos(W) * np.cos(i) * np.cos(w)],
+                [np.sin(i) * np.cos(w)],
+            ]
+        )
+
+        # Compute the position vector at t+newdt
+        # We know the inertial vector components along the P and Q vectors.
+        # Thus we can project the satellite position onto the ECI basis.
+        # calcualting the new x coordiante
+
+        cart_pos_x_new = (x_new * P.item(0)) + (y_new * Q.item(0))
+        cart_pos_y_new = (x_new * P.item(1)) + (y_new * Q.item(1))
+        cart_pos_z_new = (x_new * P.item(2)) + (y_new * Q.item(2))
+        # Compute the range at t+dt
+        r_new = a * (1 - e * (np.cos(Ei)))
+        # Compute the gaussian velocity components
+        cos_Ei = (x_new / a) + e
+        sin_Ei = y_new / a * np.sqrt(1 - e**2)
+        f_new = (np.sqrt(a * GM)) / r_new
+        g_new = np.sqrt(1 - e**2)
+       
+        cart_vel_x_new = (-f_new * sin_Ei * P.item(0)) + (f_new * g_new * cos_Ei * Q.item(0))  # x component of velocity
+        cart_vel_y_new = (-f_new * sin_Ei * P.item(1)) + (f_new * g_new * cos_Ei * Q.item(1))  # y component of velocity
+        cart_vel_z_new = (-f_new * sin_Ei * P.item(2)) + (f_new * g_new * cos_Ei * Q.item(2))
+        pos = np.array([cart_pos_x_new, cart_pos_y_new, cart_pos_z_new])
+        vel = np.array([cart_vel_x_new, cart_vel_y_new, cart_vel_z_new])
+        
+        ephemeris.append([current_jd, pos, vel])
+
+        # Update the time
+        current_jd = current_jd + step_size
+
+    return ephemeris
+
 def tle_exponent_format(value):
     # Format a value in scientific notation used in TLEs
     if value == 0:
@@ -401,7 +576,6 @@ def tle_exponent_format(value):
     exponent_str = '{}{}'.format(exponent_sign, abs(exponent)).rstrip('0')
     formatted_value = "{}{}{}".format(sign, mantissa, exponent_str)
     return formatted_value
-
 
 def tle_checksum(line):
     checksum = 0
