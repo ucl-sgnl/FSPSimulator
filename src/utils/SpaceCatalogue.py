@@ -10,13 +10,14 @@ from src.utils.SpaceObject import SpaceObject
 from src.utils.coords import tle_parse
 
 class SpaceCatalogue:
-    def __init__(self, sim_object_type, sim_object_catalogue):
+    def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
         self.PullAllCataloguesIfNewer()
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
-        self.sim_object_type = sim_object_type # this will tell you whether to which part of the catalogue to use, active, inactive or all
+        self.sim_object_type = sim_object_type
         self.sim_object_catalogue = sim_object_catalogue
+        self.repull_catalogues = repull_catalogues
 
     def ReturnCatalogue(self):
         """
@@ -303,6 +304,9 @@ class SpaceCatalogue:
 
         During testing, some of these may be commented out due to the time it takes to pull the data.
         """
+        if self.repull_catalogues == False:
+            return
+
         self.PullCatalogueJSR()
         self.PullCatalogueCelestrakActive()
         self.PullCatalogueSpaceTrackAll()

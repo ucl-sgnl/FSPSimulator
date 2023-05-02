@@ -12,7 +12,7 @@ import timeit
 
 def run_simulation(policy):
     # First load in the most recent version of JSR catalogue, this will occur in initialisation of the SpaceCatalogue Class
-    catalogue = SpaceCatalogue(policy["sim_object_type"], policy["sim_object_catalogue"])
+    catalogue = SpaceCatalogue(policy["sim_object_type"], policy["sim_object_catalogue"], policy["repull_catalogues"])
     jd_start = utc_to_jd(policy["sim_start_date"])
     jd_stop = utc_to_jd(policy["sim_end_date"])
     step_size = 60*60*24*365 # 1 year
