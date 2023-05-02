@@ -14,7 +14,7 @@ class SpaceObject:
                  orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, 
                 object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None):
+                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None, station_keeping=None):
         
         self.CATID = None # This is a computed property based on the GUID and isn't included as a parameter
         self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
@@ -246,38 +246,40 @@ class SpaceObject:
         else:
             self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
         
-    def sgp4_prop_catobjects(self, jd_start, jd_stop, step_size):
-        #TODO: make it so that this is only applied if a TLE is not already available
-        if self.tle is None:
-            #print("No TLE available for this object. Generating one from the catalog data")
-            # generate a TLE from the data in the catalog object
-            new_TLE = build_tle(
-                int(12345),  # catalog_number -> this is a placeholder value and does not affect the propagation
-                "U",  # classification -> also a placeholder value
-                int(self.epoch.year % 100),  # launch_year -> also a placeholder value
-                int(29),  # launch_number -> also a placeholder value
-                'AN',  # launch_piece -> also a placeholder value
-                #last two digits of launch year
-                self.epoch.year % 100,
-                self.day_of_year, # epoch_day
-                self.ndot,  # first_derivative
-                self.nddot,  # second_derivative #Typically this is set to 0
-                self.bstar,  # drag_term
-                0,  # ephemeris_type: Always 0.
-                0,  # element_set_number. No impact on propagation this is just Elset Number.
-                self.inc,
-                self.raan,
-                self.eccentricity,
-                self.argp,
-                self.meananomaly,
-                self.no_kozai,
-                0,  # revolution_number
-            )
-            # assign the new TLE to the object
-            self.tle = new_TLE
-            #print("newTLE: ", self.tle)
-        # propagate the TLE and return the ephemeris 
-        self.sgp4_ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
+    def prop_catobjects(self, jd_start, jd_stop, step_size):
+        #TODO: make it so that we can specify a time window when station keeping is set to be active. Then the rest of the time the object just propagates using SGP4
+        if self.station_keeping == True:
+            self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+        else: 
+            if self.tle is None:
+                #print("No TLE available for this object. Generating one from the catalog data")
+                # generate a TLE from the data in the catalog object
+                new_TLE = build_tle(
+                    int(12345),  # catalog_number -> this is a placeholder value and does not affect the propagation
+                    "U",  # classification -> also a placeholder value
+                    int(self.epoch.year % 100),  # launch_year -> also a placeholder value
+                    int(29),  # launch_number -> also a placeholder value
+                    'AN',  # launch_piece -> also a placeholder value
+                    #last two digits of launch year
+                    self.epoch.year % 100,
+                    self.day_of_year, # epoch_day
+                    self.ndot,  # first_derivative
+                    self.nddot,  # second_derivative #Typically this is set to 0
+                    self.bstar,  # drag_term
+                    0,  # ephemeris_type: Always 0.
+                    0,  # element_set_number. No impact on propagation this is just Elset Number.
+                    self.inc,
+                    self.raan,
+                    self.eccentricity,
+                    self.argp,
+                    self.meananomaly,
+                    self.no_kozai,
+                    0,  # revolution_number
+                )
+                # assign the new TLE to the object
+                self.tle = new_TLE
+            # propagate the TLE and return the ephemeris 
+            self.ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
 
 def test_sgp4_prop():
 
@@ -321,8 +323,8 @@ def test_sgp4_prop():
         # make a SpaceObject from the TLE
         tle_epoch_str = str(tle_epoch)
         epoch = tle_epoch_str.replace(' ', 'T')
-        test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=2.5, mass = 150, epoch = epoch)
-        test_sat.sgp4_prop_catobjects(start_jd[0], end_jd[0], t_step)
+        test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=2.5, mass = 150, epoch = epoch, station_keeping=True)
+        test_sat.prop_catobjects(start_jd[0], end_jd[0], t_step)
         test_sat_ephem = test_sat.sgp4_ephemeris
         # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
         test_pos = [x[1] for x in test_sat_ephem]
@@ -334,6 +336,7 @@ def test_sgp4_prop():
         ###### SECTION 2: Use existing TLEs and propagate them ######
         valid_tle = test_tles[sat]
         valid_tle_ephem = sgp4_prop_TLE(valid_tle, jd_start=start_jd[0], jd_end=end_jd[0], dt=t_step)
+        print("valid TLE:", valid_tle)
         valid_tle_pos = [x[1] for x in valid_tle_ephem]
         valid_tle_pos = np.array(valid_tle_pos)
         valid_tle_times = [x[0] for x in valid_tle_ephem]
