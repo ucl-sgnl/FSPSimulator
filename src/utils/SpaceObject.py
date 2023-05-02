@@ -259,7 +259,7 @@ class SpaceObject:
     
     def get_atmospheric_density(self, model = "exponential"):
         if model == "exponential":
-            self.atmos_density = 0
+            self.atmos_density = 1e-35
             # self.atmos_density = expo_simplified(self.altitude)*1e-6#fix units to kg/m^3 
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
