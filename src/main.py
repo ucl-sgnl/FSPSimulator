@@ -24,7 +24,7 @@ def run_simulation(policy):
             catalogue.CreateCatalogueActive() # this will start with celestrak
         else:
             catalogue.CreateCatalogueAll() # this will start from space-track
-
+             
         # create list of space objects from the merged catalogue
         catalogue.Catalogue2SpaceObjects()
 
