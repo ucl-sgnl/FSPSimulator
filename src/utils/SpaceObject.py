@@ -6,7 +6,7 @@ import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc
+from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, build_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
 import matplotlib.cm as cm
 
 class SpaceObject:
@@ -60,11 +60,12 @@ class SpaceObject:
                 self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%dT%H:%M:%S.%f') # this is space-track
         self.day_of_year = get_day_of_year_and_fractional_day(self.epoch)
         #Variables for Propagation
+        self.station_keeping = station_keeping
         self.tle = tle if tle is not None else None
         # ballisitic coefficient. If none this is replaced with 0.00000140 #TODO: find correct value for this
         self.ndot = 0.00000140
         self.nddot = 0.0 # If none this is set to 0.0
-        self.sgp4_ephemeris = None # This is where the ephemeris of the SGP4 propagation will be stored
+        self.ephemeris = None # This is where the ephemeris of the propagations will be stored
         self.sma = (self.apogee_altitude + self.perigee_altitude)/2 + 6378.137 #in km
         self.orbital_period = orbital_period(self.sma) #in minutes
         self.inc = float(inc)
@@ -325,8 +326,9 @@ def test_sgp4_prop():
         epoch = tle_epoch_str.replace(' ', 'T')
         test_sat = SpaceObject(sma = tle_kepels['a'], perigee_altitude=tle_kepels['a']-6378.137, apogee_altitude=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=2.5, mass = 150, epoch = epoch, station_keeping=True)
         test_sat.prop_catobjects(start_jd[0], end_jd[0], t_step)
-        test_sat_ephem = test_sat.sgp4_ephemeris
+        test_sat_ephem = test_sat.ephemeris
         # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
+        print("testpos:", test_sat_ephem[0][1])
         test_pos = [x[1] for x in test_sat_ephem]
         test_pos = np.array(test_pos)
         test_times = [x[0] for x in test_sat_ephem]

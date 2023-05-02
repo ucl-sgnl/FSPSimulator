@@ -472,7 +472,11 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     t_diff = jd_stop-jd_start # time difference in Julian Days
     t_diff_secs = 86400 * t_diff
     current_jd = jd_start
-    for i in range(0, t_diff_secs, step_size):
+    print("tdiff secs:", t_diff_secs)
+    print("Step size:", step_size)
+    steps = math.ceil(t_diff_secs/step_size) # total number of integer steps
+    for i in range(0, steps, 1):
+        time = 0 #internal timer
         # Compute the mean motion
         n = np.sqrt(GM / (a**3))
         
@@ -489,13 +493,14 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         # Compute mean anomaly at start point
         Mo = Eo - e * np.sin(Eo)  # From Kepler's equation
         # Compute the mean anomaly at t+newdt
-        Mi = Mo + n * newdt
+        Mi = Mo + n * time
         # Solve Kepler's equation to compute the eccentric anomaly at t+newdt
         M = Mi
         
         # Initial Guess at Eccentric Anomaly
         # (taken these conditions from
         # Fundamentals of Astrodynamics by Roger.E.Bate)
+        r_tol = 1e-7 # relative tolerance
         if M < np.pi:
             E = M + (e / 2)
         if M > np.pi:
@@ -554,14 +559,16 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         cart_vel_x_new = (-f_new * sin_Ei * P.item(0)) + (f_new * g_new * cos_Ei * Q.item(0))  # x component of velocity
         cart_vel_y_new = (-f_new * sin_Ei * P.item(1)) + (f_new * g_new * cos_Ei * Q.item(1))  # y component of velocity
         cart_vel_z_new = (-f_new * sin_Ei * P.item(2)) + (f_new * g_new * cos_Ei * Q.item(2))
-        pos = np.array([cart_pos_x_new, cart_pos_y_new, cart_pos_z_new])
-        vel = np.array([cart_vel_x_new, cart_vel_y_new, cart_vel_z_new])
+        pos = ([cart_pos_x_new, cart_pos_y_new, cart_pos_z_new])
+        vel = ([cart_vel_x_new, cart_vel_y_new, cart_vel_z_new])
         
         ephemeris.append([current_jd, pos, vel])
 
-        # Update the time
+        # Update the JD time stamp
         current_jd = current_jd + step_size
-
+        # Update the internal timer
+        time = time + step_size
+        print("ephemeris start: ", ephemeris[0:5])
     return ephemeris
 
 def tle_exponent_format(value):
