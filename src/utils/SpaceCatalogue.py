@@ -93,7 +93,8 @@ class SpaceCatalogue:
 
         # merge the two dataframes, keeping all items in spacetrack dataframe
         self.CurrentCatalogueDF = spacetrack.merge(jsr_cat_extra_info, right_on='Piece', left_on='OBJECT_ID', how='left')
-
+        # convert the BStar to scientific notation
+        self.CurrentCatalogueDF['BSTAR'] = self.CurrentCatalogueDF['BSTAR'].map('{:.5e}'.format)
         # also export the catalogue for audit purposes
         self.CurrentCatalogueDF.to_csv(os.path.join(os.getcwd(), 'src/data/catalogue/All_catalogue_latest.csv'), index=False)
         
@@ -168,6 +169,7 @@ class SpaceCatalogue:
                                                         # characteristic_area=area, 
                                                         # characteristic_length=length, 
                                                         # propulsion_type=propulsion, 
+                                                        bstar=row['BSTAR'],
                                                         sma=row['SEMIMAJOR_AXIS'], 
                                                         eccentricity=row['ECCENTRICITY'], 
                                                         inc=row['INCLINATION'], 
@@ -206,8 +208,8 @@ class SpaceCatalogue:
         tsv_cat_path = external_dir + 'currentcat.tsv'
         payload_cat_path = external_dir + 'payloadcat.tsv'
 
-        urls = {tsv_cat_path: 'https://planet4589.org/space/gcat/tsv/derived/currentcat.tsv',
-            payload_cat_path: 'https://planet4589.org/space/gcat/tsv/cat/psatcat.tsv'}
+        urls = {tsv_cat_path: 'http://planet4589.org/space/gcat/tsv/derived/currentcat.tsv',
+            payload_cat_path: 'http://planet4589.org/space/gcat/tsv/cat/psatcat.tsv'}
 
         for path, url in urls.items():
             self.DownloadJSRCatalogueIfNewer(path, url)
@@ -242,7 +244,7 @@ class SpaceCatalogue:
         # location of file
         cwd = os.getcwd()
         external_dir = os.path.join(cwd, 'src/data/external/')
-        celestrak_path = external_dir + f'celestrak_all.json'
+        celestrak_path = external_dir + f'spacetrack_all.json'
 
         # this should change
         if os.path.exists(celestrak_path):
