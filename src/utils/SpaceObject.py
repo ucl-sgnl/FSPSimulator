@@ -12,7 +12,7 @@ import matplotlib.cm as cm
 class SpaceObject:
     def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
                  orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, bstar = None, 
-                object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
+                 object_type = None, apogee_altitude=None, perigee_altitude=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
                  argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None, station_keeping=None):
         
@@ -61,7 +61,7 @@ class SpaceObject:
         self.day_of_year = get_day_of_year_and_fractional_day(self.epoch)
         #Variables for Propagation
         self.station_keeping = station_keeping
-        if self.station_keeping == True: # if station_keeping is just set to True, then  the object will station keep from launch to decay
+        if self.station_keeping == True: # if station_keeping is just set to True, then the object will station keep from launch to decay
             self.station_keeping = [self.launch_date, self.decay_date] 
         elif self.station_keeping == False or self.station_keeping == None:
             self.station_keeping = None

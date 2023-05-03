@@ -1,5 +1,5 @@
 #JCAT	Piece	Name	LDate	TLast	TOp	TDate	TF	Program	Plane	Att	Mvr	Class	Category	UNState	UNReg	UNPeriod	UNPerigee	UNApogee	UNInc	Result	Control	Discipline	Comment
-# Updated 2023 May 01 01:29:56
+# Updated 2023 May 03 04:59:03
 S00002	1957 ALP 2	First Sputnik	1957 Oct  4 	1957 Oct 27	1957 Oct 27	1957 Oct 27	-	Sputnik	-	-	-	C	TECH	SU	A/AC.105/INF.002	-	     227	     947	 65.1 	S	-	ENV*	First Earth satellite
 S00003	1957 BET 1	Second Sputnik	1957 Nov  3 	1957 Nov  9	1957 Nov  9	1957 Nov  9	-	Sputnik	-	-	-	C	BIO	SU	A/AC.105/INF.002	-	     225	    1671	 65.3 	S	-	BIO	First animal payload
 S00004	1958 ALP	Explorer 1	1958 Feb  1 	1958 Apr  1	1958 Apr  1	1958 Apr  1	-	Explorer ABMA	-	-	-	C	SCI	US	A/AC.105/INF.001	-	-	-	-	S	JPL	P*	Discovered trapped radiation
@@ -15512,25 +15512,25 @@ S55599	2023-020AG	Starlink-5761	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5
 S55600	2023-020AH	Starlink-5755	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55601	2023-020AJ	Starlink-5744	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55602	2023-020AK	Starlink-5764	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55603	2023-020AL	Starlink-5735	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55603	2023-020AL	Starlink-5735	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55604	2023-020AM	Starlink-5748	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55605	2023-020AN	Starlink-5725	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55606	2023-020AP	Starlink-5723	2023 Feb 12 	2023 Mar  1	2023 Mar  7	2023 Mar  7	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55607	2023-020AQ	Starlink-5700	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55608	2023-020AR	Starlink-5726	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55608	2023-020AR	Starlink-5726	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55609	2023-020AS	Starlink-5719	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55610	2023-020AT	Starlink-5722	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55610	2023-020AT	Starlink-5722	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55611	2023-020AU	Starlink-5730	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55612	2023-020AV	Starlink-5734	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55612	2023-020AV	Starlink-5734	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55613	2023-020AW	Starlink-5715	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55614	2023-020AX	Starlink-5714	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55615	2023-020AY	Starlink-5712	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55616	2023-020AZ	Starlink-5710	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55615	2023-020AY	Starlink-5712	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55616	2023-020AZ	Starlink-5710	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55617	2023-020BA	Starlink-5721	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55618	2023-020BB	Starlink-5717	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55619	2023-020BC	Starlink-5720	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55620	2023-020BD	Starlink-5718	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55621	2023-020BE	Starlink-5709	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55621	2023-020BE	Starlink-5709	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55622	2023-020BF	Starlink-5702	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55623	2023-020BG	Starlink-5698	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55628	2023-021A	Starlink-5484	2023 Feb 17 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
