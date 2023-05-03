@@ -28,6 +28,10 @@ def run_simulation(policy):
              
         # create list of space objects from the merged catalogue
         catalogue.Catalogue2SpaceObjects()
+    else: 
+        # set the current catalogue to a previous version
+        with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop.pickle'), 'rb') as f:
+            catalogue.SetCatalogue(pickle.load(f))
 
 
     # check if the simulation has already been run
@@ -40,6 +44,7 @@ def run_simulation(policy):
         print("Creating Launch Model...")
         in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
         policy = 'src/data/prediction_csv/policy_fsptest.json'
+
         # applies policy to the launch model and then creates space objects
         launch_file_object = Prediction2SpaceObjects(in_file, policy)
 

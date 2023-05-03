@@ -30,6 +30,15 @@ class SpaceCatalogue:
         - List of SpaceObjects
         """
         return self.Catalogue
+    
+    def SetCatalogue(self, catalogue):
+        """
+        This will set the current catalogue, usually a pickle file. This is for when the simulation has already been run and the catalogue is saved.
+
+        Args:
+            catalogue (List<Space Object>): List of SpaceObjects
+        """
+        self.Catalogue = catalogue
 
     def CreateCatalogueActive(self):
         """
