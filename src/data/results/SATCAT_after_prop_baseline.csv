@@ -1,0 +1,11 @@
+N,i,h,_soname,_owner,_application,_mass,_maneuverable,_propulsion,_length,_area,total_mass,total_cost
+38723,53,350,Starlink2,Starlink,Comms,260.0,y,electric,24.0,138.24,10067980,27183546000.0
+2200,53,525,Starlink2B,Starlink,Comms,260.0,y,electric,12.0,68.88,572000,1544400000.0
+3262,43,530,Starlink2C,Starlink,Comms,260.0,y,electric,12.0,69.0,848120,2289924000.0
+2655,33,535,Starlink2A,Starlink,Comms,260.0,y,electric,12.0,69.12,690300,1863810000.0
+6372,87.9,1200,Oneweb2,OneWeb,Comms,200.0,y,electric,15.2,79.04,1274400,3440880000.0
+4783,70,570,Starlink1,Starlink,Comms,260.0,y,electric,12.0,69.12,1243580,3357666000.0
+616,87.9,1200,Oneweb-1,OneWeb,Comms,200.0,y,electric,15.2,79.04,123200,332640000.0
+1400,54.9,680,BoeingLEO3,Boeing,Comms,250.0,y,electric,12.0,69.12,350000,945000000.0
+36,54,400,Avant_Space,Other,Advertising,50.0,y,electric,1.6,0.16,1800,4860000.0
+18,63.4,30000,Apogee_Networks,Other,Comms,20.0,n,None,0.6,0.06,360,972000.0

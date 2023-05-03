@@ -1,15 +1,15 @@
 {
-  "scenario_name": "baseline",
+  "scenario_name": "worst_case",
   "monthly_ton_capacity": "60",
   "launch_start_date":"2023-05-01",
-  "startup_failure_rate": "1",
-  "satellite_failure" : "1",
-  "espace": false,
+  "startup_failure_rate": "0",
+  "satellite_failure" : "0",
+  "espace": true,
   "sim_start_date":"2023-05-01",
   "sim_end_date":"2028-12-31",
   "sim_object_type": "all",
   "sim_propogation_type": "sgp4",
   "sim_object_catalogue" : "all",
-  "environment": "production",
-  "repull_catalogues": true
+  "environment": "development",
+  "repull_catalogues": false
 }
