@@ -60,7 +60,6 @@ class SpaceObject:
                 self.epoch = datetime.datetime.strptime(self.epoch, '%Y-%m-%dT%H:%M:%S.%f') # this is space-track
         self.day_of_year = get_day_of_year_and_fractional_day(self.epoch)
         #Variables for Propagation
-        # if station_keeping is not None, if station_keeping is len(1) then this will be the date of the end of station keeping. If station_keeping is len(2), the first date is the start of station_keeping activities, and the second date is the end of station keeping activities
         self.station_keeping = station_keeping
         if self.station_keeping == True: # if station_keeping is just set to True, then  the object will station keep from launch to decay
             self.station_keeping = [self.launch_date, self.decay_date] 
