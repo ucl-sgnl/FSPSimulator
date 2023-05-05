@@ -1,5 +1,5 @@
 #JCAT	Piece	Name	LDate	TLast	TOp	TDate	TF	Program	Plane	Att	Mvr	Class	Category	UNState	UNReg	UNPeriod	UNPerigee	UNApogee	UNInc	Result	Control	Discipline	Comment
-# Updated 2023 May 03 04:59:03
+# Updated 2023 May 04 02:21:57
 S00002	1957 ALP 2	First Sputnik	1957 Oct  4 	1957 Oct 27	1957 Oct 27	1957 Oct 27	-	Sputnik	-	-	-	C	TECH	SU	A/AC.105/INF.002	-	     227	     947	 65.1 	S	-	ENV*	First Earth satellite
 S00003	1957 BET 1	Second Sputnik	1957 Nov  3 	1957 Nov  9	1957 Nov  9	1957 Nov  9	-	Sputnik	-	-	-	C	BIO	SU	A/AC.105/INF.002	-	     225	    1671	 65.3 	S	-	BIO	First animal payload
 S00004	1958 ALP	Explorer 1	1958 Feb  1 	1958 Apr  1	1958 Apr  1	1958 Apr  1	-	Explorer ABMA	-	-	-	C	SCI	US	A/AC.105/INF.001	-	-	-	-	S	JPL	P*	Discovered trapped radiation
@@ -9492,9 +9492,9 @@ S44797	2019-079A	Kosmos-2542	2019 Nov 25 	2020 Apr 25	2020 Apr 25	2020 Apr 25	-	
 S44800	2019-080A	Tiba 1	2019 Nov 26 	2023 Mar  1	*	*	-	Tiba	-	-	M	CD	COM	EG	A/AC.105/INF/444	 1436.0 	   35783	   35801	  0.1 	S	-	-	-
 S44801	2019-080B	Inmarsat GX5	2019 Nov 26 	2023 Feb 28	*	*	-	Inmarsat 5	-	-	M	B	COM	UK	ST/SG/SER.E/922	 1436.0 	   35786	   35786	  0.0 	S	-	-	-
 S44804	2019-081A	Cartosat-3	2019 Nov 27 	2023 Feb	*	*	-	Cartosat	-	-	M	C	IMG	IN	ST/SG/SER.E/926	   94.8 	     498	     521	 97.5 	S	-	-	-
-S44806	2019-081C	Meshbed	2019 Nov 27 	2019 Dec	*	*	-	Analytic	-	-	-	B	TECH	US	ST/SG/SER.E/928	   94.8 	     498	     521	 97.5 	S	-	-	-
+S44806	2019-081C	Meshbed	2019 Nov 27 	2019 Dec	2021?	2021?	-	Analytic	-	-	-	B	TECH	US	ST/SG/SER.E/928	   94.8 	     498	     521	 97.5 	S	-	-	-
 S44807	2019-081D	Flock 4P 9	2019 Nov 27 	2021 Feb	2021 Q2?	2021 Q2?	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     518	 97.5 	S	-	-	-
-S44808	2019-081E	Flock 4P 10	2019 Nov 27 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     518	 97.5 	S	-	-	-
+S44808	2019-081E	Flock 4P 10	2019 Nov 27 	2023 Mar  6	2023 Mar  6	2023 Mar  6	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     518	 97.5 	S	-	-	-
 S44809	2019-081F	Flock 4P 11	2019 Nov 27 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     518	 97.5 	S	-	-	-
 S44810	2019-081G	Flock 4P 12	2019 Nov 27 	2021 Sep	2021 Sep	2021 Sep	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     517	 97.5 	S	-	-	-
 S44811	2019-081H	Flock 4P 4	2019 Nov 27 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     516	 97.5 	S	-	-	-
@@ -10724,7 +10724,7 @@ S47126	2020-088E	Starlink-1812	2020 Nov 24 	2023 Mar  1	*	*	-	Starlink 1.0V1	1 1
 S47127	2020-088F	Starlink-1836	2020 Nov 24 	2021 Sep 24	2021 Sep 24	2021 Sep 24?	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.1 	     379	     381	 53.1 	S	-	-	-
 S47128	2020-088G	Starlink-1837	2020 Nov 24 	2023 Mar  1	*	*	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.1 	     379	     380	 53.1 	S	-	-	-
 S47129	2020-088H	Starlink-1838	2020 Nov 24 	2023 Mar  1	*	*	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.1 	     379	     381	 53.1 	S	-	-	-
-S47130	2020-088J	Starlink-1839	2020 Nov 24 	2023 Mar  1	*	*	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.4 	     393	     394	 53.1 	S	-	-	-
+S47130	2020-088J	Starlink-1839	2020 Nov 24 	2023 Mar  1	2023 Apr 26?	2023 Apr 26?	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.4 	     393	     394	 53.1 	S	-	-	-
 S47131	2020-088K	Starlink-1840	2020 Nov 24 	2022 Jan 22	2022 Jan 22	2022 Jan 22	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.1 	     379	     381	 53.1 	S	-	-	-
 S47132	2020-088L	Starlink-1842	2020 Nov 24 	2021 Jun 20	2021 Jun 20	2021 Jun 20	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.1 	     379	     381	 53.1 	S	-	-	-
 S47133	2020-088M	Starlink-1843	2020 Nov 24 	2023 Mar  1	*	*	-	Starlink 1.0V1	1 1	-	M	B	COM	US	ST/SG/SER.E/967	   92.1 	     379	     381	 53.1 	S	-	-	-
@@ -10842,7 +10842,7 @@ S47309	2021-002A	CAPE-3	2021 Jan 17 	2023 Feb	*	*	-	ULALA	-	-	-	A	TECH	US	ST/SG/
 S47310	2021-002B	PolarCube	2021 Jan 17 	2021 Jan 17	2021 Feb?	2021 Feb?	-	UCO	-	-	-	A	SCI	US	ST/SG/SER.E/977	   94.7 	     494	     514	 60.7 	S	-	-	-
 S47311	2021-002C	AO-109	2021 Jan 17 	2023 Feb	*	*	-	AMSAT-NA	-	-	-	A	TECH	US	ST/SG/SER.E/977	   94.7 	     493	     511	 60.7 	S	-	-	-
 S47312	2021-002D	TechEdSat-7	2021 Jan 17 	2021 Jan 17	2022 May  4?	2022 May  4?	-	TES	-	-	-	C	TECH	[US]	-	-	-	-	-	S	-	-	-
-S47313	2021-002E	Prometheus 2.11	2021 Jan 17 	2021 Jan 17	*	*	-	Prometheus	-	-	-	D	COM	US	ST/SG/SER.E/977	   94.6 	     490	     511	 60.7 	S	-	-	-
+S47313	2021-002E	Prometheus 2.11	2021 Jan 17 	2021 Jan 17	2023 Apr?	2023 Apr?	-	Prometheus	-	-	-	D	COM	US	ST/SG/SER.E/977	   94.6 	     490	     511	 60.7 	S	-	-	-
 S47314	2021-002F	MiTEE 1	2021 Jan 17 	2023 Feb	*	*	-	UMI	-	-	-	A	TECH	US	ST/SG/SER.E/977	   94.6 	     489	     508	 60.7 	S	-	-	-
 S47315	2021-002G	Q-PACE	2021 Jan 17 	2021 Jan 17	2021 Jan 17	2021 Jan 17	-	UCF	-	-	-	A	TECH	[US]	-	-	-	-	-	F	-	-	-
 S47317	2021-002J	PICS 1	2021 Jan 17 	2021 Jan 17	2021 Jan 17?	2021 Jan 17?	-	BYU	-	-	-	A	TECH	[US]	-	-	-	-	-	F	-	-	-
@@ -11898,7 +11898,7 @@ S48629	2021-006EV	SpaceBEE-67	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swa
 S48630	2021-006EW	SpaceBEE-68	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     535	 97.3 	S	-	-	-
 S48631	2021-006EX	SpaceBEE-69	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     535	 97.3 	S	-	-	-
 S48632	2021-006EY	SpaceBEE-70	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     535	 97.3 	S	-	-	-
-S48633	2021-006EZ	SpaceBEE-71	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
+S48633	2021-006EZ	SpaceBEE-71	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
 S48634	2021-006FA	SpaceBEE-72	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
 S48635	2021-006FB	SpaceBEE-73	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
 S48636	2021-006FC	SpaceBEE-74	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     537	 97.3 	S	-	-	-
@@ -15942,7 +15942,7 @@ S56172	2023-051A	SQX-1 Test Payload	2023 Apr  7 	2023 Apr  7	2023 Apr  7	2023 Ap
 S56174	2023-052A	Intelsat IS-40e	2023 Apr  7 	2023 Apr  7	*	*	-	IntIS	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56176	2023-053A	JUICE	2023 Apr 14 	2023 Apr 14	*	*	E	ESA Plan	-	-	M	C	PLAN	[I-ESA]	-	-	-	-	-	S	-	-	-
 S56178	2023-054A	IMECE	2023 Apr 15 	2023 Apr 15	*	*	-	Tubitak	-	-	-	C	IMG	[TR]	-	-	-	-	-	S	-	-	-
-S56179	2023-054B	NuSat-39	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
+S56179	2023-054B	Sapling Giganteum	2023 Apr 15 	2023 Apr 15	*	*	-	Stanford	-	-	-	A	TECH	[US]	-	-	-	-	-	S	-	-	-
 S56180	2023-054C	DEWASAT-2	2023 Apr 15 	2023 Apr 15	*	*	-	DEWA	-	-	-	C	COM	[UAE]	-	-	-	-	-	S	-	-	-
 S56181	2023-054D	Kilicsat	2023 Apr 15 	2023 Apr 15	*	*	-	Gumush	-	-	-	B	COM	[TR]	-	-	-	-	-	S	-	-	-
 S56182	2023-054E	Lemur-2 OnReflection	2023 Apr 15 	2023 Apr 15	*	*	-	Spire	-	-	-	B	COM/MET-RO	[US]	-	-	-	-	-	S	-	-	-
@@ -15953,20 +15953,20 @@ S56186	2023-054J	Oceane	2023 Apr 15 	2023 Apr 19	*	*	-	GHG	-	-	M	B	SCI	[CA]	-	-	
 S56187	2023-054K	Lemur-2 SpaceGus	2023 Apr 15 	2023 Apr 15	*	*	-	OEWF	-	-	-	B	COM/MET-RO	[L]	-	-	-	-	-	S	-	-	-
 S56188	2023-054L	CIRBE	2023 Apr 15 	2023 Apr 15	*	*	-	UCO	-	-	-	A	SCI	[US]	-	-	-	-	-	S	-	-	-
 S56189	2023-054M	Taifa-1	2023 Apr 15 	2023 Apr 15	*	*	-	Kenya SA	-	-	-	C	IMG	[KE]	-	-	-	-	-	S	-	-	-
-S56190	2023-054N	LacunaSat-3C?	2023 Apr 15 	2023 Apr 15	*	*	-	Lacuna	-	-	-	B	TECH	[UK]	-	-	-	-	-	S	-	-	-
+S56190	2023-054N	NuSat-36	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
 S56191	2023-054P	Hawk 7A	2023 Apr 15 	2023 Apr 15	*	*	-	H360	-	P	M	B	SIG	[US]	-	-	-	-	-	S	-	-	-
 S56192	2023-054Q	ION SCV010	2023 Apr 15 	2023 Apr 15	*	*	-	DORBIT	-	P	M	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S56193	2023-054R	Hawk 7B	2023 Apr 15 	2023 Apr 15	*	*	-	H360	-	P	M	B	SIG	[US]	-	-	-	-	-	S	-	-	-
 S56194	2023-054S	Pleiades Yearling	2023 Apr 15 	2023 Apr 15	*	*	-	UC Pomona	-	-	-	A	TECH	[US]	-	-	-	-	-	S	-	-	-
 S56195	2023-054T	It's About Time	2023 Apr 15 	2023 Apr 15	*	*	-	TrustPoint	-	-	-	B	NAV	[US]	-	-	-	-	-	S	-	-	-
 S56196	2023-054U	Vigoride VR-6	2023 Apr 15 	2023 Apr 15	*	*	-	Momentus	-	-	M	B	TECH	[US]	-	-	-	-	-	S	-	-	-
-S56197	2023-054V	Umbra-06	2023 Apr 15 	2023 Apr 15	*	*	-	Umbra	-	P	-	B	IMG-R	[US]	-	-	-	-	-	S	-	-	-
-S56198	2023-054W	GHOST-2	2023 Apr 15 	2023 Apr 15	*	*	-	GHOST	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
-S56199	2023-054X	NuSat-36	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
+S56197	2023-054V	GHOST-2	2023 Apr 15 	2023 Apr 15	*	*	-	GHOST	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
+S56198	2023-054W	Umbra-06	2023 Apr 15 	2023 Apr 15	*	*	-	Umbra	-	P	-	B	IMG-R	[US]	-	-	-	-	-	S	-	-	-
+S56199	2023-054X	GHOST-1	2023 Apr 15 	2023 Apr 15	*	*	-	GHOST	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S56200	2023-054Y	Hawk 7C	2023 Apr 15 	2023 Apr 15	*	*	-	H360	-	P	M	B	SIG	[US]	-	-	-	-	-	S	-	-	-
-S56201	2023-054Z	NuSat-37	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
+S56201	2023-054Z	NuSat-39	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
 S56202	2023-054AA	NuSat-38	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
-S56203	2023-054AB	Sapling Giganteum	2023 Apr 15 	2023 Apr 15	*	*	-	Stanford	-	-	-	A	TECH	[US]	-	-	-	-	-	S	-	-	-
+S56203	2023-054AB	NuSat-37	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
 S56204	2023-054AC	Mey-Lin	2023 Apr 15 	2023 Apr 19	*	*	-	GHG	-	-	M	B	SCI	[CA]	-	-	-	-	-	S	-	-	-
 S56205	2023-054AD	FACSAT-2	2023 Apr 15 	2023 Apr 15	*	*	-	FAC	-	-	-	D	IMG	[CO]	-	-	-	-	-	S	-	-	-
 S56206	2023-054AE	Lemur-2 Romeo-N-LEO	2023 Apr 15 	2023 Apr 15	*	*	-	Spire	-	-	-	B	COM/MET-RO	[US]	-	-	-	-	-	S	-	-	-
@@ -15977,7 +15977,7 @@ S56210	2023-054AJ	Connecta T2.1	2023 Apr 15 	2023 Apr 15	*	*	-	Plan S	-	-	-	B	CO
 S56211	2023-054AK	InspireSat-7	2023 Apr 15 	2023 Apr 15	*	*	-	UVSQ	-	-	-	A	SCI	[F]	-	-	-	-	-	S	-	-	-
 S56212	2023-054AL	RoseyCubesat-1	2023 Apr 15 	2023 Apr 15	*	*	-	OSM Cube	-	-	-	B	TECH	[MC]	-	-	-	-	-	S	-	-	-
 S56213	2023-054AM	Sateliot-0	2023 Apr 15 	2023 Apr 15	*	*	-	Sateliot	-	-	-	B	SCI	[E]	-	-	-	-	-	S	-	-	-
-S56214	2023-054AN	GHOST-1	2023 Apr 15 	2023 Apr 15	*	*	-	GHOST	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
+S56214	2023-054AN	LacunaSat-3C?	2023 Apr 15 	2023 Apr 15	*	*	-	Lacuna	-	-	-	B	TECH	[UK]	-	-	-	-	-	S	-	-	-
 S56215	2023-054AP	VCUB	2023 Apr 15 	2023 Apr 15	*	*	-	VCUB	-	-	-	B	IMG	[BR]	-	-	-	-	-	S	-	-	-
 S56216	2023-054AQ	EPIC Hyper-1	2023 Apr 15 	2023 Apr 15	*	*	-	EPIC VIEW	-	-	-	B	IMG	[UK]	-	-	-	-	-	S	-	-	-
 S56217	2023-054AR	Kepler-20	2023 Apr 15 	2023 Apr 15	*	*	-	Kepler	-	-	-	B	COM	[CA]	-	-	-	-	-	S	-	-	-

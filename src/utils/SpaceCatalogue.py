@@ -11,6 +11,7 @@ from src.utils.coords import tle_parse
 
 class SpaceCatalogue:
     def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
+        self.TotalEnergy = []
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
