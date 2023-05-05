@@ -43,6 +43,9 @@ def run_simulation(policy):
     if policy["environment"] == "development" and os.path.exists(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
         with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle'), 'rb') as f:
             SATCAT_before_prop = pickle.load(f)
+    if policy["scenario_name"] == "baseline":
+        # don't create a launch model if baseline
+        SATCAT_before_prop = catalogue.ReturnCatalogue()
     else:
         # Launch Files
         print("Creating Launch Model...")
