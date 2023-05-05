@@ -351,29 +351,29 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
     return subconstellation_Space_Objects
 
 def remove_items_from_dict(dict, number):
-    if (int(number) == 0):
-        return dict
-    
     # calculate the number of items to remove
     companies_to_exclude = ["Starlink", "OneWeb", "E-Space"]
-    num_items_to_remove = round(len(dict) * float(number))
-
-    new_dict = []
+    output_company_list = []
     companies_to_remove = []
 
-    # firstly remove all the companies we want to exclude
-    for dictionary in dict:
-        if dictionary["_owner"] in companies_to_exclude:
-            new_dict.append(dictionary)
+    # firstly remove all the constellations we want to exclude from above list
+    for company in dict:
+        if company["_owner"] in companies_to_exclude:
+            output_company_list.append(company)
         else:
-            companies_to_remove.append(dictionary)
+            companies_to_remove.append(company)
 
-    # # randomly select items to remove
-    indices_to_remove = random.sample(range(len(companies_to_remove)), (num_items_to_remove - len(new_dict)))
+    # remove the total number of companies already excluded from the total number of companies
+    num_items_to_remove = round(int(len(dict) - len(output_company_list)) * number)
+
+    # randomly select items to remove
+    indices_to_remove = random.sample(range(len(companies_to_remove)), num_items_to_remove)
     remaining_companies = [v for i, v in enumerate(companies_to_remove) if i not in indices_to_remove]
-    # # create a new list of dictionaries without the selected items
-    new_dict.extend(remaining_companies)
-    return new_dict
+    
+    # add start ups to list of companies excluded
+    output_company_list.extend(remaining_companies)
+    
+    return output_company_list
 
 def apply_policy_at_organisation_level(metadata_dicts, policy):
     # firstly, remove the the start ups

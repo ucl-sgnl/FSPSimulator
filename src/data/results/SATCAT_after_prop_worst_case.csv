@@ -30,8 +30,9 @@ N,i,h,_soname,_owner,_application,_mass,_maneuverable,_propulsion,_length,_area,
 2500,43,530,Starlink2C,Starlink,Comms,260.0,y,electric,12.0,69.0,650000,1755000000.0
 2500,33,535,Starlink2A,Starlink,Comms,260.0,y,electric,12.0,69.12,650000,1755000000.0
 6372,87.9,1200,Oneweb2,OneWeb,Comms,200.0,y,electric,15.2,79.04,1274400,3440880000.0
-4896,30,390,AstraSpaceLowI,Astraspace,Internet,50.0,y,electric,0.6,0.06,244800,660960000.0
 4408,70,570,Starlink1,Starlink,Comms,260.0,y,electric,12.0,69.12,1146080,3094416000.0
+616,87.9,1200,Oneweb-1,OneWeb,Comms,200.0,y,electric,15.2,79.04,123200,332640000.0
+4896,30,390,AstraSpaceLowI,Astraspace,Internet,50.0,y,electric,0.6,0.06,244800,660960000.0
 4148,55,400,AstraSpaceMedI,Astraspace,Internet,50.0,y,electric,0.6,0.06,207400,559980000.0
 3600,55,508,Guowang3,Guowang,Comms,250.0,y,gas,12.0,69.12,900000,2430000000.0
 2240,97,380,AstraSpace3SSO,Astraspace,Internet,50.0,y,electric,0.6,0.06,112000,302400000.0
@@ -47,7 +48,6 @@ N,i,h,_soname,_owner,_application,_mass,_maneuverable,_propulsion,_length,_area,
 1296,42,610,Amazon_Kuiper2,Amazon,Comms,325.0,y,electric,12.0,69.12,421200,1137240000.0
 1156,51.9,630,Amazon_Kuiper-,Amazon,Comms,325.0,y,electric,12.0,69.12,375700,1014390000.0
 784,33,590,Amazon_Kuiper1,Amazon,Comms,325.0,y,electric,12.0,69.12,254800,687960000.0
-616,87.9,1200,Oneweb-1,OneWeb,Comms,200.0,y,electric,15.2,79.04,123200,332640000.0
 504,98,690,AstraSpace-SSO,Astraspace,Internet,50.0,y,electric,0.6,0.06,25200,68040000.0
 300,90,535,Chang_Guang,SSOCubesat,EO,150.0,y,gas,1.0,0.5,45000,121500000.0
 243,53.2,510,AST_&_Science,Other,Comms,1500.0,n,electric,80.0,6400.0,364500,984150000.0

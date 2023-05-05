@@ -47,17 +47,18 @@ def run_simulation(policy):
         # Launch Files
         print("Creating Launch Model...")
         in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
-        policy = 'src/data/prediction_csv/policy_fsptest.json'
+        policy_path = 'src/data/prediction_csv/policy_fsptest.json'
 
         # apply policy to launch file and load into UCL Catalogue
-        launch_file_object = Prediction2SpaceObjects(in_file, policy)
+        launch_file_object = Prediction2SpaceObjects(in_file, policy_path)
         SATCAT_before_prop = catalogue.ReturnCatalogue()
         SATCAT_before_prop = SATCAT_before_prop + launch_file_object
 
     # Propagate
+    timestep = int(policy["metric_timestep"])*24*60*60
     print("Propogating Satellites...")
     for satellite in SATCAT_before_prop:
-        satellite.prop_catobjects(jd_start[0], jd_stop[0], step_size)
+        satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # convert days to seconds
 
     # Export
     with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'), 'wb') as f:
