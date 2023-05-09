@@ -11,13 +11,15 @@ from src.utils.coords import tle_parse
 
 class SpaceCatalogue:
     def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
-        self.PullAllCataloguesIfNewer()
+        self.TotalEnergy = []
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
         self.sim_object_type = sim_object_type
         self.sim_object_catalogue = sim_object_catalogue
         self.repull_catalogues = repull_catalogues
+        self.PullAllCataloguesIfNewer()
+
 
     def ReturnCatalogue(self):
         """
@@ -29,6 +31,15 @@ class SpaceCatalogue:
         - List of SpaceObjects
         """
         return self.Catalogue
+    
+    def SetCatalogue(self, catalogue):
+        """
+        This will set the current catalogue, usually a pickle file. This is for when the simulation has already been run and the catalogue is saved.
+
+        Args:
+            catalogue (List<Space Object>): List of SpaceObjects
+        """
+        self.Catalogue = catalogue
 
     def CreateCatalogueActive(self):
         """

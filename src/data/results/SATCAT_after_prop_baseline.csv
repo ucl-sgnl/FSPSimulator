@@ -1,0 +1,8 @@
+N,i,h,_soname,_owner,_application,_mass,_maneuverable,_propulsion,_length,_area,total_mass,total_cost
+38807,53,350,Starlink2,Starlink,Comms,260.0,y,electric,24.0,138.24,10089820,27242514000.0
+2200,53,525,Starlink2B,Starlink,Comms,260.0,y,electric,12.0,68.88,572000,1544400000.0
+2500,43,530,Starlink2C,Starlink,Comms,260.0,y,electric,12.0,69.0,650000,1755000000.0
+2500,33,535,Starlink2A,Starlink,Comms,260.0,y,electric,12.0,69.12,650000,1755000000.0
+6372,87.9,1200,Oneweb2,OneWeb,Comms,200.0,y,electric,15.2,79.04,1274400,3440880000.0
+5050,70,570,Starlink1,Starlink,Comms,260.0,y,electric,12.0,69.12,1313000,3545100000.0
+616,87.9,1200,Oneweb-1,OneWeb,Comms,200.0,y,electric,15.2,79.04,123200,332640000.0

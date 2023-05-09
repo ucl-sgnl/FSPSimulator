@@ -435,7 +435,7 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
         # Velocity is the rate at which the position is changing, expressed in kilometers per second
         error, position, velocity = satellite.sgp4(time, fr)
         if error != 0:
-            print('error: ', error)
+            #print('error: ', error)
             break
         else:
             ephemeris.append([time,position, velocity]) #jd time, pos, vel
