@@ -89,7 +89,8 @@ class SpaceObject:
         self.tran = np.random.uniform(0, 2*np.pi) if self.tran is None else self.tran
         self.meananomaly = true_to_mean_anomaly(self.tran, self.eccentricity)
             # this can be 0 as it doesn't really change much for the time scale we are looking at
-        self.altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
+        # self.altitude = (self.perigee_altitude+self.apogee_altitude)/2 #TODO: make this not allowed for non-cirular orbits
+        self.altitude = self.perigee_altitude
         # self.atmos_density = 1e-12
         self.get_atmospheric_density(model = "exponential")            #BStar = rho0 #TODO: FIX
         self.C_d = 2.2 #Drag coefficient
