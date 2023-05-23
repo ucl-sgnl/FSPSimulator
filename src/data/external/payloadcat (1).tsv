@@ -1,5 +1,5 @@
 #JCAT	Piece	Name	LDate	TLast	TOp	TDate	TF	Program	Plane	Att	Mvr	Class	Category	UNState	UNReg	UNPeriod	UNPerigee	UNApogee	UNInc	Result	Control	Discipline	Comment
-# Updated 2023 May 04 02:21:57
+# Updated 2023 May 22 03:22:55
 S00002	1957 ALP 2	First Sputnik	1957 Oct  4 	1957 Oct 27	1957 Oct 27	1957 Oct 27	-	Sputnik	-	-	-	C	TECH	SU	A/AC.105/INF.002	-	     227	     947	 65.1 	S	-	ENV*	First Earth satellite
 S00003	1957 BET 1	Second Sputnik	1957 Nov  3 	1957 Nov  9	1957 Nov  9	1957 Nov  9	-	Sputnik	-	-	-	C	BIO	SU	A/AC.105/INF.002	-	     225	    1671	 65.3 	S	-	BIO	First animal payload
 S00004	1958 ALP	Explorer 1	1958 Feb  1 	1958 Apr  1	1958 Apr  1	1958 Apr  1	-	Explorer ABMA	-	-	-	C	SCI	US	A/AC.105/INF.001	-	-	-	-	S	JPL	P*	Discovered trapped radiation
@@ -4424,7 +4424,7 @@ S19959	1988-113Q	Kosmos-1985 SS 13	1988 Dec 23 	1989 Apr 25	1989 Apr 25	1989 Apr
 S19968	1989-033A	[STS 30]	1989 May  4 	1989 May  8	1989 May  8	1989 May  8 1943	-	OV-104	-	-	M	C	SS	US	ST/SG/SER.E/212	   90.8 	     297	     331	 28.9 	S	-	ATM/MG	Microgravity, lightning
 S19969	1989-033B	[Magellan]	1989 May  4 	1994 Oct 12	1994 Oct 12	1994 Oct 12	-	Magellan	-	-	M	C	PLAN	US	ST/SG/SER.E/212	-	-	-	-	S	-	PL	Venus radar mapper
 S19972	1989-034A	Cosmos-2019	1989 May  5 	1989 May 18	1989 May 18	1989 May 18 0401?	-	Oblik	-	-	M	D	IMG	SU	ST/SG/SER.E/205	   89.5 	     247	     268	 62.9 	S	-	-	-
-S19976	1989-035A	[USA 37]	1989 May 10 	2022 Aug	*	*	U	VORTEX	-	-	M	D	SIG	US	ST/SG/SER.E/212	  720.0 	     455	   40073	 27.5 	S	-	-	-
+S19976	1989-035A	[USA 37]	1989 May 10 	2023 May	*	*	U	VORTEX	-	-	M	D	SIG	US	ST/SG/SER.E/212	  720.0 	     455	   40073	 27.5 	S	-	-	-
 S19986	1989-036A	Cosmos-2020	1989 May 17 	1989 Jul 15	1989 Jul 15	1989 Jul 15 1902?	-	Kobal't	-	-	M	D	IMG	SU	ST/SG/SER.E/205	   89.7 	     180	     365	 64.8 	S	-	-	-
 S20000	1989-037A	Cosmos-2021	1989 May 24 	1989 Jul  6	1989 Jul  6	1989 Jul  6 2342?	-	Kometa	-	-	M	D	IMG	SU	ST/SG/SER.E/205	   89.3 	     204	     302	 70.0 	S	-	-	-
 S20006	1989-038A	Resurs-F	1989 May 25 	1989 Jun 17	1989 Jun 17	1989 Jun 17 0433?	-	Resurs-F1 C	-	-	M	C	IMG	SU	ST/SG/SER.E/205	   88.7 	     188	     263	 82.3 	S	-	-	-
@@ -5230,7 +5230,7 @@ S23051	1994-022A	[GOES 8]	1994 Apr 13 	2004 May  5	2004 May  5	2004 May  5	-	GOE
 S23087	1994-023A	Cosmos-2278	1994 Apr 23 	1995?	1999?	1999?	-	Tselina-2	-	-	-	D	SIG	RU	ST/SG/SER.E/277	  102.0 	     852	     881	 71.0 	S	-	-	-
 S23092	1994-024A	Cosmos-2279	1994 Apr 26 	1995?	1997?	1997?	-	Parus	PF	-	-	D	NAV	RU	ST/SG/SER.E/277	  105.0 	     973	    1019	 83.0 	S	-	-	-
 S23095	1994-025A	Cosmos-2280	1994 Apr 28 	1995 Mar 10	1995 Mar 10	1995 Mar 10	-	Neman	-	-	M	D	IMG	RU	ST/SG/SER.E/277	   89.0 	     198	     290	 70.0 	S	-	-	-
-S23097	1994-026A	[USA 103]	1994 May  3 	2021 May	*	*	U	TRUMPET	-	-	M	D	SIG	US	ST/SG/SER.E/276	   95.2 	     518	     537	 55.1 	S	-	-	-
+S23097	1994-026A	[USA 103]	1994 May  3 	2023 May	*	*	U	TRUMPET	-	-	M	D	SIG	US	ST/SG/SER.E/276	   95.2 	     518	     537	 55.1 	S	-	-	-
 S23099	1994-027A	SROSS-C2	1994 May  4 	2001 Jul 12	2001 Jul 12	2001 Jul 12	-	SROSS	-	-	-	C	AST	IN	ST/SG/SER.E/273	   98.0 	     437	     938	 46.2 	S	-	GRA/P*	GRB detector
 S23101	1994-028A	[MSTI-2]	1994 May  9 	1994 Sep  5	1994 Sep  5	1994 Sep  5	-	MSTI	-	-	-	D	TECH	US	ST/SG/SER.E/276	   97.1 	     415	     433	 93.1 	S	-	-	-
 S23105	1994-029A	[STEP 2]	1994 May 19 	1995	1998?	1998?	-	STP1	-	-	-	D	TECH	US	ST/SG/SER.E/276	   98.9 	     597	     813	 82.0 	S	-	-	-
@@ -5264,7 +5264,7 @@ S23205	1994-050C	Cosmos-2289	1994 Aug 11 	2000?	2000?	2000?	-	Uragan	-	-	M	D	NAV
 S23211	1994-051A	Molniya-3	1994 Aug 23 	1999 Oct?	1999 Oct?	1999 Oct?	-	Molniya-3	-	-	M	C	COM	RU	ST/SG/SER.E/281	  701.0 	     630	   39937	 62.9 	S	-	-	-
 S23215	1994-052A	Progress M-24	1994 Aug 25 	1994 Oct  4	1994 Oct  4	1994 Oct  4	-	Progress M	-	-	M	C	SS	RU	ST/SG/SER.E/281	   88.5 	     192	     238	 51.6 	S	-	-	-
 S23218	1994-053A	Cosmos 2290	1994 Aug 26 	1995 Apr  4	1995 Apr  4	1995 Apr  4	-	Orlets	-	-	M	D	IMG	RU	ST/SG/SER.E/281	   89.6 	     220	     315	 64.8 	S	-	-	-
-S23223	1994-054A	[USA 105]	1994 Aug 27 	2022 Sep	*	*	-	MERCURY	-	-	M	D	SIG	US	ST/SG/SER.E/278	   91.0 	     188	     460	 28.7 	S	-	-	-
+S23223	1994-054A	[USA 105]	1994 Aug 27 	2023 May	*	*	-	MERCURY	-	-	M	D	SIG	US	ST/SG/SER.E/278	   91.0 	     188	     460	 28.7 	S	-	-	-
 S23227	1994-055A	Optus B3	1994 Aug 27 	2016 Dec	2016 Dec	2016 Dec 31?	-	Optus	-	-	M	B	COM	AU	ST/SG/SER.E/435	 1436.0 	   35786	   35786	  0.0 	S	-	-	-
 S23230	1994-056A	ETS-VI	1994 Aug 28 	1995 Aug	1999?	1999?	-	ETS	-	-	M	C	COM	J	ST/SG/SER.E/299	  862.0 	    8638	   38609	 13.5 	S	-	-	-
 S23233	1994-057A	[USA 106]	1994 Aug 29 	2004	2002 Jul	2004?	-	DMSP 5D-2	-	-	-	D	MET	US	ST/SG/SER.E/278	  101.9 	     841	     859	 98.9 	S	-	-	-
@@ -5346,7 +5346,7 @@ S23553	1995-019A	[AMSC 1]	1995 Apr  7 	2023 Feb  4	*	*	-	AMSC	-	-	M	B	COM	US	ST/
 S23555	1995-020A	Progress M-27	1995 Apr  9 	1995 May 23	1995 May 23	1995 May 23	-	Progress M	-	-	M	C	SS	RU	ST/SG/SER.E/286	   88.6 	     193	     242	 51.6 	S	-	-	-
 S23558	1986-017JE	GFZ-1	1995 Apr  9 	1995 Apr 19	1995 Apr 19	1995 Apr 19	-	GFZ	-	-	-	C	GEOD	RU*	ST/SG/SER.E/286	   92.3 	     386	     411	 51.6 	S	-	GEOD	Laser reflector
 S23560	1995-021A	ERS-1/2	1995 Apr 21 	2011 Jul	2011 Jul  6	2011 Sep  5	-	ESA ERS	-	-	-	C	IMG-R/SCI	I-ESA	ST/SG/SER.E/285	  101.0 	     798	     798	 98.5 	S	-	ATM/ALT	SAR, Altimeter, radiometer
-S23567	1995-022A	[USA 110]	1995 May 14 	2021 Jan	*	*	U	ORION1	-	-	M	D	SIG	US	ST/SG/SER.E/293	   90.7 	     165	     455	 28.5 	S	-	-	-
+S23567	1995-022A	[USA 110]	1995 May 14 	2023 May	*	*	U	ORION1	-	-	M	D	SIG	US	ST/SG/SER.E/293	   90.7 	     165	     455	 28.5 	S	-	-	-
 S23571	1995-023A	[Intelsat 706]	1995 May 17 	2014 Nov 20	2014 Nov 20	2014 Dec  5	-	Int7	-	-	M	C	COM	[US]	-	-	-	-	-	S	-	-	-
 S23579	1995-024A	Spektr	1995 May 20 	2001 Mar 23	2001 Mar 23	2001 Mar 23	-	TsM	-	-	M	C	SS	RU	ST/SG/SER.E/289	   89.8 	     221	     337	 51.7 	S	-	ATM/MG/MM	Lidar, ozone spectra, exposure
 S23581	1995-025A	[GOES 9]	1995 May 23 	2007 Jun	2007 Jun 15	2007 Jun 15	-	GOES Next	-	-	M	C	MET	US	ST/SG/SER.E/293	 1604.2 	   35614	   42419	  0.2 	S	-	-	-
@@ -5360,7 +5360,7 @@ S23603	1995-032A	Cosmos-2315	1995 Jul  5 	2002 Feb	2005?	2005?	-	Nadezhda-M	TA	-
 S23605	1995-033A	Helios 1A	1995 Jul  7 	2011 Sep	2011 Oct?	2012 Feb	-	Helios	-	-	-	D	IMG	F	ST/SG/SER.E/321	   98.0 	     657	     673	 98.1 	S	-	-	-
 S23606	1995-033B	CERISE	1995 Jul  7 	2000?	2005?	2005?	-	CERISE	-	-	-	D	SIG	F	ST/SG/SER.E/331	   98.0 	     657	     673	 98.1 	S	-	-	-
 S23607	1995-033C	UPM-Sat 1	1995 Jul  7 	1996 Feb?	1997	1997	-	UPM	-	-	-	A	MGRAV	E	ST/SG/SER.E/305	   98.0 	     650	     650	 98.1 	S	-	MG	Fluid dynamics experiment
-S23609	1995-034A	[USA 112]	1995 Jul 10 	2021 Sep	*	*	U	TRUMPET	-	-	M	D	SIG	US	ST/SG/SER.E/301	   89.6 	     245	     255	 56.1 	S	-	-	-
+S23609	1995-034A	[USA 112]	1995 Jul 10 	2023 May	*	*	U	TRUMPET	-	-	M	D	SIG	US	ST/SG/SER.E/301	   89.6 	     245	     255	 56.1 	S	-	-	-
 S23612	1995-035A	[STS 70]	1995 Jul 13 	1995 Jul 22	1995 Jul 22	1995 Jul 22 1202	-	OV-103	-	-	M	C	SS	US	ST/SG/SER.E/301	   90.5 	     288	     318	 28.4 	S	-	MG/BIO	Microgravity, rats
 S23613	1995-035B	[TDRS]	1995 Jul 13 	2023 Feb  5	*	*	-	TDRS	-	-	M	C	COM	US	ST/SG/SER.E/301	 1436.2 	   35790	   35790	  0.0 	S	-	-	-
 S23617	1995-036A	Progress M-28	1995 Jul 20 	1995 Sep  4	1995 Sep  4	1995 Sep  4	-	Progress M	-	-	M	C	SS	RU	ST/SG/SER.E/294	   88.7 	     191	     258	 51.6 	S	-	-	-
@@ -5444,7 +5444,7 @@ S23846	1996-022A	MSAT-1	1996 Apr 20 	2020 Nov	2020 Nov 19	2020 Nov 19	-	M-SAT	-	
 S23848	1996-023A	Priroda	1996 Apr 23 	2001 Mar 23	2001 Mar 23	2001 Mar 23	-	TsM	-	-	M	C	SS	RU	ST/SG/SER.E/320	   89.9 	     220	     347	 51.6 	S	-	ATM	SAR, radiometers, ozone
 S23851	1996-024A	[MSX]	1996 Apr 24 	2006 May	2008 Jun  2	2008 Jun  2	-	SDIO Delta	-	-	-	D	TECH/AST	US	ST/SG/SER.E/319	  102.9 	     903	     913	 99.4 	S	APL	IRA*	IR survey
 S23853	1996-025A	Cosmos-2332	1996 Apr 24 	1996 Apr 24	1996 Apr 24	1996 Apr 24	-	Yug	-	-	-	D	CAL	RU	ST/SG/SER.E/320	  104.0 	     304	    1585	 83.0 	S	-	-	-
-S23855	1996-026A	[USA 118]	1996 Apr 24 	2022 Oct	*	*	-	MERCURY	-	-	M	D	SIG	US	ST/SG/SER.E/319	  684.0 	     225	   38455	 28.6 	S	-	-	-
+S23855	1996-026A	[USA 118]	1996 Apr 24 	2023 May	*	*	-	MERCURY	-	-	M	D	SIG	US	ST/SG/SER.E/319	  684.0 	     225	   38455	 28.6 	S	-	-	-
 S23857	1996-027A	SAX	1996 Apr 30 	2003 Apr 29	2003 Apr 29	2003 Apr 29	-	ASI	-	-	-	C	AST	I	A/AC.105/INF.400	   96.3 	     583	     605	  4.0 	S	Fucino	XRA*	Broad band spectra
 S23860	1996-028A	Progress M-31	1996 May  5 	1996 Aug  1	1996 Aug  1	1996 Aug  1	-	Progress M	-	-	M	C	SS	RU	ST/SG/SER.E/320	   88.7 	     192	     257	 51.6 	S	-	-	-
 S23862	1996-029D	[USA 122]	1996 May 12 	2010?	2010?	2010?	-	NOSS2	-	-	M	D	SIG	US	ST/SG/SER.E/319	   93.7 	     284	     635	 63.4 	S	-	-	-
@@ -5625,7 +5625,7 @@ S25023	1997-066A	MAQsat-H	1997 Oct 30 	1997 Nov	1997 Nov	1997 Nov	-	Ari5	-	-	-	C
 S25024	1997-066B	MAQsat-B	1997 Oct 30 	1997 Nov	1997 Nov	1997 Nov	-	Ari5	-	-	-	C	TECH	I-ESA	ST/SG/SER.E/480	  466.4 	     550	   26537	  7.8 	S	-	-	-
 S25025	1997-066C	[YES]	1997 Oct 30 	1997 Nov	1997 Nov	1997 Nov	-	Ari5	-	-	-	C	TECH	[I-ESA]	-	-	-	-	-	S	-	-	-
 S25030	1997-067A	[Navstar]	1997 Nov  6 	2006 Jul	2014 Oct	2015 Mar 26	-	GPS IIA	-	-	M	D	NAV	US	ST/SG/SER.E/339	  720.4 	   19871	   20643	 54.9 	S	-	-	-
-S25034	1997-068A	[USA 136]	1997 Nov  8 	2008	2008?	2008?	-	TRUMPET	-	-	M	D	SIG	US	ST/SG/SER.E/339	  712.8 	    1098	   39012	 63.6 	S	-	-	-
+S25034	1997-068A	[USA 136]	1997 Nov  8 	2008	2008?	*	-	TRUMPET	-	-	M	D	SIG	US	ST/SG/SER.E/339	  712.8 	    1098	   39012	 63.6 	S	-	-	-
 S25039	1997-069A	[Iridium 43]	1997 Nov  9 	2017 May	2017 May 14	2017 May 15	-	Iridium	E	-	M	B	COM	US	ST/SG/SER.E/339	  100.5 	     780	     780	 86.4 	S	-	-	-
 S25040	1997-069B	[Iridium 41]	1997 Nov  9 	2006 Aug	2018 Jun 21	2018 Jun 27	-	Iridium	E	-	M	B	COM	US	ST/SG/SER.E/339	  100.5 	     780	     780	 86.4 	S	-	-	-
 S25041	1997-069C	[Iridium 40]	1997 Nov  9 	2017 Apr	2017 Apr  5	2017 Apr  5?	-	Iridium	E	-	M	B	COM	US	ST/SG/SER.E/339	  100.5 	     780	     780	 86.4 	S	-	-	-
@@ -5655,14 +5655,14 @@ S25106	1997-082C	[Iridium 47]	1997 Dec 20 	2006 Aug	2018 May  6?	2018 Aug 26	-	I
 S25107	1997-082D	[Iridium 48]	1997 Dec 20 	1999 Apr	1999 Apr	1999 Apr	-	Iridium	A	-	M	B	COM	US	ST/SG/SER.E/339	  100.5 	     780	     780	 86.4 	S	-	-	-
 S25108	1997-082E	[Iridium 49]	1997 Dec 20 	2018 Jan	2018 Jan 24	2018 Feb  2	-	Iridium	A	-	M	B	COM	US	ST/SG/SER.E/339	  100.5 	     780	     780	 86.4 	S	-	-	-
 S25110	1997-083A	[Intelsat 804]	1997 Dec 22 	2005 Jan 14	2005 Jan 14	2005 Jan 14	-	Int8	-	-	M	C	COM	[US]	-	-	-	-	-	S	-	-	-
-S25112	1997-084A	[Orbcomm FM3]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
-S25113	1997-084B	[Orbcomm FM4]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
-S25114	1997-084C	[Orbcomm FM5]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
-S25115	1997-084D	[Orbcomm FM6]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
-S25116	1997-084E	[Orbcomm FM7]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
-S25117	1997-084F	[Orbcomm FM8]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
-S25118	1997-084G	[Orbcomm FM9]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
-S25119	1997-084H	[Orbcomm FM10]	1997 Dec 23 	2014 Feb	2018?	2018?	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25112	1997-084A	[Orbcomm FM8]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25113	1997-084B	[Orbcomm FM10]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25114	1997-084C	[Orbcomm FM11]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25115	1997-084D	[Orbcomm FM12]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25116	1997-084E	[Orbcomm FM9]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25117	1997-084F	[Orbcomm FM5]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25118	1997-084G	[Orbcomm FM6]	1997 Dec 23 	2014 Feb	*	*	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
+S25119	1997-084H	[Orbcomm FM7]	1997 Dec 23 	1998 Jul?	1998 Jul?	1998 Jul?	-	Orbcomm	-	-	-	B	COM	US	ST/SG/SER.E/339	  101.3 	     820	     824	 45.0 	S	-	-	-
 S25123	1997-085A	EarlyBird	1997 Dec 24 	1997 Dec 28	1997 Dec 28	1997 Dec 28	-	EarlyBird	-	-	-	B	IMG	US	ST/SG/SER.E/339	   94.2 	     482	     489	 97.3 	S	-	-	-
 S25126	1997-086A	[Asiasat-3]	1997 Dec 24 	2002 Jul  1	2002 Jul  1	2002 Jul  1	-	Asiasat	-	-	M	B	COM	[CN]	-	-	-	-	-	S	-	-	-
 S25131	1998-001A	[Lunar Prospector]	1998 Jan  7 	1999 Jul 31	1999 Jul 31	1999 Jul 31	-	Discovery	-	-	M	C	PLAN	US	ST/SG/SER.E/341	  118.0 	      99	     100	 90.0 	S	-	PL	Lunar mapping
@@ -5720,7 +5720,7 @@ S25319	1998-026A	Iridium 69	1998 May  2 	1998 Oct	1998 Oct	1998 Oct	-	Iridium	A	
 S25320	1998-026B	Iridium 71	1998 May  2 	1998 Jul?	1998 Jul?	1998 Jul?	-	Iridium	A	-	M	B	COM	CN*	ST/SG/SER.E/356	  100.0 	     632	     634	 86.4 	F	-	-	-
 S25327	1998-027A	Cosmos-2351	1998 May  7 	2001 Jan	2001 Jan?	2001 Jan?	-	Oko E	-	-	M	D	EW	RU	ST/SG/SER.E/347	  716.0 	     780	   39600	 62.9 	S	-	-	-
 S25331	1998-028A	Echostar 4	1998 May  7 	2006 Aug	2011 Jul 16	2011 Jul 16	-	Echostar	-	-	M	B	COM	US	ST/SG/SER.E/344	 1436.2 	   35777	   35798	  0.0 	S	-	-	-
-S25336	1998-029A	[USA 139]	1998 May  9 	2022 Feb	*	*	-	ORION1	-	-	M	D	SIG	US	ST/SG/SER.E/344	   91.8 	     172	     551	 28.6 	S	-	-	-
+S25336	1998-029A	[USA 139]	1998 May  9 	2023 May	*	*	-	ORION1	-	-	M	D	SIG	US	ST/SG/SER.E/344	   91.8 	     172	     551	 28.6 	S	-	-	-
 S25338	1998-030A	[NOAA 15]	1998 May 13 	2023 Feb	*	*	-	ATN	-	-	-	C	MET	US	ST/SG/SER.E/344	  101.1 	     826	     840	 98.7 	S	-	-	-
 S25340	1998-031A	Progress M-39	1998 May 14 	1998 Oct 29	1998 Oct 29	1998 Oct 29	-	Progress M	-	-	M	C	SS	RU	ST/SG/SER.E/347	   88.0 	     193	     238	 51.6 	S	-	-	-
 S25342	1998-032A	[Iridium 70]	1998 May 17 	2018 Sep 20	2018 Sep 20	2018 Sep 27	-	Iridium	F	-	M	B	COM	US	ST/SG/SER.E/344	  100.5 	     780	     780	 86.4 	S	-	-	-
@@ -6073,7 +6073,7 @@ S26624	2000-076A	Anik F1	2000 Nov 21 	2023 Feb  5	*	*	-	Anik F	-	-	M	B	COM	CA	ST
 S26626	2000-077A	[Sirius 3]	2000 Nov 30 	2016 Aug	2016 Aug 11?	2016 Aug 11?	-	Sirius CD	-	-	M	B	COM	US	ST/SG/SER.E/385	 1435.9 	   24509	   47094	 63.4 	S	-	-	-
 S26630	2000-078A	[STS]	2000 Dec  1 	2000 Dec 11	2000 Dec 11	2000 Dec 11 2303	-	STS	-	-	M	C	SS	US	ST/SG/SER.E/385	   91.7 	     352	     365	 51.5 	S	JSC	M	-
 S26631	2000-079A	[EROS A1]	2000 Dec  5 	2010	2013?	2013?	-	Ofeq EROS	-	-	-	B	IMG	[IL]	-	-	-	-	-	S	IAI	-	-
-S26635	2000-080A	[NRO]	2000 Dec  6 	2021 Jan	*	*	-	SDS-C	-	-	M	D	COM*	US	ST/SG/SER.E/385	  666.0 	     267	   37378	 26.5 	S	-	-	-
+S26635	2000-080A	[NRO]	2000 Dec  6 	2023 May	*	*	-	SDS-C	-	-	M	D	COM*	US	ST/SG/SER.E/385	  666.0 	     267	   37378	 26.5 	S	-	-	-
 S26638	2000-081A	Astra 2D	2000 Dec 20 	2021 Jun 12	2021 Jun 12	2021 Jun 12	-	Astra	-	-	M	B	COM	L	A/AC.105/INF.412	 1435.8 	   35752	   35820	  0.1 	S	Bergdorf	-	-
 S26639	2000-081B	[GE 8]	2000 Dec 20 	2022 Nov 26	2022 Dec  2	2022 Dec  2	-	GE	-	-	M	B	COM	US	ST/SG/SER.E/385	 1436.1 	   35780	   35795	  0.0 	S	-	-	-
 S26640	2000-081C	LDREX	2000 Dec 20 	2000 Dec 20	2000 Dec 20	2000 Dec 20	-	LDREX	-	-	-	C	TECH	J	ST/SG/SER.E/407	  633.0 	     200	   35883	  2.0 	U	NASDA	-	-
@@ -6306,7 +6306,7 @@ S27869	2003-037B	Kosmos-2401	2003 Aug 19 	2004	2008?	2008?	-	Strela-3	A	-	-	D	CO
 S27871	2003-038A	SIRTF	2003 Aug 25 	2020 Jan 30	2020 Jan 29	2020 Jan 30 2216	-	Great Obs	-	-	-	C	AST	US	ST/SG/SER.E/437	   87.8 	     171	     172	 31.5 	S	JPL	IRA*	IR observatory
 S27873	2003-039A	Progress M-48	2003 Aug 29 	2004 Jan 28	2004 Jan 28	2004 Jan 28	-	Progress M	-	-	M	C	SS	RU	ST/SG/SER.E/442	   88.6 	     193	     243	 51.7 	S	TsUP	-	-
 S27875	2003-040A	USA 170	2003 Aug 29 	2023 Feb  5	*	*	-	DSCS 3	-	-	M	D	COM	US	ST/SG/SER.E/437	  606.4 	     238	   34469	 25.3 	S	-	-	-
-S27937	2003-041A	USA 171	2003 Sep  9 	2022 Sep 19	*	*	-	Adv Orion	-	-	M	D	SIG*	US	ST/SG/SER.E/437	  630.2 	     165	   35778	 26.7 	S	-	-	-
+S27937	2003-041A	USA 171	2003 Sep  9 	2023 May	*	*	-	Adv Orion	-	-	M	D	SIG*	US	ST/SG/SER.E/437	  630.2 	     165	   35778	 26.7 	S	-	-	-
 S27939	2003-042A	Mozhaets-4	2003 Sep 27 	2023 Jan	*	*	-	Mozhaets	-	-	-	C	TECH	RU	ST/SG/SER.E/442	   98.9 	     682	     710	 98.2 	S	Mozhaiskiy	-	-
 S27941	2003-042C	NigeriaSat 1	2003 Sep 27 	2011 Sep	2011 Jun	2011 Nov 15	-	DMC	-	-	-	C	IMG	NG	A/AC.105/INF.411	-	-	-	-	S	SSTL	-	-
 S27942	2003-042D	BNSCSat 1 (UK-DMC)	2003 Sep 27 	2011 Sep	2010 Sep	2011 Nov	-	DMC	-	-	-	C	IMG	UK	ST/SG/SER.E/441	   98.5 	     686	     686	 98.2 	S	SSTL	-	-
@@ -6682,7 +6682,7 @@ S32294	2007-056B	Skynet 5B	2007 Nov 14 	2023 Feb  5	*	*	-	Skynet	-	-	M	D	COM	UK	
 S32299	2007-057A	Sirius 4	2007 Nov 14 	2023 Feb  5	*	*	-	Sirius	-	-	M	B	COM	S	ST/SG/SER.E/532	 1436.0 	   35790	   35790	  0.1 	S	-	-	-
 S32373	2007-058A	Raduga-1M	2007 Dec  9 	2010 Jan	2013 May	2013 Jul  1	-	Globus-1M	-	-	M	D	COM	RU	ST/SG/SER.E/537	 1423.0 	   35334	   35742	  0.1 	S	-	-	-
 S32376	2007-059A	COSMO-SkyMed 2	2007 Dec  9 	2023 Feb	*	*	-	COSMO	-	-	-	D	IMG-R	I	ST/SG/SER.E/538	   97.2 	     621	     624	 97.8 	S	-	-	-
-S32378	2007-060A	USA 198	2007 Dec 10 	2020 Oct	*	*	-	SDS-C	-	-	M	D	COM*	US	ST/SG/SER.E/534	  294.0 	     220	   16322	 60.7 	S	-	-	-
+S32378	2007-060A	USA 198	2007 Dec 10 	2023 May	*	*	-	SDS-C	-	-	M	D	COM*	US	ST/SG/SER.E/534	  294.0 	     220	   16322	 60.7 	S	-	-	-
 S32382	2007-061A	RADARSAT-2	2007 Dec 14 	2023 Feb	*	*	-	Radarsat	-	-	-	C	IMG-R	CA	ST/SG/SER.E/540	  100.8 	     809	     811	 98.8 	S	-	-	-
 S32384	2007-062A	USA 199	2007 Dec 20 	2023 Feb  5	*	*	-	GPS IIRM	-	-	M	D	NAV	US	ST/SG/SER.E/534	  356.1 	     194	   20357	 40.0 	S	CSOC/Schriever	-	Global Positioning System navigation satellite.
 S32387	2007-063A	[RASCOM]	2007 Dec 21 	2010 Oct 10	2010 Oct  8	2010 Oct  8	-	Rascom	-	-	M	C	COM	[MU]*	-	-	-	-	-	S	-	-	-
@@ -6824,7 +6824,7 @@ S34713	2009-017A	WGS F2 (USA 204)	2009 Apr  4 	2023 Feb  6	*	*	-	WGS	-	-	M	D	COM
 S34779	2009-018A	Compass G2	2009 Apr 14 	2009 Apr 14	2010 Sep  8	2010 Sep  8	-	Beidou-2G	-	-	M	D	NAV	CN	ST/SG/SER.E/602	  720.0 	     200	   42000	 20.5 	S	Xian?	-	-
 S34807	2009-019A	RISAT-2	2009 Apr 20 	2022 Jul	2022 Aug 29?	2022 Aug 29?	-	RISAT	-	-	M	D	IMG-R	IN	ST/SG/SER.E/570	   94.3 	     412	     553	 41.2 	S	-	-	-
 S34808	2009-019B	ANUSAT	2009 Apr 20 	2012 Jan	2012 Apr 18?	2012 Apr 18?	-	AnnaU	-	-	-	A	TECH	IN	ST/SG/SER.E/570	   94.3 	     413	     553	 41.2 	S	-	-	-
-S34810	2009-020A	SICRAL-1B	2009 Apr 20 	2022 Sep 20	*	*	-	Sicral	-	-	M	D	COM	I	ST/SG/SER.E/615	 1436.0 	   36000	   36000	  0.1 	S	-	-	-
+S34810	2009-020A	SICRAL-1B	2009 Apr 20 	2023 May	*	*	-	Sicral	-	-	M	D	COM	I	ST/SG/SER.E/615	 1436.0 	   36000	   36000	  0.1 	S	-	-	-
 S34839	2009-021A	Yaogan 6	2009 Apr 22 	2022 Feb	2014 Jul  5?	*	Z	JB-7	-	-	M	D	IMG-R	CN	ST/SG/SER.E/602	   90.0 	     530	     530	 98.0 	S	-	-	-
 S34871	2009-022A	Cosmos-2450	2009 Apr 29 	2009 Jul 27	2009 Jul 27	2009 Jul 27 1045?	-	Kobal't-M	-	-	M	D	IMG	RU	ST/SG/SER.E/572	   89.5 	     180	     363	 67.1 	S	Gol-2	-	-
 S34903	2009-023A	STSS ATRR (USA 205)	2009 May  5 	2022 Apr	*	*	-	STSS	-	-	M	D	EW*	US	ST/SG/SER.E/573	  101.5 	     792	     872	 99.1 	S	-	-	-
@@ -6869,7 +6869,7 @@ S35755	2009-044A	JCSAT-12	2009 Aug 21 	2023 Feb  5	*	*	-	JCSAT	-	-	M	B	COM	J	ST/
 S35756	2009-044B	Optus D3	2009 Aug 21 	2023 Feb  5	*	*	-	Optus	-	-	M	B	COM	AU	ST/SG/SER.E/579	-	   35780	   35780	  0.0 	S	-	-	-
 S35811	2009-045A	STS-128	2009 Aug 29 	2009 Sep 12	2009 Sep 12	2009 Sep 12 0053	-	STS	-	-	M	C	SS	US	ST/SG/SER.E/587	   88.4 	     156	     238	 51.6 	S	JSC	-	-
 S35812	2009-046A	[Palapa D]	2009 Aug 31 	2021 Apr 20	2021 Apr 20	2021 Apr 20	-	Palapa D	-	-	M	B	COM	[ID]	-	-	-	-	-	S	-	-	-
-S35815	2009-047A	USA 207	2009 Sep  8 	2022 Sep 30	*	*	-	NEMESIS	-	-	M	D	SIG*	US	ST/SG/SER.E/587	  774.2 	    7308	   35797	 23.0 	S	-	-	-
+S35815	2009-047A	USA 207	2009 Sep  8 	2023 May	*	*	-	NEMESIS	-	-	M	D	SIG*	US	ST/SG/SER.E/587	  774.2 	    7308	   35797	 23.0 	S	-	-	-
 S35817	2009-048A	HTV 1	2009 Sep 10 	2009 Nov  1	2009 Nov  1	2009 Nov  1	-	HTV	-	-	M	C	SS	J	ST/SG/SER.E/600	   91.0 	     340	     353	 51.6 	S	Tsukuba	-	-
 S35865	2009-049A	Meteor-M	2009 Sep 17 	2022 Nov	2014 Sep 23	*	Z	Meteor-M	-	-	-	C	MET/IMG-R	RU	ST/SG/SER.E/593	  101.0 	     817	     822	 98.8 	S	Planeta	-	-
 S35866	2009-049B	Sterkh	2009 Sep 17 	2009 Oct?	2009 Oct?	2009 Dec?	-	Sterkh	-	-	-	C	COM	RU	ST/SG/SER.E/593	  101.0 	     815	     821	 98.8 	S	-	-	-
@@ -7017,7 +7017,7 @@ S37226	2010-062E	FALCONSAT	2010 Nov 20 	2011 Jun	2013?	2013?	-	Falconsat	-	-	-	D
 S37227	2010-062F	FASTRAC 1	2010 Nov 20 	2012 Aug	2012 Aug	2013?	-	STP2	-	-	-	D	TECH*	US	ST/SG/SER.E/611	   97.5 	     628	     655	 71.9 	S	-	-	-
 S37230	2010-062J	Ballast A	2010 Nov 20 	2010 Nov 20	2010 Nov 20	2010 Nov 20	-	STP2	-	-	-	D	TECH*	US	ST/SG/SER.E/611	  109.4 	    1200	    1204	 72.0 	S	-	-	-
 S37231	2010-062K	Ballast A	2010 Nov 20 	2010 Nov 20	2010 Nov 20	2010 Nov 20	-	STP2	-	-	-	D	TECH*	US	ST/SG/SER.E/611	  109.4 	    1200	    1204	 72.0 	S	-	-	-
-S37232	2010-063A	USA 223	2010 Nov 21 	2021 Sep  7	*	*	-	Adv Orion	-	-	M	D	SIG*	US	ST/SG/SER.E/611	  692.2 	     214	   35678	 26.5 	S	-	-	-
+S37232	2010-063A	USA 223	2010 Nov 21 	2023 May	*	*	-	Adv Orion	-	-	M	D	SIG*	US	ST/SG/SER.E/611	  692.2 	     214	   35678	 26.5 	S	-	-	-
 S37234	2010-064A	ChinaSat-20A	2010 Nov 24 	2023 Feb  7	*	*	-	Shentong	-	-	M	D	COM	CN	ST/SG/SER.E/649	  756.0 	     209	   41996	 25.0 	S	-	-	-
 S37237	2010-065A	HYLAS-1	2010 Nov 26 	2023 Feb  7	*	*	-	Avanti	-	-	M	B	COM	UK	ST/SG/SER.E/618	 1436.0 	-	-	  0.0 	S	-	-	-
 S37238	2010-065B	Intelsat 17	2010 Nov 26 	2023 Feb  8	*	*	-	IntIS	-	-	M	B	COM	US	ST/SG/SER.E/688	-	-	-	-	S	-	-	-
@@ -7212,8 +7212,8 @@ S38354	2012-029A	Yaogan 15	2012 May 29 	2019 Jul	2019 Jul?	2019 Jul?	-	JB-9	-	-	
 S38356	2012-030A	Intelsat 19	2012 Jun  1 	2023 Feb 10	*	*	-	IntIS	-	-	M	B	COM	US	ST/SG/SER.E/667	  644.7 	     882	   35805	  0.3 	S	-	-	-
 S38358	2012-031A	NuStar	2012 Jun 13 	2023 Feb 10	*	*	-	SMEX	-	-	-	C	AST	US	ST/SG/SER.E/667	   97.3 	     620	     639	  6.0 	S	UCB	XRA*	Hard X-ray imaging observatory
 S38461	2012-032A	[Shenzhou-9]	2012 Jun 16 	2012 Jun 29	2012 Jun 29	2012 Jun 29 0202	-	Shenzhou	-	-	M	C	SS	[CN]	-	-	-	-	-	S	-	-	-
-S38466	2012-033A	USA 236	2012 Jun 20 	2022 Feb 27	*	*	-	SDS-C	-	-	M	D	COM*	US	ST/SG/SER.E/667	  645.9 	     862	   35886	 20.7 	S	-	-	-
-S38528	2012-034A	USA 237	2012 Jun 29 	2022 Oct  4	*	*	-	Adv Orion	-	-	M	D	SIG*	US	ST/SG/SER.E/667	  629.2 	     219	   35674	 26.3 	S	-	-	-
+S38466	2012-033A	USA 236	2012 Jun 20 	2023 May	*	*	-	SDS-C	-	-	M	D	COM*	US	ST/SG/SER.E/667	  645.9 	     862	   35886	 20.7 	S	-	-	-
+S38528	2012-034A	USA 237	2012 Jun 29 	2023 May	*	*	-	Adv Orion	-	-	M	D	SIG*	US	ST/SG/SER.E/667	  629.2 	     219	   35674	 26.3 	S	-	-	-
 S38550	2012-032H	[SZ 9 OM]	2012 Jun 29 	2012 Jun 29	2012 Jun 29	2012 Jun 29	-	Shenzhou OM	-	-	-	C	SS	[CN]	-	-	-	-	-	S	-	-	-
 S38551	2012-035A	Echostar 17	2012 Jul  5 	2023 Feb 10	*	*	-	Echostar	-	-	M	B	COM	US	ST/SG/SER.E/711	  632.7 	     262	   35808	  5.9 	S	-	-	-
 S38552	2012-035B	Meteosat 10 (MSG-3)	2012 Jul  5 	2023 Feb  9	*	*	-	Meteosat	-	-	M	C	MET	I-EUM	ST/SG/SER.E/651	 1436.0 	   35786	   35786	  1.8 	S	-	-	-
@@ -7801,7 +7801,7 @@ S40554	2015-020C	Gonets-M No. 23	2015 Mar 31 	2017 Jan	*	*	-	Gonets-M	H	-	-	C	CO
 S40555	2015-020D	Kosmos-2504	2015 Mar 31 	2019 Nov 28	2019 Dec?	2019 Dec?	-	Nivelir	-	-	-	D	TECH	RU	ST/SG/SER.E/746	  112.2 	    1167	    1504	 82.5 	S	-	-	-
 S40588	2015-021A	Dragon CRS-6	2015 Apr 14 	2015 May 21	2015 May 21	2015 May 21 1642	-	Dragon	-	-	M	B	SS	US	ST/SG/SER.E/762	   92.6 	     399	     404	 51.6 	S	Hawthorne	-	-
 S40613	2015-022A	Thor 7	2015 Apr 26 	2023 Feb 23	*	*	-	Thor	-	-	M	B	COM	N	ST/SG/SER.E/747	 1440.0 	   35787	   35787	  0.0 	S	Telenor/Oslo	-	-
-S40614	2015-022B	Sicral 2	2015 Apr 26 	2022 Sep 20	*	*	-	Sicral	-	-	M	D	COM	I	ST/SG/SER.E/779	 1440.0 	   35794	   35796	  0.0 	S	-	-	-
+S40614	2015-022B	Sicral 2	2015 Apr 26 	2023 May	*	*	-	Sicral	-	-	M	D	COM	I	ST/SG/SER.E/779	 1440.0 	   35794	   35796	  0.0 	S	-	-	-
 S40617	2015-023A	TurkmenAlem52E/MonacoSAT	2015 Apr 27 	2023 Feb 23	*	*	-	SSI Monaco	-	-	M	C	COM	[MC]	-	-	-	-	-	S	-	-	-
 S40619	2015-024A	Progress M-27M	2015 Apr 28 	2015 Apr 28	2015 Apr 28	2015 Apr 28	-	Progress MM	-	-	M	C	SS	RU	ST/SG/SER.E/749	   88.9 	     193	     279	 51.7 	F	TsUP	-	-
 S40651	2015-025A	OTV-4 (USA 261)	2015 May 20 	2017 May  7	2017 May  7	2017 May  7 1145?	-	X37	-	-	M	D	TECH*	US	ST/SG/SER.E/796	   95.2 	     355	     700	 55.0 	S	-	-	-
@@ -8101,7 +8101,7 @@ S41637	2016-042M	Tiange feixingqi 2	2016 Jun 25 	2016 Jun 25	2016 Jun 26	2016 Ju
 S41639	2016-044A	Soyuz MS	2016 Jul  7 	2016 Oct 30	2016 Oct 30	2016 Oct 30 0358	-	Soyuz MS	-	-	M	C	SS	RU	ST/SG/SER.E/777	   88.7 	     199	     247	 51.7 	S	TsUP	-	-
 S41670	2016-045A	Progress MS-03	2016 Jul 16 	2017 Jan 31	2017 Jan 31	2017 Jan 31	-	Progress MS	-	-	M	C	SS	RU	ST/SG/SER.E/777	   88.6 	     194	     242	 51.7 	S	TsUP	-	-
 S41672	2016-046A	Dragon CRS-9	2016 Jul 18 	2016 Aug 26	2016 Aug 26	2016 Aug 26 1547	-	Dragon	-	-	M	B	SS	US	ST/SG/SER.E/801	   92.6 	     401	     404	 51.6 	S	Hawthorne	-	-
-S41724	2016-047A	USA 269	2016 Jul 28 	2022 Feb 28	*	*	-	SDS-D	-	-	M	D	COM	US	ST/SG/SER.E/801	  414.2 	     173	    5039	 25.3 	S	-	-	-
+S41724	2016-047A	USA 269	2016 Jul 28 	2023 May	*	*	-	SDS-D	-	-	M	D	COM	US	ST/SG/SER.E/801	  414.2 	     173	    5039	 25.3 	S	-	-	-
 S41725	2016-048A	Tiantong yi hao 01 xing	2016 Aug  5 	2023 Feb 24	*	*	-	Tiantong	-	-	M	C	COM	CN	ST/SG/SER.E/898	 1436.0 	   35758	   35814	  3.7 	S	-	-	-
 S41727	2016-049A	Gao Fen 3	2016 Aug  9 	2023 Feb	*	*	-	GF3	-	-	M	C	IMG-R	CN	ST/SG/SER.E/856	-	-	-	-	S	-	-	-
 S41729	2016-050A	JCSAT 16	2016 Aug 14 	2023 Feb 23	*	*	-	JCSAT	-	-	M	B	COM	J	ST/SG/SER.E/812	 1440.0 	   35784	   35803	  0.0 	S	-	-	-
@@ -8220,7 +8220,7 @@ S41935	1998-067KX	AOBA Velox-III	2016 Dec  9 	2018 Aug	2018 Oct?	2018 Nov	-	NTU	
 S41936	1998-067KY	TuPOD	2016 Dec  9 	2017 Feb?	2017 Feb?	2017 Feb?	-	GAUSSP	-	-	-	A	TECH	[I]	-	-	-	-	-	S	-	-	-
 S41937	2017-004A	SBIRS GEO 3 (USA 273)	2017 Jan 21 	2023 Feb 25	*	*	-	SBIRS GEO	-	-	M	D	EW	US	ST/SG/SER.E/803	  634.7 	     179	   35992	 23.0 	S	-	-	-
 S41939	1998-067KZ	OSNSAT	2016 Dec  9 	2017?	2017?	2017?	-	OSN	-	-	-	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S41940	2017-005A	Kirameki 2gou	2017 Jan 24 	2020 Sep 15	*	*	-	DSN	-	-	M	D	COM	J	ST/SG/SER.E/846	 1436.0 	   35781	   35795	  0.0 	S	-	-	-
+S41940	2017-005A	Kirameki 2gou	2017 Jan 24 	2023 May	*	*	-	DSN	-	-	M	D	COM	J	ST/SG/SER.E/846	 1436.0 	   35781	   35795	  0.0 	S	-	-	-
 S41942	2017-006A	Hispasat 36W-1	2017 Jan 28 	2023 Feb 25	*	*	-	Hispasat	-	-	M	B	COM	E	ST/SG/SER.E/863	 1436.0 	   35786	   35786	  0.0 	S	-	-	-
 S41944	2017-007A	Telkom 3S	2017 Feb 14 	2023 Feb 26	*	*	-	Telkom	-	-	M	B	COM	[ID]	-	-	-	-	-	F	-	-	-
 S41945	2017-007B	Sky-Brasil-1 (Intelsat 32E)	2017 Feb 14 	2023 Feb 24	*	*	-	DTVLA	-	-	M	B	COM	BR*	ST/SG/SER.E/927	 1436.1 	   35785	   35789	  0.0 	S	DTV/LongBeach	-	-
@@ -8556,7 +8556,7 @@ S42942	2017-057A	Asiasat 9	2017 Sep 28 	2023 Feb 24	*	*	-	Asiasat	-	-	M	B	COM	CN
 S42945	2017-058A	Yaogan 30 hao A	2017 Sep 29 	2022 Oct	2022 Oct?	2022 Oct?	X	CX-5	-	-	M	D	SIG	CN	ST/SG/SER.E/898	   96.7 	     600	     600	 35.0 	S	-	-	-
 S42946	2017-058B	Yaogan 30 hao B	2017 Sep 29 	2022 Oct	2022 Oct?	2022 Oct?	X	CX-5	-	-	M	D	SIG	CN	ST/SG/SER.E/898	   96.7 	     600	     600	 35.0 	S	-	-	-
 S42947	2017-058C	Yaogan 30 hao C	2017 Sep 29 	2022 Oct	2022 Oct?	2022 Oct?	X	CX-5	-	-	M	D	SIG	CN	ST/SG/SER.E/898	   96.7 	     600	     600	 35.0 	S	-	-	-
-S42949	2017-066A	USA 279	2017 Oct 15 	2021 Sep  6	*	*	-	SDS-D	-	-	M	D	COM	US	ST/SG/SER.E/877	  640.5 	     742	   35772	 18.8 	S	-	-	-
+S42949	2017-066A	USA 279	2017 Oct 15 	2023 May	*	*	-	SDS-D	-	-	M	D	COM	US	ST/SG/SER.E/877	  640.5 	     742	   35772	 18.8 	S	-	-	-
 S42950	2017-059A	Intelsat IS-37e	2017 Sep 29 	2023 Feb 25	*	*	-	IntIS	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S42951	2017-059B	BSAT-4a	2017 Sep 29 	2023 Feb 25	*	*	-	BSAT	-	-	M	B	COM	J	ST/SG/SER.E/862	 1436.1 	   35766	   35806	  0.1 	S	-	-	-
 S42954	2017-060A	VRSS-2	2017 Oct  9 	2022 Oct	*	*	-	VRSS	-	-	M	C	IMG	[VE]	-	-	-	-	-	S	-	-	-
@@ -8708,7 +8708,7 @@ S43171	2018-011C	Yaogan 30 hao L	2018 Jan 25 	2023 Feb	*	*	-	CX-5	-	-	M	D	SIG	CN
 S43172	2018-011D	Yaogan 30 hao M	2018 Jan 25 	2023 Feb	*	*	-	CX-5	-	-	M	D	SIG	CN	ST/SG/SER.E/898	   96.7 	     600	     600	 35.0 	S	-	-	-
 S43174	2018-012A	Al Yah 3	2018 Jan 25 	2023 Feb 25	*	*	-	YAHSAT	-	-	M	B	COM	BR	ST/SG/SER.E/858	 1436.1 	   35776	   35797	  0.0 	S	-	-	-
 S43175	2018-012B	SES-14	2018 Jan 25 	2023 Feb 25	*	*	-	SES	-	-	M	B	COM	BR*	ST/SG/SER.E/850	 1435.8 	   35752	   35820	  0.1 	S	-	-	-
-S43178	2018-013A	GovSat-1 (SES-16)	2018 Jan 30 	2022 Sep 20	*	*	-	SES	-	-	M	B	COM	L	A/AC.105/INF/432	 1435.8 	   35752	   35820	  0.1 	S	-	-	-
+S43178	2018-013A	GovSat-1 (SES-16)	2018 Jan 30 	2023 May  1	*	*	-	SES	-	-	M	B	COM	L	A/AC.105/INF/432	 1435.8 	   35752	   35820	  0.1 	S	-	-	-
 S43180	2018-014A	Kanopus-V No. 3	2018 Feb  1 	2023 Jan	*	*	-	Kanopus	-	-	-	C	IMG	RU	ST/SG/SER.E/842	   99.5 	     481	     529	 97.3 	S	-	-	-
 S43181	2018-014B	Kanopus-V No. 4	2018 Feb  1 	2023 Jan	*	*	-	Kanopus	-	-	-	C	IMG	RU	ST/SG/SER.E/842	   94.5 	     478	     524	 97.3 	S	-	-	-
 S43182	2018-014C	LEMUR 2 Jin-Luen	2018 Feb  1 	2018 Jan	2021 Jan?	2021 Jan?	-	Spire	-	-	-	B	COM/MET-RO	US	ST/SG/SER.E/877	   96.2 	     584	     602	 97.7 	S	-	-	-
@@ -9162,7 +9162,7 @@ S44082	2019-018E	Flock 4A 4	2019 Apr  1 	2021 Feb	2021 Q2?	2021 Q2?	-	Flock-4	-	
 S44083	2019-018F	Astrocast 0.2	2019 Apr  1 	2023 Feb	*	*	-	Astrocast	-	-	-	B	COM	[CH]	-	-	-	-	-	S	-	-	-
 S44084	2019-018G	FM99, LEMUR-2 JohanLoran	2019 Apr  1 	2019 Apr  1	2023 Feb?	2023 Feb?	-	Spire	-	-	-	B	COM/MET-RO	L	A/AC.105/INF/439	   94.7 	     493	     510	 97.5 	S	-	-	Also reg by US
 S44085	2019-018H	FM100, LEMUR-2 Beaudacious	2019 Apr  1 	2019 Apr  1	*	*	-	Spire	-	-	-	B	COM/MET-RO	L	A/AC.105/INF/439	   94.7 	     493	     510	 97.5 	S	-	-	Also reg by US
-S44086	2019-018J	FM101, LEMUR-2 Elham	2019 Apr  1 	2019 Apr  1	*	*	-	Spire	-	-	-	B	COM/MET-RO	L	A/AC.105/INF/439	   94.7 	     493	     510	 97.5 	S	-	-	Also reg by US
+S44086	2019-018J	FM101, LEMUR-2 Elham	2019 Apr  1 	2019 Apr  1	2023 Apr?	2023 Apr?	-	Spire	-	-	-	B	COM/MET-RO	L	A/AC.105/INF/439	   94.7 	     493	     510	 97.5 	S	-	-	Also reg by US
 S44087	2019-018K	FM102, LEMUR-2 Victor-Andrew	2019 Apr  1 	2019 Apr  1	2023 Mar?	2023 Mar?	-	Spire	-	-	-	B	COM/MET-RO	L	A/AC.105/INF/439	   94.7 	     493	     510	 97.5 	S	-	-	Also reg by US
 S44088	2019-018L	Flock 4A 17	2019 Apr  1 	2023 Feb 14	2023 Feb 14	2023 Feb 14	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     493	     510	 97.5 	S	-	-	-
 S44089	2019-018M	Flock 4A 18	2019 Apr  1 	2021 Feb	2021 Q2?	2021 Q2?	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     493	     510	 97.5 	S	-	-	-
@@ -9174,7 +9174,7 @@ S44094	2019-018S	Flock 4A 6	2019 Apr  1 	2023 Feb 27	*	*	-	Flock-4	-	-	-	B	IMG	U
 S44095	2019-018T	Flock 4A 5	2019 Apr  1 	2023 Feb 20	2023 Feb 20	2023 Feb 20	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     493	     507	 97.5 	S	-	-	-
 S44096	2019-018U	Flock 4A 11	2019 Apr  1 	2023 Feb 27	*	*	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     493	     507	 97.5 	S	-	-	-
 S44097	2019-018V	Flock 4A 10	2019 Apr  1 	2020 Sep	2020 Oct?	2020 Oct?	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     493	     507	 97.5 	S	-	-	-
-S44098	2019-018W	Flock 4A 9	2019 Apr  1 	2023 Feb 27	*	*	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     492	     507	 97.5 	S	-	-	-
+S44098	2019-018W	Flock 4A 9	2019 Apr  1 	2023 Mar 21	2023 Mar 21	2023 Mar 21	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     492	     507	 97.5 	S	-	-	-
 S44099	2019-018X	Flock 4A 16	2019 Apr  1 	2022 Mar 16	2022 Mar 16	2022 Mar 16	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     492	     507	 97.5 	S	-	-	-
 S44100	2019-018Y	Flock 4A 15	2019 Apr  1 	2021 Feb	2021 Q2?	2021 Q2?	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     492	     507	 97.5 	S	-	-	-
 S44101	2019-018Z	Flock 4A 14	2019 Apr  1 	2021 Feb	2021 Q2?	2021 Q2?	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/924	   94.6 	     492	     507	 97.5 	S	-	-	-
@@ -9303,7 +9303,7 @@ S44361	2019-036Y	StangSat	2019 Jun 25 	2019 Jun 25	2019 Jun 25	2019 Jun 25	-	MIH
 S44364	1998-067QJ	Pinot/RedEye	2019 Apr 17 	2019 Apr 17	2021 Dec?	2021 Dec?	-	DARPA RE	-	-	-	D	TECH	US	ST/SG/SER.E/942	   92.8 	     405	     417	 45.0 	S	-	-	-
 S44365	2019-037A	Painani I	2019 Jun 29 	2019 Jun 19	2022 Dec?	2022 Dec?	-	Sedena	-	-	-	D	TECH	MX	ST/SG/SER.E/903	-	     449	     454	 45.0 	S	-	-	-
 S44366	2019-037B	Prometheus 2-9	2019 Jun 29 	2019 Jul	2022 May?	2022 May?	-	Prometheus	-	-	-	D	COM	US	ST/SG/SER.E/942	   93.7 	     448	     460	 45.0 	S	-	-	-
-S44367	2019-037C	Global-3	2019 Jun 29 	2019 Jul	*	*	-	BlackSky	-	-	-	B	IMG	US	ST/SG/SER.E/942	   93.7 	     446	     461	 45.0 	S	-	-	-
+S44367	2019-037C	Global-3	2019 Jun 29 	2019 Jul	2023 May?	2023 May?	-	BlackSky	-	-	-	B	IMG	US	ST/SG/SER.E/942	   93.7 	     446	     461	 45.0 	S	-	-	-
 S44369	2019-037E	ACRUX 1	2019 Jun 29 	2022 Jun	2019 Aug?	2022 Jun?	-	MSP	-	-	-	A	TECH	AU	ST/SG/SER.E/916	   93.6 	     450	     450	 45.0 	S	-	-	-
 S44370	2019-037F	SpaceBee-9	2019 Jun 29 	2019 Jun 30	2021 Dec?	2021 Dec?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/942	   93.6 	     449	     472	 45.0 	S	-	-	-
 S44371	2019-037G	SpaceBee-8	2019 Jun 29 	2019 Jun 30	2021 Apr 26?	2021 Apr 26?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/942	   93.6 	     449	     472	 45.0 	S	-	-	-
@@ -9372,8 +9372,8 @@ S44476	2019-049B	Intelsat IS-39	2019 Aug  6 	2023 Feb 28	*	*	-	IntIS	-	-	M	B	COM
 S44479	2019-050A	Amos 17	2019 Aug  6 	2023 Feb 28	*	*	-	AMOS	-	-	M	B	COM	[IL]	-	-	-	-	-	S	-	-	-
 S44481	2019-051A	AEHF 5 (USA 292)	2019 Aug  8 	2023 Feb 28	*	*	-	AEHF	-	-	M	D	COM	US	ST/SG/SER.E/928	  914.4 	   14369	   35288	 10.0 	S	Peterson?	-	-
 S44482	2019-051B	TDO Spacecraft	2019 Aug  8 	2019 Aug  8	2022 Dec	2022 Dec	-	SMC Cube	-	-	-	D	TECH	US	ST/SG/SER.E/928	  621.2 	     208	   35281	 26.4 	S	-	-	-
-S44484	2019-022C	Aerocube 10B (DougSat)	2019 Apr 17 	2019 Dec	*	*	-	Aerocube	-	-	-	D	TECH	US	ST/SG/SER.E/928	   94.2 	     471	     485	 51.6 	S	-	-	-
-S44485	2019-022D	Aerocube 10A (JimSat)	2019 Apr 17 	2022 Aug 29	*	*	-	Aerocube	-	-	-	D	TECH	US	ST/SG/SER.E/928	   94.2 	     470	     485	 51.6 	S	-	-	-
+S44484	2019-022C	Aerocube 10B (DougSat)	2019 Apr 17 	2019 Dec	2023 May?	2023 May?	-	Aerocube	-	-	-	D	TECH	US	ST/SG/SER.E/928	   94.2 	     471	     485	 51.6 	S	-	-	-
+S44485	2019-022D	Aerocube 10A (JimSat)	2019 Apr 17 	2022 Aug 29	2023 Apr?	2023 Apr?	-	Aerocube	-	-	-	D	TECH	US	ST/SG/SER.E/928	   94.2 	     470	     485	 51.6 	S	-	-	-
 S44486	2019-052A	Qiancheng yi hao 01 xing	2019 Aug 17 	2023 Jan	*	*	-	QS1	-	-	-	B	IMG	CN	ST/SG/SER.E/948	   95.4 	     540	     540	 97.6 	S	-	-	-
 S44487	2019-052B	Tianqi er hao	2019 Aug 17 	2019 Sep	*	*	-	Tianqi	-	-	-	B	COM	CN	ST/SG/SER.E/948	   96.0 	     547	     547	 97.7 	S	-	-	-
 S44488	2019-052C	Weilai 3 hao	2019 Aug 17 	2023 Jan	*	*	-	Xingshidai	-	-	-	B	TECH	CN	ST/SG/SER.E/948	   93.0 	     450	     450	 70.1 	S	-	-	-
@@ -9497,7 +9497,7 @@ S44807	2019-081D	Flock 4P 9	2019 Nov 27 	2021 Feb	2021 Q2?	2021 Q2?	-	Flock-4	-	
 S44808	2019-081E	Flock 4P 10	2019 Nov 27 	2023 Mar  6	2023 Mar  6	2023 Mar  6	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     518	 97.5 	S	-	-	-
 S44809	2019-081F	Flock 4P 11	2019 Nov 27 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     518	 97.5 	S	-	-	-
 S44810	2019-081G	Flock 4P 12	2019 Nov 27 	2021 Sep	2021 Sep	2021 Sep	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     517	 97.5 	S	-	-	-
-S44811	2019-081H	Flock 4P 4	2019 Nov 27 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     516	 97.5 	S	-	-	-
+S44811	2019-081H	Flock 4P 4	2019 Nov 27 	2023 Mar 20	2023 Mar 20	2023 Mar 20	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     516	 97.5 	S	-	-	-
 S44812	2019-081J	Flock 4P 3	2019 Nov 27 	2023 Mar 20	2023 Mar 20	2023 Mar 20	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     516	 97.5 	S	-	-	-
 S44813	2019-081K	Flock 4P 2	2019 Nov 27 	2022 Feb 17	2022 Feb 17	2022 Feb 17	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     516	 97.5 	S	-	-	-
 S44814	2019-081L	Flock 4P 1	2019 Nov 27 	2023 Mar 20	2023 Mar 20	2023 Mar 20	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/928	   94.8 	     499	     516	 97.5 	S	-	-	-
@@ -9648,7 +9648,7 @@ S45061	2020-006T	Starlink 1169	2020 Jan 29 	2023 Mar  1	*	*	-	Starlink 1.0	1 1	-
 S45062	2020-006U	Starlink 1171	2020 Jan 29 	2023 Mar  1	*	*	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   92.0 	     374	     375	 53.0 	S	-	-	-
 S45063	2020-006V	Starlink 1178	2020 Jan 29 	2021 Oct 23	2021 Oct 23	2021 Oct 23?	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   92.1 	     375	     377	 53.0 	S	-	-	-
 S45064	2020-006W	Starlink 1133	2020 Jan 29 	2023 Mar  1	*	*	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   91.5 	     349	     351	 53.0 	S	-	-	-
-S45065	2020-006X	Starlink 1139	2020 Jan 29 	2023 Mar  1	*	*	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   91.5 	     349	     351	 53.0 	S	-	-	-
+S45065	2020-006X	Starlink 1139	2020 Jan 29 	2023 Apr 26	2023 Apr 26	2023 Apr 26	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   91.5 	     349	     351	 53.0 	S	-	-	-
 S45066	2020-006Y	Starlink 1145	2020 Jan 29 	2023 Mar  1	*	*	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   91.5 	     349	     351	 53.0 	S	-	-	-
 S45067	2020-006Z	Starlink 1150	2020 Jan 29 	2023 Mar  1	*	*	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   90.7 	     304	     309	 53.0 	S	-	-	-
 S45068	2020-006AA	Starlink 1161	2020 Jan 29 	2023 Mar  1	*	*	-	Starlink 1.0	1 1	-	M	B	COM	US	ST/SG/SER.E/942	   91.5 	     349	     351	 53.0 	S	-	-	-
@@ -9992,7 +9992,7 @@ S45599	2020-027A	XZF-SC	2020 May  5 	2020 May  8	2020 May  8	2020 May  8 0549	-	
 S45600	2020-027B	RCS-FC-SC	2020 May  5 	2020 May  6	2020 May  6	2020 May  6 0510?	-	XZF	-	-	M	C	RV	[CN]	-	-	-	-	-	S	-	-	-
 S45602	2020-028A	Xingyun-2 01 xing	2020 May 11 	2022 Jul	2022 Jul?	*	-	Xingyun	-	-	M	B	COM	CN	ST/SG/SER.E/1033	   95.9 	     556	     571	 97.5 	S	-	-	-
 S45603	2020-028B	Xingyun-2 02 xing	2020 May 11 	2022 Jul	2022 Jul?	*	-	Xingyun	-	-	M	B	COM	CN	ST/SG/SER.E/1033	   95.9 	     556	     571	 97.5 	S	-	-	-
-S45605	2020-011D	ULTP	2020 Mar  7 	2020 May 13	*	*	-	Lynk	1	-	-	B	COM	US	ST/SG/SER.E/945	   94.2 	     476	     486	 51.7 	S	-	-	-
+S45605	2020-011D	ULTP	2020 Mar  7 	2020 May 13	2022?	2022?	-	Lynk	1	-	-	B	COM	US	ST/SG/SER.E/945	   94.2 	     476	     486	 51.7 	S	-	-	-
 S45606	2020-029A	USA 299	2020 May 17 	2022 Nov 12	2022 Nov 12	2022 Nov 12 1022	-	X37	-	-	M	D	TECH*	US	ST/SG/SER.E/945	   92.3 	     383	     392	 45.0 	S	-	-	-
 S45607	2020-030A	'Kounotori 9' (HTV9)	2020 May 20 	2020 Aug 20	2020 Aug 20	2020 Aug 20 0707	-	HTV	-	-	M	C	SS	J	ST/SG/SER.E/1011	   93.0 	     411	     424	 51.9 	S	-	-	-
 S45608	2020-031A	Cosmos-2546	2020 May 22 	2023 Feb	*	*	-	EKS	-	-	M	D	EW	RU	ST/SG/SER.E/944	  713.9 	      71	     270	 63.5 	S	-	-	-
@@ -10296,10 +10296,10 @@ S46273	2020-061B	ESAIL	2020 Sep  3 	2021 Apr	*	*	-	ComDev	-	-	-	B	COM	CA	ST/SG/S
 S46274	2020-061C	ION SVC LUCAS	2020 Sep  3 	2023 Feb	*	*	-	DORBIT	-	-	M	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S46275	2020-061D	Athena	2020 Sep  3 	2021 Jul	2021 Jul	2021 Jul	-	PointView	-	-	-	B	COM?	US	ST/SG/SER.E/956	   95.0 	     516	     520	 97.5 	S	-	-	-
 S46276	2020-061E	UPM Sat-2	2020 Sep  3 	2023 Mar	*	*	-	UPM	-	-	-	A	TECH	E	ST/SG/SER.E/955	   94.9 	     508	     527	 97.5 	S	-	-	-
-S46277	2020-061F	NEMO-HD	2020 Sep  3 	2022 Dec	*	*	-	Space-SI	-	-	-	B	IMG	[SI]	-	-	-	-	-	S	-	-	-
+S46277	2020-061F	NEMO-HD	2020 Sep  3 	2022 Dec	*	*	-	Space-SI	-	-	-	B	IMG	SI	ST/SG/SER.E/1084	   94.9 	     508	     528	 97.5 	S	-	-	-
 S46278	2020-061G	GHGSat-C1	2020 Sep  3 	2023 Feb?	*	*	-	GHG	-	-	M	B	SCI	CA	ST/SG/SER.E/996	   95.0 	     504	     523	 97.5 	S	-	-	-
 S46279	2020-061H	SIMBA	2020 Sep  3 	2023 Feb	*	*	-	RMI	-	-	-	C	SCI	B	ST/SG/SER.E/949	   95.0 	     522	     538	 97.5 	S	-	-	-
-S46280	2020-061J	TRISAT	2020 Sep  3 	2022 Aug	2022 Aug?	2022 Aug?	-	Maribor	-	-	-	A	IMG	[SI]	-	-	-	-	-	S	-	-	-
+S46280	2020-061J	TRISAT	2020 Sep  3 	2022 Aug	2022 Aug?	2022 Aug?	-	Maribor	-	-	-	A	IMG	SI	ST/SG/SER.E/1084	   95.1 	     523	     526	 97.4 	S	-	-	-
 S46281	2020-061K	PICASSO	2020 Sep  3 	2023 Feb	*	*	-	IASB	-	-	-	C	SCI	B	ST/SG/SER.E/949	   95.0 	     522	     538	 97.5 	S	-	-	-
 S46282	2020-061L	Flock 4v 9	2020 Sep  3 	2022 Mar 10	2022 Mar 10	2022 Mar 10	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/956	   95.4 	     533	     540	 97.5 	S	-	-	-
 S46283	2020-061M	Flock 4v 12	2020 Sep  3 	2022 Jul 28	2022 Jul 28	2022 Jul 28	-	Flock-4	-	-	-	B	IMG	US	ST/SG/SER.E/956	   95.4 	     533	     540	 97.5 	S	-	-	-
@@ -10325,9 +10325,9 @@ S46302	2020-061AG	Spacebee-15	2020 Sep  3 	2020 Sep  3	2023 Apr?	2023 Apr?	-	Swa
 S46303	2020-061AH	Spacebee-19	2020 Sep  3 	2020 Sep  3	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
 S46304	2020-061AJ	Spacebee-18	2020 Sep  3 	2020 Sep  3	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
 S46305	2020-061AK	Spacebee-10	2020 Sep  3 	2020 Sep  3	2023 Mar?	2023 Mar?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
-S46306	2020-061AL	Spacebee-17	2020 Sep  3 	2020 Sep  3	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
+S46306	2020-061AL	Spacebee-17	2020 Sep  3 	2020 Sep  3	2023 May?	2023 May?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
 S46307	2020-061AM	Spacebee-11	2020 Sep  3 	2020 Sep  3	2023 Mar?	2023 Mar?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
-S46308	2020-061AN	Spacebee-16	2020 Sep  3 	2020 Sep  3	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
+S46308	2020-061AN	Spacebee-16	2020 Sep  3 	2020 Sep  3	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
 S46309	2020-061AP	Spacebee-12	2020 Sep  3 	2020 Sep  3	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
 S46310	2020-061AQ	Spacebee-13	2020 Sep  3 	2020 Sep  3	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
 S46311	2020-061AR	Spacebee-14	2020 Sep  3 	2020 Sep  3	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/956	   95.3 	     532	     535	 97.5 	S	-	-	-
@@ -10961,11 +10961,11 @@ S47462	2021-006BB	Flock 4s 11	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US
 S47463	2021-006BC	V-R3X 1	2021 Jan 24 	2021 Jan 28	2021 Jan 28?	2021 Jan 28?	-	Ames	-	-	-	C	TECH	[US]	-	-	-	-	-	S	-	-	-
 S47464	2021-006BD	SpaceBEE-58	2021 Jan 24 	2021 Feb	2023 Mar?	2023 Mar?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.1 	     515	     534	 97.5 	S	-	-	-
 S47465	2021-006BE	SpaceBEE-57	2021 Jan 24 	2021 Feb	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     528	     535	 97.5 	S	-	-	-
-S47466	2021-006BF	SpaceBEE-44	2021 Jan 24 	2021 Feb	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
+S47466	2021-006BF	SpaceBEE-44	2021 Jan 24 	2021 Feb	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
 S47467	2021-006BG	V-R3X 2	2021 Jan 24 	2021 Jan 28	2021 Jan 28?	2021 Jan 28?	-	Ames	-	-	-	C	TECH	[US]	-	-	-	-	-	S	-	-	-
 S47468	2021-006BH	SpaceBEE-56	2021 Jan 24 	2021 Feb	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
 S47469	2021-006BJ	Flock 4s 33	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
-S47470	2021-006BK	SpaceBEE-45	2021 Jan 24 	2021 Feb	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
+S47470	2021-006BK	SpaceBEE-45	2021 Jan 24 	2021 Feb	2023 May?	2023 May?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
 S47471	2021-006BL	Flock 4s 12	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US	ST/SG/SER.E/977	   95.3 	     526	     537	 97.5 	S	-	-	-
 S47472	2021-006BM	Flock 4s 13	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US	ST/SG/SER.E/977	   95.3 	     526	     537	 97.5 	S	-	-	-
 S47473	2021-006BN	Flock 4s 35	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US	ST/SG/SER.E/977	   95.3 	     526	     536	 97.5 	S	-	-	-
@@ -10975,7 +10975,7 @@ S47476	2021-006BR	KEPLER-8 (AMAROK)	2021 Jan 24 	2021 Feb	*	*	-	Kepler	-	-	-	B	C
 S47477	2021-006BS	Flock 4s 34	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US	ST/SG/SER.E/977	   95.3 	     526	     536	 97.5 	S	-	-	-
 S47478	2021-006BT	Flock 4s 9	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US	ST/SG/SER.E/977	   95.3 	     526	     537	 97.5 	S	-	-	-
 S47479	2021-006BU	Flock 4s 32	2021 Jan 24 	2023 Mar	*	*	-	Flock-4	-	P	-	B	IMG	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
-S47480	2021-006BV	SpaceBEE-43	2021 Jan 24 	2021 Feb	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
+S47480	2021-006BV	SpaceBEE-43	2021 Jan 24 	2021 Feb	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/977	   95.3 	     527	     536	 97.5 	S	-	-	-
 S47481	2021-006BW	Capella-4 (Whitney)	2021 Jan 24 	2022 Nov?	2023 Mar?	2023 Mar?	-	Capella	-	-	M	B	IMG-R	US	ST/SG/SER.E/977	   95.2 	     522	     536	 97.5 	S	-	-	-
 S47482	2021-006BX	NASA PTD-1	2021 Jan 24 	2023 Feb	*	*	-	Ames	-	-	M	C	TECH	US	ST/SG/SER.E/983	   95.2 	     521	     537	 97.5 	S	-	-	-
 S47483	2021-006BY	P2-10	2021 Jan 24 	2021 Feb	*	*	-	Prometheus	-	-	-	D	COM	US	ST/SG/SER.E/983	   95.2 	     523	     536	 97.5 	S	-	-	-
@@ -11899,8 +11899,8 @@ S48630	2021-006EW	SpaceBEE-68	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swa
 S48631	2021-006EX	SpaceBEE-69	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     535	 97.3 	S	-	-	-
 S48632	2021-006EY	SpaceBEE-70	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     535	 97.3 	S	-	-	-
 S48633	2021-006EZ	SpaceBEE-71	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
-S48634	2021-006FA	SpaceBEE-72	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
-S48635	2021-006FB	SpaceBEE-73	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
+S48634	2021-006FA	SpaceBEE-72	2021 Jan 24 	2021 May 11	2023 Apr?	2023 Apr?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
+S48635	2021-006FB	SpaceBEE-73	2021 Jan 24 	2021 May 11	2023 May?	2023 May?	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     536	 97.3 	S	-	-	-
 S48636	2021-006FC	SpaceBEE-74	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     537	 97.3 	S	-	-	-
 S48637	2021-006FD	SpaceBEE-75	2021 Jan 24 	2021 May 11	*	*	-	Swarm	-	-	-	B	COM	US	ST/SG/SER.E/1010	   95.1 	     511	     537	 97.3 	S	-	-	-
 S48638	2021-044A	Starlink-2758	2021 May 26 	2023 Mar  1	*	*	-	Starlink 1.0V2	1 1	P	M	B	COM	US	ST/SG/SER.E/1010	   91.5 	     349	     351	 53.0 	S	-	-	-
@@ -12531,7 +12531,7 @@ S49812	2021-117A	Tianjin Daxue 1	2021 Dec  7 	2022 Jun	*	*	-	Tianjin	-	-	-	A	IMG
 S49813	2021-117B	Jin Zijing 1-03	2021 Dec  7 	2021 Dec  7	*	*	-	Bauhinia	-	-	-	B	IMG	[CN]	-	-	-	-	-	S	-	-	-
 S49814	2021-117C	Baoyun	2021 Dec  7 	2021 Dec  7	*	*	-	Tianyi	-	-	-	B	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S49815	2021-117D	Lize 1	2021 Dec  7 	2022 Jun	*	*	-	Tianyi	-	-	-	B	TECH	[CN]	-	-	-	-	-	S	-	-	-
-S49816	2021-117E	Jin Zijing 5	2021 Dec  7 	2021 Dec  7	*	*	-	Bauhinia	-	-	-	B	IMG	[CN]	-	-	-	-	-	S	-	-	-
+S49816	2021-117E	Jin Zijing 5	2021 Dec  7 	2021 Dec  7	2023 May?	2023 May?	-	Bauhinia	-	-	-	B	IMG	[CN]	-	-	-	-	-	S	-	-	-
 S49817	2021-118A	STPSat-6	2021 Dec  7 	2023 Mar  4	*	*	-	STPSAT	-	-	-	D	TECH	US	ST/SG/SER.E/1041	 1436.1 	   35783	   35790	  0.0 	S	-	-	-
 S49818	2021-118B	LDPE 1	2021 Dec  7 	2022 Mar	*	*	-	LDPE	-	-	-	D	TECH	US	ST/SG/SER.E/1041	 1445.8 	   35961	   35991	  0.1 	S	-	-	-
 S49922	2021-119A	Soyuz MS-20	2021 Dec  8 	2021 Dec 20	2021 Dec 20	2021 Dec 20 0313:41	-	Soyuz MS	-	P	M	C	SS	RU	ST/SG/SER.E/1038	   88.7 	     200	     244	 51.7 	S	-	-	-
@@ -12696,7 +12696,7 @@ S50851	2022-001BA	Starlink-3314	2022 Jan  6 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4
 S50984	2022-002A	WiseSat-2	2022 Jan 13 	2022 May	*	*	-	WiseKey	-	-	-	B	COM	[CH]	-	-	-	-	-	S	-	-	-
 S50985	2022-002B	WiseSat-1	2022 Jan 13 	2022 May	*	*	-	WiseKey	-	-	-	B	COM	[CH]	-	-	-	-	-	S	-	-	-
 S50986	2022-002C	Umbra-2	2022 Jan 13 	2023 Feb	*	*	-	Umbra	-	P	-	B	IMG-R	US	ST/SG/SER.E/1050	   95.2 	     521	     536	 97.5 	S	-	-	-
-S50987	2022-002D	FossaSat-2E4	2022 Jan 13 	2022 Jan 13	*	*	-	Fossa	-	-	-	B	TECH	[E]	-	-	-	-	-	S	-	-	-
+S50987	2022-002D	FossaSat-2E4	2022 Jan 13 	2022 Jan 13	2023 May?	2023 May?	-	Fossa	-	-	-	B	TECH	[E]	-	-	-	-	-	S	-	-	-
 S50988	2022-002E	Tevel-3	2022 Jan 13 	2023 Mar	*	*	-	Herzliya	-	-	-	A	COM	[IL]	-	-	-	-	-	S	-	-	-
 S50989	2022-002F	Tevel-8	2022 Jan 13 	2023 Mar	*	*	-	Herzliya	-	-	-	A	COM	[IL]	-	-	-	-	-	S	-	-	-
 S50990	2022-002G	Pilot-1	2022 Jan 13 	2022 Jan 13	*	*	-	CShark	-	-	-	B	COM	[I]	-	-	-	-	-	S	-	-	-
@@ -13022,7 +13022,7 @@ S51813	2022-017AX	Starlink-3552	2022 Feb 25 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4
 S51814	2022-017AY	Starlink-3599	2022 Feb 25 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1055	   91.1 	     326	     328	 53.2 	S	-	-	-
 S51815	2022-017AZ	Starlink-3604	2022 Feb 25 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1055	   91.1 	     326	     328	 53.2 	S	-	-	-
 S51816	2022-017BA	Starlink-3603	2022 Feb 25 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1055	   91.1 	     326	     328	 53.2 	S	-	-	-
-S51817	2022-017BB	Starlink-3596	2022 Feb 25 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1055	   90.7 	     302	     313	 53.2 	S	-	-	-
+S51817	2022-017BB	Starlink-3596	2022 Feb 25 	2023 May 15	2023 May 15	2023 May 15	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1055	   90.7 	     302	     313	 53.2 	S	-	-	-
 S51822	2022-018A	Ludi Tance 1-01B	2022 Feb 26 	2023 Mar	*	*	-	L-SAR	-	P	M	C	IMG-R	[CN]	-	-	-	-	-	S	-	-	-
 S51824	2022-019A	Taijing-4 01	2022 Feb 27 	2022 Sep	*	*	-	Minospace	-	P	-	B	IMG-R	[CN]	-	-	-	-	-	S	-	-	-
 S51825	2022-019B	Hainan-1 01	2022 Feb 27 	2022 Mar	*	*	-	Hainan	-	P	-	C	IMG	[CN]	-	-	-	-	-	S	-	-	-
@@ -13299,7 +13299,7 @@ S52273	2022-041N	Starlink-3782	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	
 S52274	2022-041P	Starlink-3790	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
 S52275	2022-041Q	Starlink-3784	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
 S52276	2022-041R	Starlink-3778	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
-S52277	2022-041S	Starlink-3787	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
+S52277	2022-041S	Starlink-3787	2022 Apr 21 	2023 Feb  8	2023 Feb  8	2023 Feb  8	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
 S52278	2022-041T	Starlink-3780	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
 S52279	2022-041U	Starlink-3686	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
 S52280	2022-041V	Starlink-3764	2022 Apr 21 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1071	   91.8 	     361	     363	 53.2 	S	-	-	-
@@ -13689,7 +13689,7 @@ S52759	2022-057AD	ICEYE-X20	2022 May 25 	2022 Jun	*	*	-	ICEYE	-	P	-	B	IMG-R	[FI]
 S52760	2022-057AE	Vigoride-3	2022 May 25 	2022 May 26	2022 Jun  1?	2022 Jun  1?	-	Momentus	-	-	M	B	TECH	US	ST/SG/SER.E/1074	   95.2 	     519	     537	 97.5 	S	-	-	-
 S52761	2022-057AF	ION SCV006	2022 May 25 	2022 Jul  5	*	*	-	DORBIT	-	P	M	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S52762	2022-057AG	Iceye-X17	2022 May 25 	2022 Jun	*	*	-	ICEYE	-	P	-	B	IMG-R	US	ST/SG/SER.E/1074	   95.2 	     518	     536	 97.5 	S	-	-	-
-S52763	2022-057AH	Sherpa-Ac1	2022 May 25 	2023 Mar	*	*	-	SFLIN	-	P	-	B	TECH	US	ST/SG/SER.E/1074	   95.2 	     518	     537	 97.5 	S	-	-	-
+S52763	2022-057AH	Sherpa-Ac1	2022 May 25 	2023 May	*	*	-	SFLIN	-	P	-	B	TECH	US	ST/SG/SER.E/1074	   95.2 	     518	     537	 97.5 	S	-	-	-
 S52764	2022-057AJ	Nusat 29	2022 May 25 	2023 Mar	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
 S52765	2022-057AK	Urdaneta-Armsat1	2022 May 25 	2022 Nov	*	*	-	Satlantis	-	-	-	B	IMG	[E]	-	-	-	-	-	S	-	-	-
 S52766	2022-057AL	Varisat-1C	2022 May 25 	2022 Jun?	*	*	-	Varisat	-	-	-	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -13916,7 +13916,7 @@ S53102	2022-079A	USA 334	2022 Jul 13 	2022 Jul 13	*	*	-	NRO TS	-	P	M	D	COM?	US	S
 S53105	2022-080A	LARES 2	2022 Jul 13 	2022 Jul 13	2022 Jul 14?	2022 Jul 14?	-	ASI	-	-	-	C	TECH	[I]	-	-	-	-	-	S	-	-	-
 S53106	2022-080B	GreenCube	2022 Jul 13 	2023 Mar	*	*	-	ROSAP	-	-	-	C	SCI	[I]	-	-	-	-	-	S	-	-	-
 S53107	2022-080C	AstroBio Cubesat	2022 Jul 13 	2023 Mar	*	*	-	ROSAP	-	-	-	A	TECH	[I]	-	-	-	-	-	S	-	-	-
-S53108	2022-080D	Trisat-R	2022 Jul 13 	2023 Feb	*	*	-	Maribor	-	-	-	A	IMG	[SI]	-	-	-	-	-	S	-	-	-
+S53108	2022-080D	TRISAT-R	2022 Jul 13 	2023 Feb	*	*	-	Maribor	-	-	-	A	IMG	SI	ST/SG/SER.E/1084	  224.3 	    5833	    5863	 70.1 	S	-	-	-
 S53109	2022-080E	MTCube-2	2022 Jul 13 	2022 Aug	2022 Aug	2022 Aug	-	Montpellier	-	-	-	B	TECH	[F]	-	-	-	-	-	S	-	-	-
 S53110	2022-080F	Alpha	2022 Jul 13 	2022 Aug	2022 Aug	2022 Aug	-	ArcaD	-	-	-	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S53111	2022-080G	Celesta	2022 Jul 13 	2022 Aug	2022 Aug	2022 Aug	-	Montpellier	-	-	-	B	TECH	[F]	-	-	-	-	-	S	-	-	-
@@ -14101,7 +14101,7 @@ S53347	2022-090B	Minhang Shaonian Xing	2022 Aug  4 	2022 Aug  4	*	*	-	SAST Edu	-
 S53348	2022-090C	HEAD-2G	2022 Aug  4 	2022 Aug  4	*	*	-	HEAD	-	-	-	B	COM	[CN]	-	-	-	-	-	S	-	-	-
 S53352	2022-091A	USA 335	2022 Aug  4 	2022 Aug  4	*	*	-	NRO TS	-	-	-	D	COM?	[US]	-	-	-	-	-	S	-	-	-
 S53355	2022-092A	SBIRS GEO-6	2022 Aug  4 	2023 Mar  8	*	*	-	SBIRS GEO	-	P	M	D	EW	[US]	-	-	-	-	-	S	-	-	-
-S53357	2022-093A	Chonfu Shiyong Shiyan HQ 2	2022 Aug  4 	2023 Mar	*	*	-	CSSHQ	-	-	M	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
+S53357	2022-093A	Chonfu Shiyong Shiyan HQ 2	2022 Aug  4 	2023 May  8	2023 May  8	2023 May  8 0020?	-	CSSHQ	-	-	M	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S53365	2022-094A	Danuri	2022 Aug  4 	2023 Mar	*	*	-	KLEP	-	-	M	C	PLAN	[KR]	-	-	-	-	-	S	-	-	-
 S53367	2022-095A	Taijing-1 01	2022 Aug  9 	2023 Mar	*	*	-	Minospace	-	P	-	B	IMG	[CN]	-	-	-	-	-	S	-	-	-
 S53368	2022-095B	Taijing-1 02	2022 Aug  9 	2023 Mar	*	*	-	Xingshidai	-	P	-	B	IMG	[CN]	-	-	-	-	-	S	-	-	-
@@ -14193,10 +14193,10 @@ S53458	2022-098Q	Yunyao-1 07 xing	2022 Aug 10 	2023 Mar	*	*	-	Jilin-1 HW	-	P	-	B
 S53459	2022-098R	Yunyao-1 08 xing	2022 Aug 10 	2023 Mar	*	*	-	Jilin-1 HW	-	P	-	B	IMG	[CN]	-	-	-	-	-	S	-	-	-
 S53462	1998-067UB	HSU-SAT-1	2022 Jul 15 	2023 Mar	2023 Feb?	2023 Feb?	-	HSU	-	-	-	A	TECH	[J]	-	-	-	-	-	S	-	-	-
 S53463	1998-067UC	FUTABA	2022 Jul 15 	2022 Aug 12	2023 Feb?	2023 Feb?	-	Kyutech	-	-	-	A	TECH	[J]	-	-	-	-	-	S	-	-	-
-S53464	1998-067UD	TUMnanosat	2022 Jul 15 	2022 Aug 12	2023 Jan?	2023 Jan?	-	TU Moldova	-	-	-	A	TECH	[MD]	-	-	-	-	-	S	-	-	-
+S53464	1998-067UD	TUMnanosat	2022 Jul 15 	2022 Aug 12	2023 Jan?	2023 Jan?	-	TU Moldova	-	-	-	A	TECH	MD	A/AC.105/INF/455	   92.7 	     408	     410	 51.6 	S	-	-	-
 S53465	2022-099A	Starlink-4415	2022 Aug 12 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53466	2022-099B	Starlink-4398	2022 Aug 12 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S53467	2022-099C	Starlink-4394	2022 Aug 12 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S53467	2022-099C	Starlink-4394	2022 Aug 12 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53468	2022-099D	Starlink-4400	2022 Aug 12 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53469	2022-099E	Starlink-4399	2022 Aug 12 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53470	2022-099F	Starlink-4393	2022 Aug 12 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -14379,7 +14379,7 @@ S53669	2022-105X	Starlink-4464	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 
 S53670	2022-105Y	Starlink-4459	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53671	2022-105Z	Starlink-4440	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53672	2022-105AA	Starlink-4428	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S53673	2022-105AB	Starlink-4456	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S53673	2022-105AB	Starlink-4456	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53674	2022-105AC	Starlink-4620	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53675	2022-105AD	Starlink-4617	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53676	2022-105AE	Starlink-4621	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -14390,7 +14390,7 @@ S53680	2022-105AJ	Starlink-4630	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3
 S53681	2022-105AK	Starlink-4424	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53682	2022-105AL	Starlink-4438	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53683	2022-105AM	Starlink-4625	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S53684	2022-105AN	Starlink-4624	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S53684	2022-105AN	Starlink-4624	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53685	2022-105AP	Starlink-4626	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53686	2022-105AQ	Starlink-4467	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S53687	2022-105AR	Starlink-4569	2022 Aug 31 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -14848,7 +14848,7 @@ S54208	2022-141BD	Starlink-5255	2022 Oct 28 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4
 S54209	2022-141BE	Starlink-5259	2022 Oct 28 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S54214	2022-142A	Shiyan 20C	2022 Oct 29 	2023 Mar	*	*	-	SW13	-	-	-	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S54216	2022-143A	Mengtian	2022 Oct 31 	2023 Mar	*	*	-	Tiangong	-	P	M	C	SS	[CN]	-	-	-	-	-	S	-	-	-
-S54218	2022-093J	Target subsat	2022 Aug  4 	2023 Mar	*	*	-	CSSHQ	-	-	-	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
+S54218	2022-093J	Target subsat	2022 Aug  4 	2023 Mar 29	2023 Mar 29	2023 Mar 29	-	CSSHQ	-	-	-	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S54219	2022-144A	LDPE 2	2022 Nov  1 	2023 Jan	*	*	-	LDPE	-	-	-	D	TECH	[US]	-	-	-	-	-	S	-	-	-
 S54220	2022-144B	USA 339	2022 Nov  1 	2023 Jan	*	*	-	SFSSC	-	-	-	D	TECH*	[US]	-	-	-	-	-	S	-	-	-
 S54223	2022-145A	Kosmos-2563	2022 Nov  2 	2023 Mar	*	*	-	EKS	-	-	M	D	EW	RU	ST/SG/SER.E/1087	  713.9 	    1652	   38529	 63.8 	S	-	-	-
@@ -14888,10 +14888,10 @@ S54377	2022-161A	Kosmos-2564	2022 Nov 28 	2023 Feb	*	*	-	Uragan-M	-	-	M	D	NAV	RU
 S54379	2022-162A	Shenzhou 15	2022 Nov 29 	2023 Mar	*	*	-	Shenzhou	-	P	M	C	SS	[CN]	-	-	-	-	-	S	-	-	-
 S54381	2022-163A	Kosmos-2565	2022 Nov 30 	2023 Mar	*	*	-	Lotos-S1	-	-	M	D	SIG	[RU]	-	-	-	-	-	S	-	-	-
 S54383	2022-163C	Kosmos-2566	2022 Nov 30 	2023 Mar	*	*	-	Lotos-S1 Sub	-	-	M	D	SIG	[RU]	-	-	-	-	-	S	-	-	-
-S54534	1998-067UL	PEARLAFRICASAT-1	2022 Nov  7 	2022 Dec 20	2022 Dec 20?	2022 Dec 20?	-	Uganda	-	-	-	C	TECH	[UG]	-	-	-	-	-	S	-	-	-
-S54535	1998-067UM	ZIMSAT-1	2022 Nov  7 	2022 Dec 20	2022 Dec 20?	2022 Dec 20?	-	ZINGA	-	-	-	C	TECH	[ZW]	-	-	-	-	-	S	-	-	-
+S54534	1998-067UL	SpaceTuna1	2022 Nov  7 	2022 Dec  2	2023 May?	2023 May?	-	Kindai	-	-	-	A	TECH	[J]	-	-	-	-	-	S	-	-	-
+S54535	1998-067UM	PEARLAFRICASAT-1	2022 Nov  7 	2022 Dec 20	2022 Dec 20?	2022 Dec 20?	-	Uganda	-	-	-	C	TECH	[UG]	-	-	-	-	-	S	-	-	-
 S54536	1998-067UN	TAKA	2022 Nov  7 	2022 Dec 31	2022 Dec 31	2022 Dec 31	-	Kyutech	-	-	-	A	TECH	[J]	-	-	-	-	-	S	-	-	-
-S54537	1998-067UP	SpaceTuna1	2022 Nov  7 	2022 Dec  2	*	*	-	Kindai	-	-	-	A	TECH	[J]	-	-	-	-	-	S	-	-	-
+S54537	1998-067UP	ZIMSAT-1	2022 Nov  7 	2022 Dec 20	2022 Dec 20?	2022 Dec 20?	-	ZINGA	-	-	-	C	TECH	[ZW]	-	-	-	-	-	S	-	-	-
 S54588	2022-164A	Xingyun Jiaotong VDES	2022 Dec  7 	2022 Dec  7	*	*	-	Xingyun	-	-	M	B	COM	[CN]	-	-	-	-	-	S	-	-	-
 S54640	2022-165A	Gao Fen 5-01A	2022 Dec  8 	2023 Mar	*	*	-	GF5	-	-	M	C	IMG	[CN]	-	-	-	-	-	S	-	-	-
 S54642	2022-166A	OWLID 00465	2022 Dec  8 	2023 Mar	*	*	-	OneWeb	1 12	P	M	B	COM	UK	ST/SG/SER.E/1088	  109.4 	    1173	    1177	 87.9 	S	-	-	-
@@ -14953,7 +14953,7 @@ S54699	2022-169A	Shiyan 20A	2022 Dec 12 	2023 Mar	*	*	-	SW13	-	-	-	D	TECH	[CN]	-
 S54700	2022-169B	Shiyan 20B	2022 Dec 12 	2023 Mar	*	*	-	SW13	-	-	-	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S54741	2022-170A	Galaxy 35	2022 Dec 13 	2023 Mar  8	*	*	-	Galaxy	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S54742	2022-170B	Galaxy 36	2022 Dec 13 	2023 Mar  8	*	*	-	Galaxy	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S54743	2022-170C	Meteosat MTG-I1	2022 Dec 13 	2023 Mar  7	*	*	-	Meteosat	-	-	M	C	MET	[I-EUM]	-	-	-	-	-	S	-	-	-
+S54743	2022-170C	METEOSAT 12 (MTG-I1)	2022 Dec 13 	2023 Mar  7	*	*	-	Meteosat	-	-	M	C	MET	I-EUM	ST/SG/SER.E/1098	 1436.1 	   35771	   35801	  1.0 	S	-	-	-
 S54746	2022-171A	Yaogan 36 04 zu 01 xing	2022 Dec 14 	2023 Mar	*	*	-	YG-36	-	-	-	D	SIG	[CN]	-	-	-	-	-	S	-	-	-
 S54747	2022-171B	CZ-2D Deorbit Sail 8	2022 Dec 14 	2023 Feb  5	2023 Feb  5?	2023 Feb  5?	-	SAST LV	-	-	-	C	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S54748	2022-171C	Yaogan 36 04 zu 02 xing	2022 Dec 14 	2023 Mar	*	*	-	YG-36	-	-	-	D	SIG	[CN]	-	-	-	-	-	S	-	-	-
@@ -14961,8 +14961,8 @@ S54750	2022-171E	Yaogan 36 04 zu 03 xing	2022 Dec 14 	2023 Mar	*	*	-	YG-36	-	-	-
 S54751	2022-167Q	Huoju-1	2022 Dec  9 	2022 Dec  9	*	*	-	Huoju	-	-	-	B	BIO	[CN]	-	-	-	-	-	S	-	-	-
 S54752	2022-172A	Shiyan 21	2022 Dec 16 	2023 Mar	*	*	-	SW21	-	-	-	C	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S54754	2022-173A	SWOT	2022 Dec 16 	2023 Mar	*	*	-	Jason	-	-	-	C	SCI	[US]*	-	-	-	-	-	S	-	-	-
-S54755	2022-174A	O3b mPOWER F1	2022 Dec 16 	2023 Mar	*	*	-	O3b	-	-	-	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S54756	2022-174B	O3b mPOWER F2	2022 Dec 16 	2023 Mar	*	*	-	O3b	-	-	-	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S54755	2022-174A	MP01 (O3b mPOWER F1)	2022 Dec 16 	2023 Mar	*	*	-	O3b	-	-	-	B	COM	UK	ST/SG/SER.E/1092	  288.0 	    8057	    8073	  0.1 	S	-	-	-
+S54756	2022-174B	MP02 (O3b mPOWER F2)	2022 Dec 16 	2023 Mar	*	*	-	O3b	-	-	-	B	COM	UK	ST/SG/SER.E/1092	  288.0 	    8057	    8073	  0.1 	S	-	-	-
 S54758	2022-175A	Starlink-5464	2022 Dec 17 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S54759	2022-175B	Starlink-5215	2022 Dec 17 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S54760	2022-175C	Starlink-5220	2022 Dec 17 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15125,7 +15125,7 @@ S55055	2023-001AY	Flock 4y-4	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[US
 S55056	2023-001AZ	Vigoride VR-5	2023 Jan  3 	2023 Feb 22	*	*	-	Momentus	-	-	M	B	TECH	[US]	-	-	-	-	-	S	-	-	-
 S55057	2023-001BA	Flock 4y-35	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S55058	2023-001BB	Skykraft 1B	2023 Jan  3 	2023 Jan 12	*	*	-	Skykraft	-	-	-	B	COM	[AU]	-	-	-	-	-	S	-	-	-
-S55059	2023-001BC	Chimera LEO-1	2023 Jan  3 	2023 Jan  3	2023 Jan  3	2023 Jan  3	-	Epic	-	-	M	B	TECH	[US]	-	-	-	-	-	F	-	-	-
+S55059	2023-001BC	Orbiter SN1	2023 Jan  3 	2023 Jan  3	2023 Jan  4?	2023 Jan  4?	-	Launcher	-	P	M	B	TECH	[US]	-	-	-	-	-	S	-	-	-
 S55060	2023-001BD	ION SCV007	2023 Jan  3 	2023 Mar	*	*	-	DORBIT	-	P	M	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S55061	2023-001BE	Skykraft 1C	2023 Jan  3 	2023 Jan 12	*	*	-	Skykraft	-	-	-	B	COM	[AU]	-	-	-	-	-	S	-	-	-
 S55062	2023-001BF	ICEYE-X27	2023 Jan  3 	2023 Jan  3	*	*	-	ICEYE	-	P	-	B	IMG-R	[FI]	-	-	-	-	-	S	-	-	-
@@ -15133,7 +15133,7 @@ S55063	2023-001BG	Flock 4y-20	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[U
 S55064	2023-001BH	Albania-1	2023 Jan  3 	2023 Jan  3	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
 S55065	2023-001BJ	Flock 4y-12	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S55066	2023-001BK	Flock 4y-6	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
-S55067	2023-001BL	NSLSat-2	2023 Jan  3 	2023 Mar	*	*	-	NSLComm	-	-	-	B	COM	[IL]	-	-	-	-	-	S	-	-	-
+S55067	2023-001BL	NSL-2	2023 Jan  3 	2023 Mar	*	*	-	NSLComm	-	-	-	B	COM	[UK]*	ST/SG/SER.E/1094	   95.1 	     512	     534	 97.5 	S	-	-	-
 S55068	2023-001BM	Flock 4y-15	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S55069	2023-001BN	Flock 4y-9	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S55070	2023-001BP	Flock 4y-26	2023 Jan  3 	2023 Mar	*	*	-	Flock-4	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
@@ -15156,7 +15156,7 @@ S55086	2023-001CF	KSF3-A	2023 Jan  3 	2023 Jan  3	*	*	-	Kleos	-	-	-	B	SIG	[L]	-	
 S55087	2023-001CG	SpaceBEE-167	2023 Jan  3 	2023 Jan  3	*	*	-	Swarm	-	-	-	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55088	2023-001CH	Lemur-2 Fuentetaja-01	2023 Jan  3 	2023 Jan  3	*	*	-	Spire	-	-	-	B	COM/MET-RO	[US]	-	-	-	-	-	S	-	-	-
 S55089	2023-001CJ	SpaceBEE-163	2023 Jan  3 	2023 Jan  3	*	*	-	Swarm	-	-	-	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55090	2023-001CK	Orbiter SN1	2023 Jan  3 	2023 Jan  3	2023 Jan  4?	2023 Jan  4?	-	Launcher	-	P	M	B	TECH	[US]	-	-	-	-	-	S	-	-	-
+S55090	2023-001CK	Chimera LEO-1	2023 Jan  3 	2023 Jan  3	2023 Jan  3	2023 Jan  3	-	Epic	-	-	M	B	TECH	[US]	-	-	-	-	-	F	-	-	-
 S55091	2023-001CL	SpaceBEE-164	2023 Jan  3 	2023 Jan  3	*	*	-	Swarm	-	-	-	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55092	2023-001CM	SpaceBEE-166	2023 Jan  3 	2023 Jan  3	*	*	-	Swarm	-	-	-	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55093	2023-001CN	Huygens	2023 Jan  3 	2023 Mar	*	*	-	NLR	-	-	 -	C	SIG	[NL]	-	-	-	-	-	S	-	-	-
@@ -15171,10 +15171,11 @@ S55101	2023-001CW	SpaceBEE-159	2023 Jan  3 	2023 Jan  3	*	*	-	Swarm	-	-	-	B	COM	
 S55102	2023-001CX	SpaceBEE-157	2023 Jan  3 	2023 Jan  3	*	*	-	Swarm	-	-	-	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55103	2023-001CY	KuwaitSat-1	2023 Jan  3 	2023 Jan  3	*	*	-	Kuwait U	-	-	-	A	TECH	[KW]	-	-	-	-	-	S	-	-	-
 S55104	2023-001CZ	Sharjah-Sat-1	2023 Jan  3 	2023 Mar	*	*	-	Sharjah	-	-	-	A	TECH	[UAE]	-	-	-	-	-	S	-	-	-
-S55105	2023-001DA	FUTURA-SM1	2023 Jan  3 	2023 Jan 18	*	*	-	SpMind	-	-	-	B	TECH	[I]	-	-	-	-	-	S	-	-	-
+S55105	2023-001DA	FUTURA-SM1	2023 Jan  3 	2023 Jan 18	2023 Apr?	2023 Apr?	-	SpMind	-	-	-	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S55106	2023-001DB	FUTURA-SM3	2023 Jan  3 	2023 Jan 20	2023 Apr?	2023 Apr?	-	SpMind	-	-	-	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S55107	2023-001DC	Kelpie-1	2023 Jan  3 	2023 Mar  1	*	*	-	Kelpie	-	-	-	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S55123	1998-067UQ	MARIO	2022 Nov 26 	2023 Mar	*	*	-	UMI	-	-	-	A	TECH	[US]	-	-	-	-	-	S	-	-	-
+S55108	2023-001DD	Zeus-1	2023 Jan  3 	2023 May 10	*	*	-	Qosmo	-	-	-	B	TECH	[SG]	-	-	-	-	-	S	-	-	-
+S55123	1998-067UQ	MARIO	2022 Nov 26 	2023 Mar	2023 Apr?	2023 Apr?	-	UMI	-	-	-	A	TECH	[US]	-	-	-	-	-	S	-	-	-
 S55124	1998-067UR	NUTSAT	2022 Nov 26 	2023 Mar	2023 Mar	2023 Mar	-	NFU	-	-	-	A	TECH	[TW]	-	-	-	-	-	S	-	-	-
 S55125	1998-067US	LORIS	2022 Nov 26 	2022 Nov 26	*	*	-	DalU	-	-	-	A	IMG	[CA]	-	-	-	-	-	S	-	-	-
 S55126	1998-067UT	ORCASat	2022 Nov 26 	2022 Nov 26	*	*	-	UVic	-	-	-	A	TECH	[CA]	-	-	-	-	-	S	-	-	-
@@ -15230,8 +15231,8 @@ S55176	2023-004AN	OWLID 00541	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	[
 S55177	2023-004AP	OWLID 00542	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
 S55178	2023-004AQ	OWLID 00543	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
 S55179	2023-004AR	OWLID 00544	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S55180	2023-002C	SJ-23 subsatellite	2023 Jan  9 	2023 Jan 16	*	*	-	TJS-3	-	-	M	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
-S55181	1998-067UY	SuryaSat	2022 Nov 26 	2023 Feb 11	*	*	-	Surya	-	-	-	A	TECH	[ID]	-	-	-	-	-	S	-	-	-
+S55180	2023-002C	SJ-23 adapter?	2023 Jan  9 	2023 Jan 16	*	*	-	TJS-3	-	-	M	D	TECH	[CN]	-	-	-	-	-	S	-	-	-
+S55181	1998-067UY	SuryaSat	2022 Nov 26 	2023 Feb 11	2023 Apr?	2023 Apr?	-	Surya	-	-	-	A	TECH	[ID]	-	-	-	-	-	S	-	-	-
 S55182	1998-067UZ	HSKSAT-1	2022 Nov 26 	2023 Mar	*	*	-	HaradaSeiki	-	-	-	B	TECH	[J]	-	-	-	-	-	S	-	-	-
 S55183	1998-067VA	OPTIMAL-1	2022 Nov 26 	2023 Jan  6	*	*	-	ArkEdge	-	-	-	B	TECH	[J]	-	-	-	-	-	S	-	-	-
 S55239	2023-005A	Apstar 6E	2023 Jan 12 	2023 Mar	*	*	-	Apstar	-	-	M	B	COM	[CN]	-	-	-	-	-	S	-	-	-
@@ -15257,21 +15258,21 @@ S55261	2023-007P	Tianzhi-2D	2023 Jan 15 	2023 Mar	*	*	-	Tianzhi	-	-	-	C	COM	[CN]
 S55263	2023-008A	CBAS-SATCOM 2	2023 Jan 15 	2023 Mar  9	*	*	-	CBAS	-	-	M	D	COM*	[US]	-	-	-	-	-	S	-	-	-
 S55264	2023-008B	LDPE 3A	2023 Jan 15 	2023 Jan 16	*	*	-	LDPE	-	-	-	D	TECH	[US]	-	-	-	-	-	S	-	-	-
 S55268	2023-009A	GPS III SV06	2023 Jan 18 	2023 Mar	*	*	-	GPS III	-	P	M	D	NAV	[US]	-	-	-	-	-	S	-	-	-
-S55269	2023-010A	Starlink-5277	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55270	2023-010B	Starlink-5301	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55271	2023-010C	Starlink-5306	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55272	2023-010D	Starlink-5310	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55273	2023-010E	Starlink-5291	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55269	2023-010A	Starlink-5277	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55270	2023-010B	Starlink-5301	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55271	2023-010C	Starlink-5306	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55272	2023-010D	Starlink-5310	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55273	2023-010E	Starlink-5291	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55274	2023-010F	Starlink-5236	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55275	2023-010G	Starlink-5260	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55276	2023-010H	Starlink-5261	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55277	2023-010J	Starlink-5299	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55278	2023-010K	Starlink-5289	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55279	2023-010L	Starlink-5323	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55277	2023-010J	Starlink-5299	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55278	2023-010K	Starlink-5289	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55279	2023-010L	Starlink-5323	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55280	2023-010M	Starlink-5331	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55281	2023-010N	Starlink-5298	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55281	2023-010N	Starlink-5298	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55282	2023-010P	Starlink-5330	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55283	2023-010Q	Starlink-5317	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55283	2023-010Q	Starlink-5317	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55284	2023-010R	Starlink-5337	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55285	2023-010S	Starlink-5332	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55286	2023-010T	Starlink-5338	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15283,7 +15284,7 @@ S55291	2023-010Y	Starlink-5327	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 
 S55292	2023-010Z	Starlink-5325	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55293	2023-010AA	Starlink-5287	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55294	2023-010AB	Starlink-5286	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55295	2023-010AC	Starlink-5293	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55295	2023-010AC	Starlink-5293	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55296	2023-010AD	Starlink-5285	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55297	2023-010AE	Starlink-5284	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55298	2023-010AF	Starlink-5272	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15291,7 +15292,7 @@ S55299	2023-010AG	Starlink-5270	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2
 S55300	2023-010AH	Starlink-5308	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55301	2023-010AJ	Starlink-5319	2023 Jan 19 	2023 Jan 30	2023 Jan 30	2023 Jan 30	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55302	2023-010AK	Starlink-5321	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55303	2023-010AL	Starlink-5322	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 0	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55303	2023-010AL	Starlink-5322	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55304	2023-010AM	Starlink-5318	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55305	2023-010AN	Starlink-5316	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55306	2023-010AP	Starlink-5295	2023 Jan 19 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15313,7 +15314,7 @@ S55326	2023-011C	Hawk 6C	2023 Jan 24 	2023 Mar  6	*	*	-	H360	-	P	M	B	SIG	[US]	-	
 S55327	2023-011D	Hawk 6A	2023 Jan 24 	2023 Mar  6	*	*	-	H360	-	P	M	B	SIG	[US]	-	-	-	-	-	S	-	-	-
 S55329	2023-012A	JSE reda-7 gouki	2023 Jan 26 	2023 Jan 26	*	*	-	IGS	-	-	M	D	IMG-R	[J]	-	-	-	-	-	S	-	-	-
 S55331	2023-013A	Starlink-5492	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55332	2023-013B	Starlink-5491	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55332	2023-013B	Starlink-5491	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55333	2023-013C	Starlink-5493	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55334	2023-013D	Starlink-5652	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55335	2023-013E	Starlink-5660	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15326,7 +15327,7 @@ S55341	2023-013L	Starlink-5670	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 
 S55342	2023-013M	Starlink-5657	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55343	2023-013N	Starlink-5661	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55344	2023-013P	Starlink-5662	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55345	2023-013Q	Starlink-5653	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55345	2023-013Q	Starlink-5653	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55346	2023-013R	Starlink-5631	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55347	2023-013S	Starlink-5663	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55348	2023-013T	Starlink-5609	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15342,14 +15343,14 @@ S55357	2023-013AC	Starlink-5651	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5
 S55358	2023-013AD	Starlink-5622	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55359	2023-013AE	Starlink-5641	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55360	2023-013AF	Starlink-5664	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55361	2023-013AG	Starlink-5665	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55362	2023-013AH	Starlink-5574	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55361	2023-013AG	Starlink-5665	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55362	2023-013AH	Starlink-5574	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55363	2023-013AJ	Starlink-5648	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55364	2023-013AK	Starlink-5627	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55365	2023-013AL	Starlink-5639	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55366	2023-013AM	Starlink-5654	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55367	2023-013AN	Starlink-5635	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55368	2023-013AP	Starlink-5625	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55366	2023-013AM	Starlink-5654	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55367	2023-013AN	Starlink-5635	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55368	2023-013AP	Starlink-5625	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55369	2023-013AQ	Starlink-5644	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55370	2023-013AR	Starlink-5027	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55371	2023-013AS	Starlink-5590	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15357,14 +15358,14 @@ S55372	2023-013AT	Starlink-5568	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5
 S55373	2023-013AU	Starlink-5581	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55374	2023-013AV	Starlink-5578	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55375	2023-013AW	Starlink-5588	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55376	2023-013AX	Starlink-5586	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55376	2023-013AX	Starlink-5586	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55377	2023-013AY	Starlink-5567	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55378	2023-013AZ	Starlink-5572	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55379	2023-013BA	Starlink-5569	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55380	2023-013BB	Starlink-5571	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55380	2023-013BB	Starlink-5571	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55381	2023-013BC	Starlink-5575	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55382	2023-013BD	Starlink-5576	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55383	2023-013BE	Starlink-5531	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55383	2023-013BE	Starlink-5531	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55384	2023-013BF	Starlink-5537	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55385	2023-013BG	Starlink-5556	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55386	2023-013BH	Starlink-5555	2023 Jan 26 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15414,7 +15415,7 @@ S55433	2023-014AU	Starlink-5570	2023 Jan 31 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2
 S55434	2023-014AV	Starlink-5621	2023 Jan 31 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55435	2023-014AW	Starlink-5626	2023 Jan 31 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55436	2023-014AX	Starlink-5640	2023 Jan 31 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55437	2023-014AY	Starlink-5080	2023 Jan 31 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55437	2023-014AY	Starlink-5080	2023 Jan 31 	2023 Apr 20	2023 Apr 20	2023 Apr 20	-	Starlink 1.5 G2	2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55438	2023-014AZ	Starlink-5074	2023 Jan 31 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55439	2023-014BA	Starlink-5634	2023 Jan 31 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55441	2023-014BC	ION SCV009	2023 Jan 31 	2023 Feb 19	*	*	-	DORBIT	-	P	M	B	TECH	[I]	-	-	-	-	-	S	-	-	-
@@ -15465,7 +15466,7 @@ S55491	2023-015AU	Starlink-5364	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5
 S55492	2023-015AV	Starlink-5013	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55493	2023-015AW	Starlink-5362	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55494	2023-015AX	Starlink-5344	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55495	2023-015AY	Starlink-5100	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55495	2023-015AY	Starlink-5100	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55496	2023-015AZ	Starlink-5139	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55497	2023-015BA	Starlink-5363	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55498	2023-015BB	Starlink-5365	2023 Feb  2 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15485,11 +15486,11 @@ S55572	2023-020D	Starlink-5732	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 
 S55573	2023-020E	Starlink-5738	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55574	2023-020F	Starlink-5747	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55575	2023-020G	Starlink-5745	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55576	2023-020H	Starlink-5751	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55576	2023-020H	Starlink-5751	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55577	2023-020J	Starlink-5752	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55578	2023-020K	Starlink-5713	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55579	2023-020L	Starlink-5754	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55580	2023-020M	Starlink-5757	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55580	2023-020M	Starlink-5757	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55581	2023-020N	Starlink-5753	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55582	2023-020P	Starlink-5741	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55583	2023-020Q	Starlink-5742	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15522,16 +15523,16 @@ S55609	2023-020AS	Starlink-5719	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5
 S55610	2023-020AT	Starlink-5722	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55611	2023-020AU	Starlink-5730	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55612	2023-020AV	Starlink-5734	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55613	2023-020AW	Starlink-5715	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55614	2023-020AX	Starlink-5714	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55613	2023-020AW	Starlink-5715	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55614	2023-020AX	Starlink-5714	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55615	2023-020AY	Starlink-5712	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55616	2023-020AZ	Starlink-5710	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55617	2023-020BA	Starlink-5721	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55618	2023-020BB	Starlink-5717	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55619	2023-020BC	Starlink-5720	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55617	2023-020BA	Starlink-5721	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55618	2023-020BB	Starlink-5717	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55619	2023-020BC	Starlink-5720	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55620	2023-020BD	Starlink-5718	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55621	2023-020BE	Starlink-5709	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55622	2023-020BF	Starlink-5702	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55622	2023-020BF	Starlink-5702	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55623	2023-020BG	Starlink-5698	2023 Feb 12 	2023 Mar  1	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55628	2023-021A	Starlink-5484	2023 Feb 17 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55629	2023-021B	Starlink-5497	2023 Feb 17 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15590,7 +15591,7 @@ S55686	2023-023A	Zhongxing 26	2023 Feb 23 	2023 Mar  9	*	*	-	ZX	-	-	M	B	COM	[CN]
 S55688	2023-024A	Soyuz MS-23	2023 Feb 24 	2023 Mar  9	*	*	-	Soyuz MS	-	P	M	C	SS	[RU]	-	-	-	-	-	S	-	-	-
 S55690	2023-025A	Horus-1	2023 Feb 24 	2023 Mar  3	*	*	-	Egyptsat	-	-	-	D	IMG	[EG]	-	-	-	-	-	S	-	-	-
 S55695	2023-026A	Starlink-30050	2023 Feb 27 	2023 Mar  1	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S55696	2023-026B	Starlink-30038	2023 Feb 27 	2023 Mar  1	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55696	2023-026B	Starlink-30038	2023 Feb 27 	2023 Mar  1	2023 May  4	2023 May  4	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55697	2023-026C	Starlink-30040	2023 Feb 27 	2023 Mar  1	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55698	2023-026D	Starlink-30061	2023 Feb 27 	2023 Mar  1	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55699	2023-026E	Starlink-30055	2023 Feb 27 	2023 Mar  1	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15611,7 +15612,7 @@ S55713	2023-026U	Starlink-30063	2023 Feb 27 	2023 Mar  1	*	*	-	Starlink 2F92G6	6
 S55714	2023-026V	Starlink-30059	2023 Feb 27 	2023 Mar  1	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55715	2023-026W	Starlink-30062	2023 Feb 27 	2023 Mar 24	2023 Mar 24	2023 Mar 24	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55740	2023-027A	Dragon Endeavour (Crew-6)	2023 Mar  2 	2023 Mar  2	*	*	-	Dragon 2	-	P	M	B	SS	[US]	-	-	-	-	-	S	Hawthorne	-	-
-S55741	2023-028A	Starlink-5592	2023 Mar  3 	2023 Mar  3	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S55741	2023-028A	Starlink-5592	2023 Mar  3 	2023 Mar  3	*	*	-	Starlink 1.5 G2	2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55742	2023-028B	Starlink-5594	2023 Mar  3 	2023 Mar  3	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55743	2023-028C	Starlink-5602	2023 Mar  3 	2023 Mar  3	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55744	2023-028D	Starlink-5601	2023 Mar  3 	2023 Mar  3	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15770,8 +15771,8 @@ S55974	2023-039B	Tianmu-1 04	2023 Mar 22 	2023 Mar 22	*	*	-	Tianmu	-	-	-	B	MET	[
 S55975	2023-039C	Tianmu-1 05	2023 Mar 22 	2023 Mar 22	*	*	-	Tianmu	-	-	-	B	MET	[CN]	-	-	-	-	-	S	-	-	-
 S55976	2023-039D	Tianmu-1 06	2023 Mar 22 	2023 Mar 22	*	*	-	Tianmu	-	-	-	B	MET	[CN]	-	-	-	-	-	S	-	-	-
 S55978	2023-040A	Kosmos-2567	2023 Mar 23 	2023 Mar 23	*	*	-	Bars	-	-	M	D	IMG	[RU]	-	-	-	-	-	S	-	-	-
-S55981	2023-041A	Global-19	2023 Mar 24 	2023 Mar 24	*	*	-	BlackSky	-	P	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
-S55982	2023-041B	Global-5	2023 Mar 24 	2023 Mar 24	*	*	-	BlackSky	-	P	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
+S55982	2023-041B	Global-19	2023 Mar 24 	2023 Mar 24	*	*	-	BlackSky	-	P	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
+S55983	2023-041C	Global-5	2023 Mar 24 	2023 Mar 24	*	*	-	BlackSky	-	P	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S55986	2023-042A	Starlink-5905	2023 Mar 24 	2023 Mar 24	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55987	2023-042B	Starlink-5915	2023 Mar 24 	2023 Mar 24	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S55988	2023-042C	Starlink-5916	2023 Mar 24 	2023 Mar 24	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -15866,62 +15867,62 @@ S56080	2023-043AL	OneWeb SL0651	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	
 S56081	2023-043AM	OneWeb SL0718	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
 S56083	2023-044A	'Ofeq-13	2023 Mar 28 	2023 Mar 28	*	*	-	Ofeq	-	-	M	D	IMG-R	[IL]	-	-	-	-	-	S	IAI/MBT	-	-
 S56091	2023-045A	Kosmos-2568	2023 Mar 29 	2023 Mar 29	*	*	-	EMKA	-	-	M	D	IMG	[RU]	-	-	-	-	-	S	-	-	-
-S56093	2023-046A	Starlink-6102	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56094	2023-046B	Starlink-6109	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56095	2023-046C	Starlink-6090	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56096	2023-046D	Starlink-6089	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56097	2023-046E	Starlink-6077	2023 Mar 29 	2023 Apr  8	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56098	2023-046F	Starlink-6088	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56099	2023-046G	Starlink-6093	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56100	2023-046H	Starlink-6076	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56101	2023-046J	Starlink-6095	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56102	2023-046K	Starlink-6075	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56103	2023-046L	Starlink-6096	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56104	2023-046M	Starlink-6062	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56105	2023-046N	Starlink-6066	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56106	2023-046P	Starlink-6078	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56107	2023-046Q	Starlink-6030	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56108	2023-046R	Starlink-6081	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56109	2023-046S	Starlink-6083	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56110	2023-046T	Starlink-6082	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56111	2023-046U	Starlink-6084	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56112	2023-046V	Starlink-6080	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56113	2023-046W	Starlink-6113	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56114	2023-046X	Starlink-6103	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56115	2023-046Y	Starlink-6101	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56116	2023-046Z	Starlink-6114	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56117	2023-046AA	Starlink-6107	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56118	2023-046AB	Starlink-6105	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56119	2023-046AC	Starlink-6091	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56120	2023-046AD	Starlink-6079	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56121	2023-046AE	Starlink-6092	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56122	2023-046AF	Starlink-6094	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56123	2023-046AG	Starlink-6115	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56124	2023-046AH	Starlink-6126	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56125	2023-046AJ	Starlink-6119	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56126	2023-046AK	Starlink-6124	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56127	2023-046AL	Starlink-6104	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56128	2023-046AM	Starlink-6122	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56129	2023-046AN	Starlink-6121	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56130	2023-046AP	Starlink-6117	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56131	2023-046AQ	Starlink-6120	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56132	2023-046AR	Starlink-6071	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56133	2023-046AS	Starlink-5566	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56134	2023-046AT	Starlink-5564	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56135	2023-046AU	Starlink-5563	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56136	2023-046AV	Starlink-5489	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56137	2023-046AW	Starlink-5090	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56138	2023-046AX	Starlink-4774	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56139	2023-046AY	Starlink-5378	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56140	2023-046AZ	Starlink-5375	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56141	2023-046BA	Starlink-5377	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56142	2023-046BB	Starlink-5376	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56143	2023-046BC	Starlink-5016	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56144	2023-046BD	Starlink-5374	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56145	2023-046BE	Starlink-5370	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56146	2023-046BF	Starlink-5111	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56147	2023-046BG	Starlink-5140	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56148	2023-046BH	Starlink-5089	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56093	2023-046A	Starlink-6102	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56094	2023-046B	Starlink-6109	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56095	2023-046C	Starlink-6090	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56096	2023-046D	Starlink-6089	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56097	2023-046E	Starlink-6077	2023 Mar 29 	2023 Apr  8	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56098	2023-046F	Starlink-6088	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56099	2023-046G	Starlink-6093	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56100	2023-046H	Starlink-6076	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56101	2023-046J	Starlink-6095	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56102	2023-046K	Starlink-6075	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56103	2023-046L	Starlink-6096	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56104	2023-046M	Starlink-6062	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56105	2023-046N	Starlink-6066	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56106	2023-046P	Starlink-6078	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56107	2023-046Q	Starlink-6030	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56108	2023-046R	Starlink-6081	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56109	2023-046S	Starlink-6083	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56110	2023-046T	Starlink-6082	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56111	2023-046U	Starlink-6084	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56112	2023-046V	Starlink-6080	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56113	2023-046W	Starlink-6113	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56114	2023-046X	Starlink-6103	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56115	2023-046Y	Starlink-6101	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56116	2023-046Z	Starlink-6114	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56117	2023-046AA	Starlink-6107	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56118	2023-046AB	Starlink-6105	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56119	2023-046AC	Starlink-6091	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56120	2023-046AD	Starlink-6079	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56121	2023-046AE	Starlink-6092	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56122	2023-046AF	Starlink-6094	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56123	2023-046AG	Starlink-6115	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56124	2023-046AH	Starlink-6126	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56125	2023-046AJ	Starlink-6119	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56126	2023-046AK	Starlink-6124	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56127	2023-046AL	Starlink-6104	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56128	2023-046AM	Starlink-6122	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56129	2023-046AN	Starlink-6121	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56130	2023-046AP	Starlink-6117	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56131	2023-046AQ	Starlink-6120	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56132	2023-046AR	Starlink-6071	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56133	2023-046AS	Starlink-5566	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56134	2023-046AT	Starlink-5564	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56135	2023-046AU	Starlink-5563	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56136	2023-046AV	Starlink-5489	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56137	2023-046AW	Starlink-5090	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56138	2023-046AX	Starlink-4774	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56139	2023-046AY	Starlink-5378	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56140	2023-046AZ	Starlink-5375	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56141	2023-046BA	Starlink-5377	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56142	2023-046BB	Starlink-5376	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56143	2023-046BC	Starlink-5016	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56144	2023-046BD	Starlink-5374	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56145	2023-046BE	Starlink-5370	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56146	2023-046BF	Starlink-5111	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56147	2023-046BG	Starlink-5140	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56148	2023-046BH	Starlink-5089	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56153	2023-047A	PIESAT-1	2023 Mar 30 	2023 Mar 30	*	*	-	PIESAT	-	-	-	B	IMG-R	[CN]	-	-	-	-	-	S	-	-	-
 S56154	2023-047B	PIESAT-2	2023 Mar 30 	2023 Mar 30	*	*	-	PIESAT	-	-	-	B	IMG-R	[CN]	-	-	-	-	-	S	-	-	-
 S56155	2023-047C	PIESAT-3	2023 Mar 30 	2023 Mar 30	*	*	-	PIESAT	-	-	-	B	IMG-R	[CN]	-	-	-	-	-	S	-	-	-
@@ -15952,17 +15953,17 @@ S56185	2023-054H	BRO-9	2023 Apr 15 	2023 Apr 15	*	*	-	Unseen	-	-	-	B	SIG	[F]	-	-
 S56186	2023-054J	Oceane	2023 Apr 15 	2023 Apr 19	*	*	-	GHG	-	-	M	B	SCI	[CA]	-	-	-	-	-	S	-	-	-
 S56187	2023-054K	Lemur-2 SpaceGus	2023 Apr 15 	2023 Apr 15	*	*	-	OEWF	-	-	-	B	COM/MET-RO	[L]	-	-	-	-	-	S	-	-	-
 S56188	2023-054L	CIRBE	2023 Apr 15 	2023 Apr 15	*	*	-	UCO	-	-	-	A	SCI	[US]	-	-	-	-	-	S	-	-	-
-S56189	2023-054M	Taifa-1	2023 Apr 15 	2023 Apr 15	*	*	-	Kenya SA	-	-	-	C	IMG	[KE]	-	-	-	-	-	S	-	-	-
+S56189	2023-054M	It's About Time	2023 Apr 15 	2023 Apr 15	*	*	-	TrustPoint	-	-	-	B	NAV	[US]	-	-	-	-	-	S	-	-	-
 S56190	2023-054N	NuSat-36	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
 S56191	2023-054P	Hawk 7A	2023 Apr 15 	2023 Apr 15	*	*	-	H360	-	P	M	B	SIG	[US]	-	-	-	-	-	S	-	-	-
 S56192	2023-054Q	ION SCV010	2023 Apr 15 	2023 Apr 15	*	*	-	DORBIT	-	P	M	B	TECH	[I]	-	-	-	-	-	S	-	-	-
 S56193	2023-054R	Hawk 7B	2023 Apr 15 	2023 Apr 15	*	*	-	H360	-	P	M	B	SIG	[US]	-	-	-	-	-	S	-	-	-
 S56194	2023-054S	Pleiades Yearling	2023 Apr 15 	2023 Apr 15	*	*	-	UC Pomona	-	-	-	A	TECH	[US]	-	-	-	-	-	S	-	-	-
-S56195	2023-054T	It's About Time	2023 Apr 15 	2023 Apr 15	*	*	-	TrustPoint	-	-	-	B	NAV	[US]	-	-	-	-	-	S	-	-	-
+S56195	2023-054T	GHOST-1	2023 Apr 15 	2023 Apr 15	*	*	-	GHOST	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S56196	2023-054U	Vigoride VR-6	2023 Apr 15 	2023 Apr 15	*	*	-	Momentus	-	-	M	B	TECH	[US]	-	-	-	-	-	S	-	-	-
 S56197	2023-054V	GHOST-2	2023 Apr 15 	2023 Apr 15	*	*	-	GHOST	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
 S56198	2023-054W	Umbra-06	2023 Apr 15 	2023 Apr 15	*	*	-	Umbra	-	P	-	B	IMG-R	[US]	-	-	-	-	-	S	-	-	-
-S56199	2023-054X	GHOST-1	2023 Apr 15 	2023 Apr 15	*	*	-	GHOST	-	-	-	B	IMG	[US]	-	-	-	-	-	S	-	-	-
+S56199	2023-054X	Tomorrow-R1	2023 Apr 15 	2023 Apr 15	*	*	-	Tomorrow	-	-	-	B	IMG-R	[US]	-	-	-	-	-	S	-	-	-
 S56200	2023-054Y	Hawk 7C	2023 Apr 15 	2023 Apr 15	*	*	-	H360	-	P	M	B	SIG	[US]	-	-	-	-	-	S	-	-	-
 S56201	2023-054Z	NuSat-39	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
 S56202	2023-054AA	NuSat-38	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[UY]	-	-	-	-	-	S	-	-	-
@@ -15970,7 +15971,7 @@ S56203	2023-054AB	NuSat-37	2023 Apr 15 	2023 Apr 15	*	*	-	Satelog	-	-	M	B	IMG	[U
 S56204	2023-054AC	Mey-Lin	2023 Apr 15 	2023 Apr 19	*	*	-	GHG	-	-	M	B	SCI	[CA]	-	-	-	-	-	S	-	-	-
 S56205	2023-054AD	FACSAT-2	2023 Apr 15 	2023 Apr 15	*	*	-	FAC	-	-	-	D	IMG	[CO]	-	-	-	-	-	S	-	-	-
 S56206	2023-054AE	Lemur-2 Romeo-N-LEO	2023 Apr 15 	2023 Apr 15	*	*	-	Spire	-	-	-	B	COM/MET-RO	[US]	-	-	-	-	-	S	-	-	-
-S56207	2023-054AF	Tomorrow-R1	2023 Apr 15 	2023 Apr 15	*	*	-	Tomorrow	-	-	-	B	IMG-R	[US]	-	-	-	-	-	S	-	-	-
+S56207	2023-054AF	Taifa-1	2023 Apr 15 	2023 Apr 15	*	*	-	Kenya SA	-	-	-	C	IMG	[KE]	-	-	-	-	-	S	-	-	-
 S56208	2023-054AG	NORSAT-TD	2023 Apr 15 	2023 Apr 15	*	*	-	NORSAT	-	-	-	C	COM/TECH	[N]	-	-	-	-	-	S	-	-	-
 S56209	2023-054AH	Gaspard	2023 Apr 15 	2023 Apr 19	*	*	-	GHG	-	-	M	B	SCI	[CA]	-	-	-	-	-	S	-	-	-
 S56210	2023-054AJ	Connecta T2.1	2023 Apr 15 	2023 Apr 15	*	*	-	Plan S	-	-	-	B	COM	[TR]	-	-	-	-	-	S	-	-	-
@@ -15979,11 +15980,13 @@ S56212	2023-054AL	RoseyCubesat-1	2023 Apr 15 	2023 Apr 15	*	*	-	OSM Cube	-	-	-	B
 S56213	2023-054AM	Sateliot-0	2023 Apr 15 	2023 Apr 15	*	*	-	Sateliot	-	-	-	B	SCI	[E]	-	-	-	-	-	S	-	-	-
 S56214	2023-054AN	LacunaSat-3C?	2023 Apr 15 	2023 Apr 15	*	*	-	Lacuna	-	-	-	B	TECH	[UK]	-	-	-	-	-	S	-	-	-
 S56215	2023-054AP	VCUB	2023 Apr 15 	2023 Apr 15	*	*	-	VCUB	-	-	-	B	IMG	[BR]	-	-	-	-	-	S	-	-	-
-S56216	2023-054AQ	EPIC Hyper-1	2023 Apr 15 	2023 Apr 15	*	*	-	EPIC VIEW	-	-	-	B	IMG	[UK]	-	-	-	-	-	S	-	-	-
+S56216	2023-054AQ	ELO 3	2023 Apr 15 	2023 Apr 15	*	*	-	ELO	-	-	-	B	COM	[UK]	-	-	-	-	-	S	-	-	-
 S56217	2023-054AR	Kepler-20	2023 Apr 15 	2023 Apr 15	*	*	-	Kepler	-	-	-	B	COM	[CA]	-	-	-	-	-	S	-	-	-
 S56218	2023-054AS	Kepler-21	2023 Apr 15 	2023 Apr 15	*	*	-	Kepler	-	-	-	B	COM	[CA]	-	-	-	-	-	S	-	-	-
+S56219	2023-054AT	DISCO-1	2023 Apr 15 	2023 May 18	*	*	-	Aarhus	-	-	-	B	COM	[DK]	-	-	-	-	-	S	-	-	-
+S56220	2023-054AU	Revela	2023 Apr 15 	2023 Apr 15	*	*	-	ArcaD	-	-	-	B	IMG	[I]	-	-	-	-	-	S	-	-	-
 S56232	2023-055A	Feng Yun 3G	2023 Apr 16 	2023 Apr 16	*	*	-	FY-3	-	P	M	C	MET	[CN]	-	-	-	-	-	S	-	-	-
-S56286	2023-056A	Starlink-30096	2023 Apr 19 	2023 Apr 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56286	2023-056A	Starlink-30096	2023 Apr 19 	2023 Apr 19	2023 May  7	2023 May  7	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56287	2023-056B	Starlink-30107	2023 Apr 19 	2023 Apr 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56288	2023-056C	Starlink-30106	2023 Apr 19 	2023 Apr 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56289	2023-056D	Starlink-30095	2023 Apr 19 	2023 Apr 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -16005,9 +16008,9 @@ S56304	2023-056U	Starlink-30099	2023 Apr 19 	2023 Apr 19	*	*	-	Starlink 2F92G6	6
 S56305	2023-056V	Starlink-30094	2023 Apr 19 	2023 Apr 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56306	2023-056W	Starlink-30112	2023 Apr 19 	2023 Apr 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56307	2022-144J	USA 344	2022 Nov  1 	2023 Jan	*	*	-	ESPASAT	-	-	-	D	TECH	[US]	-	-	-	-	-	S	-	-	-
-S56308	2023-057A	TeLEOS-2	2023 Apr 22 	2023 Apr 22	*	*	-	STE	-	P	-	B	IMG-R	[SG]	-	-	-	-	-	S	-	-	-
+S56308	2023-057A	POEM-2	2023 Apr 22 	2023 Apr 22	*	*	-	ISRO Aux	-	-	-	C	TECH	[IN]	-	-	-	-	-	S	-	-	-
 S56309	2023-057B	LUMELITE-4	2023 Apr 22 	2023 Apr 22	*	*	-	NUS	-	-	-	B	TECH	[SG]	-	-	-	-	-	S	-	-	-
-S56310	2023-057C	POEM-2	2023 Apr 22 	2023 Apr 22	*	*	-	ISRO Aux	-	-	-	C	TECH	[IN]	-	-	-	-	-	S	-	-	-
+S56310	2023-057C	TeLEOS-2	2023 Apr 22 	2023 Apr 22	*	*	-	STE	-	P	-	B	IMG-R	[SG]	-	-	-	-	-	S	-	-	-
 S56311	1998-067VC	ARKSAT-1	2023 Mar 14 	*	*	*	-	UARK	-	-	-	A	TECH	[US]	-	-	-	-	-	S	-	-	-
 S56312	1998-067VD	AuroraSat	2023 Mar 14 	*	*	*	-	AurRI	-	-	-	A	TECH	[CA]	-	-	-	-	-	S	-	-	-
 S56313	1998-067VE	Ex-Alta 2	2023 Mar 14 	*	*	*	-	Alberta	-	-	-	A	TECH	[CA]	-	-	-	-	-	S	-	-	-
@@ -16065,3 +16068,217 @@ S56368	2023-059B	O3b mPOWER F4	2023 Apr 28 	2023 Apr 28	*	*	-	O3b	-	-	-	B	COM	[U
 S56370	2023-060A	Viasat-3 Americas	2023 May  1 	2023 May  1	*	*	-	Viasat	-	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56371	2023-060B	Arcturus	2023 May  1 	2023 May  1	*	*	-	Astranis GEO	-	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56372	2023-060C	G-Space 1	2023 May  1 	2023 May  1	*	*	-	G-Space	-	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56374	2023-061A	Starlink-6156	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56375	2023-061B	Starlink-6158	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56376	2023-061C	Starlink-6188	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56377	2023-061D	Starlink-6189	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56378	2023-061E	Starlink-6191	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56379	2023-061F	Starlink-6157	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56380	2023-061G	Starlink-6161	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56381	2023-061H	Starlink-6159	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56382	2023-061J	Starlink-6160	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56383	2023-061K	Starlink-6166	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56384	2023-061L	Starlink-6153	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56385	2023-061M	Starlink-6173	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56386	2023-061N	Starlink-5836	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56387	2023-061P	Starlink-6178	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56388	2023-061Q	Starlink-6176	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56389	2023-061R	Starlink-6145	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56390	2023-061S	Starlink-6300	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56391	2023-061T	Starlink-6298	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56392	2023-061U	Starlink-6301	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56393	2023-061V	Starlink-6303	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56394	2023-061W	Starlink-6305	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56395	2023-061X	Starlink-6273	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56396	2023-061Y	Starlink-6302	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56397	2023-061Z	Starlink-6271	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56398	2023-061AA	Starlink-6288	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56399	2023-061AB	Starlink-6277	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56400	2023-061AC	Starlink-6267	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56401	2023-061AD	Starlink-6256	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56402	2023-061AE	Starlink-6269	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56403	2023-061AF	Starlink-6284	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56404	2023-061AG	Starlink-6287	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56405	2023-061AH	Starlink-6285	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56406	2023-061AJ	Starlink-6283	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56407	2023-061AK	Starlink-6282	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56408	2023-061AL	Starlink-6289	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56409	2023-061AM	Starlink-6241	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56410	2023-061AN	Starlink-6281	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56411	2023-061AP	Starlink-6279	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56412	2023-061AQ	Starlink-6278	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56413	2023-061AR	Starlink-6258	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56414	2023-061AS	Starlink-5136	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56415	2023-061AT	Starlink-6268	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56416	2023-061AU	Starlink-6260	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56417	2023-061AV	Starlink-6261	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56418	2023-061AW	Starlink-5356	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56419	2023-061AX	Starlink-5350	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56420	2023-061AY	Starlink-6272	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56421	2023-061AZ	Starlink-6270	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56422	2023-061BA	Starlink-6236	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56423	2023-061BB	Starlink-6239	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56424	2023-061BC	Starlink-6242	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56425	2023-061BD	Starlink-6224	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56426	2023-061BE	Starlink-5352	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56427	2023-061BF	Starlink-5724	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56428	2023-061BG	Starlink-6238	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56429	2023-061BH	Starlink-6264	2023 May  4 	2023 May  4	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56442	2023-062A	TROPICS SV05	2023 May  8 	2023 May  8	*	*	-	MIT Cube	-	-	-	C	SCI	[US]	-	-	-	-	-	S	-	-	-
+S56444	2023-062C	TROPICS SV06	2023 May  8 	2023 May  8	*	*	-	MIT Cube	-	-	-	C	SCI	[US]	-	-	-	-	-	S	-	-	-
+S56446	2023-063A	Tianzhou-6	2023 May 10 	2023 May 10	*	*	-	Tianzhou	-	P	M	C	SS	[CN]	-	-	-	-	-	S	-	-	-
+S56448	2023-064A	Starlink 5990	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56449	2023-064B	Starlink 5993	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56450	2023-064C	Starlink 5970	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56451	2023-064D	Starlink 5985	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56452	2023-064E	Starlink 5986	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56453	2023-064F	Starlink 5935	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56454	2023-064G	Starlink 5959	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56455	2023-064H	Starlink 5987	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56456	2023-064J	Starlink 5995	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56457	2023-064K	Starlink 5994	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56458	2023-064L	Starlink 6050	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56459	2023-064M	Starlink 6048	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56460	2023-064N	Starlink 6047	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56461	2023-064P	Starlink 6037	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56462	2023-064Q	Starlink 6045	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56463	2023-064R	Starlink 6051	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56464	2023-064S	Starlink 6043	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56465	2023-064T	Starlink 6054	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56466	2023-064U	Starlink 6053	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56467	2023-064V	Starlink 6055	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56468	2023-064W	Starlink 5998	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56469	2023-064X	Starlink 5518	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56470	2023-064Y	Starlink 5523	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56471	2023-064Z	Starlink 5521	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56472	2023-064AA	Starlink 5038	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56473	2023-064AB	Starlink 5486	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56474	2023-064AC	Starlink 5524	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56475	2023-064AD	Starlink 5541	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56476	2023-064AE	Starlink 5545	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56477	2023-064AF	Starlink 5534	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56478	2023-064AG	Starlink 6041	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56479	2023-064AH	Starlink 6044	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56480	2023-064AJ	Starlink 6214	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56481	2023-064AK	Starlink 6222	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56482	2023-064AL	Starlink 6220	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56483	2023-064AM	Starlink 5868	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56484	2023-064AN	Starlink 6221	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56485	2023-064AP	Starlink 6210	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56486	2023-064AQ	Starlink 6201	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56487	2023-064AR	Starlink 6196	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56488	2023-064AS	Starlink 6204	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56489	2023-064AT	Starlink 5923	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56490	2023-064AU	Starlink 5873	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56491	2023-064AV	Starlink 5842	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56492	2023-064AW	Starlink 5846	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56493	2023-064AX	Starlink 5841	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56494	2023-064AY	Starlink 5530	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56495	2023-064AZ	Starlink 5529	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56496	2023-064BA	Starlink 5526	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56497	2023-064BB	Starlink 5527	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56498	2023-064BC	Starlink 5522	2023 May 10 	2023 May 10	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56503	2023-065A	Starlink-5775	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56504	2023-065B	Starlink-5716	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56505	2023-065C	Starlink-5763	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56506	2023-065D	Starlink-5340	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56507	2023-065E	Starlink-5333	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56508	2023-065F	Starlink-5335	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56509	2023-065G	Starlink-5334	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56510	2023-065H	Starlink-5339	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56511	2023-065J	Starlink-5351	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56512	2023-065K	Starlink-5349	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56513	2023-065L	Starlink-5329	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56514	2023-065M	Starlink-5343	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56515	2023-065N	Starlink-5348	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56516	2023-065P	Starlink-5342	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56517	2023-065Q	Starlink-5345	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56518	2023-065R	Starlink-5346	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56519	2023-065S	Starlink-6313	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56520	2023-065T	Starlink-6344	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56521	2023-065U	Starlink-6333	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56522	2023-065V	Starlink-6327	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56523	2023-065W	Starlink-6328	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56524	2023-065X	Starlink-6323	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56525	2023-065Y	Starlink-6329	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56526	2023-065Z	Starlink-6317	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56527	2023-065AA	Starlink-6335	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56528	2023-065AB	Starlink-6337	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56529	2023-065AC	Starlink-6307	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56530	2023-065AD	Starlink-6318	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56531	2023-065AE	Starlink-6280	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56532	2023-065AF	Starlink-6319	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56533	2023-065AG	Starlink-6310	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56534	2023-065AH	Starlink-6308	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56535	2023-065AJ	Starlink-6309	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56536	2023-065AK	Starlink-6312	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56537	2023-065AL	Starlink-6311	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56538	2023-065AM	Starlink-6314	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56539	2023-065AN	Starlink-6135	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56540	2023-065AP	Starlink-6136	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56541	2023-065AQ	Starlink-6249	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56542	2023-065AR	Starlink-6266	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56543	2023-065AS	Starlink-6228	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56544	2023-065AT	Starlink-6226	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56545	2023-065AU	Starlink-6086	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56546	2023-065AV	Starlink-6187	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56547	2023-065AW	Starlink-6291	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56548	2023-065AX	Starlink-6244	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56549	2023-065AY	Starlink-6263	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56550	2023-065AZ	Starlink-6255	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56551	2023-065BA	Starlink-6199	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56552	2023-065BB	Starlink-5802	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56553	2023-065BC	Starlink-6074	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56554	2023-065BD	Starlink-6295	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56555	2023-065BE	Starlink-6252	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56556	2023-065BF	Starlink-5302	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56557	2023-065BG	Starlink-6265	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56558	2023-065BH	Starlink-6286	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56564	2023-066A	di 55 ke Beidou Daohang WX.	2023 May 17 	2023 May 17	*	*	-	Beidou-3G	-	-	M	D	NAV	[CN]	-	-	-	-	-	S	-	-	-
+S56688	2023-067A	Starlink-30122	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56689	2023-067B	Starlink-30129	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56690	2023-067C	Starlink-30124	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56691	2023-067D	Starlink-30087	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56692	2023-067E	Starlink-30036	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56693	2023-067F	Starlink-30067	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56694	2023-067G	Starlink-30126	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56695	2023-067H	Starlink-30121	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56696	2023-067J	Starlink-30118	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56697	2023-067K	Starlink-30130	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56698	2023-067L	Starlink-30068	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56699	2023-067M	Starlink-30127	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56700	2023-067N	Starlink-30053	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56701	2023-067P	Starlink-30125	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56702	2023-067Q	Starlink-30117	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56703	2023-067R	Starlink-30132	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56704	2023-067S	Starlink-30066	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56705	2023-067T	Starlink-30080	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56706	2023-067U	Starlink-30079	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56707	2023-067V	Starlink-30070	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56708	2023-067W	Starlink-30071	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56709	2023-067X	Starlink-30085	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56710	2023-068A	Iridium Next SV174?	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56711	2023-068B	Iridium Next SV177?	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56712	2023-068C	Iridium Next SV178?	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56713	2023-068D	Iridium Next SV179?	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56714	2023-068E	Iridium Next SV181?	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56715	2023-068F	OneWeb SL0561	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56716	2023-068G	OneWeb SL0668	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56717	2023-068H	OneWeb SL0676	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56718	2023-068J	OneWeb SL0677	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56719	2023-068K	OneWeb SL0678	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56720	2023-068L	OneWeb SL0679	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56721	2023-068M	OneWeb SL0680	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56722	2023-068N	OneWeb SL0681	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56723	2023-068P	OneWeb SL0682	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56724	2023-068Q	OneWeb SL0683	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56725	2023-068R	OneWeb SL0684	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56726	2023-068S	OneWeb SL0686	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56727	2023-068T	OneWeb SL0694	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56728	2023-068U	OneWeb SL0696	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56729	2023-068V	OneWeb SL0703	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56730	2023-068W	OneWeb SL0721 Joey	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56731	2023-069A	Aomen Kexue 1A	2023 May 21 	2023 May 21	*	*	-	MUST	-	-	M	A	SCI	[CN]	-	-	-	-	-	S	-	-	-
+S56732	2023-069B	Aomen Kexue 1B	2023 May 21 	2023 May 21	*	*	-	MUST	-	-	-	A	SCI	[CN]	-	-	-	-	-	S	-	-	-
+S56733	2023-069C	Luojia-2 01	2023 May 21 	2023 May 21	*	*	-	Wuhan	-	-	-	A	IMG	[CN]	-	-	-	-	-	S	-	-	-
+S56739	2023-070A	Axiom Ax-2	2023 May 21 	2023 May 21	*	*	-	Dragon 2	-	P	M	B	SS	[US]	-	-	-	-	-	S	-	-	-
