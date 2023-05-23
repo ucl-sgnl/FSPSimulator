@@ -1,4 +1,5 @@
 # if your debugger or python console is not working, try adding the following lines to the top of the file
+import datetime
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
@@ -38,7 +39,6 @@ def run_simulation(policy):
         with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop.pickle'), 'rb') as f:
             catalogue.SetCatalogue(pickle.load(f))
 
-
     # Only run if results don't already exist
     if policy["environment"] == "development" and os.path.exists(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
         with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle'), 'rb') as f:
@@ -60,12 +60,25 @@ def run_simulation(policy):
     # Propagate
     timestep = int(policy["metric_timestep"])*24*60*60
     print("Propogating Satellites...")
+
+    # remove all satellites that have decayed
+    for satellite in SATCAT_before_prop:
+        try:    
+            if satellite.decay_date < datetime.datetime.today():
+                SATCAT_before_prop.remove(satellite)
+        except TypeError: # catch when the satellite decay date is None
+            continue 
+
     for satellite in SATCAT_before_prop:
         satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # convert days to seconds
-
+    
     # Export
     with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'), 'wb') as f:
         pickle.dump(SATCAT_before_prop, f)
+
+    print("Output: " + os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'))
+    print("Number of Satellites: " + str(len(SATCAT_before_prop)))
+    print("Simulation Complete")
 
 if __name__ == '__main__':
     with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/policy_fsptest.json'), 'r') as f:
