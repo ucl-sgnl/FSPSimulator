@@ -222,11 +222,9 @@ class SpaceCatalogue:
         elif self.sim_object_type == "all":
             # the dataframe we are looking at is the merged JSR and Celestrak catalogue
             # it contains the columns from both catalogues
-            #
-            for index, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
+            print("building space objects from JSR/Space-track merged catalogue")
+            for _, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
                 tle = row["TLE_LINE1"] + "\n" + row["TLE_LINE2"]
-                print("row apogee: ", row['APOAPSIS'])
-                print("row all: ", row)
                 self.Catalogue.append(SpaceObject(object_type=row['OBJECT_TYPE'], 
                                                         mass=row['Mass'], 
                                                         launch_site=row["SITE"],
