@@ -6,7 +6,7 @@ import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
+from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
 import matplotlib.cm as cm
 
 def verify_value(value, impute_function):
@@ -18,7 +18,7 @@ def verify_value(value, impute_function):
             return value
     except (TypeError, ValueError):
         pass
-    return impute_function()  # if value is None, non-numeric or too small
+    return impute_function(value)  # pass the value to the impute_function
 
 def verify_angle(value, name, random=False):
     # function to verify that the value is a float and is between 0 and 360
@@ -27,11 +27,11 @@ def verify_angle(value, name, random=False):
         value = float(value)
         if 0 <= value <= 360:  # if value is acceptable
             return value
-        raise ValueError(f'Object {name} is negative or more than 360 degrees. Please check the input data')
+        raise ValueError(f'Object {name} is negative or more than 360 degrees. {value} is not between 0 and 360')
     except (TypeError, ValueError):
         if random:
             return np.random.uniform(0, 360)
-        raise ValueError(f'Object {name} is None or not a float. Please check the input data')
+        raise ValueError(f'{value} is None or not a float. Please check the input data')
 
 def verify_eccentricity(value):
     # function to verify that the value is a float and is between 0 and 1
@@ -46,11 +46,12 @@ def verify_eccentricity(value):
 
 
 class SpaceObject:
-    def __init__(self, cospar_id=None, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
+    def __init__(self, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
                  orbital_status_code=None, launch_site=None, mass=None, maneuverable=False, spin_stabilized=False, bstar = None, 
                  object_type = None, apogee=None, perigee=None, radar_cross_section=None, 
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle = None, station_keeping=None):
+                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None):
+        
         
         self.CATID = None # This is a computed property based on the GUID and isn't included as a parameter
         self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
@@ -59,7 +60,6 @@ class SpaceObject:
         self.launch_date = datetime.datetime.strptime(launch_date, '%Y-%m-%d')
 
         self.decay_date = decay_date
-        self.cospar_id = str(cospar_id)
         self.rso_name = str(rso_name)
         self.rso_type = str(rso_type) if rso_type is not None else None
 
@@ -87,11 +87,8 @@ class SpaceObject:
             self.operator = 'Unknown'
 
         self.characteristic_length = verify_value(characteristic_length, self.impute_char_length)
-        print("characteristic_length: ", self.characteristic_length)
         self.characteristic_area = verify_value(characteristic_area, self.impute_char_area)
-        print("characteristic_area: ", self.characteristic_area)
         self.mass = verify_value(mass, self.impute_mass)
-        print("mass: ", self.mass)
 
         self.source = source # http://celestrak.org/satcat/sources.php #TODO: do we really want source? This is just the country of origin, but I think maybe owner is more relevant nowadays
         # self.orbital_status_code = str(orbital_status_code) #TODO: I also would argue this is not that useful. We have payload_operational_status (especially if focus is just Earth orbit this is totally redundant i believe)
@@ -108,12 +105,12 @@ class SpaceObject:
         # Apogee and Perigee
         #raise an error if these are None, 0, negative or more than 100000 
         self.apogee = float(apogee) #in Km
-        if self.apogee is None or self.apogee == 0 or self.apogee < 0 or self.apogee > 100000:
-            raise ValueError('Object apogee altitude is None, 0, negative or more than 100000km. Please check the input data')
+        if self.apogee is None or self.apogee == 0 or self.apogee < 0 or self.apogee > 200000:
+            raise ValueError('Object apogee altitude is None, 0, negative or more than 200000km. Please check the input data')
         
         self.perigee = float(perigee) #in Km
-        if self.perigee is None or self.perigee == 0 or self.perigee < 0 or self.perigee > 100000:
-            raise ValueError('Object perigee altitude is None, 0, negative or more than 100000km. Please check the input data')
+        if self.perigee is None or self.perigee == 0 or self.perigee < 0 or self.perigee > 200000:
+            raise ValueError('Object perigee altitude is None, 0, negative or more than 200000km. Please check the input data')
     
         self.radar_cross_section = float(radar_cross_section) if radar_cross_section is not None else None #in meters^2
         self.propulsion_type = str(propulsion_type)
@@ -144,6 +141,7 @@ class SpaceObject:
                 raise ValueError('station_keeping must be either None, True, False or a list of length 1 or 2')
         
         # if tle is not a string of the format: "{69 characters}\n{69 characters}""  i.e. 2 lines of 69 characters, then raise a warning and set tle to None
+        self.tle=tle
         if tle is not None:
             if len(tle) != 2*69+1 or tle[69] != '\n':
                 print('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')
@@ -159,7 +157,7 @@ class SpaceObject:
         # Semi-major axis
         self.sma = (self.apogee + self.perigee)/2 + 6378.137 #in km #TODO: this is not correct for non-circular orbits.
         #raise an error if sma is None, 0, negative or more than 100000
-        if self.sma is None or self.sma == 0 or self.sma < 0 or self.sma > 100000:
+        if self.sma is None or self.sma == 0 or self.sma < 0 or self.sma > 200000:
             raise ValueError('Object sma is None, 0, negative or more than 100000km. Please check the input data')
         
         # Orbital period
@@ -193,16 +191,6 @@ class SpaceObject:
         # This is to store the result of the conversion of the Keplerian elements to cartesian ECI coordinates
         self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
 
-    def verify_value(value, impute_function):
-        # function to verify that the value is a float and is not None
-        # if it is None or not a float or too small, then impute the value using the impute_function
-        try:
-            value = float(value)
-            if value >= 0.1:  # if value is acceptable
-                return value
-        except (TypeError, ValueError):
-            pass
-        return impute_function()  # if value is None, non-numeric or too small
 
     def _validate_types(self):
         # function to validate the types and values of the parameters
@@ -239,48 +227,51 @@ class SpaceObject:
         if self.eccentricity<0 or self.eccentricity>1:
             raise ValueError('eccentricity must be between 0 and 1')
     
-    def impute_char_length(self):
+    def impute_char_length(self, char_length):
         """
         This function will impute a characteristic length based on the object type
         """
-        if self.object_type == 'PAYLOAD':
-            self.characteristic_length = 1.3
-        elif self.object_type == "ROCKET BODY":
-            self.characteristic_length = 8
-        else:
-            self.characteristic_length = 1.3
-        #raise an error if this is None or 0
-        if self.characteristic_length is None or self.characteristic_length == 0:
-            raise ValueError('Object characeristic length is None or 0. Please check the input data')
+        if char_length is None or char_length == 0:
+            if self.object_type == 'PAYLOAD':
+                char_length = 1.3
+            elif self.object_type == "ROCKET BODY":
+                char_length = 8
+            else:
+                char_length = 1.3
+        # raise an error if this is None or 0
+        if char_length is None or char_length == 0:
+            raise ValueError('Object characteristic length is None or 0. Please check the input data')
         
-        return self.characteristic_length
+        return char_length
 
-    def impute_char_area(self):
+
+    def impute_char_area(self, char_area):
         """
         This function will impute a characteristic area based on the object type
         """
-        if self.object_type == 'PAYLOAD':
-            self.characteristic_area = 1.3 * 3
-        elif self.object_type == "ROCKET BODY":
-            self.characteristic_area = 8 * 3
-        else:
-            self.characteristic_area = 1.3 * 3
-        #raise an error if this is None or 0
-        if self.characteristic_area is None or self.characteristic_area == 0:
-            raise ValueError('Object characeristic area is None or 0. Please check the input data')
+        if char_area is None or char_area == 0:
+            if self.object_type == 'PAYLOAD':
+                char_area = 1.3 * 3
+            elif self.object_type == "ROCKET BODY":
+                char_area = 8 * 3
+            else:
+                char_area = 1.3 * 3
+        # raise an error if this is None or 0
+        if char_area is None or char_area == 0:
+            raise ValueError('Object characteristic area is None or 0. Please check the input data')
+
+        return char_area
         
-        return self.characteristic_area
-        
-    def impute_mass(self):
+    def impute_mass(self, mass):
         """
         This function will impute a mass based on the object type
         """
         # From Alfano, Oltrogge and Sheppard, 2020
-        if self.mass is None or self.mass == 0: # if mass is None or 0, then impute it based on the object length
-            self.mass = 0.1646156590 * self.characteristic_length ** (-1.0554951607) # TODO:this basically gives ~0.12 Kgs for a 1.3m length object. Hm...
+        if mass is None or mass == 0: # if mass is None or 0, then impute it based on the object length
+            imputed_mass = 0.1646156590 * self.characteristic_length ** (-1.0554951607) # TODO:this basically gives ~0.12 Kgs for a 1.3m length object. Hm...
         else:
-            self.mass = float(self.mass) # cast to float in case it is a string
-        return self.mass
+            imputed_mass = float(mass) # cast to float in case it is a string
+        return imputed_mass
 
     def decode(self, code):
         # This function decodes all the codes that are associated with an object. Basically a legend associated to each instance of the class
@@ -401,10 +392,10 @@ class SpaceObject:
         self.tle = TLE
 
     def prop_catobjects(self, jd_start, jd_stop, step_size):
-        #TODO: make it so that we can specify a time window when station keeping is set to be active. Then the rest of the time the object just propagates using SGP4
-        #check if self.station_keeping is a list 
-        if isinstance(self.station_keeping, list):
-            # propagate using keplerian from the first element in the list to the second element in the list
+        
+        if isinstance(self.station_keeping, list): # if a list is passed to the station keeping attribute, then we assume that the first element is station keeping start date and the second element is the end date)
+            # propagate using keplerian from the start date to the end of the station keeping date 
+            # TODO: this assumes that the satellite always station keeps from the moment it enters orbit. We should be using self.station_keeping[0]
             # then propagate using SGP4 from the second element in the list to jd_stop
             combined_ephemeris = []
             ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
@@ -518,8 +509,7 @@ def test_spaceobject_creation():
                                     raan=252, 
                                     source = "Guatemala",
                                     launch_date='2012-10-12', 
-                                    decay_date='2013-10-12', 
-                                    cospar_id='42069',
+                                    decay_date='2013-10-12',
                                     rso_name='bigboisat',
                                     perigee='1200',
                                     apogee='1000',

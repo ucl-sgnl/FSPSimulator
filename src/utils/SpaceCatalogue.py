@@ -20,7 +20,6 @@ class SpaceCatalogue:
         self.repull_catalogues = repull_catalogues
         self.PullAllCataloguesIfNewer()
 
-
     def ReturnCatalogue(self):
         """
         This will return the current space catalogue. 
@@ -43,12 +42,12 @@ class SpaceCatalogue:
 
     def CreateCatalogueActive(self):
         """
-        This function will merge the JSR and Celestrak catalogues and create a list of SpaceObjects 
+        This function will merge the JSR and Celestrak catalogues
         
         ### Exports
         - List of merged space objects to 'src/data/external/active_jsr_celestrak.csv'
         """
-        # firstly define which combination of catalogues they would like to use
+        # This merges the JSR and Celestrak active catalogues
         jsr_cat = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/currentcat.tsv'), sep='\t')
         jsr_cat_extra_info = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/satcat.tsv'), sep='\t')
         with open(os.path.join(os.getcwd(), 'src/data/external/celestrak_active.txt'), 'r') as f:
@@ -101,14 +100,96 @@ class SpaceCatalogue:
         """ 
         # Space Track's catalogue is a json
         spacetrack = pd.read_json(os.path.join(os.getcwd(), 'src/data/external/celestrak_all.json'))
+        print("Number of satellites in spacetrack catalogue: ", len(spacetrack))
         jsr_cat_extra_info = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/satcat.tsv'), sep='\t')
-
+        print("Number of satellites in jsr catalogue: ", len(jsr_cat_extra_info))
         # merge the two dataframes, keeping all items in spacetrack dataframe
         self.CurrentCatalogueDF = spacetrack.merge(jsr_cat_extra_info, right_on='Piece', left_on='OBJECT_ID', how='left')
+        print("Number of satellites in catalogues after merge: ", len(self.CurrentCatalogueDF))
+        # Count the number of rows that didn't match
+        unmatched_rows = self.CurrentCatalogueDF['Piece'].isnull().sum()
+        print("Number of Objects in spacetrack catalogue that didn't match jsr catalogue: ", unmatched_rows)
+        # Drop the rows that didn't match
+        self.CurrentCatalogueDF = self.CurrentCatalogueDF.dropna(subset=['Piece'])
+        print("Number of satellites in catalogue after dropping unmatching rows: ", len(self.CurrentCatalogueDF))
+
         # convert the BStar to scientific notation
-        self.CurrentCatalogueDF['BSTAR'] = self.CurrentCatalogueDF['BSTAR'].map('{:.5e}'.format)
-        # also export the catalogue for audit purposes
+        self.CurrentCatalogueDF['BSTAR'] = self.CurrentCatalogueDF['BSTAR'].map('{:.7e}'.format)
+        
+        # drop satellites that have a perigee or apogee > 100,000 km
+        self.CurrentCatalogueDF = self.CurrentCatalogueDF[self.CurrentCatalogueDF['PERIAPSIS'] < 100000]
+        self.CurrentCatalogueDF = self.CurrentCatalogueDF[self.CurrentCatalogueDF['APOAPSIS'] < 100000]
+        # make any pergigees or apogees that are negative or 0 set to 1.69420 -> this will keep them in the catalog but also allow us to find them out later
+        self.CurrentCatalogueDF['PERIAPSIS'] = self.CurrentCatalogueDF['PERIAPSIS'].mask(self.CurrentCatalogueDF['PERIAPSIS'] <= 0, 1.69420)
+        self.CurrentCatalogueDF['APOAPSIS'] = self.CurrentCatalogueDF['APOAPSIS'].mask(self.CurrentCatalogueDF['APOAPSIS'] <= 0, 1.69420)
+
+        # find all the rows that have a decay date (if not they contain None)
+        rows_with_decay_date = self.CurrentCatalogueDF[self.CurrentCatalogueDF['DECAY_DATE'].notnull()]
+        # now check that these decay dates are before the launch date
+        # first we need to convert the dates to datetime objects
+        rows_with_decay_date['LAUNCH_DATE'] = pd.to_datetime(rows_with_decay_date['LAUNCH_DATE'])
+        rows_with_decay_date['DECAY_DATE'] = pd.to_datetime(rows_with_decay_date['DECAY_DATE'])
+        # now we can check if the decay date is before the launch date
+        rows_with_bad_decay_date = rows_with_decay_date[rows_with_decay_date['DECAY_DATE'] < rows_with_decay_date['LAUNCH_DATE']]
+        # now we can drop these rows from the dataframe
+        self.CurrentCatalogueDF = self.CurrentCatalogueDF.drop(rows_with_bad_decay_date.index)
+
+        # Where there is any conflicting data, we will use Space-track's data. 
+        # Drop unnecessary columns that exist in Space-track data
+        unused_cols = ['Name', # OBJECT_NAME is the same
+                           'LDate', # LAUNCH_DATE is the same
+                           'DDate', # DECAY_DATE is the same
+                           'Perigee', # PERIAPSIS is the same
+                            'Apogee', # APOAPSIS is the same
+                            'Inc', # INCLINATION is the same
+                            'Type', # OBJECT_TYPE is the same
+                            'TotMass', # we are just going to use MASS for simplicity
+                            'MassFlag', # we are just going to use MASS for simplicity
+                            'DryMass', # we are just going to use MASS for simplicity
+                            'CCSDS_OMM_VERS', # not needed
+                            'COMMENT', # not needed
+                            'OBJECT_ID', # not needed we have OBJECT_NAME and NORAD_CAT_ID
+                            'CENTER_NAME', # not needed
+                            'REF_FRAME', # not needed
+                            'TIME_SYSTEM', # not needed
+                            'EPHEMERIS_TYPE', # not sure what this is
+                            'RCS_SIZE', # not needed
+                            'FILE', # not needed
+                            'GP_ID', # not needed
+                            '#JCAT', # not needed this is just the JCAT internal ID
+                            'Satcat', # not needed as we merge on OBJECT_ID. Mostly empty anyway.
+                            'Piece', # not needed
+                            'Type', # not needed as we have OBJECT_TYPE
+                            'Name', # not needed as we have OBJECT_NAME
+                            'PLName', # not needed
+                            'Parent', # not needed
+                            'SDate', # not needed
+                            'Primary', # not needed
+                            'Dest', # not needed
+                            'Manufacturer', # not needed
+                            'Bus', # not needed
+                            'Motor', # not needed
+                            'DryFlag', # not needed
+                            'TotFlag', # not needed
+                            'TotMass', # not needed
+                            'LFlag', # not needed
+                            'DFlag', # not needed
+                            'Span', # not needed
+                            'SpanFlag', # not needed
+                            'Shape', # not needed
+                            'IF', # not needed
+                            'OQUAL', # not needed
+                            'AltNames'] # not needed
+        self.CurrentCatalogueDF = self.CurrentCatalogueDF.drop(columns=unused_cols)
+
+        # now we will drop rows that do not have certain data as they are required for the simulation
+        # drop a row if it doenst have : Launch date, decay date, perigee, apogee, eccentricity, inclination, right ascension of the ascending node, argument of perigee
+        self.CurrentCatalogueDF = self.CurrentCatalogueDF.dropna(subset=['LAUNCH_DATE', 'PERIAPSIS', 'APOAPSIS', 'ECCENTRICITY', 'INCLINATION', 'RA_OF_ASC_NODE', 'ARG_OF_PERICENTER'])
+        print("Number of satellites in catalogue after dropping rows that were missing data required for simulation: ", len(self.CurrentCatalogueDF))
+        #TODO: ~10,000 rows are dropped here. Need to investigate why this is happening.  
+        # Export the cleaned catalogue for sanity checking
         self.CurrentCatalogueDF.to_csv(os.path.join(os.getcwd(), 'src/data/catalogue/All_catalogue_latest.csv'), index=False)
+
         
     def Catalogue2SpaceObjects(self):
         """
@@ -118,44 +199,17 @@ class SpaceCatalogue:
         - List of SpaceObjects
             - View the SpaceObject class for more information
         """
-        # headings available:
-            #     Index(['line number', 'satellite catalog number', 'classification',
-            #    'International Designator(launch year)',
-            #    'International Designator (launch num)',
-            #    'International Designator (piece of launch)', 'epoch year', 'epoch day',
-            #    'first time derivative of mean motion(ballisitc coefficient)',
-            #    'second time derivative of mean motion(delta-dot)', 'bstar drag term',
-            #    'ephemeris type', 'element number', 'checksum', 'inclination',
-            #    'right ascension of the ascending node', 'eccentricity',
-            #    'argument of perigee', 'mean anomaly', 'mean motion',
-            #    'revolution number at epoch', '#JCAT', 'DeepCat', 'Satcat', 'Piece',
-            #    'Active', 'Type', 'Name', 'LDate', 'Parent', 'Owner', 'State', 'SDate',
-            #    'ExpandedStatus', 'DDate', 'ODate', 'Period', 'Perigee', 'PF', 'Apogee',
-            #    'AF', 'Inc', 'IF', 'OpOrbit', 'PLName', 'Primary', 'Status', 'Dest',
-            #    'Manufacturer', 'Bus', 'Motor', 'Mass', 'MassFlag', 'DryMass',
-            #    'DryFlag', 'TotMass', 'TotFlag', 'Length', 'LFlag', 'Diameter', 'DFlag',
-            #    'Span', 'SpanFlag', 'Shape', 'OQUAL', 'AltNames'],
-            #   dtype='object')   
         if self.sim_object_type == "active":
-            for index, row in self.CurrentCatalogueDF.iterrows():
+            for index, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
                     self.Catalogue.append(SpaceObject(  object_type=row['Type'], 
                                                         payload_operational_status=row['Active'], ## this will need to be updated to celestrak's active status
                                                         application="Unknown", 
                                                         operator=row['Owner'], 
                                                         mass=row['Mass'], 
-                                                        # type = row['Type'],
-                                                        # maneuverable=maneuverable, 
-                                                        # spin_stabilized=spin_stabilized, 
-                                                        # radar_cross_section=radar_cs, 
-                                                        # characteristic_area=area, 
-                                                        # characteristic_length=length, 
-                                                        # propulsion_type=propulsion, 
-                                                        # sma=row[], 
                                                         eccentricity=row['eccentricity'], 
                                                         inc=row['inclination'], 
                                                         argp=row['argument of perigee'], 
                                                         raan=row['right ascension of the ascending node'], 
-                                                        # launch_site=launch_site,
                                                         source = row['Owner'],
                                                         launch_date=row['LDate'], 
                                                         decay_date=row['DDate'], 
@@ -166,40 +220,35 @@ class SpaceCatalogue:
                                                         tle=row['TLE']
                                                     ))
         elif self.sim_object_type == "all":
-            for index, row in self.CurrentCatalogueDF.iterrows():
-                tle = row["TLE_LINE0"] + "\n" + row["TLE_LINE1"] + "\n" + row["TLE_LINE2"]
-                self.Catalogue.append(SpaceObject( object_type=row['OBJECT_TYPE'], 
-                                                        #payload_operational_status=row['Active'], ## this will need to be updated to celestrak's active status
-                                                        application="Unknown", 
-                                                        #operator=row['Owner'], 
+            # the dataframe we are looking at is the merged JSR and Celestrak catalogue
+            # it contains the columns from both catalogues
+            #
+            for index, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
+                tle = row["TLE_LINE1"] + "\n" + row["TLE_LINE2"]
+                print("row apogee: ", row['APOAPSIS'])
+                print("row all: ", row)
+                self.Catalogue.append(SpaceObject(object_type=row['OBJECT_TYPE'], 
                                                         mass=row['Mass'], 
                                                         launch_site=row["SITE"],
-                                                        # type = row['Type'],
-                                                        # maneuverable=maneuverable, 
-                                                        # spin_stabilized=spin_stabilized, 
-                                                        # radar_cross_section=radar_cs, 
-                                                        # characteristic_area=area, 
-                                                        # characteristic_length=length, 
-                                                        # propulsion_type=propulsion, 
                                                         bstar=row['BSTAR'],
                                                         sma=row['SEMIMAJOR_AXIS'], 
                                                         eccentricity=row['ECCENTRICITY'], 
                                                         inc=row['INCLINATION'], 
                                                         argp=row['ARG_OF_PERICENTER'], 
                                                         raan=row['RA_OF_ASC_NODE'], 
-                                                        # launch_site=launch_site,
                                                         source = row['COUNTRY_CODE'],
                                                         launch_date=row['LAUNCH_DATE'], 
                                                         decay_date=row['DECAY_DATE'], 
-                                                        cospar_id=row['OBJECT_ID'],
                                                         rso_name=row['OBJECT_NAME'],
                                                         perigee=row['PERIAPSIS'],
                                                         apogee=row['APOAPSIS'],
                                                         tle=tle,
                                                         epoch=row['EPOCH']
                                                     ))
+        else:
+            raise Exception("Invalid sim_object_type specified")
         return self.Catalogue
-    
+
     def DownloadJSRCatalogueIfNewer(self, local_path, url):
         """Download a file from a URL if it is newer than the local file."""
         if os.path.exists(local_path):
