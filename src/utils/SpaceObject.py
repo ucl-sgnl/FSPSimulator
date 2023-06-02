@@ -53,9 +53,7 @@ class SpaceObject:
                  argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None):
         
         
-        self.CATID = None # This is a computed property based on the GUID and isn't included as a parameter
         self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
-
         # launch_date must be datetime.datetime.strptime('%Y-%m-%d') format between 1900-00-00 and 2999-12-31
         self.launch_date = datetime.datetime.strptime(launch_date, '%Y-%m-%d')
 
@@ -514,8 +512,6 @@ def test_spaceobject_creation():
                                     perigee='1200',
                                     apogee='1000',
                                     tle="1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928")
-    #now print all attributes to check that they are set correctly
-    print(object_1.__dict__)
     
 if __name__ == "__main__":
     # test_sgp4_drag()
