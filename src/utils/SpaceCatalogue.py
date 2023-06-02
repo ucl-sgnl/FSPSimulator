@@ -161,8 +161,8 @@ class SpaceCatalogue:
                                                         decay_date=row['DDate'], 
                                                         cospar_id=row['Piece'],
                                                         rso_name=row['Name'],
-                                                        perigee_altitude=row['Perigee'],
-                                                        apogee_altitude=row['Apogee'],
+                                                        perigee=row['Perigee'],
+                                                        apogee=row['Apogee'],
                                                         tle=row['TLE']
                                                     ))
         elif self.sim_object_type == "all":
@@ -193,8 +193,8 @@ class SpaceCatalogue:
                                                         decay_date=row['DECAY_DATE'], 
                                                         cospar_id=row['OBJECT_ID'],
                                                         rso_name=row['OBJECT_NAME'],
-                                                        perigee_altitude=row['PERIAPSIS'],
-                                                        apogee_altitude=row['APOAPSIS'],
+                                                        perigee=row['PERIAPSIS'],
+                                                        apogee=row['APOAPSIS'],
                                                         tle=tle,
                                                         epoch=row['EPOCH']
                                                     ))
