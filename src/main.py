@@ -59,7 +59,7 @@ def run_simulation(policy):
 
     # Propagate
     timestep = int(policy["metric_timestep"])*24*60*60
-    print("Propogating Satellites...")
+    print("Propagating Satellites...")
 
     # remove all satellites that have decayed
     for satellite in SATCAT_before_prop:
@@ -70,6 +70,7 @@ def run_simulation(policy):
             continue 
 
     for satellite in SATCAT_before_prop:
+        print(satellite.__dict__)
         satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # convert days to seconds
     
     # Export

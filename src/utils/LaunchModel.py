@@ -280,6 +280,10 @@ def global_launch_schedule(sub_constellation_metadata_dicts, policy, monthly_ton
     return sub_constellation_launch_dates
 
 def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner, launch_schedule, _mass, _area, _length, _maneuverable, _propulsion):
+    
+    #check that N is always >= 1 
+    if N < 1:
+        raise ValueError('N (number of satellites in constellation) must be >= 1')
     #create a list of SpaceObject instances for each satellite in the a subconstellation metadata dictionary
     subconstellation_Space_Objects = []
     apogee_alt = h  # assuming circular orbit
@@ -324,29 +328,29 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
     # TODO: fix this so that it does repeat the launch schedule in this way but instead does it sequentially
     #take each instance in the launch schedule, make it into a datetime obejct, increment the dates by 5 years and add it to the decay schedule
     decay_schedule = [(datetime.strptime(date, "%Y-%m-%d") + timedelta(days=365*5)).strftime("%Y-%m-01") for date in launch_schedule]
-    for n in range(0, N, 1):
+    for n in range(1, N+1, 1): # Start iteration at 1, this way, the calculation for Omega_n won't be negative because n-1 will always be positive.
         a_n = a #semi-major axis in km
         e_n = 0 #eccentricity
         i_n = i #inclination in degrees
         omega_n = (n % S) * delta_omega #argument of perigee in degrees
-        Omega_n = math.floor((n-1) / S) * delta_Omega #longitude of ascending node in degrees
+        Omega_n = math.floor((n-1) / S) * delta_Omega #longitude/right ascension of ascending node in degrees
         TRAN_n = (n-1) * delta_TRAN #true anomaly in degrees
         #if tran is nan then set it to 0
         if math.isnan(TRAN_n):
             TRAN_n = 0
         
-        launch_year = int(launch_schedule[n][:4])
+        launch_year = int(launch_schedule[n-1][:4]) # index with n-1 because the launch_schedule list is indexed from 0
         launch_number = int(n)
         launch_piece = "A" # TODO: unhardcode this -> decide on a way to determine this
         object_cospar_id = generate_cospar_id(launch_year, launch_number, launch_piece)
         subconstellation_Space_Objects.append(SpaceObject(object_type=sotype, payload_operational_status=operationalstatus, 
                                                           application=application, operator=owner, 
-                                                          apogee_altitude=apogee_alt, perigee_altitude=perigee_alt,
+                                                          apogee=apogee_alt, perigee=perigee_alt,
                                                           mass=mass, maneuverable=maneuverable, spin_stabilized=spin_stabilized, 
                                                           radar_cross_section=radar_cs, characteristic_area=area, characteristic_length=length, 
                                                           propulsion_type=propulsion, sma=a_n, eccentricity=e_n, inc=np.deg2rad(i_n), argp=np.deg2rad(omega_n), 
-                                                          raan=np.deg2rad(Omega_n), tran=np.deg2rad(TRAN_n), launch_site=launch_site, launch_date=launch_schedule[n], 
-                                                          decay_date=decay_schedule[n], cospar_id=object_cospar_id,rso_name=soname))
+                                                          raan=np.deg2rad(Omega_n), tran=np.deg2rad(TRAN_n), launch_site=launch_site, launch_date=launch_schedule[n-1], 
+                                                          decay_date=decay_schedule[n-1] ,rso_name=soname))
 
     return subconstellation_Space_Objects
 
