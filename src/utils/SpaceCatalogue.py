@@ -42,15 +42,15 @@ class SpaceCatalogue:
 
     def CreateCatalogueActive(self):
         """
-        This function will merge the JSR and Celestrak catalogues
+        This function will merge the JSR and SpaceTrack catalogues
         
         ### Exports
-        - List of merged space objects to 'src/data/external/active_jsr_celestrak.csv'
+        - List of merged space objects to 'src/data/external/active_jsr_spacetrack.csv'
         """
-        # This merges the JSR and Celestrak active catalogues
+        # This merges the JSR and Spacetrack active catalogues
         jsr_cat = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/currentcat.tsv'), sep='\t')
         jsr_cat_extra_info = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/satcat.tsv'), sep='\t')
-        with open(os.path.join(os.getcwd(), 'src/data/external/celestrak_active.txt'), 'r') as f:
+        with open(os.path.join(os.getcwd(), 'src/data/external/spacetrack_active.txt'), 'r') as f:
             three_line_elements = f.readlines()
 
         # merge the each three line element into one string
@@ -86,7 +86,7 @@ class SpaceCatalogue:
 
         # Export for audit purposes
         # Open the file in 'w' mode (write mode, overwrite if exists)
-        with open(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_celestrak_latest.csv'), 'w') as f:
+        with open(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_spacetrack_latest.csv'), 'w') as f:
             # Write the header and data to the file
             self.CurrentCatalogueDF.to_csv(f, index=False)
 
@@ -99,7 +99,7 @@ class SpaceCatalogue:
             - 'src/data/catalogue/All_catalogue_latest.txt'
         """ 
         # Space Track's catalogue is a json
-        spacetrack = pd.read_json(os.path.join(os.getcwd(), 'src/data/external/celestrak_all.json'))
+        spacetrack = pd.read_json(os.path.join(os.getcwd(), 'src/data/external/spacetrack_all.json'))
         print("Number of satellites in spacetrack catalogue: ", len(spacetrack))
         jsr_cat_extra_info = pd.read_csv(os.path.join(os.getcwd(), 'src/data/external/satcat.tsv'), sep='\t')
         print("Number of satellites in jsr catalogue: ", len(jsr_cat_extra_info))
@@ -202,7 +202,7 @@ class SpaceCatalogue:
         if self.sim_object_type == "active":
             for index, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
                     self.Catalogue.append(SpaceObject(  object_type=row['Type'], 
-                                                        payload_operational_status=row['Active'], ## this will need to be updated to celestrak's active status
+                                                        payload_operational_status=row['Active'],
                                                         application="Unknown", 
                                                         operator=row['Owner'], 
                                                         mass=row['Mass'], 
@@ -220,7 +220,7 @@ class SpaceCatalogue:
                                                         tle=row['TLE']
                                                     ))
         elif self.sim_object_type == "all":
-            # the dataframe we are looking at is the merged JSR and Celestrak catalogue
+            # the dataframe we are looking at is the merged JSR and SpaceTrack catalogue
             # it contains the columns from both catalogues
             print("building space objects from JSR/Space-track merged catalogue")
             for _, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
@@ -273,90 +273,94 @@ class SpaceCatalogue:
         for path, url in urls.items():
             self.DownloadJSRCatalogueIfNewer(path, url)
 
-    def PullCatalogueCelestrakActive(self):
+    def PullCatalogueSpaceTrack(self):
+        #TODO: I Don't think this only pulls active satellites. It pulls all satellites?
         """
-        Pull down the latest Active Satellites from Celestrak
+        Pull down the latest Active Satellites from SpaceTrack
         
         ### Exports
         - Text file of the latest active satellites
-            - This is saved as src/data/external/celestrak_active.txt 
+            - This is saved as src/data/external/spacetrack_active.txt 
         """
         cwd = os.getcwd()
         external_dir = os.path.join(cwd, 'src/data/external/')
-        celestrak_path = external_dir + f'celestrak_active.txt'
-        # url = 'http://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle' # just active satellites
+        spacetrack_path = external_dir + f'spacetrack_active.txt'
         url = 'https://www.space-track.org/basicspacedata/query/class/gp/EPOCH/%3Enow-30/orderby/NORAD_CAT_ID,EPOCH/format/3le' # all satellites
         r = requests.get(url, stream=True)
-        if r.status_code != 200:
+        if r.status_code != 200: #TODO: does this need to be 200?
             # check if the file exists already, if so continue
-            if os.path.exists(celestrak_path):
-                print("File already exists, continuing")
+            if os.path.exists(spacetrack_path):
+                print("Failed to get file but a version of the file already exists locally, continuing")
                 return
             else:
                 raise Exception("Failed to download file")
-        with open(celestrak_path, "wb") as f:
+        with open(spacetrack_path, "wb") as f:
             for chunk in r.iter_content(chunk_size=1024):
                 f.write(chunk)
 
-    def PullCatalogueSpaceTrackAll(self):
-        """ Pull down the entire Celestrak catalogue """
-        # location of file
-        cwd = os.getcwd()
-        external_dir = os.path.join(cwd, 'src/data/external/')
-        celestrak_path = external_dir + f'spacetrack_all.json'
+    # def PullCatalogueSpaceTrackAll(self):
 
-        # this should change
-        if os.path.exists(celestrak_path):
-            print("File already exists, not pulling an updated version of celestrak's entire catalogue")
-            return
+    # ----------- REWRITE -----------
+    # ----------- THIS DOES NOT PULL ALL THE SPACE TRACK CATALOG. IT PULLS ONLY STARLINKS. -----------
 
-        # Will require spacetrak login
-        load_dotenv()
-        username = os.getenv('SPACETRACK_USERNAME')
-        password = os.getenv('SPACETRACK_PASSWORD')
-        output = os.getenv('SPACETRACK_OUTPUT')
-        siteCred = {'identity': username, 'password': password}
+    #     """ Pull down the entire SpaceTrack catalogue """
+    #     # location of file
+    #     cwd = os.getcwd()
+    #     external_dir = os.path.join(cwd, 'src/data/external/')
+    #     spacetrack_path = external_dir + f'spacetrack_all.json'
 
-        # required urls
-        uriBase                = "https://www.space-track.org"
-        requestLogin           = "/ajaxauth/login"
-        requestCmdAction       = "/basicspacedata/query" 
-        requestFindStarlinks   = "/class/tle_latest/NORAD_CAT_ID/>40000/ORDINAL/1/OBJECT_NAME/STARLINK~~/format/json/orderby/NORAD_CAT_ID%20asc"
-        requestOMMStarlink1    = "/class/omm/NORAD_CAT_ID/"
-        requestOMMStarlink2    = "/orderby/EPOCH%20asc/format/json"
-        entire_catalogue = '/class/gp/orderby/NORAD_CAT_ID asc/emptyresult/show'
+    #     # this should change
+    #     if os.path.exists(spacetrack_path):
+    #         print("File already exists, not pulling an updated version of spacetrack's entire catalogue")
+    #         return
+
+    #     # Will require spacetrak login
+    #     load_dotenv()
+    #     username = os.getenv('SPACETRACK_USERNAME')
+    #     password = os.getenv('SPACETRACK_PASSWORD')
+    #     output = os.getenv('SPACETRACK_OUTPUT')
+    #     siteCred = {'identity': username, 'password': password}
+
+    #     # required urls
+    #     uriBase                = "https://www.space-track.org"
+    #     requestLogin           = "/ajaxauth/login"
+    #     requestCmdAction       = "/basicspacedata/query" 
+    #     requestFindStarlinks   = "/class/tle_latest/NORAD_CAT_ID/>40000/ORDINAL/1/OBJECT_NAME/STARLINK~~/format/json/orderby/NORAD_CAT_ID%20asc"
+    #     requestOMMStarlink1    = "/class/omm/NORAD_CAT_ID/"
+    #     requestOMMStarlink2    = "/orderby/EPOCH%20asc/format/json"
+    #     entire_catalogue = '/class/gp/orderby/NORAD_CAT_ID asc/emptyresult/show'
 
 
-        # use requests package to drive the RESTful session with space-track.org
-        with requests.Session() as session:
-            # run the session in a with block to force session to close if we exit
-            # need to log in first. note that we get a 200 to say the web site got the data, not that we are logged in
-            resp = session.post(uriBase + requestLogin, data = siteCred)
-            if resp.status_code != 200:
-                raise Exception(resp, "POST fail on login, please check credentials in .env file")
+    #     # use requests package to drive the RESTful session with space-track.org
+    #     with requests.Session() as session:
+    #         # run the session in a with block to force session to close if we exit
+    #         # need to log in first. note that we get a 200 to say the web site got the data, not that we are logged in
+    #         resp = session.post(uriBase + requestLogin, data = siteCred)
+    #         if resp.status_code != 200:
+    #             raise Exception(resp, "POST fail on login, please check credentials in .env file")
 
-            # this query picks up all objects from the catalog. Note - a 401 failure shows you have bad credentials 
-            resp = session.get(uriBase + requestCmdAction + entire_catalogue)
-            if resp.status_code != 200:
-                print(resp)
-                raise Exception(resp, "GET fail on request for Starlink satellites")
+    #         # this query picks up all objects from the catalog. Note - a 401 failure shows you have bad credentials 
+    #         resp = session.get(uriBase + requestCmdAction + entire_catalogue)
+    #         if resp.status_code != 200:
+    #             print(resp)
+    #             raise Exception(resp, "GET fail on request for Starlink satellites")
 
-            # use the json package to break the json formatted response text into a Python structure (a list of dictionaries)
-            retData = json.loads(resp.text)
-            satCount = len(retData)
-            print(satCount, "satellites found from celestrak")
+    #         # use the json package to break the json formatted response text into a Python structure (a list of dictionaries)
+    #         retData = json.loads(resp.text)
+    #         satCount = len(retData)
+    #         print(satCount, "satellites found from spacetrack")
 
-            # convert json to string
-            retDataStr = json.dumps(retData)
+    #         # convert json to string
+    #         retDataStr = json.dumps(retData)
 
-            # Open a file and write the JSON string to it
-            with open(celestrak_path, 'w') as f:
-                f.write(retDataStr)
-        session.close()
+    #         # Open a file and write the JSON string to it
+    #         with open(spacetrack_path, 'w') as f:
+    #             f.write(retDataStr)
+    #     session.close()
 
     def PullAllCataloguesIfNewer(self):
         """
-        Checks for each catalogue that is available (currently, JSR and Celestrak) whether a newer version is available.
+        Checks for each catalogue that is available (currently, JSR and SpaceTrack) whether a newer version is available.
 
         If a newer version is available, it will pull it down and save it to the external directory.
 
@@ -366,9 +370,7 @@ class SpaceCatalogue:
             return
 
         self.PullCatalogueJSR()
-        self.PullCatalogueCelestrakActive()
-        self.PullCatalogueSpaceTrackAll()
-        # pass
+        self.PullCatalogueSpaceTrack()
 
 if __name__ == '__main__':
     with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/policy_fsptest.json'), 'r') as f:
