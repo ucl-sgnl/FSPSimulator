@@ -180,6 +180,10 @@ class SpaceObject:
         
         if bstar is None:
             self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            print("Setting bstar to {}".format(self.bstar))
+            print("Area: {}".format(self.characteristic_area))
+            print("Mass: {}".format(self.mass))
+            print("Density: {}".format(self.atmos_density))
         else:
             self.bstar = bstar
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
@@ -357,8 +361,8 @@ class SpaceObject:
     
     def get_atmospheric_density(self, model = "exponential"):
         if model == "exponential":
-            self.atmos_density = 1e-35
-            # self.atmos_density = expo_simplified(self.altitude)*1e-6#fix units to kg/m^3 
+            # self.atmos_density = 1e-12
+            self.atmos_density = expo_simplified(self.altitude) #fix units to kg/m^3 
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
             self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
@@ -514,5 +518,5 @@ def test_spaceobject_creation():
                                     tle="1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928")
     
 if __name__ == "__main__":
-    # test_sgp4_drag()
-    test_spaceobject_creation()
+    test_sgp4_drag()
+    # test_spaceobject_creation()
