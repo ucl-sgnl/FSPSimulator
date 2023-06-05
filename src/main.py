@@ -55,7 +55,7 @@ def run_simple_sim(settings):
         settings_path = 'src/data/prediction_csv/sim_settings.json'
 
         # apply policy to launch file and load into UCL Catalogue
-        launch_file_object = Prediction2SpaceObjects(in_file, settings)
+        launch_file_object = Prediction2SpaceObjects(in_file, settings_path)
         SATCAT_before_prop = catalogue.ReturnCatalogue()
         SATCAT_before_prop = SATCAT_before_prop + launch_file_object
 
@@ -82,7 +82,7 @@ def run_simple_sim(settings):
     print("Number of Satellites: " + str(len(SATCAT_before_prop)))
     print("Simulation Complete")
 
-def run_sim_timestep(settings, to_csv=True):
+def run_sim_timestep(settings, to_csv=False):
     # initialise the catalogue, repull if required
     catalogue = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
     jd_start = utc_to_jd(settings["sim_start_date"])
@@ -138,10 +138,10 @@ def run_sim_timestep(settings, to_csv=True):
             # Launch Files
             print("Creating Launch Model...")
             in_file = 'src/data/prediction_csv/FSP_Predictions.csv'
-            policy_path = 'src/data/prediction_csv/sim_settings.json'
+            settings_path = 'src/data/prediction_csv/sim_settings.json'
 
             # apply policy to launch file and load into UCL Catalogue
-            launch_file_object = Prediction2SpaceObjects(in_file, policy_path)
+            launch_file_object = Prediction2SpaceObjects(in_file, settings_path)
             SATCAT_before_prop = catalogue.ReturnCatalogue()
             SATCAT_before_prop = SATCAT_before_prop + launch_file_object
 
@@ -179,12 +179,12 @@ if __name__ == '__main__':
     with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/sim_settings.json'), 'r') as f:
         json_data = f.read()
 
-    #This just runs the sim to the end
-    # # Parse the JSON string into a Python object
-    # policy = json.loads(json_data)
-    # run_simple_sim(policy)
+    # This just runs the sim to the end
+    # Parse the JSON string into a Python object
+    policy = json.loads(json_data)
+    run_simple_sim(policy)
 
     #This runs the sim in steps of the specified size
     # Parse the JSON string into a Python object
-    settings = json.loads(json_data)
-    run_sim_timestep(settings, to_csv=True)
+    # settings = json.loads(json_data)
+    # run_sim_timestep(settings, to_csv=False)
