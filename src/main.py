@@ -12,7 +12,6 @@ from src.utils.SpaceCatalogue import SpaceCatalogue
 from src.utils.LaunchModel import Prediction2SpaceObjects
 from src.utils.coords import utc_to_jd
 
-
 def run_simple_sim(settings):
     # initialise the catalogue, repull if required
     catalogue = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
@@ -29,7 +28,7 @@ def run_simple_sim(settings):
             return # Currently does not exist
         else:
             catalogue.CreateCatalogueAll()
-             
+
         # create list of space objects from the merged catalogue
         catalogue.Catalogue2SpaceObjects()
 
@@ -63,18 +62,20 @@ def run_simple_sim(settings):
     timestep = int(settings["metric_timestep"])*24*60*60
     print("Propagating Satellites...")
 
-    # remove all satellites that have decayed
-    for satellite in SATCAT_before_prop:
-        try:    
-            if satellite.decay_date < datetime.datetime.today():
-                SATCAT_before_prop.remove(satellite)
-        except TypeError: # catch when the satellite decay date is None
-            continue 
+    # remove all satellites that have decayed before sim_start_date since we wont be able to propagate them anyway
+    decayed_before_start = 0
+    for satellite in SATCAT_before_prop:  
+        if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
+            SATCAT_before_prop.remove(satellite)
+            decayed_before_start += 1
+    print("# sats decayed before sim start date: ", decayed_before_start)
 
     for satellite in SATCAT_before_prop:
+        # print("propagating satellite: ", satellite.rso_name)
         satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # convert days to seconds
-    
+
     # Export
+    print("Exporting results...")
     with open(os.path.join(os.getcwd(), f'src/data/catalogue/prop_{policy_name}.pickle'), 'wb') as f:
         pickle.dump(SATCAT_before_prop, f)
 
@@ -89,6 +90,8 @@ def run_sim_timestep(settings, to_csv=False):
 
     #TODO: explain the format and use of output_frequency in the README or something
     # Convert output_frequency to a relativedelta object
+
+    # if output_frequency is exists use it: 
     step_size = int(settings["output_frequency"][:-1])  # extract the number
     step_unit = settings["output_frequency"][-1]  # extract the unit (d, m, y)
 
@@ -150,6 +153,8 @@ def run_sim_timestep(settings, to_csv=False):
         print("Propagating Satellites...")
 
         # remove all satellites that have decayed
+        # TODO: do we really want to remove the decayed satellites?
+        # would we not want to keep them for the metadata and just give them no ephemeris?
         for satellite in SATCAT_before_prop:
             try:
                 if satellite.decay_date < datetime.datetime.today():
