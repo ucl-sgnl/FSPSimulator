@@ -8,8 +8,6 @@ def calculate_energy_from_semi_major_axis(a, m):
     energy = -G * M_earth * m / (2 * a)
     return energy
 
-import os
-import pickle
 
 def load_file(simName):
     # Get the absolute path of the current script
