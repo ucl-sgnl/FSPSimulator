@@ -49,7 +49,7 @@ def run_simulation(policy):
     else:
         # Launch Files
         print("Creating Launch Model...")
-        in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
+        in_file = 'src/data/prediction_csv/FSP_Predictions.csv'
         policy_path = 'src/data/prediction_csv/policy_fsptest.json'
 
         # apply policy to launch file and load into UCL Catalogue
