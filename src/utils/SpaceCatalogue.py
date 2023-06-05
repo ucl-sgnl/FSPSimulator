@@ -373,7 +373,7 @@ class SpaceCatalogue:
         self.PullCatalogueSpaceTrack()
 
 if __name__ == '__main__':
-    with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/policy_fsptest.json'), 'r') as f:
+    with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/sim_settings.json'), 'r') as f:
         json_data = f.read()
 
     # Parse the JSON string into a Python object

@@ -7,6 +7,7 @@
   "espace": true,
   "sim_start_date":"2023-05-01",
   "sim_end_date":"2038-12-31",
+  "output_frequency": "1m",
   "metric_timestep": 365, 
   "sim_object_type": "all",
   "sim_propagation_type": "sgp4",

@@ -440,5 +440,5 @@ def Prediction2SpaceObjects(in_csv_path, policy_json):
 
 if __name__ == '__main__':
     in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
-    policy = 'src/data/prediction_csv/policy_fsptest.json'
+    policy = 'src/data/prediction_csv/sim_settings.json'
     Prediction2SpaceObjects(in_file, policy)
