@@ -70,7 +70,6 @@ def run_simulation(policy):
             continue 
 
     for satellite in SATCAT_before_prop:
-        print(satellite.__dict__)
         satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # convert days to seconds
     
     # Export

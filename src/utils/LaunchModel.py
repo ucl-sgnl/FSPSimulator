@@ -52,12 +52,12 @@ def calculate_form_factor(form_factor_str):
     if not isinstance(form_factor_str, str):
         raise ValueError('Form factor must be a string')
     
-    if 'u' in form_factor_str:
-        _length = float(form_factor_str.split('u')[0]) 
-        _area = float(form_factor_str.split('u')[0])
+    if 'u' in form_factor_str: #DIVIDE by 10 since 1U = 10cm^3
+        _length = float(form_factor_str.split('u')[0]) /10 
+        _area = float(form_factor_str.split('u')[0]) /10
     elif 'U' in form_factor_str:
-        _length = float(form_factor_str.split('U')[0])
-        _area = float(form_factor_str.split('U')[0])
+        _length = float(form_factor_str.split('U')[0]) /10
+        _area = float(form_factor_str.split('U')[0]) /10
     # if there is the character '*', extract all the numbers. The largest value is the characteristic length and the characteristic area is all the two largest values multiplied together
     elif '*' in form_factor_str:
         #split the values by the character '*' and make them in ascending order
