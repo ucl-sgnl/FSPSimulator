@@ -108,7 +108,6 @@ class SpaceObject:
         if self.perigee is None or self.perigee == 0 or self.perigee < 0 or self.perigee > 200000:
             raise ValueError('Object perigee altitude is None, 0, negative or more than 200000km. Please check the input data')
     
-        self.radar_cross_section = float(radar_cross_section) if radar_cross_section is not None else None #in meters^2
         self.propulsion_type = str(propulsion_type)
         self.epoch = epoch
         if self.epoch is None:
@@ -460,9 +459,9 @@ def test_sgp4_drag():
         test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=0.011, mass = 250, epoch = epoch, launch_date='2023-05-02')
         test_sat.prop_catobjects(start_jd[0], end_jd[0], t_step)
         test_sat_ephem = test_sat.ephemeris
+        print("made up BStar:", test_sat.bstar)
         print("made up TLE:", test_sat.tle)
         print("real TLE:", test_tles[sat])
-        # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
 
         test_pos = [x[1] for x in test_sat_ephem]
         test_pos = np.array(test_pos)
