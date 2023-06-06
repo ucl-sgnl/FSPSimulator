@@ -203,7 +203,7 @@ def expo_simplified(altitude, alt_type='geometric'):
     ind = np.where((altitude - zb_expand) >= 0)[0][-1]
     rho = rhob[ind] * np.exp(-(altitude - zb[ind]) / ZS[ind])
 
-    return rho
+    return rho*1000000
 
 def orbit_classify(altitude):
     # Classifies the orbit based on the altitude

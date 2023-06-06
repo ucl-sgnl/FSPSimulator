@@ -1,15 +1,5 @@
 import numpy as np
 
-# Define some necessary constants
-T0 = 288.15  # Standard sea level temperature [K]
-p0 = 101325  # Standard sea level pressure [Pa]
-h0 = 0.0  # Initial altitude [km]
-R_air = 287.05287  # Specific gas constant for dry air [J/(kg*K)]
-M0 = 28.9644e-3  # Molar mass of Earth's air [kg/mol]
-gamma = 1.4  # Heat capacity ratio (cp/cv) for air
-g0 = 9.80665  # Standard gravity [m/s^2]
-
-
 def lapse_tp(t_lower, p_lower, lr, h_lower, h_upper):
     '''
     Calculate the temperature and pressure at a given geopotential altitude above base of a specific layer.
@@ -34,8 +24,9 @@ def lapse_tp(t_lower, p_lower, lr, h_lower, h_upper):
     Reference: Public Domain Aeronautical Software(http://www.pdas.com/atmos.html) 
                https://gist.github.com/buzzerrookie/5b6438c603eabf13d07e
     '''
-    R_air,g0 = R_air,g0
-
+    R_air = 287.05287  # Specific gas constant for dry air [J/(kg*K)]
+    g0 = 9.80665  # Standard gravity [m/s^2]
+ 
     if lr == 0:
         t_upper = t_lower
         p_upper = p_lower * np.exp(-g0 / R_air / t_lower * (h_upper - h_lower)*1e3)
@@ -75,8 +66,12 @@ def ussa76(h):
         https://ww2.mathworks.cn/help/aerotbx/ug/atmosisa.
         http://www.braeunig.us/space/atmmodel.htm#USSA1976
     '''
-    T0,p0,h0 = T0,p0,h0
-    R_air,M0,gamma = R_air,M0,gamma
+    T0 = 288.15  # Standard sea level temperature [K]
+    p0 = 101325  # Standard sea level pressure [Pa]
+    h0 = 0.0  # Initial altitude [km]
+    R_air = 287.05287  # Specific gas constant for dry air [J/(kg*K)]
+    M0 = 28.9644e-3  # Molar mass of Earth's air [kg/mol]
+    gamma = 1.4  # Heat capacity ratio (cp/cv) for air
 
     # the lower atmosphere below 86km is separated into seven layers 
     geopotential_alt = [-np.inf, 11, 20, 32, 47, 51, 71, np.inf] # Geopotential altitudes above MSL, [km]
@@ -107,12 +102,16 @@ def ussa76(h):
     return rho,T,P,C,eta,Kc
 
 ##### TEST #####
-# altitude = 10  # in km
-# density, temp, pressure, speed_of_sound, dynamic_viscosity, thermal_conductivity = ussa76(altitude)
-# print("At an altitude of {} km:".format(altitude))
-# print("Density: {} kg/m^3".format(density))
-# print("Temperature: {} K".format(temp))
-# print("Pressure: {} Pa".format(pressure))
-# print("Speed of sound: {} m/s".format(speed_of_sound))
-# print("Dynamic viscosity: {} kg/(m*s)".format(dynamic_viscosity))
-# print("Thermal conductivity: {} J/(m*s*K)".format(thermal_conductivity))
+def test_ussa76():
+    altitude = 1000  # in km
+    density, temp, pressure, speed_of_sound, dynamic_viscosity, thermal_conductivity = ussa76(altitude)
+    print("At an altitude of {} km:".format(altitude))
+    print("Density: {} kg/m^3".format(density))
+    print("Temperature: {} K".format(temp))
+    print("Pressure: {} Pa".format(pressure))
+    print("Speed of sound: {} m/s".format(speed_of_sound))
+    print("Dynamic viscosity: {} kg/(m*s)".format(dynamic_viscosity))
+    print("Thermal conductivity: {} J/(m*s*K)".format(thermal_conductivity))
+
+if __name__ == "__main__":
+    test_ussa76()
