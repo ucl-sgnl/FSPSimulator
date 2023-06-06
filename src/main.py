@@ -1,90 +1,79 @@
-# if your debugger or python console is not working, try adding the following lines to the top of the file
 import datetime
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
-
 import json
 import pickle
-from src.utils.SpaceObject import SpaceObject
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
+
 from src.utils.SpaceCatalogue import SpaceCatalogue
 from src.utils.LaunchModel import Prediction2SpaceObjects
 from src.utils.coords import utc_to_jd
 
-def run_simulation(policy):
-    # initialise the catalogue, repull if required
-    catalogue = SpaceCatalogue(policy["sim_object_type"], policy["sim_object_catalogue"], policy["repull_catalogues"])
-    jd_start = utc_to_jd(policy["sim_start_date"])
-    jd_stop = utc_to_jd(policy["sim_end_date"])
-    step_size = 60*60*24*365 # 1 year
-    policy_name = policy["scenario_name"]
+def get_path(*args):
+    return os.path.join(os.getcwd(), *args)
 
-    # pull the catalogue if required
-    if policy["repull_catalogues"] and os.path.exists(os.path.join(os.getcwd(), f'src/data/catalogue/All_catalogue_latest.csv')):
-        if policy["sim_object_type"] != "all":
-            catalogue.CreateCatalogueActive() # this will start with celestrak
-        if policy["sim_object_type"] == "debris":
-            return # Currently does not exist
-        else:
-            catalogue.CreateCatalogueAll() # this will start from space-track
-             
-        # create list of space objects from the merged catalogue
-        catalogue.Catalogue2SpaceObjects()
+def load_pickle(file_path):
+    with open(get_path(file_path), 'rb') as f:
+        return pickle.load(f)
 
-        with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop.pickle'), 'wb') as f:
-            SATCAT_before_prop = catalogue.ReturnCatalogue()
-            pickle.dump(SATCAT_before_prop, f)
-    else: 
-        # set the current catalogue to a previous version
-        with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop.pickle'), 'rb') as f:
-            catalogue.SetCatalogue(pickle.load(f))
+def dump_pickle(file_path, data):
+    with open(get_path(file_path), 'wb') as f:
+        pickle.dump(data, f)
 
-    # Only run if results don't already exist
-    if policy["environment"] == "development" and os.path.exists(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
-        with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle'), 'rb') as f:
-            SATCAT_before_prop = pickle.load(f)
-    if policy["scenario_name"] == "baseline":
-        # don't create a launch model if baseline
-        SATCAT_before_prop = catalogue.ReturnCatalogue()
+def run_sim(settings):
+    SATCAT = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
+    jd_start = utc_to_jd(settings["sim_start_date"])
+    jd_stop = utc_to_jd(settings["sim_end_date"])
+    policy_name = settings["scenario_name"]
+
+    if settings["repull_catalogues"] and os.path.exists(get_path('src/data/catalogue/All_catalogue_latest.csv')):
+        if settings["sim_object_type"] == "all":
+            SATCAT.CreateCatalogueAll()
+        elif settings["sim_object_type"] != "debris":  
+            SATCAT.CreateCatalogueActive()
+
+        SATCAT.Catalogue2SpaceObjects()
+        
+        dump_pickle('src/data/catalogue/SATCAT_before_prop.pickle', SATCAT)
+
     else:
-        # Launch Files
-        print("Creating Launch Model...")
-        in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
-        policy_path = 'src/data/prediction_csv/policy_fsptest.json'
+        SATCAT.Catalogue = load_pickle('src/data/catalogue/SATCAT_before_prop.pickle')
 
-        # apply policy to launch file and load into UCL Catalogue
-        launch_file_object = Prediction2SpaceObjects(in_file, policy_path)
-        SATCAT_before_prop = catalogue.ReturnCatalogue()
-        SATCAT_before_prop = SATCAT_before_prop + launch_file_object
+    if settings["environment"] == "development" and os.path.exists(get_path(f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
+        SATCAT = load_pickle(f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')
+    else:
+        if settings["scenario_name"] != "baseline":
+            print("Creating Launch Model...")
+            launch_file_object = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions.csv', 'src/data/prediction_csv/sim_settings.json')
+            SATCAT.Catalogue.extend(launch_file_object)
 
+    print("Number of Satellites: ", len(SATCAT.Catalogue))
     # Propagate
-    timestep = int(policy["metric_timestep"])*24*60*60
-    print("Propagating Satellites...")
+    output_frequency = int(settings["output_frequency"])
+    timestep = output_frequency * 86400
+    print(f"Propagating Satellites and saving state every {output_frequency} days...")
 
-    # remove all satellites that have decayed
-    for satellite in SATCAT_before_prop:
-        try:    
-            if satellite.decay_date < datetime.datetime.today():
-                SATCAT_before_prop.remove(satellite)
-        except TypeError: # catch when the satellite decay date is None
-            continue 
+    # Filter satellites based on decay_date
+    decayed_before_start = 0
+    for satellite in SATCAT.Catalogue:  
+        print(satellite.rso_name)
+        if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'): # if we know that the decay date is before the start of the simulation, we can remove it from the catalogue
+            SATCAT.Catalogue.remove(satellite)
+            decayed_before_start += 1
+    print("# sats decayed before sim start date: ", decayed_before_start)
 
-    for satellite in SATCAT_before_prop:
-        print(satellite.__dict__)
-        satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # convert days to seconds
-    
+    for satellite in SATCAT.Catalogue:
+        satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # propagate each satellite using sgp4, and output a state vector every timestep
+
     # Export
-    with open(os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'), 'wb') as f:
-        pickle.dump(SATCAT_before_prop, f)
+    print("Exporting results...")
+    dump_pickle(f'src/data/catalogue/prop_{policy_name}.pickle', SATCAT)
 
-    print("Output: " + os.path.join(os.getcwd(), f'src/data/catalogue/SATCAT_after_prop_{policy_name}.pickle'))
-    print("Number of Satellites: " + str(len(SATCAT_before_prop)))
+    print(f"Output: {get_path(f'src/data/catalogue/prop_{policy_name}.pickle')}")
+    print(f"Number of Satellites: {len(SATCAT)}")
     print("Simulation Complete")
 
 if __name__ == '__main__':
-    with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/policy_fsptest.json'), 'r') as f:
-        json_data = f.read()
-
-    # Parse the JSON string into a Python object
-    policy = json.loads(json_data)
-    run_simulation(policy)
+    policy = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
+    run_sim(policy)

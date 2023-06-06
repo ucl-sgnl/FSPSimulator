@@ -52,12 +52,12 @@ def calculate_form_factor(form_factor_str):
     if not isinstance(form_factor_str, str):
         raise ValueError('Form factor must be a string')
     
-    if 'u' in form_factor_str:
-        _length = float(form_factor_str.split('u')[0]) * 10
-        _area = float(form_factor_str.split('u')[0]) * 100
+    if 'u' in form_factor_str: #DIVIDE by 10 since 1U = 10cm^3
+        _length = float(form_factor_str.split('u')[0]) /10 
+        _area = float(form_factor_str.split('u')[0]) /10
     elif 'U' in form_factor_str:
-        _length = float(form_factor_str.split('U')[0]) * 10
-        _area = float(form_factor_str.split('U')[0]) * 100
+        _length = float(form_factor_str.split('U')[0]) /10
+        _area = float(form_factor_str.split('U')[0]) /10
     # if there is the character '*', extract all the numbers. The largest value is the characteristic length and the characteristic area is all the two largest values multiplied together
     elif '*' in form_factor_str:
         #split the values by the character '*' and make them in ascending order
@@ -131,9 +131,9 @@ def satellite_metadata(file_path):
         subconstellation_dict['_maneuverable'] = _maneuverable
         subconstellation_dict['_propulsion'] = _propulsion
         # convert from cm to m
-        subconstellation_dict['_length'] = _length/100
+        subconstellation_dict['_length'] = _length
         # convert from cm^2 to m^2
-        subconstellation_dict['_area'] = _area/10000 
+        subconstellation_dict['_area'] = _area
         # append the subconstellation_dict to the metadata_dicts list
         metadata_dicts.append(subconstellation_dict)
 
@@ -440,5 +440,5 @@ def Prediction2SpaceObjects(in_csv_path, policy_json):
 
 if __name__ == '__main__':
     in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
-    policy = 'src/data/prediction_csv/policy_fsptest.json'
+    policy = 'src/data/prediction_csv/sim_settings.json'
     Prediction2SpaceObjects(in_file, policy)
