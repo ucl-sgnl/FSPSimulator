@@ -52,8 +52,6 @@ class SpaceObject:
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
                  argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None):
         
-        
-        self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
         # launch_date must be datetime.datetime.strptime('%Y-%m-%d') format between 1900-00-00 and 2999-12-31
         self.launch_date = datetime.datetime.strptime(launch_date, '%Y-%m-%d')
 
