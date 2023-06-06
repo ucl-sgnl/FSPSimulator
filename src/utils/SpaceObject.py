@@ -176,17 +176,20 @@ class SpaceObject:
         self.C_d = 2.2 #Drag coefficient
         
         if bstar is None:
-            self.bstar = 0.00113295 # impute the median BStar of the SpaceTrack BStars that are below 1000km
+            #-------- Impute BStar Median of all satellites below 2000km -------# 
+            # self.bstar = 0.00113295 # impute the median BStar of the SpaceTrack BStars that are below 1000km
             
             #-------- Compute BStar method -------# 
             # Not using as decay is crazy with this method   
-            # -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
-            # print("Setting bstar to {}".format(self.bstar))
-            # print("Area: {}".format(self.characteristic_area))
-            # print("Mass: {}".format(self.mass))
-            # print("Density: {}".format(self.atmos_density))
+            self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            print("Setting bstar to {}".format(self.bstar))
+            print("Area: {}".format(self.characteristic_area))
+            print("Mass: {}".format(self.mass))
+            print("Density: {}".format(self.atmos_density))
+            print("altidude: {}".format(self.altitude))
         else:
             self.bstar = bstar
+            print("Bstar specified: {}".format(self.bstar))
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
 
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
