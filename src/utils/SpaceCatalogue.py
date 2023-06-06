@@ -20,26 +20,6 @@ class SpaceCatalogue:
         self.repull_catalogues = repull_catalogues
         self.PullAllCataloguesIfNewer()
 
-    def ReturnCatalogue(self):
-        """
-        This will return the current space catalogue. 
-
-        Warning: Due to the policy configuration, it may not have merged JSR and Celestrak.
-
-        ### Returns
-        - List of SpaceObjects
-        """
-        return self.Catalogue
-    
-    def SetCatalogue(self, catalogue):
-        """
-        This will set the current catalogue, usually a pickle file. This is for when the simulation has already been run and the catalogue is saved.
-
-        Args:
-            catalogue (List<Space Object>): List of SpaceObjects
-        """
-        self.Catalogue = catalogue
-
     def CreateCatalogueActive(self):
         """
         This function will merge the JSR and SpaceTrack catalogues
