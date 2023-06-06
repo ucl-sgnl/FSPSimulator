@@ -4,7 +4,7 @@
   "launch_start_date":"2019-01-01",
   "startup_failure_rate": 0,
   "satellite_failure" : 0,
-  "espace": true,
+  "espace": false,
   "sim_start_date":"2019-01-01",
   "sim_end_date":"2023-01-01",
   "output_frequency": 30,
