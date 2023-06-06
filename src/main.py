@@ -27,10 +27,10 @@ def run_sim(settings):
     jd_stop = utc_to_jd(settings["sim_end_date"])
     policy_name = settings["scenario_name"]
 
-    if settings["repull_catalogues"] and os.path.exists(get_path('src/data/catalogue/All_cata logue_latest.csv')):
+    if settings["repull_catalogues"] and os.path.exists(get_path('src/data/catalogue/All_catalogue_latest.csv')):
         if settings["sim_object_type"] == "all":
             SATCAT.CreateCatalogueAll()
-        elif settings["sim_object_type"] != "debris":  # if it is debris, we do nothing and return?
+        elif settings["sim_object_type"] != "debris":  
             SATCAT.CreateCatalogueActive()
 
         SATCAT.Catalogue2SpaceObjects()
@@ -38,7 +38,7 @@ def run_sim(settings):
         dump_pickle('src/data/catalogue/SATCAT_before_prop.pickle', SATCAT)
 
     else:
-        SATCAT.SetCatalogue(load_pickle('src/data/catalogue/SATCAT_before_prop.pickle'))
+        SATCAT.Catalogue = load_pickle('src/data/catalogue/SATCAT_before_prop.pickle')
 
     if settings["environment"] == "development" and os.path.exists(get_path(f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
         SATCAT = load_pickle(f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')
@@ -46,8 +46,9 @@ def run_sim(settings):
         if settings["scenario_name"] != "baseline":
             print("Creating Launch Model...")
             launch_file_object = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions.csv', 'src/data/prediction_csv/sim_settings.json')
-            SATCAT += launch_file_object
+            SATCAT.Catalogue.extend(launch_file_object)
 
+    print("Number of Satellites: ", len(SATCAT.Catalogue))
     # Propagate
     output_frequency = int(settings["output_frequency"])
     timestep = output_frequency * 86400
@@ -55,13 +56,14 @@ def run_sim(settings):
 
     # Filter satellites based on decay_date
     decayed_before_start = 0
-    for satellite in SATCAT:  
+    for satellite in SATCAT.Catalogue:  
+        print(satellite.rso_name)
         if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'): # if we know that the decay date is before the start of the simulation, we can remove it from the catalogue
-            SATCAT.remove(satellite)
+            SATCAT.Catalogue.remove(satellite)
             decayed_before_start += 1
     print("# sats decayed before sim start date: ", decayed_before_start)
 
-    for satellite in SATCAT:
+    for satellite in SATCAT.Catalogue:
         satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # propagate each satellite using sgp4, and output a state vector every timestep
 
     # Export

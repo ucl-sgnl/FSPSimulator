@@ -61,13 +61,13 @@ N,i,h,_soname,_owner,_application,_mass,_maneuverable,_propulsion,_length,_area,
 20,98,520,Carbon_Mapper,SSOCubesat,EO,30.0,y,None,0.3,0.3,600,1620000.0
 50,90,550,Care_Weather,SSOCubesat,Weather,1.0,y,None,0.1,0.1,50,135000.0
 300,90,535,Chang_Guang,SSOCubesat,EO,150.0,y,gas,0.1,0.005000000000000001,45000,121500000.0
-50,86.4,550,Climavision_,SSOCubesat,EO,40.0,y,electric,8.0,2.0,2000,5400000.0
+50,86.4,550,Climavision_,SSOCubesat,EO,40.0,y,electric,0.8,0.2,2000,5400000.0
 30,97,500,ConstellR,Other,EO,150.0,y,electric,2.4,2.4,4500,12150000.0
 60,45,550,Curvalux-1,Cubesat,Comms,150.0,y,gas,1.2,0.6911999999999999,9000,24300000.0
 180,87.9,550,Curvalux-2,Cubesat,Comms,150.0,y,gas,1.2,0.6911999999999999,27000,72900000.0
 10,90,550,Earth_Daily_Analytics,SSOCubesat,EO,20.0,y,None,0.2,0.2,200,540000.0
 15,98,505,Earth-I,SSOCubesat,EO,5.0,y,None,0.1,0.1,75,202500.0
-10,121-10,35786,EchoStar,Other,Comms,200.0,y,gas,3.2,3.2,2000,5400000.0
+10,65,35786,EchoStar,Other,Comms,200.0,y,gas,3.2,3.2,2000,5400000.0
 7,98,500,EOS_Agrisat,SSOCubesat,EO for agriculture,178.0,y,electric,1.0,0.5,1246,3364200.0
 35,30,600,Eutelsat,Other,IOT,30.0,y,None,0.6,0.6,1050,2835000.0
 68,6,650,ExactEarth_(operating),Other,EO,6.0,y,None,0.02,0.0004,408,1101600.0
