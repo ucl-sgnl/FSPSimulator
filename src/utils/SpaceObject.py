@@ -6,7 +6,7 @@ import numpy as np
 import sgp4
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from src.utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
+from utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
 import matplotlib.cm as cm
 
 def verify_value(value, impute_function):
@@ -52,8 +52,6 @@ class SpaceObject:
                  characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
                  argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None):
         
-        
-        self.GUID = self._compute_catid() # This will be set by the system and isn't included as a parameter
         # launch_date must be datetime.datetime.strptime('%Y-%m-%d') format between 1900-00-00 and 2999-12-31
         self.launch_date = datetime.datetime.strptime(launch_date, '%Y-%m-%d')
 
@@ -66,7 +64,7 @@ class SpaceObject:
         possible_operational_status = ['+', '-', 'P', 'B', 'S', 'X', 'D', '?'] #https://celestrak.org/satcat/status.php -> this is the FSP operational status code
         if self.payload_operational_status not in possible_operational_status: 
             #raise a warning that still lets the code run and forces the operational status to be '?'
-            print('WARNING: payload_operational_status should be one of the following: {}'.format(possible_operational_status))
+            # print('WARNING: payload_operational_status should be one of the following: {}'.format(possible_operational_status))
             self.payload_operational_status = '?'
             # raise ValueError('payload_operational_status must be one of the following: {}'.format(possible_operational_status)) # raise an error that stops the code
         
@@ -75,7 +73,7 @@ class SpaceObject:
         possible_object_types = ['DEB', 'PAY', 'R/B', 'UNK', '?'] # i have added ? as a possible object type so that the code can still run if this is not specified
         if self.object_type not in possible_object_types:
             #raise a warning that still lets the code run and forces the object type to be '?'
-            print('WARNING: object_type should be one of the following: {}'.format(possible_object_types))
+            # print('WARNING: object_type should be one of the following: {}'.format(possible_object_types))
             self.object_type = '?'
 
         self.application = str(application) #TODO: get the code from FSP documentation for this and implement the checks
@@ -110,7 +108,6 @@ class SpaceObject:
         if self.perigee is None or self.perigee == 0 or self.perigee < 0 or self.perigee > 200000:
             raise ValueError('Object perigee altitude is None, 0, negative or more than 200000km. Please check the input data')
     
-        self.radar_cross_section = float(radar_cross_section) if radar_cross_section is not None else None #in meters^2
         self.propulsion_type = str(propulsion_type)
         self.epoch = epoch
         if self.epoch is None:
@@ -179,7 +176,15 @@ class SpaceObject:
         self.C_d = 2.2 #Drag coefficient
         
         if bstar is None:
-            self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            self.bstar = 0.00113295 # impute the median BStar of the SpaceTrack BStars that are below 1000km
+            
+            #-------- Compute BStar method -------# 
+            # Not using as decay is crazy with this method   
+            # -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            # print("Setting bstar to {}".format(self.bstar))
+            # print("Area: {}".format(self.characteristic_area))
+            # print("Mass: {}".format(self.mass))
+            # print("Density: {}".format(self.atmos_density))
         else:
             self.bstar = bstar
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
@@ -357,10 +362,11 @@ class SpaceObject:
     
     def get_atmospheric_density(self, model = "exponential"):
         if model == "exponential":
-            self.atmos_density = 1e-35
-            # self.atmos_density = expo_simplified(self.altitude)*1e-6#fix units to kg/m^3 
+            # self.atmos_density = 1e-12
+            self.atmos_density = expo_simplified(self.altitude) #fix units to kg/m^3 
         #TODO: other density models here when ready (USSA 76 probably only one we need)
         else:
+            print("WARNING: Atmospheric density model not recognized. Setting density to 1e-12")
             self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
  
     def build_TLE(self):
@@ -450,12 +456,12 @@ def test_sgp4_drag():
         # make a SpaceObject from the TLE
         tle_epoch_str = str(tle_epoch)
         epoch = tle_epoch_str.replace(' ', 'T')
-        test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=1, mass = 150, epoch = epoch)
+        test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=0.011, mass = 250, epoch = epoch, launch_date='2023-05-02')
         test_sat.prop_catobjects(start_jd[0], end_jd[0], t_step)
         test_sat_ephem = test_sat.ephemeris
+        print("made up BStar:", test_sat.bstar)
         print("made up TLE:", test_sat.tle)
         print("real TLE:", test_tles[sat])
-        # test_sat_ephem is list of a tuples of the form [(time, position, velocity), (time, position, velocity), ...]
 
         test_pos = [x[1] for x in test_sat_ephem]
         test_pos = np.array(test_pos)
@@ -514,5 +520,5 @@ def test_spaceobject_creation():
                                     tle="1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928")
     
 if __name__ == "__main__":
-    # test_sgp4_drag()
-    test_spaceobject_creation()
+    test_sgp4_drag()
+    # test_spaceobject_creation()

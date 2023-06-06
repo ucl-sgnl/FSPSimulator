@@ -7,7 +7,7 @@ from src.utils.SpaceCatalogue import SpaceCatalogue
 class TestMyClass(unittest.TestCase):
     
     def setUp(self):
-        with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/policy_fsptest.json'), 'r') as f:
+        with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/sim_settings.json'), 'r') as f:
             json_data = f.read()
         policy = json.loads(json_data)
         self.SpaceCat = SpaceCatalogue(policy["sim_object_type"], policy["sim_object_catalogue"])
@@ -24,10 +24,10 @@ class TestMyClass(unittest.TestCase):
     def test_CreateCatalogueActive(self):
         # Test if the function exports a file
         self.SpaceCat.CreateCatalogueActive()
-        self.assertTrue(os.path.exists(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_celestrak_latest.csv')))
+        self.assertTrue(os.path.exists(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_spacetrack_latest.csv')))
        
         # Test if the file contains data
-        df = pd.read_csv(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_celestrak_latest.csv'))
+        df = pd.read_csv(os.path.join(os.getcwd(), 'src/data/catalogue/active_jsr_spacetrack_latest.csv'))
         self.assertGreater(len(df), 0)
         # Additional test cases:
         # Test if the exported file has the expected columns

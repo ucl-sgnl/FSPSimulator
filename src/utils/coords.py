@@ -35,6 +35,14 @@ def utc_to_jd(time_stamps):
     
     return jd_vals
 
+def jd_to_utc(jd):
+    """Converts Julian Date to UTC time tag(datetime object) using Astropy"""
+    #convert jd to astropy time object
+    time = Time(jd, format='jd', scale='utc')
+    #convert astropy time object to datetime object
+    utc = time.datetime
+    return utc
+
 def kep2car(a, e, i, w, W, V):
     # Suppress the UserWarning for true anomaly wrapping
     with warnings.catch_warnings():
@@ -660,10 +668,4 @@ def get_day_of_year_and_fractional_day(epoch):
     fractional_day = seconds_since_midnight / 86400
     return day_of_year + fractional_day
 
-def jd_to_utc(jd):
-    """Converts Julian Date to UTC time tag(datetime object) using Astropy"""
-    #convert jd to astropy time object
-    time = Time(jd, format='jd', scale='utc')
-    #convert astropy time object to datetime object
-    utc = time.datetime
-    return utc
+

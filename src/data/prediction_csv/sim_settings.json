@@ -1,0 +1,16 @@
+{
+  "scenario_name": "fresh_cat",
+  "monthly_ton_capacity": "100",
+  "launch_start_date":"2019-01-01",
+  "startup_failure_rate": 0,
+  "satellite_failure" : 0,
+  "espace": true,
+  "sim_start_date":"2019-01-01",
+  "sim_end_date":"2023-01-01",
+  "output_frequency": 30,
+  "sim_object_type": "all",
+  "sim_propagation_type": "sgp4",
+  "sim_object_catalogue" : "all",
+  "environment": "development",
+  "repull_catalogues": true
+}

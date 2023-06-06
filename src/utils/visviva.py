@@ -8,21 +8,19 @@ def calculate_energy_from_semi_major_axis(a, m):
     energy = -G * M_earth * m / (2 * a)
     return energy
 
-import os
-import pickle
 
 def load_file(simName):
     # Get the absolute path of the current script
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    
+
     # Construct the absolute path to the pickle file
     path = os.path.join(script_dir, f'../../../src/data/catalogue/{simName}.pickle')
-    
+
     with open(path, 'rb') as f:
         # Load the data from the pickle file
         data = pickle.load(f)
         return data
-    
+
 baseline_data = load_file('SATCAT_after_prop_baseline')
 all_sats = load_file('SATCAT_after_prop_allsats')
 all_sats_no_espace = load_file('SATCAT_after_prop_allsats_noespace')
