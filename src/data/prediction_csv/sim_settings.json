@@ -1,5 +1,5 @@
 {
-  "scenario_name": "fresh_cat",
+  "scenario_name": "original_aleph_1",
   "monthly_ton_capacity": "100",
   "launch_start_date":"2019-01-01",
   "startup_failure_rate": 0,
