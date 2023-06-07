@@ -4,6 +4,7 @@ import math
 import datetime
 import numpy as np
 import sgp4
+from pyatmos import coesa76
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
 from utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
@@ -171,22 +172,34 @@ class SpaceObject:
             
         self.altitude = self.perigee #TODO: this needs to get deleted imo (discuss first)
         
-        self.get_atmospheric_density(model = "exponential") #exponential here is ~USSA 76
+        self.get_atmospheric_density(model = "ussa76") #exponential here is ~USSA 76
 
         self.C_d = 2.2 #Drag coefficient
         
         if bstar is None:
-            self.bstar = 0.00113295 # impute the median BStar of the SpaceTrack BStars that are below 1000km
+            #-------- Impute BStar Median of all satellites below 2000km -------# 
+            # self.bstar = 0.00113295 # impute the median BStar of the SpaceTrack BStars that are below 1000km
+            # Does not work except for handful of sats
             
-            #-------- Compute BStar method -------# 
+            #-------- Compute BStar method with exponential density model-------# 
             # Not using as decay is crazy with this method   
-            # -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            # self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
             # print("Setting bstar to {}".format(self.bstar))
             # print("Area: {}".format(self.characteristic_area))
             # print("Mass: {}".format(self.mass))
             # print("Density: {}".format(self.atmos_density))
+            # print("altidude: {}".format(self.altitude))
+
+            # -------- Compute BStar method with poliastro USSA76 density model-------# 
+            self.bstar = (self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            print("Setting bstar to {}".format(self.bstar))
+            print("Area: {}".format(self.characteristic_area))
+            print("Mass: {}".format(self.mass))
+            print("Density: {}".format(self.atmos_density))
+            print("altidude: {}".format(self.altitude))
         else:
             self.bstar = bstar
+            print("Bstar specified: {}".format(self.bstar))
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
 
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
@@ -246,7 +259,6 @@ class SpaceObject:
             raise ValueError('Object characteristic length is None or 0. Please check the input data')
         
         return char_length
-
 
     def impute_char_area(self, char_area):
         """
@@ -360,8 +372,14 @@ class SpaceObject:
         sgp4epoch = sgp4epoch.days
         return sgp4epoch
     
-    def get_atmospheric_density(self, model = "exponential"):
-        if model == "exponential":
+    def get_atmospheric_density(self, model = "ussa76"):
+        if model == "ussa76":
+            #use pyatmos
+            ussa76 = coesa76(self.altitude)
+            self.atmos_density = ussa76.rho[0] #in kg/m^3 # this is an array of length one. Selecting the 0th value because we need just a float for the BStar computation after. Passing an NDarray causes a bug.
+            print("Setting density to {}".format(self.atmos_density))
+
+        elif model == "exponential":
             # self.atmos_density = 1e-12
             self.atmos_density = expo_simplified(self.altitude) #fix units to kg/m^3 
         #TODO: other density models here when ready (USSA 76 probably only one we need)

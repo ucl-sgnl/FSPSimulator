@@ -25,7 +25,7 @@ def run_sim(settings):
     SATCAT = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
     jd_start = utc_to_jd(settings["sim_start_date"])
     jd_stop = utc_to_jd(settings["sim_end_date"])
-    policy_name = settings["scenario_name"]
+    scenario_name = settings["scenario_name"]
 
     if settings["repull_catalogues"] and os.path.exists(get_path('src/data/catalogue/All_catalogue_latest.csv')):
         if settings["sim_object_type"] == "all":
@@ -40,8 +40,8 @@ def run_sim(settings):
     else:
         SATCAT.Catalogue = load_pickle('src/data/catalogue/SATCAT_before_prop.pickle')
 
-    if settings["environment"] == "development" and os.path.exists(get_path(f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')):
-        SATCAT = load_pickle(f'src/data/catalogue/SATCAT_before_prop_{policy_name}.pickle')
+    if settings["environment"] == "development" and os.path.exists(get_path(f'src/data/catalogue/SATCAT_before_prop_{scenario_name}.pickle')):
+        SATCAT = load_pickle(f'src/data/catalogue/SATCAT_before_prop_{scenario_name}.pickle')
     else:
         if settings["scenario_name"] != "baseline":
             print("Creating Launch Model...")
@@ -57,7 +57,7 @@ def run_sim(settings):
     # Filter satellites based on decay_date
     decayed_before_start = 0
     for satellite in SATCAT.Catalogue:  
-        print(satellite.rso_name)
+        # print(satellite.rso_name)
         if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'): # if we know that the decay date is before the start of the simulation, we can remove it from the catalogue
             SATCAT.Catalogue.remove(satellite)
             decayed_before_start += 1
@@ -68,10 +68,10 @@ def run_sim(settings):
 
     # Export
     print("Exporting results...")
-    dump_pickle(f'src/data/catalogue/prop_{policy_name}.pickle', SATCAT)
+    dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
 
-    print(f"Output: {get_path(f'src/data/catalogue/prop_{policy_name}.pickle')}")
-    print(f"Number of Satellites: {len(SATCAT)}")
+    print(f"Output: {get_path(f'src/data/catalogue/{scenario_name}.pickle')}")
+    print(f"Number of Satellites: {len(SATCAT.Catalogue)}")
     print("Simulation Complete")
 
 if __name__ == '__main__':

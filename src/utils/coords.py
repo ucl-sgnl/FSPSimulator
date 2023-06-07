@@ -131,6 +131,13 @@ def true_to_eccentric_anomaly(true_anomaly, eccentricity):
     eccentric_anomaly = math.atan2(sin_E, cos_E)
     return eccentric_anomaly
 
+def calculate_energy_from_semi_major_axis(a, m):
+    """Calculate the total mechanical energy of an object in orbit around the Earth, given its semi-major axis (a) and mass (m)."""
+    G = 6.67430e-11  # Gravitational constant, units: m^3 kg^-1 s^-2
+    M_earth = 5.97219e24  # Mass of Earth, units: kg
+    energy = -G * M_earth * m / (2 * a)
+    return energy
+
 def eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity):
     mean_anomaly = eccentric_anomaly - eccentricity * math.sin(eccentric_anomaly)
     return mean_anomaly
@@ -196,7 +203,7 @@ def expo_simplified(altitude, alt_type='geometric'):
     ind = np.where((altitude - zb_expand) >= 0)[0][-1]
     rho = rhob[ind] * np.exp(-(altitude - zb[ind]) / ZS[ind])
 
-    return rho
+    return rho*1000000
 
 def orbit_classify(altitude):
     # Classifies the orbit based on the altitude
