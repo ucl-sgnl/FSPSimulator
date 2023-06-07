@@ -191,7 +191,7 @@ class SpaceObject:
             # print("altidude: {}".format(self.altitude))
 
             # -------- Compute BStar method with poliastro USSA76 density model-------# 
-            self.bstar = -(self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            self.bstar = (self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
             print("Setting bstar to {}".format(self.bstar))
             print("Area: {}".format(self.characteristic_area))
             print("Mass: {}".format(self.mass))
@@ -259,7 +259,6 @@ class SpaceObject:
             raise ValueError('Object characteristic length is None or 0. Please check the input data')
         
         return char_length
-
 
     def impute_char_area(self, char_area):
         """
@@ -377,7 +376,7 @@ class SpaceObject:
         if model == "ussa76":
             #use pyatmos
             ussa76 = coesa76(self.altitude)
-            self.atmos_density = ussa76.rho #in kg/m^3
+            self.atmos_density = ussa76.rho[0] #in kg/m^3 # this is an array of length one. Selecting the 0th value because we need just a float for the BStar computation after. Passing an NDarray causes a bug.
             print("Setting density to {}".format(self.atmos_density))
 
         elif model == "exponential":
