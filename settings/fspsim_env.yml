@@ -30,5 +30,6 @@ dependencies:
     - matplotlib
     - python-dotenv
     - pandas
+    - pyatmos==1.2.3
     - numba==0.53.0
     - numpy==1.19
