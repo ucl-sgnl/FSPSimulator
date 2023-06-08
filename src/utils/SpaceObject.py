@@ -7,8 +7,8 @@ import sgp4
 from pyatmos import coesa76
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
-from propagator import numerical_prop
+from utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
+from utils.propagator import numerical_prop
 import matplotlib.cm as cm
 
 def verify_value(value, impute_function):
@@ -193,13 +193,14 @@ class SpaceObject:
             # print("Density: {}".format(self.atmos_density))
             # print("altidude: {}".format(self.altitude))
 
-            # -------- Compute BStar method with poliastro USSA76 density model-------# 
-            self.bstar = (self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
-            print("Setting bstar to {}".format(self.bstar))
-            print("Area: {}".format(self.characteristic_area))
-            print("Mass: {}".format(self.mass))
-            print("Density: {}".format(self.atmos_density))
-            print("altidude: {}".format(self.altitude))
+            # # -------- Compute BStar method with poliastro USSA76 density model-------# 
+            # self.bstar = (self.C_d * self.characteristic_area * self.atmos_density)/2*self.mass #BStar = Cd * A * rho / 2m. Where Cd is the drag coefficient, A is the cross-sectional area of the satellite, rho is the density of the atmosphere, and m is the mass of the satellite.
+            # print("Setting bstar to {}".format(self.bstar))
+            # print("Area: {}".format(self.characteristic_area))
+            # print("Mass: {}".format(self.mass))
+            # print("Density: {}".format(self.atmos_density))
+            # print("altidude: {}".format(self.altitude))
+            self.bstar = 0.00001
         else:
             self.bstar = bstar
             print("Bstar specified: {}".format(self.bstar))
@@ -356,7 +357,7 @@ class SpaceObject:
     def generate_cart(self):
         # generate cartesian state vector from keplerian elements
         # Keplerian elements are in radians
-        x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = self.inc, w = self.argp, W=self.raan, V=self.tran)
+        x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran))
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
@@ -368,19 +369,20 @@ class SpaceObject:
         return sgp4epoch
     
     def get_atmospheric_density(self, model = "ussa76"):
-        if model == "ussa76":
-            #use pyatmos
-            ussa76 = coesa76(self.altitude)
-            self.atmos_density = ussa76.rho[0] #in kg/m^3 # this is an array of length one. Selecting the 0th value because we need just a float for the BStar computation after. Passing an NDarray causes a bug.
-            print("Setting density to {}".format(self.atmos_density))
+        self.atmos_density = 0
+        # if model == "ussa76":
+        #     #use pyatmos
+        #     ussa76 = coesa76(self.altitude)
+        #     self.atmos_density = ussa76.rho[0] #in kg/m^3 # this is an array of length one. Selecting the 0th value because we need just a float for the BStar computation after. Passing an NDarray causes a bug.
+        #     print("Setting density to {}".format(self.atmos_density))
 
-        elif model == "exponential":
-            # self.atmos_density = 1e-12
-            self.atmos_density = expo_simplified(self.altitude) #fix units to kg/m^3 
-        #TODO: other density models here when ready (USSA 76 probably only one we need)
-        else:
-            print("WARNING: Atmospheric density model not recognized. Setting density to 1e-12")
-            self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
+        # elif model == "exponential":
+        #     # self.atmos_density = 1e-12
+        #     self.atmos_density = expo_simplified(self.altitude) #fix units to kg/m^3 
+        # #TODO: other density models here when ready (USSA 76 probably only one we need)
+        # else:
+        #     print("WARNING: Atmospheric density model not recognized. Setting density to 1e-12")
+        #     self.atmos_density = 1e-12 #Placeholder value #in kg/m^3
  
     def build_TLE(self):
         TLE = write_tle(
@@ -413,7 +415,7 @@ class SpaceObject:
         #If station keeping is True, we station keep from launch to decay
         #If station keeping is False or None, we do not station keep and we propagate using the numerical integrator
         
-        valid_propagators = ["sgp4", "RK45"]
+        valid_propagators = ["sgp4", "RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
         if propagator not in valid_propagators:
             raise ValueError("Invalid propagator. Must be one of the following: {}".format(valid_propagators))
 
@@ -623,7 +625,7 @@ def test_numerical_prop_of_TLEs():
         ax.set_zlabel('Z')
         ax.set_title('Position of Satellite Over Time')
         plt.show()
-        
+
 if __name__ == "__main__":
     test_numerical_prop_of_TLEs()
     # test_sgp4_drag()

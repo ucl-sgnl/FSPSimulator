@@ -3,12 +3,13 @@ import sys
 import os
 import json
 import pickle
+from tqdm import tqdm
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
 
-from src.utils.SpaceCatalogue import SpaceCatalogue
-from src.utils.LaunchModel import Prediction2SpaceObjects
-from src.utils.coords import utc_to_jd
+from utils.SpaceCatalogue import SpaceCatalogue
+from utils.LaunchModel import Prediction2SpaceObjects
+from utils.coords import utc_to_jd
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -23,8 +24,8 @@ def dump_pickle(file_path, data):
 
 def run_sim(settings):
     SATCAT = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
-    jd_start = utc_to_jd(settings["sim_start_date"])
-    jd_stop = utc_to_jd(settings["sim_end_date"])
+    jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
+    jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
     scenario_name = settings["scenario_name"]
 
     if settings["repull_catalogues"] and os.path.exists(get_path('src/data/catalogue/All_catalogue_latest.csv')):
@@ -63,9 +64,8 @@ def run_sim(settings):
             decayed_before_start += 1
     print("# sats decayed before sim start date: ", decayed_before_start)
 
-    for satellite in SATCAT.Catalogue:
-        satellite.prop_catobjects(jd_start[0], jd_stop[0], timestep) # propagate each satellite using sgp4, and output a state vector every timestep
-
+    for satellite in tqdm(SATCAT.Catalogue):
+        satellite.prop_catobject(jd_start = jd_start, jd_stop = jd_stop, step_size = 10, propagator="RK45") # propagate each satellite using sgp4, and output a state vector every timestep
     # Export
     print("Exporting results...")
     dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
