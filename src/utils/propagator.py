@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 #Local imports
 from coords import UTC_step, utc_to_jd, v_rel, tle_parse, tle_convert, TLE_time, jd_to_utc
-from SpaceObject import SpaceObject
+# from SpaceObject import SpaceObject
 
 # Useful constants
 Re = 6378.137  # km
@@ -92,19 +92,15 @@ def accelerations (t, state, cd, area, mass):
 
     r = state[0:3] #extract the r vector from the state vector
     r_norm = np.linalg.norm(r) #norm of r vector
-    print("r_norm:", r_norm)
     #--------------- MONOPOLE ACCELERATION -----------------#
     
     grav_mono=grav_acc(state) #calculate the acceleration due to gravity
-    print("grav_mono:", grav_mono)
     #--------------- J2 PERT ACCELERATION ------------------#
    
     a_j2 = j2_acc(state) #calculate the acceleration due to J2 perturbations
-    print("a_j2:", a_j2)
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
     grav_a = grav_mono + a_j2
-    print("grav_a:", grav_a)
     #--------------- AERO DRAG ACCELERATION --------------#
 
     alt = r_norm - Re #altitude is the norm of the r vector minus the radius of the earth
@@ -117,7 +113,7 @@ def accelerations (t, state, cd, area, mass):
     alt = r_norm - Re #altitude is the norm of the r vector minus the radius of the earth
     acc_drag = -0.5 * rho * ((cd*area)/mass)*(1000*(v_rel_atm**2)) # Vallado and Finkleman 2014
     drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration
-    print("drag_a_vec:", drag_a_vec)
+    
     #TODO: Add solar radiation pressure acceleration
 
     #--------------- SUM OF ALL ACCELERATIONS --------------#
@@ -125,22 +121,24 @@ def accelerations (t, state, cd, area, mass):
     a_tot = grav_a + drag_a_vec
     return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
 
-def propagation(tot_time, h, pos, vel, cd, area, mass):
+def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=10, type = "rk4"):
     """
-    Propagates the entire Orbit object
+    Numerical Propagation of the orbit
 
     Args:
         tot_time (float): total propagation time (seconds)
-        h (float): time step of the propagation (seconds)
+        h (float): time step of the propagation (seconds). Defaults to 10 seconds.
         pos (array): cartesian position vector [x,y,z] (km) at initial conditions
         vel (array): cartesian velocity vector [u,v,w] (km/s) at initial conditions
-        cd (float): drag coefficient
+        C_d (float): drag coefficient
         area (float): cross-sectional area of the satellite (m^2)
         mass (float): mass of the satellite (kg)
+        type (str): type of numerical integration to use. Defaults to "rk4".
 
     Returns:
         array: nested array containing the cartesian state vectors for the propagated orbit at each time step.
     """
+
     if h > 200:
         warnings.warn(f'The time step of {h} seconds is large. The results may be inaccurate.')
     
@@ -168,35 +166,43 @@ def propagation(tot_time, h, pos, vel, cd, area, mass):
         if alt < 105:
             break
         else:
-            states[step + 1] = rk4_step(accelerations, time, states[step], h, cd=cd, area=area, mass=mass)
-        time += h #updating the time counter accordingly
-
+            if type == "rk4":
+                states[step + 1] = rk4_step(accelerations, time, states[step], h, cd=C_d, area=area, mass=mass)
+            time += h #updating the time counter accordingly
     return states
 
-if __name__ == "__main__":
-    prop_time = 32400 #seconds
-    step_size = 10 #seconds
+# if __name__ == "__main__":
 
-    init_state = (2458849.5, #time
-                  [-7134.4015980671975, -1344.2053503962836, 2616.199171181745,],  #position
-                  [2.7370225687820864, -2.6412753868728953, 6.099437705233797]) # velocity
+#     def test_numericalprop_visual():
+#         """
+#         Test the numerical propagation function by plotting the position of the satellite over time
+#         """
+#         prop_time = 32400 #seconds
+#         step_size = 10 #seconds
 
-    ephemeris = propagation(tot_time = prop_time, h=step_size, pos = init_state[1], vel= init_state[2], cd = 2.2, area = 3, mass = 150)
-    print("len of ephemeris:", len(ephemeris))
-    print("shape of ephemeris:", np.shape(ephemeris))
-    #print the norm of the position vector at each time step
-    for i in range(len(ephemeris[0:10])):
-        print(np.linalg.norm(ephemeris[i][0:3]))
+#         init_state = (2458849.5, #time
+#                     [-7134.4015980671975, -1344.2053503962836, 2616.199171181745,],  #position
+#                     [2.7370225687820864, -2.6412753868728953, 6.099437705233797]) # velocity
 
-    #plot the position of the satellite over time in 3D
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot(ephemeris[:,0], ephemeris[:,1], ephemeris[:,2])
-    ax.set_xlabel('X (km)')
-    ax.set_ylabel('Y (km)')
-    ax.set_zlabel('Z (km)')
-    ax.set_title('Position of Satellite Over Time')
-    plt.show()
+#         ephemeris = numerical_prop(tot_time = prop_time, h=step_size, pos = init_state[1], vel= init_state[2], cd = 2.2, area = 3, mass = 150)
+#         print("begginging of ephemeris:", ephemeris[0:5])
+#         print("len of ephemeris:", len(ephemeris))
+#         print("shape of ephemeris:", np.shape(ephemeris))
+#         #print the norm of the position vector at each time step
+#         for i in range(len(ephemeris[0:10])):
+#             print(np.linalg.norm(ephemeris[i][0:3]))
+
+#         #plot the position of the satellite over time in 3D
+#         fig = plt.figure()
+#         ax = fig.add_subplot(111, projection='3d')
+#         ax.plot(ephemeris[:,0], ephemeris[:,1], ephemeris[:,2])
+#         ax.set_xlabel('X (km)')
+#         ax.set_ylabel('Y (km)')
+#         ax.set_zlabel('Z (km)')
+#         ax.set_title('Position of Satellite Over Time')
+#         plt.show()
+
+# test_numericalprop_visual()
 
 # Ultimately I need to be able to go:
 # for satellite in SATCAT.Catalogue:
