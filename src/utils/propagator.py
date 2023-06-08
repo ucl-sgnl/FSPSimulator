@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
 #Local imports
-from coords import UTC_step, utc_to_jd, v_rel, tle_parse, tle_convert, TLE_time, jd_to_utc
+from utils.coords import UTC_step, utc_to_jd, v_rel, tle_parse, tle_convert, TLE_time, jd_to_utc
 # from SpaceObject import SpaceObject
 
 # Useful constants
@@ -160,56 +160,6 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=10, type = "RK45"):
     sol = solve_ivp(accelerations, [0, tot_time], x0, method=type, t_eval=np.arange(0, tot_time, h),
                     args=(C_d, area, mass), events=stop_propagation, rtol=1e-8, atol=1e-8)
     return sol.y.T  # Returns an array where each row is the state at a time
-
-# def numerical_prop1(tot_time, pos, vel, C_d, area, mass, h=10, type = "rk4"):
-#     """
-#     Numerical Propagation of the orbit
-
-#     Args:
-#         tot_time (float): total propagation time (seconds)
-#         h (float): time step of the propagation (seconds). Defaults to 10 seconds.
-#         pos (array): cartesian position vector [x,y,z] (km) at initial conditions
-#         vel (array): cartesian velocity vector [u,v,w] (km/s) at initial conditions
-#         C_d (float): drag coefficient
-#         area (float): cross-sectional area of the satellite (m^2)
-#         mass (float): mass of the satellite (kg)
-#         type (str): type of numerical integration to use. Defaults to "rk4".
-
-#     Returns:
-#         array: nested array containing the cartesian state vectors for the propagated orbit at each time step.
-#     """
-
-#     if h > 200:
-#         warnings.warn(f'The time step of {h} seconds is large. The results may be inaccurate.')
-    
-#     pos = np.array(pos) #cast to numpy array
-#     vel = np.array(vel)
-
-#     x0 = pos[0]
-#     y0 = pos[1]
-#     z0 = pos[2]
-
-#     u0 = vel[0]
-#     v0 = vel[1]
-#     w0 = vel[2]
-
-#     steps = int(tot_time/h)
-#     ets = np.zeros((steps,1))
-#     states = np.zeros((steps,6))
-#     states[0] = [x0, y0, z0, u0, v0, w0]
-#     time = 0
-
-#     for step in range(steps - 1):
-#         ets[step] = time #update the time for this step
-#         r_vec = np.array([states[step,0], states[step,1], states[step,2]]) #position vector
-#         alt = np.linalg.norm(r_vec) - 6378.137 #altitude
-#         if alt < 105:
-#             break
-#         else:
-#             if type == "rk4":
-#                 states[step + 1] = rk4_step(accelerations, time, states[step], h, cd=C_d, area=area, mass=mass)
-#             time += h #updating the time counter accordingly
-#     return states
 
 # if __name__ == "__main__":
 

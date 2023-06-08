@@ -1,7 +1,4 @@
-import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
-
 import math
 import pandas as pd
 from datetime import datetime
@@ -12,8 +9,8 @@ import csv
 import random
 import numpy as np
 from datetime import timedelta
-from src.utils.coords import orbit_classify, orbital_period, generate_cospar_id
-from src.utils.SpaceObject import SpaceObject
+from utils.coords import orbit_classify, orbital_period, generate_cospar_id
+from utils.SpaceObject import SpaceObject
 
 def import_configuration_json(filename):
     with open(filename) as f:

@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 import datetime
-from src.utils.SpaceObject import SpaceObject
-from src.utils.coords import tle_parse
+from utils.SpaceObject import SpaceObject
+from utils.coords import tle_parse
 
 class SpaceCatalogue:
     def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
