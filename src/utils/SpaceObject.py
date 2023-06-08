@@ -408,12 +408,12 @@ class SpaceObject:
         # assign the new TLE to the object
         self.tle = TLE
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, propagator="rk4"):
+    def prop_catobject(self, jd_start, jd_stop, step_size, propagator="RK45"):
         #If station keeping is a list, we station keep for the dates specified in the list
         #If station keeping is True, we station keep from launch to decay
         #If station keeping is False or None, we do not station keep and we propagate using the numerical integrator
         
-        valid_propagators = ["sgp4", "rk4"]
+        valid_propagators = ["sgp4", "RK45"]
         if propagator not in valid_propagators:
             raise ValueError("Invalid propagator. Must be one of the following: {}".format(valid_propagators))
 
@@ -430,23 +430,23 @@ class SpaceObject:
             if propagator == "sgp4":
                 ephemeris_sgp4 = sgp4_prop_TLE(self.station_keeping[1], jd_stop, step_size, self.tle)
                 combined_ephemeris.append(ephemeris_sgp4)
-            elif propagator == "rk4":
+            elif propagator == "RK45":
                 #calculate the time in seconds between self.station_keeping[1] and jd_stop and call that tot_time
                 tot_time = (jd_stop - self.station_keeping[1])*24*60*60
                 h=10 #step size in seconds
-                ephemeris_rk4 = numerical_prop(tot_time, pos=self.cart_state[0], vel = self.cart_state[1], cd = self.cd, area = self.characteristic_area, mass = self.mass, h=h, type = "rk4")
+                ephemeris_RK45 = numerical_prop(tot_time, pos=self.cart_state[0], vel = self.cart_state[1], cd = self.cd, area = self.characteristic_area, mass = self.mass, h=h, type = "RK45")
                 # Need to convert the ephemeris_rk4 (which is of the form:[[x,y,z,u,v,w],[x,y,z,u,v,w],[x,y,z,u,v,w]]
                 # to the form: ([time,position, velocity], [time,position, velocity], [time,position, velocity])
                 # first calculate all the time stamps
                 steps = int(tot_time/h) # number of steps
                 time_stamps = np.linspace(self.station_keeping[1], jd_stop, steps)
                 # now take the first three values of each element in ephemeris_rk4 and put them in an array called positions
-                positions = np.array([x[:3] for x in ephemeris_rk4])
+                positions = np.array([x[:3] for x in ephemeris_RK45])
                 # now take the last three values of each element in ephemeris_rk4 and put them in an array called velocities
-                velocities = np.array([x[3:] for x in ephemeris_rk4])
+                velocities = np.array([x[3:] for x in ephemeris_RK45])
                 # now zip the time_stamps, positions and velocities arrays together to get the ephemeris_rk4 in the form: ([time,position, velocity], [time,position, velocity], [time,position, velocity])
-                ephemeris_rk4 = list(zip(time_stamps, positions, velocities))
-                combined_ephemeris.append(ephemeris_rk4)
+                ephemeris_RK45 = list(zip(time_stamps, positions, velocities))
+                combined_ephemeris.append(ephemeris_RK45)
 
             self.ephemeris = np.concatenate(combined_ephemeris) # concatenate the two ephemeris arrays into one and append it to the ephemeris attribute
         elif self.station_keeping == True:
@@ -456,7 +456,7 @@ class SpaceObject:
                 self.build_TLE()
             if propagator == "sgp4":
                 self.ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
-            elif propagator == "rk4":
+            elif propagator == "RK45":
                 tot_time = (jd_stop - jd_start)*24*60*60
                 h=10 #step size in seconds
                 print("tot_time: {}".format(tot_time))
@@ -465,7 +465,7 @@ class SpaceObject:
                 print("cd: {}".format(self.C_d))
                 print("area: {}".format(self.characteristic_area))
                 print("mass: {}".format(self.mass))
-                self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel = self.cart_state[1], C_d = self.C_d, area = self.characteristic_area, mass = self.mass, h=h, type = "rk4")
+                self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel = self.cart_state[1], C_d = self.C_d, area = self.characteristic_area, mass = self.mass, h=h, type = "RK45")
 
 
     #TODO: for an rk7/8 we need to pass the initial state vector and the initial time to the propagator.
@@ -610,10 +610,20 @@ def test_numerical_prop_of_TLEs():
         tle_epoch_str = str(tle_epoch)
         epoch = tle_epoch_str.replace(' ', 'T')
         test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=0.011, mass = 250, epoch = epoch, launch_date='2023-05-02')
-        test_sat.prop_catobject(jd_start=start_jd[0], jd_stop=end_jd[0], step_size=10, propagator="rk4")
+        test_sat.prop_catobject(jd_start=start_jd[0], jd_stop=end_jd[0], step_size=10, propagator="RK45")
         test_sat_ephem = test_sat.ephemeris
         print("test sat ephem:", test_sat_ephem)
 
+        #3D plots of the position of the satellite over time
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot([x[0] for x in test_sat_ephem], [x[1] for x in test_sat_ephem], [x[2] for x in test_sat_ephem])
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+        ax.set_title('Position of Satellite Over Time')
+        plt.show()
+        
 if __name__ == "__main__":
     test_numerical_prop_of_TLEs()
     # test_sgp4_drag()
