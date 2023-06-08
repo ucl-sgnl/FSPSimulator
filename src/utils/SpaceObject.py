@@ -8,6 +8,7 @@ from pyatmos import coesa76
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
 from coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
+from propagator import numerical_prop
 import matplotlib.cm as cm
 
 def verify_value(value, impute_function):
@@ -166,11 +167,14 @@ class SpaceObject:
         self.raan = verify_angle(raan, 'raan')
         self.tran = verify_angle(tran, 'tran', random=True) # random=True means that if tran is None, then a random value between 0 and 360 is imputed
         self.eccentricity = verify_eccentricity(eccentricity)
-        
         self.meananomaly = true_to_mean_anomaly(self.tran, self.eccentricity)
             
         self.altitude = self.perigee #TODO: this needs to get deleted imo (discuss first)
-        
+
+        # This is to store the result of the conversion of the Keplerian elements to cartesian ECI coordinates
+        self.cart_state = self.generate_cart() #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
+
+        #TODO: make this only happen if the propagator is sgp4
         self.get_atmospheric_density(model = "ussa76") #exponential here is ~USSA 76
 
         self.C_d = 2.2 #Drag coefficient
@@ -202,9 +206,6 @@ class SpaceObject:
         self.no_kozai = calculate_kozai_mean_motion(a = self.sma, mu = 398600.4418)
 
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
-
-        # This is to store the result of the conversion of the Keplerian elements to cartesian ECI coordinates
-        self.cart_state = self.generate_cart() #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
 
     def _validate_types(self):
         # function to validate the types and values of the parameters
@@ -356,8 +357,8 @@ class SpaceObject:
         # generate cartesian state vector from keplerian elements
         # Keplerian elements are in radians
         x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = self.inc, w = self.argp, W=self.raan, V=self.tran)
-        self.cart_state = np.array([x,y,z,u,v,w])
-        return
+        self.cart_state = np.array([[x, y, z], [u, v, w]])
+        return self.cart_state
 
     def sgp4_epoch(self):
         # calculate the number of days since 1949 December 31 00:00 UT
@@ -407,8 +408,15 @@ class SpaceObject:
         # assign the new TLE to the object
         self.tle = TLE
 
-    def prop_catobject(self, jd_start, jd_stop, step_size):
+    def prop_catobject(self, jd_start, jd_stop, step_size, propagator="rk4"):
+        #If station keeping is a list, we station keep for the dates specified in the list
+        #If station keeping is True, we station keep from launch to decay
+        #If station keeping is False or None, we do not station keep and we propagate using the numerical integrator
         
+        valid_propagators = ["sgp4", "rk4"]
+        if propagator not in valid_propagators:
+            raise ValueError("Invalid propagator. Must be one of the following: {}".format(valid_propagators))
+
         #-------- Station Keeping -> Keplerian Propagation -------#
         if isinstance(self.station_keeping, list): # if a list is passed to the station keeping attribute, then we assume that the first element is station keeping start date and the second element is the end date)
             # propagate using keplerian from the start date to the end of the station keeping date 
@@ -419,19 +427,49 @@ class SpaceObject:
             combined_ephemeris.append(ephemeris_station_keep)
             if self.tle is None:
                 self.build_TLE()
-            ephemeris_sgp4 = sgp4_prop_TLE(self.station_keeping[1], jd_stop, step_size, self.tle)
-            combined_ephemeris.append(ephemeris_sgp4)
+            if propagator == "sgp4":
+                ephemeris_sgp4 = sgp4_prop_TLE(self.station_keeping[1], jd_stop, step_size, self.tle)
+                combined_ephemeris.append(ephemeris_sgp4)
+            elif propagator == "rk4":
+                #calculate the time in seconds between self.station_keeping[1] and jd_stop and call that tot_time
+                tot_time = (jd_stop - self.station_keeping[1])*24*60*60
+                h=10 #step size in seconds
+                ephemeris_rk4 = numerical_prop(tot_time, pos=self.cart_state[0], vel = self.cart_state[1], cd = self.cd, area = self.characteristic_area, mass = self.mass, h=h, type = "rk4")
+                # Need to convert the ephemeris_rk4 (which is of the form:[[x,y,z,u,v,w],[x,y,z,u,v,w],[x,y,z,u,v,w]]
+                # to the form: ([time,position, velocity], [time,position, velocity], [time,position, velocity])
+                # first calculate all the time stamps
+                steps = int(tot_time/h) # number of steps
+                time_stamps = np.linspace(self.station_keeping[1], jd_stop, steps)
+                # now take the first three values of each element in ephemeris_rk4 and put them in an array called positions
+                positions = np.array([x[:3] for x in ephemeris_rk4])
+                # now take the last three values of each element in ephemeris_rk4 and put them in an array called velocities
+                velocities = np.array([x[3:] for x in ephemeris_rk4])
+                # now zip the time_stamps, positions and velocities arrays together to get the ephemeris_rk4 in the form: ([time,position, velocity], [time,position, velocity], [time,position, velocity])
+                ephemeris_rk4 = list(zip(time_stamps, positions, velocities))
+                combined_ephemeris.append(ephemeris_rk4)
+
             self.ephemeris = np.concatenate(combined_ephemeris) # concatenate the two ephemeris arrays into one and append it to the ephemeris attribute
         elif self.station_keeping == True:
             self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
         elif self.station_keeping == False or self.station_keeping is None: 
             if self.tle is None:
                 self.build_TLE()
-            self.ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
+            if propagator == "sgp4":
+                self.ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
+            elif propagator == "rk4":
+                tot_time = (jd_stop - jd_start)*24*60*60
+                h=10 #step size in seconds
+                print("tot_time: {}".format(tot_time))
+                print("pos: {}".format(self.cart_state[0]))
+                print("vel: {}".format(self.cart_state[1]))
+                print("cd: {}".format(self.C_d))
+                print("area: {}".format(self.characteristic_area))
+                print("mass: {}".format(self.mass))
+                self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel = self.cart_state[1], C_d = self.C_d, area = self.characteristic_area, mass = self.mass, h=h, type = "rk4")
+
 
     #TODO: for an rk7/8 we need to pass the initial state vector and the initial time to the propagator.
         #   We will also have to specify the starting step size and the tolerance.  
-
 
 def test_sgp4_drag():
     """
@@ -535,7 +573,48 @@ def test_spaceobject_creation():
                                     perigee='1200',
                                     apogee='1000',
                                     tle="1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928")
-    
+
+def test_numerical_prop_of_TLEs():
+    """
+    Test the implementation of the SGP4 propagator. In particular looking at the decay rates and the effect of the way BSTAR is calculated in the construction of TLEs
+    """
+
+    #navstar81, pulled on 27Apr2023
+    test_tle1 = "1 48859U 21054A   23116.83449170 -.00000109  00000-0  00000-0 0  9996\n2 48859  55.3054  18.4561 0008790 213.9679 183.6522  2.00556923 13748"
+    #OneWeb20, pulled on 27Apr2023
+    test_tle2 = "1 45133U 20008C   23116.69886660  .00000678  00000-0  19052-2 0  9998\n2 45133  87.8784 264.1991 0001687  89.2910 270.8411 13.10377378158066"
+    #Starlink70, pulled on 27Apr2023
+    test_tle3 = "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
+
+    #dictionary of TLEs
+    test_tles = {'navstar81': test_tle1, 'OneWeb20': test_tle2, 'Starlink70': test_tle3}
+
+    prop_start = [datetime.datetime.strptime('2023-05-02 12:45:00', '%Y-%m-%d %H:%M:%S')]
+    prop_end = [datetime.datetime.strptime('2023-05-04 01:48:00', '%Y-%m-%d %H:%M:%S')]
+    start_jd = utc_to_jd(prop_start)
+    end_jd = utc_to_jd(prop_end)
+
+    for sat in test_tles:
+        print("Propagating numerically: ", sat)
+        sat_altitude = []#list of real and fabricated altitudes for this satellite
+        sat_pos = []#list of real and fabricated positions for this satellite
+ 
+        ###### SECTION 1: Make TLEs and propagate them ######
+        #Get the Keplerian elements from the TLE
+        tle_dict = tle_parse(test_tles[sat])
+        tle_kepels = tle_convert(tle_dict)
+        #Get the epoch from the TLE
+        tle_time = TLE_time(test_tles[sat])
+        tle_epoch = jd_to_utc(tle_time)
+        # make a SpaceObject from the TLE
+        tle_epoch_str = str(tle_epoch)
+        epoch = tle_epoch_str.replace(' ', 'T')
+        test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=0.011, mass = 250, epoch = epoch, launch_date='2023-05-02')
+        test_sat.prop_catobject(jd_start=start_jd[0], jd_stop=end_jd[0], step_size=10, propagator="rk4")
+        test_sat_ephem = test_sat.ephemeris
+        print("test sat ephem:", test_sat_ephem)
+
 if __name__ == "__main__":
-    test_sgp4_drag()
+    test_numerical_prop_of_TLEs()
+    # test_sgp4_drag()
     # test_spaceobject_creation()
