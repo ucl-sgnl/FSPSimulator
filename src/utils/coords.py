@@ -676,3 +676,37 @@ def get_day_of_year_and_fractional_day(epoch):
     return day_of_year + fractional_day
 
 
+def UTC_step(date_list, steps,h):
+    """ Make an array of datetime strings in UTC format
+
+    Args:
+        UTC (list): UTC time described in the following format: [year,month,day,hour,minute,second]
+        steps (int): number of steps in the propagation
+        h (float): step size the propagation uses in seconds
+
+    Returns:
+        UTC_array (list): list of datetime strings in UTC format
+    """
+    UTC_times = []
+   # convert step size of integrator (seconds) to minutes
+    dt = datetime.datetime(date_list[0],date_list[1],date_list[2],date_list[3],date_list[4],date_list[5]) 
+    for i in range (0,steps,1): #increment by step size of propagator
+        dt = dt + datetime.timedelta(seconds=h)
+        UTC_times.append(dt)
+    return UTC_times
+
+def v_rel(state):
+    """Calcualte the speed of the satellite relative to the Earth's atmosphere assuming it co-rotates with the Earth
+
+    Args:
+        state (array-like): state vector of the satellite in ECI coordinates
+
+    Returns:
+        v_rel: velocity of the satellite with respect to the Earth's atmosphere in Km/s
+    """
+    r = np.array([state[0], state[1], state[2]])
+    v = np.array([state[3], state[4], state[5]])  # velocity vector
+    atm_rot = np.array([0, 0, 72.9211e-6])  # rotation vector of the atmosphere in radians in ECI coordinates
+    # speed of satellite relative to atmosphere
+    v_rel = v - np.cross(atm_rot, r)
+    return v_rel
