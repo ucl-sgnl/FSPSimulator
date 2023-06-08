@@ -7,7 +7,7 @@ import sgp4
 from pyatmos import coesa76
 import matplotlib.pyplot as plt
 from sgp4.api import Satrec, WGS72
-from utils.coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
+from coords import kep2car, true_to_mean_anomaly, calculate_kozai_mean_motion, expo_simplified, utc_to_jd, tle_parse, tle_convert, sgp4_prop_TLE, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc, kepler_prop
 import matplotlib.cm as cm
 
 def verify_value(value, impute_function):
@@ -44,7 +44,6 @@ def verify_eccentricity(value):
         raise ValueError('Object eccentricity is negative or more than 1. Please check the input data')
     except (TypeError, ValueError):
         raise ValueError('Object eccentricity is None or not a float. Please check the input data')
-
 
 class SpaceObject:
     def __init__(self, rso_name=None, rso_type=None, payload_operational_status=None, orbit_type=None, application=None, source=None, 
@@ -205,8 +204,7 @@ class SpaceObject:
         self.sgp4epoch = self.sgp4_epoch() #SGP4 epoch is the number of days since 1949 December 31 00:00 UT
 
         # This is to store the result of the conversion of the Keplerian elements to cartesian ECI coordinates
-        self.cart_state = None #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
-
+        self.cart_state = self.generate_cart() #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
 
     def _validate_types(self):
         # function to validate the types and values of the parameters
@@ -353,10 +351,6 @@ class SpaceObject:
             else:
                 print('Code not found in mapping. Returning None')
         return None
-
-    def _compute_catid(self):
-        # generate a unique ID for the object. This is the internal ID used in this catalog.
-        return uuid.uuid4()
     
     def generate_cart(self):
         # generate cartesian state vector from keplerian elements
@@ -413,8 +407,9 @@ class SpaceObject:
         # assign the new TLE to the object
         self.tle = TLE
 
-    def prop_catobjects(self, jd_start, jd_stop, step_size):
+    def prop_catobject(self, jd_start, jd_stop, step_size):
         
+        #-------- Station Keeping -> Keplerian Propagation -------#
         if isinstance(self.station_keeping, list): # if a list is passed to the station keeping attribute, then we assume that the first element is station keeping start date and the second element is the end date)
             # propagate using keplerian from the start date to the end of the station keeping date 
             # TODO: this assumes that the satellite always station keeps from the moment it enters orbit. We should be using self.station_keeping[0]
@@ -433,6 +428,10 @@ class SpaceObject:
             if self.tle is None:
                 self.build_TLE()
             self.ephemeris = sgp4_prop_TLE(self.tle, jd_start, jd_stop, step_size)
+
+    #TODO: for an rk7/8 we need to pass the initial state vector and the initial time to the propagator.
+        #   We will also have to specify the starting step size and the tolerance.  
+
 
 def test_sgp4_drag():
     """
@@ -475,7 +474,7 @@ def test_sgp4_drag():
         tle_epoch_str = str(tle_epoch)
         epoch = tle_epoch_str.replace(' ', 'T')
         test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=0.011, mass = 250, epoch = epoch, launch_date='2023-05-02')
-        test_sat.prop_catobjects(start_jd[0], end_jd[0], t_step)
+        test_sat.prop_catobject(start_jd[0], end_jd[0], t_step)
         test_sat_ephem = test_sat.ephemeris
         print("made up BStar:", test_sat.bstar)
         print("made up TLE:", test_sat.tle)
