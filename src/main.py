@@ -75,7 +75,7 @@ def run_sim(settings):
     print(f"Number of Satellites: {len(SATCAT.Catalogue)}")
     print("Simulation Complete")
 
-def propagate_satellite(args):
+def propagate_satellite_profiling(args):
     satellite, jd_start, jd_stop = args
 
     # Create a cProfile.Profile object and enable it to start profiling
@@ -93,6 +93,14 @@ def propagate_satellite(args):
         sys.stdout = f  # redirect output to file
         profiler.print_stats(sort='time')
         sys.stdout = sys.__stdout__  # reset output to normal
+
+    return satellite
+
+def propagate_satellite(args):
+
+    satellite, jd_start, jd_stop = args
+    # Execute the prop_catobject method
+    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=20, propagator="RK45")
 
     return satellite
 
@@ -137,7 +145,7 @@ def run_parallel_sim(settings):
     print("Propagating satellites in parallel...")
 
     #slice SATCAT.Catalogue to retain only 1000 satellites for testing
-    SATCAT.Catalogue = SATCAT.Catalogue[:1000]
+    SATCAT.Catalogue = SATCAT.Catalogue[:25]
 
     chunksize = len(SATCAT.Catalogue) // cpu_count()
     SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
@@ -151,7 +159,6 @@ def run_parallel_sim(settings):
 
 if __name__ == '__main__':
     ##### Profiling #####
-    import warnings
     with open('src/tests/profiling_results/profiling_main.txt', 'w') as f:
         sys.stdout = f  # redirect output to file
         policy = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
