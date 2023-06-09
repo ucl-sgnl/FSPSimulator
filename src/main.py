@@ -75,6 +75,16 @@ def run_sim(settings):
     print(f"Number of Satellites: {len(SATCAT.Catalogue)}")
     print("Simulation Complete")
 
+def propagate_satellite(args):
+
+    satellite, jd_start, jd_stop = args
+    # Execute the prop_catobject method
+    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=20, propagator="RK45")
+
+    return satellite
+
+import os
+
 def propagate_satellite_profiling(args):
     satellite, jd_start, jd_stop = args
 
@@ -88,19 +98,18 @@ def propagate_satellite_profiling(args):
     # Disable the profiler
     profiler.disable()
 
+    # Create the directory if it doesn't exist
+    directory = 'src/tests/profiling_results/'
+    os.makedirs(directory, exist_ok=True)
+
+    # Create the file path
+    file_path = os.path.join(directory, f'profiling_{satellite.rso_name}.txt')
+
     # Save the stats of the profiler into a unique file for each satellite.
-    with open(f'src/tests/profiling_results/profiling_{satellite.rso_name}.txt', 'w') as f:
+    with open(file_path, 'w') as f:
         sys.stdout = f  # redirect output to file
         profiler.print_stats(sort='time')
         sys.stdout = sys.__stdout__  # reset output to normal
-
-    return satellite
-
-def propagate_satellite(args):
-
-    satellite, jd_start, jd_stop = args
-    # Execute the prop_catobject method
-    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=20, propagator="RK45")
 
     return satellite
 
@@ -145,10 +154,10 @@ def run_parallel_sim(settings):
     print("Propagating satellites in parallel...")
 
     #slice SATCAT.Catalogue to retain only 1000 satellites for testing
-    SATCAT.Catalogue = SATCAT.Catalogue[:25]
+    SATCAT.Catalogue = SATCAT.Catalogue[:100]
 
     chunksize = len(SATCAT.Catalogue) // cpu_count()
-    SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
+    SATCAT.Catalogue = process_map(propagate_satellite_profiling, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
 
     print("Exporting results...")
     dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
