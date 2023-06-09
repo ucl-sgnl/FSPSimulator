@@ -6,8 +6,7 @@ from astropy import units as u
 from astropy.time import Time
 from poliastro.bodies import Earth
 from poliastro.twobody import Orbit
-from sgp4.api import Satrec, WGS72
-
+from poliastro.frames import Planes
 
 Re = 6378.137 #km Earth's equatorial radius
 
@@ -86,8 +85,8 @@ def car2kep(x, y, z, u, v, w, deg=False, arg_l=False):
     """
     #TODO: add argument of latitude
     #make the vectors in as astropy Quantity objects
-    r = [x, y, z] * units.km
-    v = [u, v, w] * units.km / units.s
+    r = [x, y, z] * u.km
+    v = [u, v, w] * u.km / u.s
 
     #convert to cartesian
     orb = Orbit.from_vectors(Earth, r, v, plane=Planes.EARTH_EQUATOR)
@@ -147,63 +146,6 @@ def true_to_mean_anomaly(true_anomaly, eccentricity):
     eccentric_anomaly = true_to_eccentric_anomaly(true_anomaly, eccentricity)
     mean_anomaly = eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity)
     return np.abs(mean_anomaly)
-
-def calculate_kozai_mean_motion(a, mu):
-    # a: semi-major axis in meters
-    # mu: standard gravitational parameter in m^3/s^2 (e.g., Earth's mu = 3.986004418e14)
-
-    # Calculate mean motion (no_kozai) in radians/second
-    no_kozai_rad_sec = math.sqrt(mu / a**3)
-
-    # Convert mean motion to radians/minute
-    no_kozai_rad_min = no_kozai_rad_sec * 60
-
-    # Convert mean motion to radians/day
-    no_kozai_rad_day = no_kozai_rad_min * 60 * 24
-
-    # Convert mean motion to revolutions/day
-    no_kozai_revs_day = no_kozai_rad_day / (2 * math.pi)
-
-    return no_kozai_revs_day
-
-
-def expo_simplified(altitude, alt_type='geometric'):
-    """ Simple exponential atmospheric model.
-    TODO: find reference for this model
-
-    Args:
-        altitude (float): altitude in km
-        alt_type (str, optional): type of altitude. Either geopotential or geometric. Defaults to 'geometric'.
-
-    Returns:
-        float: density of air at altitude in kg/m^3
-    """
-    zb = np.array([0., 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120,
-                   130, 140, 150, 180, 200, 250, 300, 350, 400, 450,
-                   500, 600, 700, 800, 900, 1000])
-
-    zb_expand = zb.copy()
-    zb_expand[0], zb_expand[-1] = -np.inf, np.inf
-
-    rhob = np.array([1.225, 3.899e-2, 1.774e-2, 3.972e-3, 1.057e-3,
-                     3.206e-4, 8.770e-5, 1.905e-5, 3.396e-6, 5.297e-7,
-                     9.661e-8, 2.438e-8, 8.484e-9, 3.845e-9, 2.070e-9,
-                     5.464e-10, 2.789e-10, 7.248e-11, 2.418e-11,
-                     9.518e-12, 3.725e-12, 1.585e-12, 6.967e-13,
-                     1.454e-13, 3.614e-14, 1.170e-14, 5.245e-15, 3.019e-15])
-
-    ZS = np.array([7.249, 6.349, 6.682, 7.554, 8.382, 7.714, 6.549,
-                   5.799, 5.382, 5.877, 7.263, 9.473, 12.636, 16.149,
-                   22.523, 29.740, 37.105, 45.546, 53.628, 53.298,
-                   58.515, 60.828, 63.822, 71.835, 88.667, 124.64, 181.05, 268.00])
-
-    if alt_type == 'geopotential':
-        altitude = altitude * (1 - 0.0026373 * altitude / (1 + 0.0026373 * altitude))
-
-    ind = np.where((altitude - zb_expand) >= 0)[0][-1]
-    rho = rhob[ind] * np.exp(-(altitude - zb[ind]) / ZS[ind])
-
-    return rho*1000000
 
 def orbit_classify(altitude):
     # Classifies the orbit based on the altitude
@@ -265,7 +207,6 @@ def tle_parse(tle_2le):
     tle_dict['revolution number at epoch'] = line_two[63:68]
 
     return tle_dict
-
 
 def tle_convert(tle_dict, display=False):
     """
@@ -402,189 +343,7 @@ def generate_cospar_id(launch_year, launch_number, launch_piece):
 
     return cospar_id
 
-def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
-    """Given a TLE, a start time, end time, and time step, propagate the TLE and return the time-series of Cartesian coordinates, and accompanying time-stamps (MJD)
-        Note: Simply a wrapper for the SGP4 routine in the sgp4.api package (Brandon Rhodes)
-    Args:
-        TLE (string): TLE to be propagated
-        jd_start (float): start time of propagation in Julian Date format
-        jd_end (float): end time of propagation in Julian Date format
-        dt (float): time step of propagation in seconds
-        alt_series (bool, optional): If True, return the altitude series as well as the position series. Defaults to False.
-        
-    Returns:
-    list: list of lists containing the time-series of Cartesian coordinates, and accompanying time-stamps (MJD)
-    
-    """
-
-    if jd_start > jd_end:
-        print('jd_start must be less than jd_end')
-        return
-
-    ephemeris = []
-    
-    #convert dt from seconds to julian day
-    dt_jd = dt/86400
-
-    #split at the new line
-    split_tle = TLE.split('\n')
-
-    if len(split_tle) == 3:
-        # three line TLE
-        s = split_tle[1]
-        r = split_tle[2]
-    else:
-        s = split_tle[0]
-        r = split_tle[1]
-    fr = 0.0 # precise fraction (SGP4 docs for more info)
-    
-    #create a satellite object
-    satellite = Satrec.twoline2rv(s, r)
-    
-    time = jd_start
-    # for i in range (jd_start, jd_end, dt):
-    while time < jd_end:
-        # propagate the satellite to the next time step
-        # Position is in idiosyncratic True Equator Mean Equinox coordinate frame used by SGP4
-        # Velocity is the rate at which the position is changing, expressed in kilometers per second
-        error, position, velocity = satellite.sgp4(time, fr)
-        if error != 0:
-            #print('error: ', error)
-            break
-        else:
-            ephemeris.append([time,position, velocity]) #jd time, pos, vel
-            time += dt_jd
-
-    return ephemeris
-
-def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
-    """Analytical Propagation. This function calculates the orbit of a
-    satellite around the Earth assuming two body-dynamics based
-    on Keplerian elements and step size.
-    Args:
-        jd_start:  starting time in Julian Date
-        jd_stop: ending time in Julian Date
-        step (int): sampling time of the orbit in seconds
-        a (float): semi-major axis in Kilometers
-        e (float): eccentricity of the orbit
-        i (float): inclination of the orbit in degrees
-        w (float): argument of periapsis in degrees
-        W (float): longitude of the ascending node in degrees
-        V (float): true anomaly in degrees
-    Returns:
-        ephemeris (list): list in the form [(time, position, velocity), (time, position, velocity), ...]
-    """
-
-    # Defining radial distance and semi-latus rectum
-    GM = 398600.4418  # km^3/s^2
-    p = a * (1 - (e**2))
-    r = p / (1 + e * np.cos(V))
-   
-    # empty list to store the time step in each iteration
-    ephemeris = []
-    # calculate the number of steps between jd_start and jd_stop if the step size is step_size seconds) 
-    t_diff = jd_stop-jd_start # time difference in Julian Days
-    t_diff_secs = 86400 * t_diff
-    current_jd = jd_start
-    print("tdiff secs:", t_diff_secs)
-    print("Step size:", step_size)
-    steps = math.ceil(t_diff_secs/step_size) # total number of integer steps
-    for i in range(0, steps, 1):
-        time = 0 #internal timer
-        # Compute the mean motion
-        n = np.sqrt(GM / (a**3))
-        
-        # Compute the eccentric anomaly at t=t0
-        cos_Eo = ((r * np.cos(V)) / a) + e
-        sin_Eo = (r * np.sin(V)) / (a * np.sqrt(1 - e**2))
-        # adding 2 pi for for very small values
-        # ensures that Eo stays in the range 0< Eo <2Pi
-        Eo = math.atan2(sin_Eo, cos_Eo)
-        if Eo < 0.0:
-            Eo = Eo + 2 * np.pi
-        else:
-            Eo = Eo
-        # Compute mean anomaly at start point
-        Mo = Eo - e * np.sin(Eo)  # From Kepler's equation
-        # Compute the mean anomaly at t+newdt
-        Mi = Mo + n * time
-        # Solve Kepler's equation to compute the eccentric anomaly at t+newdt
-        M = Mi
-        
-        # Initial Guess at Eccentric Anomaly
-        # (taken these conditions from
-        # Fundamentals of Astrodynamics by Roger.E.Bate)
-        r_tol = 1e-7 # relative tolerance
-        if M < np.pi:
-            E = M + (e / 2)
-        if M > np.pi:
-            E = M - (e / 2)
-        # Initial Conditions
-        f = E - e * np.sin(E) - M
-        f_prime = 1 - e * np.cos(E)
-        ratio = f / f_prime
-        # Numerical iteration for ratio compared to level of accuracy wanted
-        while abs(ratio) > r_tol:
-            f = E - e * np.sin(E) - M
-            f_prime = 1 - e * np.cos(E)
-            ratio = f / f_prime
-            if abs(ratio) > r_tol:
-                E = E - ratio
-            if abs(ratio) < r_tol:
-                break
-
-        Ei = E
-        # Compute the gaussian vector component x,y
-        x_new = a * (np.cos(Ei) - e)
-        y_new = a * ((np.sqrt(1 - e**2)) * (np.sin(Ei)))
-        # Compute the in-orbital plane Gaussian Vectors
-        # This gives P and Q in ECI components
-        P = np.matrix(
-            [
-                [np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)],
-                [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)],
-                [np.sin(i) * np.sin(w)],
-            ]
-        )
-        Q = np.matrix(
-            [
-                [-np.cos(W) * np.sin(w) - np.sin(W) * np.cos(i) * np.cos(w)],
-                [-np.sin(W) * np.sin(w) + np.cos(W) * np.cos(i) * np.cos(w)],
-                [np.sin(i) * np.cos(w)],
-            ]
-        )
-
-        # Compute the position vector at t+newdt
-        # We know the inertial vector components along the P and Q vectors.
-        # Thus we can project the satellite position onto the ECI basis.
-        # calcualting the new x coordiante
-
-        cart_pos_x_new = (x_new * P.item(0)) + (y_new * Q.item(0))
-        cart_pos_y_new = (x_new * P.item(1)) + (y_new * Q.item(1))
-        cart_pos_z_new = (x_new * P.item(2)) + (y_new * Q.item(2))
-        # Compute the range at t+dt
-        r_new = a * (1 - e * (np.cos(Ei)))
-        # Compute the gaussian velocity components
-        cos_Ei = (x_new / a) + e
-        sin_Ei = y_new / a * np.sqrt(1 - e**2)
-        f_new = (np.sqrt(a * GM)) / r_new
-        g_new = np.sqrt(1 - e**2)
-       
-        cart_vel_x_new = (-f_new * sin_Ei * P.item(0)) + (f_new * g_new * cos_Ei * Q.item(0))  # x component of velocity
-        cart_vel_y_new = (-f_new * sin_Ei * P.item(1)) + (f_new * g_new * cos_Ei * Q.item(1))  # y component of velocity
-        cart_vel_z_new = (-f_new * sin_Ei * P.item(2)) + (f_new * g_new * cos_Ei * Q.item(2))
-        pos = ([cart_pos_x_new, cart_pos_y_new, cart_pos_z_new])
-        vel = ([cart_vel_x_new, cart_vel_y_new, cart_vel_z_new])
-        
-        ephemeris.append([current_jd, pos, vel])
-
-        # Update the JD time stamp
-        current_jd = current_jd + step_size
-        # Update the internal timer
-        time = time + step_size
-        print("ephemeris start: ", ephemeris[0:5])
-    return ephemeris
 
 def tle_exponent_format(value):
     # Format a value in scientific notation used in TLEs

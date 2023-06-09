@@ -9,7 +9,7 @@ import csv
 import random
 import numpy as np
 from datetime import timedelta
-from utils.coords import orbit_classify, orbital_period, generate_cospar_id
+from utils.Conversions import orbit_classify, orbital_period, generate_cospar_id
 from utils.SpaceObject import SpaceObject
 
 def import_configuration_json(filename):
@@ -96,7 +96,7 @@ def satellite_metadata(file_path):
     # slice the dataframe to remove all the rows that have missing values or nan values in the 'Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor' columns
     sat_df = sat_df.dropna(subset=['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion'])
     #print the number of rows remaining
-    print('number of rows with all data required:',sat_df.shape[0])
+    print('number of rows with all data required in prediction CSV:',sat_df.shape[0])
 
     metadata_dicts = [] # this is a list of dictionaries that will contain the metadata for each row (sub-constellation)
     for index, row in sat_df.iterrows():
@@ -203,11 +203,11 @@ def global_launch_schedule(sub_constellation_metadata_dicts, policy, monthly_ton
     for sub_constellation in sub_constellation_metadata_dicts:
         total_mass += int(sub_constellation['_mass']) * int(sub_constellation['N']) #need to make sure the units here are always kg
         sub_constellation['total_mass'] = int(sub_constellation['_mass']) * int(sub_constellation['N'])
-        print(f'total mass of:',sub_constellation['_soname'],':',(sub_constellation['_mass'] * sub_constellation['N'])/1000,'(T)')
+        # print(f'total mass of:',sub_constellation['_soname'],':',(sub_constellation['_mass'] * sub_constellation['N'])/1000,'(T)')
 
         total_cost += (sub_constellation['_mass'] * sub_constellation['N']) * LEO_launchers[rocket]['cost_per_kg']
         sub_constellation['total_cost'] = (sub_constellation['_mass'] * sub_constellation['N']) * LEO_launchers[rocket]['cost_per_kg']
-        print(f"cost in Millions of USD:",total_cost/1000000)
+        # print(f"cost in Millions of USD:",total_cost/1000000)
 
     # export the total constellation costs to csv
     dict_to_csv(sub_constellation_metadata_dicts, policy["scenario_name"])
@@ -216,14 +216,11 @@ def global_launch_schedule(sub_constellation_metadata_dicts, policy, monthly_ton
     total_mass_tons = total_mass / 1000 # convert from kg to tons
     max_ton_per_launch = LEO_launchers[rocket]['capacity']
     monthly_launches_frequency = math.ceil(monthly_ton_capacity / max_ton_per_launch) 
-    print('number of launches per month required to put specified monthly tonnage in orbit:',monthly_launches_frequency)
+    print('number of launches per month:',monthly_launches_frequency)
     
     # now how many months are required to launch the total mass of satellites
     months_required = math.ceil(total_mass_tons / monthly_ton_capacity)
     print('number of months required to put all satellites in orbit:',months_required)
-
-    # what is will be the total cost of the launches
-    print('total cost of launches in Millions of USD:',total_cost)
 
     # dictionary of the number of launches required for each sub constellation
     # create a dictionary of the number of launches required for each sub constellation 
