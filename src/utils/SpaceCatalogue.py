@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 import datetime
-from src.utils.SpaceObject import SpaceObject
-from src.utils.coords import tle_parse
+from utils.SpaceObject import SpaceObject
+from utils.Conversions import tle_parse
 
 class SpaceCatalogue:
     def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
@@ -94,7 +94,7 @@ class SpaceCatalogue:
         print("Number of satellites in catalogue after dropping unmatching rows: ", len(self.CurrentCatalogueDF))
 
         # convert the BStar to scientific notation
-        self.CurrentCatalogueDF['BSTAR'] = self.CurrentCatalogueDF['BSTAR'].map('{:.7e}'.format)
+        # self.CurrentCatalogueDF['BSTAR'] = self.CurrentCatalogueDF['BSTAR'].map('{:.7e}'.format)
         
         # drop satellites that have a perigee or apogee > 100,000 km
         self.CurrentCatalogueDF = self.CurrentCatalogueDF[self.CurrentCatalogueDF['PERIAPSIS'] < 100000]
@@ -208,7 +208,7 @@ class SpaceCatalogue:
                 self.Catalogue.append(SpaceObject(object_type=row['OBJECT_TYPE'], 
                                                         mass=row['Mass'], 
                                                         launch_site=row["SITE"],
-                                                        bstar=row['BSTAR'],
+                                                        # bstar=row['BSTAR'],
                                                         sma=row['SEMIMAJOR_AXIS'], 
                                                         eccentricity=row['ECCENTRICITY'], 
                                                         inc=row['INCLINATION'], 
