@@ -1,7 +1,4 @@
-import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) 
-
 import math
 import pandas as pd
 from datetime import datetime
@@ -12,8 +9,8 @@ import csv
 import random
 import numpy as np
 from datetime import timedelta
-from src.utils.coords import orbit_classify, orbital_period, generate_cospar_id
-from src.utils.SpaceObject import SpaceObject
+from utils.Conversions import orbit_classify, orbital_period, generate_cospar_id
+from utils.SpaceObject import SpaceObject
 
 def import_configuration_json(filename):
     with open(filename) as f:
@@ -99,7 +96,7 @@ def satellite_metadata(file_path):
     # slice the dataframe to remove all the rows that have missing values or nan values in the 'Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor' columns
     sat_df = sat_df.dropna(subset=['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion'])
     #print the number of rows remaining
-    print('number of rows with all data required:',sat_df.shape[0])
+    print('number of rows with all data required in prediction CSV:',sat_df.shape[0])
 
     metadata_dicts = [] # this is a list of dictionaries that will contain the metadata for each row (sub-constellation)
     for index, row in sat_df.iterrows():
@@ -206,11 +203,11 @@ def global_launch_schedule(sub_constellation_metadata_dicts, policy, monthly_ton
     for sub_constellation in sub_constellation_metadata_dicts:
         total_mass += int(sub_constellation['_mass']) * int(sub_constellation['N']) #need to make sure the units here are always kg
         sub_constellation['total_mass'] = int(sub_constellation['_mass']) * int(sub_constellation['N'])
-        print(f'total mass of:',sub_constellation['_soname'],':',(sub_constellation['_mass'] * sub_constellation['N'])/1000,'(T)')
+        # print(f'total mass of:',sub_constellation['_soname'],':',(sub_constellation['_mass'] * sub_constellation['N'])/1000,'(T)')
 
         total_cost += (sub_constellation['_mass'] * sub_constellation['N']) * LEO_launchers[rocket]['cost_per_kg']
         sub_constellation['total_cost'] = (sub_constellation['_mass'] * sub_constellation['N']) * LEO_launchers[rocket]['cost_per_kg']
-        print(f"cost in Millions of USD:",total_cost/1000000)
+        # print(f"cost in Millions of USD:",total_cost/1000000)
 
     # export the total constellation costs to csv
     dict_to_csv(sub_constellation_metadata_dicts, policy["scenario_name"])
@@ -219,14 +216,11 @@ def global_launch_schedule(sub_constellation_metadata_dicts, policy, monthly_ton
     total_mass_tons = total_mass / 1000 # convert from kg to tons
     max_ton_per_launch = LEO_launchers[rocket]['capacity']
     monthly_launches_frequency = math.ceil(monthly_ton_capacity / max_ton_per_launch) 
-    print('number of launches per month required to put specified monthly tonnage in orbit:',monthly_launches_frequency)
+    print('number of launches per month:',monthly_launches_frequency)
     
     # now how many months are required to launch the total mass of satellites
     months_required = math.ceil(total_mass_tons / monthly_ton_capacity)
     print('number of months required to put all satellites in orbit:',months_required)
-
-    # what is will be the total cost of the launches
-    print('total cost of launches in Millions of USD:',total_cost)
 
     # dictionary of the number of launches required for each sub constellation
     # create a dictionary of the number of launches required for each sub constellation 
@@ -301,7 +295,6 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
     mass = _mass # this comes directly from the CSV file
     maneuverable = 'y' #this comes directly from the CSV file
     spin_stabilized = 'n' #setting to always no ->  all LEO so no spin stabilization
-    radar_cs = "2" #TODO: unhardcode this -> decide on a way to determine this
     area = _area  #computed based on form factor
     length = _length  #computed based on form factor
     propulsion = _propulsion  #this comes directly from the CSV file
@@ -347,7 +340,7 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
                                                           application=application, operator=owner, 
                                                           apogee=apogee_alt, perigee=perigee_alt,
                                                           mass=mass, maneuverable=maneuverable, spin_stabilized=spin_stabilized, 
-                                                          radar_cross_section=radar_cs, characteristic_area=area, characteristic_length=length, 
+                                                        characteristic_area=area, characteristic_length=length, 
                                                           propulsion_type=propulsion, sma=a_n, eccentricity=e_n, inc=np.deg2rad(i_n), argp=np.deg2rad(omega_n), 
                                                           raan=np.deg2rad(Omega_n), tran=np.deg2rad(TRAN_n), launch_site=launch_site, launch_date=launch_schedule[n-1], 
                                                           decay_date=decay_schedule[n-1] ,rso_name=soname))
