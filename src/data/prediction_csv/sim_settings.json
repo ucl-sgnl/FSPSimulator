@@ -6,7 +6,7 @@
   "satellite_failure" : 0,
   "espace": false,
   "sim_start_date":"2019-01-01",
-  "sim_end_date":"2019-01-07",
+  "sim_end_date":"2019-01-02",
   "output_frequency": 1,
   "sim_object_type": "all",
   "sim_propagation_type": "sgp4",

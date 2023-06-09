@@ -77,7 +77,23 @@ def run_sim(settings):
 
 def propagate_satellite(args):
     satellite, jd_start, jd_stop = args
-    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=20, propagator="RK45") # setting step sizde to 20 for now to try and speed up
+
+    # Create a cProfile.Profile object and enable it to start profiling
+    profiler = cProfile.Profile()
+    profiler.enable()
+
+    # Execute the prop_catobject method
+    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=20, propagator="RK45")
+
+    # Disable the profiler
+    profiler.disable()
+
+    # Save the stats of the profiler into a unique file for each satellite.
+    with open(f'src/tests/profiling_results/profiling_{satellite.rso_name}.txt', 'w') as f:
+        sys.stdout = f  # redirect output to file
+        profiler.print_stats(sort='time')
+        sys.stdout = sys.__stdout__  # reset output to normal
+
     return satellite
 
 def run_parallel_sim(settings):
@@ -119,7 +135,12 @@ def run_parallel_sim(settings):
 
     # Propagate satellites in parallel
     print("Propagating satellites in parallel...")
-    SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count())
+
+    #slice SATCAT.Catalogue to retain only 1000 satellites for testing
+    SATCAT.Catalogue = SATCAT.Catalogue[:1000]
+
+    chunksize = len(SATCAT.Catalogue) // cpu_count()
+    SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
 
     print("Exporting results...")
     dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
@@ -130,13 +151,13 @@ def run_parallel_sim(settings):
 
 if __name__ == '__main__':
     ##### Profiling #####
-    policy = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
-    profiler = cProfile.Profile()
-    profiler.enable()
-    run_parallel_sim(policy)
-    profiler.disable()
-    profiler.print_stats(sort='time')
-    
-    ##### Run sim #####
-    # policy = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
-    # run_parallel_sim(policy)
+    import warnings
+    with open('src/tests/profiling_results/profiling_main.txt', 'w') as f:
+        sys.stdout = f  # redirect output to file
+        policy = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
+        profiler = cProfile.Profile()
+        profiler.enable()
+        run_parallel_sim(policy)
+        profiler.disable()
+        profiler.print_stats(sort='time')
+    sys.stdout = sys.__stdout__  # reset output to normal
