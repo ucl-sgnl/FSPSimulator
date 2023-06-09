@@ -295,7 +295,6 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
     mass = _mass # this comes directly from the CSV file
     maneuverable = 'y' #this comes directly from the CSV file
     spin_stabilized = 'n' #setting to always no ->  all LEO so no spin stabilization
-    radar_cs = "2" #TODO: unhardcode this -> decide on a way to determine this
     area = _area  #computed based on form factor
     length = _length  #computed based on form factor
     propulsion = _propulsion  #this comes directly from the CSV file
@@ -341,7 +340,7 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
                                                           application=application, operator=owner, 
                                                           apogee=apogee_alt, perigee=perigee_alt,
                                                           mass=mass, maneuverable=maneuverable, spin_stabilized=spin_stabilized, 
-                                                          radar_cross_section=radar_cs, characteristic_area=area, characteristic_length=length, 
+                                                        characteristic_area=area, characteristic_length=length, 
                                                           propulsion_type=propulsion, sma=a_n, eccentricity=e_n, inc=np.deg2rad(i_n), argp=np.deg2rad(omega_n), 
                                                           raan=np.deg2rad(Omega_n), tran=np.deg2rad(TRAN_n), launch_site=launch_site, launch_date=launch_schedule[n-1], 
                                                           decay_date=decay_schedule[n-1] ,rso_name=soname))
