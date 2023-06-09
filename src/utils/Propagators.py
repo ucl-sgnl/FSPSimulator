@@ -24,7 +24,6 @@ j2 = 1.082626925638815e-3  # km3/s2
 #     atmosphere = coesa76(altitude)
 #     return atmosphere.rho
 
-
 def grav_acc(state):
     """
     Calculate the acceleration of the satellite in the ECI frame
