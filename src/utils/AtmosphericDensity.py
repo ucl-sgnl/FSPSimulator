@@ -1,6 +1,7 @@
 import numpy as np
-#all of this is basically yeeted from pyatmos source code.
-# I have just stripped out the parts I don't need to make it faster.
+# all of this is basically yeeted from pyatmos source code.
+# I have just stripped out the parts I don't need to make it faster. 
+# If you run this file, it will plot the density from 500-1000km. This was just a check to cross reference with the original code output (roughly the same).
 
 def lapse_tp(t_lower, p_lower, lr, h_lower, h_upper):
     '''
@@ -131,3 +132,18 @@ def ussa76_rho(alts):
         rhos[i] = rho
 
     return rhos
+
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    rhos = ussa76_rho(np.linspace(0,1000,1000))
+    plt.plot(rhos)
+    plt.show()
+
+    #now plot only 500-1000km
+    rhos = ussa76_rho(np.linspace(700,1500,1000))
+    altitudes = np.linspace(700,1500,1000)
+    plt.plot(altitudes,rhos)
+    plt.xlabel("Altitude (km)")
+    plt.ylabel("Density (kg/m^3)")
+    plt.show()
+    

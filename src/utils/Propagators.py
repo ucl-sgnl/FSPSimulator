@@ -97,26 +97,25 @@ def accelerations (t, state, cd, area, mass):
     #--------------- MONOPOLE ACCELERATION -----------------#
     
     grav_mono=grav_acc(state) #calculate the acceleration due to gravity
-    print("a_mono: ", grav_mono)
     #--------------- J2 PERT ACCELERATION ------------------#
    
     a_j2 = j2_acc(state) #calculate the acceleration due to J2 perturbations
-    print("a_j2: ", a_j2)
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
     grav_a = grav_mono + a_j2
-    print("grav_tot: ", grav_a)
     #--------------- AERO DRAG ACCELERATION --------------#
 
     alt = r_norm - Re #altitude is the norm of the r vector minus the radius of the earth
-    print("alt: ", alt)
     rho = float(ussa76_rho(alt)) #get the density of the air at the altitude from USSA76 model
-    print("rho: ", rho)
     # Then we apply the density to the drag force model
 
     v_rel_atm= v_rel(state)
     v_norm = np.linalg.norm(v_rel_atm) #norm of v vector
-    acc_drag = -0.5 * rho * ((cd*area)/mass)*(1000*(v_rel_atm**2)) # Vallado and Finkleman 2014
+
+    #v_rel_atm outputs the relative velocity in km/s. We need to convert it to m/s to use in the drag force model
+    v_rel_atm_m = v_rel_atm * 1000
+    
+    acc_drag = -0.5 * rho * ((cd*area)/mass)*((v_rel_atm_m**2)) # Vallado and Finkleman 2014
     drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration
     
     #TODO: Add solar radiation pressure acceleration
@@ -134,7 +133,7 @@ def stop_propagation(t, y, *args):
 
 stop_propagation.terminal = True  # Stop the integration when this event occurs
 
-def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=10, type = "RK45"):
+def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=20, type = "RK45"):
     """
     Numerical Propagation of the orbit
 
@@ -250,8 +249,6 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     t_diff = jd_stop-jd_start # time difference in Julian Days
     t_diff_secs = 86400 * t_diff
     current_jd = jd_start
-    print("tdiff secs:", t_diff_secs)
-    print("Step size:", step_size)
     steps = math.ceil(t_diff_secs/step_size) # total number of integer steps
     for i in range(0, steps, 1):
         time = 0 #internal timer
@@ -346,7 +343,6 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         current_jd = current_jd + step_size
         # Update the internal timer
         time = time + step_size
-        print("ephemeris start: ", ephemeris[0:5])
     return ephemeris
 
 if __name__ == "__main__":

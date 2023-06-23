@@ -59,7 +59,6 @@ def run_sim(settings):
     # Filter satellites based on decay_date
     decayed_before_start = 0
     for satellite in SATCAT.Catalogue:  
-        # print(satellite.rso_name)
         if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'): # if we know that the decay date is before the start of the simulation, we can remove it from the catalogue
             SATCAT.Catalogue.remove(satellite)
             decayed_before_start += 1
