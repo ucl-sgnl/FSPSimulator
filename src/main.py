@@ -47,7 +47,7 @@ def run_sim(settings):
     else:
         if settings["scenario_name"] != "baseline":
             print("Creating Launch Model...")
-            launch_file_object = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions.csv', 'src/data/prediction_csv/sim_settings.json')
+            launch_file_object = Prediction2SpaceObjects('src/data/prediction_csv/_full.csv', 'src/data/prediction_csv/sim_settings.json')
             SATCAT.Catalogue.extend(launch_file_object)
 
     print("Number of Satellites: ", len(SATCAT.Catalogue))
@@ -107,7 +107,7 @@ def run_parallel_sim(settings):
     else:
         if settings["scenario_name"] != "baseline":
             print("Creating Launch Model...")
-            launch_file_object = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions.csv', 'src/data/prediction_csv/sim_settings.json')
+            launch_file_object = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions_full.csv', 'src/data/prediction_csv/sim_settings.json')
             SATCAT.Catalogue.extend(launch_file_object)
 
     print("Number of Satellites: ", len(SATCAT.Catalogue))
