@@ -266,11 +266,10 @@ class SpaceObject:
 
             # recalculate total time for the remaining journey after station keeping
             tot_time = (jd_stop - self.station_keeping[1]) * 24 * 60 * 60
-            h = step_size
-            ephemeris_RK45 = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.cd, area=self.characteristic_area, mass=self.mass, h=h, type=propagator)
+            ephemeris_RK45 = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
 
             # reformat the ephemeris output
-            steps = int(tot_time/h)
+            steps = int(tot_time/step_size)
             time_stamps = np.linspace(self.station_keeping[1], jd_stop, steps)
             positions = np.array([x[:3] for x in ephemeris_RK45])
             velocities = np.array([x[3:] for x in ephemeris_RK45])
@@ -283,8 +282,8 @@ class SpaceObject:
             self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
         
         elif not self.station_keeping:  # object will not station keep, propagate using the numerical integrator
-            h = step_size
-            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, h=h, type=propagator)
+            print("rso name: ", self.rso_name)
+            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
 
 if __name__ == "__main__":
     pass
