@@ -91,7 +91,7 @@ def run_parallel_sim(settings):
     # Propagate satellites in parallel
     print("Propagating satellites in parallel...")
 
-    #slice SATCAT.Catalogue to retain only 1000 satellites for testing
+    #slice SATCAT.Catalogue to retain only 100 satellites for testing
     SATCAT.Catalogue = SATCAT.Catalogue[:100]
 
     chunksize = len(SATCAT.Catalogue) // cpu_count()

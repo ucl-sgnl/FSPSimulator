@@ -1,271 +1,271 @@
-         989426 function calls (971959 primitive calls) in 0.571 seconds
+         957186 function calls (940292 primitive calls) in 0.533 seconds
 
    Ordered by: internal time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-    30828    0.047    0.000    0.133    0.000 tokenize.py:429(_tokenize)
-    27892    0.031    0.000    0.031    0.000 {method 'match' of 're.Pattern' objects}
-     1468    0.022    0.000    0.036    0.000 tokenize.py:183(untokenize)
-     1468    0.019    0.000    0.019    0.000 {built-in method builtins.compile}
-     1468    0.015    0.000    0.188    0.000 format.py:558(_filter_header)
-    27892    0.013    0.000    0.026    0.000 re.py:289(_compile)
-      734    0.013    0.000    0.467    0.001 AtmosphericDensity.py:107(ussa76_rho)
-      734    0.013    0.000    0.013    0.000 {built-in method io.open}
-    11744    0.013    0.000    0.030    0.000 zipfile.py:757(read)
-      734    0.012    0.000    0.034    0.000 numeric.py:1486(cross)
-    15414    0.012    0.000    0.012    0.000 {method 'tell' of '_io.BufferedReader' objects}
-     1468    0.012    0.000    0.281    0.000 format.py:730(read_array)
-15876/10153    0.012    0.000    0.077    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
-     2936    0.012    0.000    0.055    0.000 zipfile.py:1478(open)
-      734    0.011    0.000    0.549    0.001 Propagators.py:80(accelerations)
-    14680    0.010    0.000    0.010    0.000 {method 'read' of '_io.BufferedReader' objects}
-     1468    0.009    0.000    0.239    0.000 format.py:593(_read_array_header)
-    27892    0.009    0.000    0.010    0.000 tokenize.py:170(add_whitespace)
-      734    0.009    0.000    0.028    0.000 zipfile.py:1328(_RealGetContents)
-     3891    0.009    0.000    0.015    0.000 linalg.py:2342(norm)
-    27892    0.008    0.000    0.011    0.000 types.py:171(__get__)
-     1474    0.008    0.000    0.008    0.000 {method 'reduce' of 'numpy.ufunc' objects}
-     7340    0.007    0.000    0.027    0.000 zipfile.py:917(read)
-13212/1468    0.007    0.000    0.009    0.000 ast.py:76(_convert)
-    27892    0.007    0.000    0.038    0.000 tokenize.py:98(_compile)
-   109367    0.007    0.000    0.007    0.000 {built-in method builtins.len}
-     2936    0.007    0.000    0.012    0.000 zipfile.py:809(__init__)
-    29360    0.006    0.000    0.011    0.000 <string>:1(__new__)
-    15414    0.006    0.000    0.006    0.000 {method 'seek' of '_io.BufferedReader' objects}
-     5872    0.006    0.000    0.022    0.000 format.py:943(_read_bytes)
-      683    0.006    0.000    0.010    0.000 polynomial.py:704(polyval)
-     4404    0.006    0.000    0.009    0.000 numeric.py:1348(normalize_axis_tuple)
-     1468    0.006    0.000    0.358    0.000 npyio.py:232(__getitem__)
-     2202    0.005    0.000    0.016    0.000 numeric.py:1411(moveaxis)
-    27892    0.005    0.000    0.031    0.000 re.py:250(compile)
-    68899    0.005    0.000    0.006    0.000 {built-in method builtins.isinstance}
-    29360    0.005    0.000    0.005    0.000 {built-in method __new__ of type object at 0x1050969e0}
-      122    0.005    0.000    0.556    0.005 rk.py:14(rk_step)
-      734    0.005    0.000    0.064    0.000 npyio.py:263(load)
-    75164    0.005    0.000    0.005    0.000 {method 'append' of 'list' objects}
-      734    0.004    0.000    0.011    0.000 Propagators.py:39(j2_acc)
-     3977    0.004    0.000    0.004    0.000 {method 'dot' of 'numpy.ndarray' objects}
-     5872    0.004    0.000    0.007    0.000 {method 'decode' of 'bytes' objects}
-     5287    0.004    0.000    0.004    0.000 {built-in method numpy.array}
-     2936    0.004    0.000    0.019    0.000 zipfile.py:997(_read1)
-     2936    0.003    0.000    0.012    0.000 zipfile.py:1033(_read2)
-      734    0.003    0.000    0.006    0.000 Propagators.py:27(grav_acc)
-     2936    0.003    0.000    0.007    0.000 zipfile.py:1049(close)
-    27892    0.003    0.000    0.003    0.000 enum.py:753(value)
-     7340    0.003    0.000    0.003    0.000 {built-in method _struct.unpack}
-      734    0.003    0.000    0.033    0.000 zipfile.py:1218(__init__)
-      734    0.003    0.000    0.011    0.000 zipfile.py:257(_EndRecData)
-      734    0.002    0.000    0.039    0.000 Conversions.py:457(v_rel)
-      734    0.002    0.000    0.038    0.000 npyio.py:182(__init__)
-    27892    0.002    0.000    0.002    0.000 {method 'span' of 're.Match' objects}
-      734    0.002    0.000    0.005    0.000 npyio.py:209(close)
-     1468    0.002    0.000    0.031    0.000 ast.py:51(literal_eval)
-     5872    0.002    0.000    0.002    0.000 {built-in method zlib.crc32}
-     1468    0.002    0.000    0.003    0.000 zipfile.py:344(__init__)
-      734    0.002    0.000    0.002    0.000 {method 'close' of '_io.BufferedReader' objects}
-       87    0.002    0.000    0.002    0.000 ivp.py:130(find_active_events)
-       87    0.002    0.000    0.560    0.006 rk.py:111(_step_impl)
-     1419    0.002    0.000    0.003    0.000 shape_base.py:23(atleast_1d)
-     6816    0.002    0.000    0.002    0.000 {built-in method builtins.min}
-     1417    0.002    0.000    0.008    0.000 numeric.py:77(zeros_like)
-     1468    0.002    0.000    0.033    0.000 utils.py:1032(safe_eval)
-     3891    0.002    0.000    0.019    0.000 <__array_function__ internals>:177(norm)
-     2936    0.002    0.000    0.002    0.000 zipfile.py:738(__init__)
-     2936    0.001    0.000    0.001    0.000 {function ZipExtFile.close at 0x7fb2e028a430}
-     2936    0.001    0.000    0.003    0.000 zipfile.py:950(_update_crc)
-     4404    0.001    0.000    0.001    0.000 {built-in method _codecs.charmap_decode}
-      683    0.001    0.000    0.005    0.000 polynomial.py:1226(__init__)
-      734    0.001    0.000    0.550    0.001 ivp.py:529(<lambda>)
-     1468    0.001    0.000    0.014    0.000 format.py:223(read_magic)
-    17616    0.001    0.000    0.001    0.000 {method 'isidentifier' of 'str' objects}
-     2936    0.001    0.000    0.002    0.000 zipfile.py:768(close)
-     4404    0.001    0.000    0.003    0.000 cp437.py:14(decode)
-       96    0.001    0.000    0.003    0.000 rk.py:546(_call_impl)
-     1468    0.001    0.000    0.001    0.000 format.py:288(descr_to_dtype)
-     1468    0.001    0.000    0.001    0.000 {built-in method numpy.frombuffer}
-     4404    0.001    0.000    0.002    0.000 numeric.py:1398(<listcomp>)
-      734    0.001    0.000    0.034    0.000 npyio.py:91(zipfile_factory)
-     3670    0.001    0.000    0.001    0.000 zipfile.py:1949(_fpclose)
-     1469    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
-    11744    0.001    0.000    0.001    0.000 zipfile.py:1527(<lambda>)
-     7052    0.001    0.000    0.001    0.000 {built-in method numpy.asarray}
-     6607    0.001    0.000    0.001    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
-     1468    0.001    0.000    0.038    0.000 tokenize.py:257(untokenize)
-     2202    0.001    0.000    0.019    0.000 <__array_function__ internals>:177(moveaxis)
-     3891    0.001    0.000    0.001    0.000 {method 'ravel' of 'numpy.ndarray' objects}
-     2936    0.001    0.000    0.001    0.000 zipfile.py:1437(getinfo)
-     1564    0.001    0.000    0.002    0.000 {built-in method builtins.all}
-     2202    0.001    0.000    0.001    0.000 {method 'transpose' of 'numpy.ndarray' objects}
-      734    0.001    0.000    0.003    0.000 zipfile.py:214(_EndRecData64)
-     2936    0.001    0.000    0.001    0.000 zipfile.py:719(_get_decompressor)
-      683    0.001    0.000    0.001    0.000 function_base.py:1800(trim_zeros)
-     4404    0.001    0.000    0.001    0.000 format.py:644(<genexpr>)
-     1468    0.001    0.000    0.020    0.000 ast.py:30(parse)
-     3059    0.001    0.000    0.001    0.000 {built-in method builtins.max}
-     1417    0.001    0.000    0.003    0.000 <__array_function__ internals>:177(empty_like)
-     1417    0.001    0.000    0.009    0.000 <__array_function__ internals>:177(zeros_like)
-     2202    0.001    0.000    0.001    0.000 {built-in method builtins.sorted}
-     1468    0.001    0.000    0.001    0.000 zipfile.py:1823(close)
-     3891    0.001    0.000    0.001    0.000 linalg.py:117(isComplexType)
-     2936    0.001    0.000    0.001    0.000 {method 'readline' of '_io.StringIO' objects}
-     1417    0.001    0.000    0.002    0.000 <__array_function__ internals>:177(copyto)
-     4406    0.001    0.000    0.001    0.000 {method 'get' of 'dict' objects}
-        1    0.001    0.001    0.571    0.571 ivp.py:156(solve_ivp)
-     1417    0.001    0.000    0.001    0.000 {built-in method numpy.zeros}
-      734    0.001    0.000    0.002    0.000 contextlib.py:415(enter_context)
-     7785    0.001    0.000    0.001    0.000 {built-in method builtins.issubclass}
-     1419    0.001    0.000    0.005    0.000 <__array_function__ internals>:177(atleast_1d)
-     2273    0.001    0.000    0.001    0.000 {built-in method numpy.asanyarray}
-      734    0.001    0.000    0.552    0.001 base.py:136(fun)
-     4407    0.001    0.000    0.001    0.000 {built-in method builtins.hasattr}
-     3670    0.001    0.000    0.001    0.000 zipfile.py:684(_check_compression)
-      926    0.001    0.000    0.001    0.000 {method 'reshape' of 'numpy.ndarray' objects}
-      734    0.001    0.000    0.001    0.000 contextlib.py:482(__exit__)
-     1468    0.001    0.000    0.001    0.000 py3k.py:49(isfileobj)
-     5872    0.001    0.000    0.001    0.000 {method 'read' of '_io.BytesIO' objects}
-     1468    0.001    0.000    0.001    0.000 zipfile.py:461(_decodeExtra)
-     1468    0.001    0.000    0.001    0.000 {method 'join' of 'str' objects}
-      734    0.001    0.000    0.001    0.000 contextlib.py:388(pop_all)
-      734    0.001    0.000    0.001    0.000 contextlib.py:458(_push_cm_exit)
-       96    0.001    0.000    0.001    0.000 shape_base.py:1191(tile)
-      950    0.001    0.000    0.002    0.000 <__array_function__ internals>:177(dot)
-      683    0.001    0.000    0.012    0.000 polynomial.py:1324(__call__)
-     1468    0.001    0.000    0.001    0.000 contextlib.py:385(__init__)
-      734    0.000    0.000    0.551    0.001 base.py:19(fun_wrapped)
-       96    0.000    0.000    0.000    0.000 {method 'cumprod' of 'numpy.ndarray' objects}
-     1468    0.000    0.000    0.000    0.000 tokenize.py:164(__init__)
-     3891    0.000    0.000    0.000    0.000 linalg.py:2338(_norm_dispatcher)
-      734    0.000    0.000    0.001    0.000 zipfile.py:1406(namelist)
-      734    0.000    0.000    0.035    0.000 <__array_function__ internals>:177(cross)
-     4405    0.000    0.000    0.000    0.000 {built-in method _operator.index}
-      683    0.000    0.000    0.001    0.000 <__array_function__ internals>:177(where)
-      734    0.000    0.000    0.000    0.000 threading.py:81(RLock)
-     2936    0.000    0.000    0.000    0.000 {method 'seekable' of '_io.BufferedReader' objects}
-      683    0.000    0.000    0.002    0.000 <__array_function__ internals>:177(trim_zeros)
-     2202    0.000    0.000    0.000    0.000 numeric.py:1473(<listcomp>)
-      737    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
-     1468    0.000    0.000    0.000    0.000 {method 'find' of 'str' objects}
-      734    0.000    0.000    0.001    0.000 npyio.py:72(__init__)
-     1468    0.000    0.000    0.000    0.000 format.py:196(_check_version)
-     1468    0.000    0.000    0.000    0.000 tokenize.py:612(generate_tokens)
-      683    0.000    0.000    0.011    0.000 <__array_function__ internals>:177(polyval)
-      734    0.000    0.000    0.000    0.000 {built-in method _abc._abc_instancecheck}
-     1468    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
-     1468    0.000    0.000    0.000    0.000 {method 'keys' of 'dict' objects}
-      122    0.000    0.000    0.001    0.000 rk.py:105(_estimate_error)
-     2202    0.000    0.000    0.000    0.000 numeric.py:1407(_moveaxis_dispatcher)
-     2202    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
-      734    0.000    0.000    0.000    0.000 {built-in method sys.exc_info}
-      734    0.000    0.000    0.000    0.000 contextlib.py:463(_push_exit_callback)
-      683    0.000    0.000    0.000    0.000 polynomial.py:1217(_coeffs)
-     1008    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
-      734    0.000    0.000    0.006    0.000 npyio.py:222(__del__)
-      734    0.000    0.000    0.000    0.000 zipfile.py:1408(<listcomp>)
-      734    0.000    0.000    0.000    0.000 {method 'startswith' of 'bytes' objects}
-      734    0.000    0.000    0.000    0.000 contextlib.py:375(_create_exit_wrapper)
-     1468    0.000    0.000    0.000    0.000 {built-in method _struct.calcsize}
-      734    0.000    0.000    0.000    0.000 {built-in method numpy.promote_types}
-      734    0.000    0.000    0.001    0.000 abc.py:96(__instancecheck__)
-      145    0.000    0.000    0.000    0.000 AtmosphericDensity.py:5(lapse_tp)
-      122    0.000    0.000    0.002    0.000 rk.py:108(_estimate_error_norm)
-      683    0.000    0.000    0.000    0.000 polynomial.py:1185(coeffs)
-     1417    0.000    0.000    0.000    0.000 numeric.py:73(_zeros_like_dispatcher)
-     1417    0.000    0.000    0.000    0.000 multiarray.py:1079(copyto)
-      734    0.000    0.000    0.000    0.000 zipfile.py:1819(__del__)
-       51    0.000    0.000    0.000    0.000 AtmosphericDensity.py:42(ussa76)
-       87    0.000    0.000    0.000    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
-      734    0.000    0.000    0.000    0.000 {method '__enter__' of '_io._IOBase' objects}
-      734    0.000    0.000    0.000    0.000 {built-in method _weakref.proxy}
-     1417    0.000    0.000    0.000    0.000 multiarray.py:84(empty_like)
-       86    0.000    0.000    0.000    0.000 rk.py:539(__init__)
-       87    0.000    0.000    0.560    0.006 base.py:159(step)
-     1468    0.000    0.000    0.000    0.000 {built-in method builtins.chr}
-      125    0.000    0.000    0.001    0.000 common.py:61(norm)
-     1468    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
-     1419    0.000    0.000    0.000    0.000 shape_base.py:19(_atleast_1d_dispatcher)
-      272    0.000    0.000    0.001    0.000 fromnumeric.py:51(_wrapfunc)
-      683    0.000    0.000    0.000    0.000 polynomial.py:1214(_coeffs)
-       96    0.000    0.000    0.000    0.000 {method 'repeat' of 'numpy.ndarray' objects}
-      950    0.000    0.000    0.000    0.000 multiarray.py:740(dot)
-       86    0.000    0.000    0.001    0.000 rk.py:178(_dense_output_impl)
-      734    0.000    0.000    0.000    0.000 numeric.py:1482(_cross_dispatcher)
-       96    0.000    0.000    0.001    0.000 Propagators.py:125(stop_propagation)
-      683    0.000    0.000    0.000    0.000 multiarray.py:345(where)
-      734    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
-      683    0.000    0.000    0.000    0.000 {method 'upper' of 'str' objects}
-      734    0.000    0.000    0.000    0.000 {built-in method posix.fspath}
-      683    0.000    0.000    0.000    0.000 function_base.py:1796(_trim_zeros)
-       96    0.000    0.000    0.004    0.000 base.py:235(__call__)
-      683    0.000    0.000    0.000    0.000 polynomial.py:700(_polyval_dispatcher)
-      734    0.000    0.000    0.000    0.000 contextlib.py:479(__enter__)
-       86    0.000    0.000    0.001    0.000 base.py:192(dense_output)
-       86    0.000    0.000    0.000    0.000 base.py:229(__init__)
-       96    0.000    0.000    0.001    0.000 ivp.py:580(<lambda>)
-       96    0.000    0.000    0.001    0.000 fromnumeric.py:3084(cumprod)
-       88    0.000    0.000    0.000    0.000 {method 'nonzero' of 'numpy.ndarray' objects}
-       88    0.000    0.000    0.000    0.000 fromnumeric.py:1892(nonzero)
-      278    0.000    0.000    0.000    0.000 shape_base.py:1273(<genexpr>)
-       87    0.000    0.000    0.000    0.000 fromnumeric.py:1345(searchsorted)
-       96    0.000    0.000    0.001    0.000 <__array_function__ internals>:177(tile)
-       96    0.000    0.000    0.001    0.000 <__array_function__ internals>:177(cumprod)
-       88    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(nonzero)
-       87    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(searchsorted)
-       87    0.000    0.000    0.001    0.000 ivp.py:610(<listcomp>)
-      192    0.000    0.000    0.000    0.000 shape_base.py:1263(<genexpr>)
+    29820    0.043    0.000    0.122    0.000 tokenize.py:429(_tokenize)
+    26980    0.028    0.000    0.028    0.000 {method 'match' of 're.Pattern' objects}
+     1420    0.020    0.000    0.033    0.000 tokenize.py:183(untokenize)
+     1420    0.018    0.000    0.018    0.000 {built-in method builtins.compile}
+     1420    0.014    0.000    0.173    0.000 format.py:558(_filter_header)
+      710    0.013    0.000    0.013    0.000 {built-in method io.open}
+    11360    0.012    0.000    0.028    0.000 zipfile.py:757(read)
+    26980    0.012    0.000    0.024    0.000 re.py:289(_compile)
+      710    0.012    0.000    0.032    0.000 numeric.py:1486(cross)
+      710    0.012    0.000    0.434    0.001 AtmosphericDensity.py:107(ussa76_rho)
+15365/9831    0.011    0.000    0.073    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+    14910    0.011    0.000    0.011    0.000 {method 'tell' of '_io.BufferedReader' objects}
+     2840    0.011    0.000    0.051    0.000 zipfile.py:1478(open)
+      710    0.011    0.000    0.511    0.001 Propagators.py:80(accelerations)
+     1420    0.010    0.000    0.261    0.000 format.py:730(read_array)
+    14200    0.009    0.000    0.009    0.000 {method 'read' of '_io.BufferedReader' objects}
+     1420    0.009    0.000    0.222    0.000 format.py:593(_read_array_header)
+    26980    0.009    0.000    0.009    0.000 tokenize.py:170(add_whitespace)
+      710    0.008    0.000    0.027    0.000 zipfile.py:1328(_RealGetContents)
+     3766    0.008    0.000    0.014    0.000 linalg.py:2342(norm)
+     1426    0.007    0.000    0.007    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+    26980    0.007    0.000    0.010    0.000 types.py:171(__get__)
+     7100    0.007    0.000    0.026    0.000 zipfile.py:917(read)
+12780/1420    0.007    0.000    0.008    0.000 ast.py:76(_convert)
+    26980    0.007    0.000    0.036    0.000 tokenize.py:98(_compile)
+   105792    0.006    0.000    0.006    0.000 {built-in method builtins.len}
+     2840    0.006    0.000    0.011    0.000 zipfile.py:809(__init__)
+     5680    0.006    0.000    0.021    0.000 format.py:943(_read_bytes)
+    28400    0.006    0.000    0.011    0.000 <string>:1(__new__)
+    14910    0.006    0.000    0.006    0.000 {method 'seek' of '_io.BufferedReader' objects}
+      660    0.005    0.000    0.010    0.000 polynomial.py:704(polyval)
+     4260    0.005    0.000    0.008    0.000 numeric.py:1348(normalize_axis_tuple)
+     1420    0.005    0.000    0.332    0.000 npyio.py:232(__getitem__)
+     2130    0.005    0.000    0.015    0.000 numeric.py:1411(moveaxis)
+    26980    0.005    0.000    0.029    0.000 re.py:250(compile)
+      118    0.005    0.000    0.519    0.004 rk.py:14(rk_step)
+    28400    0.005    0.000    0.005    0.000 {built-in method __new__ of type object at 0x10264b9e0}
+    66645    0.005    0.000    0.005    0.000 {built-in method builtins.isinstance}
+      710    0.004    0.000    0.060    0.000 npyio.py:263(load)
+    72713    0.004    0.000    0.004    0.000 {method 'append' of 'list' objects}
+      710    0.004    0.000    0.011    0.000 Propagators.py:39(j2_acc)
+     5680    0.004    0.000    0.006    0.000 {method 'decode' of 'bytes' objects}
+     3851    0.004    0.000    0.004    0.000 {method 'dot' of 'numpy.ndarray' objects}
+     5117    0.004    0.000    0.004    0.000 {built-in method numpy.array}
+     2840    0.003    0.000    0.018    0.000 zipfile.py:997(_read1)
+      710    0.003    0.000    0.006    0.000 Propagators.py:27(grav_acc)
+     2840    0.003    0.000    0.011    0.000 zipfile.py:1033(_read2)
+    26980    0.003    0.000    0.003    0.000 enum.py:753(value)
+     2840    0.003    0.000    0.007    0.000 zipfile.py:1049(close)
+     7100    0.002    0.000    0.002    0.000 {built-in method _struct.unpack}
+      710    0.002    0.000    0.031    0.000 zipfile.py:1218(__init__)
+      710    0.002    0.000    0.010    0.000 zipfile.py:257(_EndRecData)
+      710    0.002    0.000    0.037    0.000 Conversions.py:457(v_rel)
+      710    0.002    0.000    0.005    0.000 npyio.py:209(close)
+    26980    0.002    0.000    0.002    0.000 {method 'span' of 're.Match' objects}
+     1420    0.002    0.000    0.003    0.000 zipfile.py:344(__init__)
+     5680    0.002    0.000    0.002    0.000 {built-in method zlib.crc32}
+     1420    0.002    0.000    0.030    0.000 ast.py:51(literal_eval)
+      710    0.002    0.000    0.035    0.000 npyio.py:182(__init__)
+      710    0.002    0.000    0.002    0.000 {method 'close' of '_io.BufferedReader' objects}
+       86    0.002    0.000    0.522    0.006 rk.py:111(_step_impl)
+       86    0.002    0.000    0.002    0.000 ivp.py:130(find_active_events)
+     1420    0.002    0.000    0.032    0.000 utils.py:1032(safe_eval)
+     1372    0.002    0.000    0.003    0.000 shape_base.py:23(atleast_1d)
+     6595    0.002    0.000    0.002    0.000 {built-in method builtins.min}
+     1370    0.002    0.000    0.007    0.000 numeric.py:77(zeros_like)
+     3766    0.001    0.000    0.018    0.000 <__array_function__ internals>:177(norm)
+     2840    0.001    0.000    0.001    0.000 {function ZipExtFile.close at 0x7fa9204e1430}
+     4260    0.001    0.000    0.001    0.000 {built-in method _codecs.charmap_decode}
+     1420    0.001    0.000    0.014    0.000 format.py:223(read_magic)
+     2840    0.001    0.000    0.001    0.000 zipfile.py:738(__init__)
+     2840    0.001    0.000    0.003    0.000 zipfile.py:950(_update_crc)
+    17040    0.001    0.000    0.001    0.000 {method 'isidentifier' of 'str' objects}
+     2840    0.001    0.000    0.002    0.000 zipfile.py:768(close)
+      660    0.001    0.000    0.005    0.000 polynomial.py:1226(__init__)
+     4260    0.001    0.000    0.003    0.000 cp437.py:14(decode)
+     3550    0.001    0.000    0.001    0.000 zipfile.py:1949(_fpclose)
+      710    0.001    0.000    0.513    0.001 ivp.py:529(<lambda>)
+     1420    0.001    0.000    0.001    0.000 format.py:288(descr_to_dtype)
+     1420    0.001    0.000    0.001    0.000 {built-in method numpy.frombuffer}
+       95    0.001    0.000    0.003    0.000 rk.py:546(_call_impl)
+      710    0.001    0.000    0.032    0.000 npyio.py:91(zipfile_factory)
+     4260    0.001    0.000    0.002    0.000 numeric.py:1398(<listcomp>)
+    11360    0.001    0.000    0.001    0.000 zipfile.py:1527(<lambda>)
+     1421    0.001    0.000    0.001    0.000 {method 'astype' of 'numpy.ndarray' objects}
+     6829    0.001    0.000    0.001    0.000 {built-in method numpy.asarray}
+     6391    0.001    0.000    0.001    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
+     1420    0.001    0.000    0.035    0.000 tokenize.py:257(untokenize)
+     3766    0.001    0.000    0.001    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+     2840    0.001    0.000    0.001    0.000 zipfile.py:1437(getinfo)
+     4260    0.001    0.000    0.001    0.000 format.py:644(<genexpr>)
+     2130    0.001    0.000    0.017    0.000 <__array_function__ internals>:177(moveaxis)
+     2840    0.001    0.000    0.001    0.000 zipfile.py:719(_get_decompressor)
+     2130    0.001    0.000    0.001    0.000 {method 'transpose' of 'numpy.ndarray' objects}
+     2959    0.001    0.000    0.001    0.000 {built-in method builtins.max}
+      660    0.001    0.000    0.001    0.000 function_base.py:1800(trim_zeros)
+     1370    0.001    0.000    0.003    0.000 <__array_function__ internals>:177(empty_like)
+     1420    0.001    0.000    0.019    0.000 ast.py:30(parse)
+     1515    0.001    0.000    0.002    0.000 {built-in method builtins.all}
+     2130    0.001    0.000    0.001    0.000 {built-in method builtins.sorted}
+      710    0.001    0.000    0.003    0.000 zipfile.py:214(_EndRecData64)
+     1420    0.001    0.000    0.001    0.000 py3k.py:49(isfileobj)
+     1420    0.001    0.000    0.001    0.000 zipfile.py:1823(close)
+     1370    0.001    0.000    0.009    0.000 <__array_function__ internals>:177(zeros_like)
+     2840    0.001    0.000    0.001    0.000 {method 'readline' of '_io.StringIO' objects}
+        1    0.001    0.001    0.532    0.532 ivp.py:156(solve_ivp)
+     3766    0.001    0.000    0.001    0.000 linalg.py:117(isComplexType)
+     1370    0.001    0.000    0.001    0.000 {built-in method numpy.zeros}
+     1370    0.001    0.000    0.002    0.000 <__array_function__ internals>:177(copyto)
+     7535    0.001    0.000    0.001    0.000 {built-in method builtins.issubclass}
+     4262    0.001    0.000    0.001    0.000 {method 'get' of 'dict' objects}
+      710    0.001    0.000    0.002    0.000 contextlib.py:415(enter_context)
+     2201    0.001    0.000    0.001    0.000 {built-in method numpy.asanyarray}
+     1372    0.001    0.000    0.004    0.000 <__array_function__ internals>:177(atleast_1d)
+     4263    0.001    0.000    0.001    0.000 {built-in method builtins.hasattr}
+      710    0.001    0.000    0.001    0.000 contextlib.py:482(__exit__)
+     5680    0.001    0.000    0.001    0.000 {method 'read' of '_io.BytesIO' objects}
+      900    0.001    0.000    0.001    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     3550    0.001    0.000    0.001    0.000 zipfile.py:684(_check_compression)
+     1420    0.001    0.000    0.001    0.000 {method 'join' of 'str' objects}
+      710    0.001    0.000    0.001    0.000 contextlib.py:388(pop_all)
+      710    0.001    0.000    0.001    0.000 contextlib.py:458(_push_cm_exit)
+      710    0.001    0.000    0.514    0.001 base.py:136(fun)
+     1420    0.001    0.000    0.001    0.000 zipfile.py:461(_decodeExtra)
+       95    0.000    0.000    0.001    0.000 shape_base.py:1191(tile)
+       95    0.000    0.000    0.000    0.000 {method 'cumprod' of 'numpy.ndarray' objects}
+      710    0.000    0.000    0.513    0.001 base.py:19(fun_wrapped)
+     1420    0.000    0.000    0.000    0.000 contextlib.py:385(__init__)
+      921    0.000    0.000    0.002    0.000 <__array_function__ internals>:177(dot)
+      660    0.000    0.000    0.011    0.000 polynomial.py:1324(__call__)
+     1420    0.000    0.000    0.000    0.000 tokenize.py:164(__init__)
+      710    0.000    0.000    0.001    0.000 zipfile.py:1406(namelist)
+     3766    0.000    0.000    0.000    0.000 linalg.py:2338(_norm_dispatcher)
+      710    0.000    0.000    0.033    0.000 <__array_function__ internals>:177(cross)
+      660    0.000    0.000    0.001    0.000 <__array_function__ internals>:177(where)
+     2840    0.000    0.000    0.000    0.000 {method 'seekable' of '_io.BufferedReader' objects}
+     4261    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+     1420    0.000    0.000    0.000    0.000 {method 'find' of 'str' objects}
+      660    0.000    0.000    0.002    0.000 <__array_function__ internals>:177(trim_zeros)
+      710    0.000    0.000    0.000    0.000 threading.py:81(RLock)
+      713    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+     2130    0.000    0.000    0.000    0.000 numeric.py:1473(<listcomp>)
+      710    0.000    0.000    0.001    0.000 npyio.py:72(__init__)
+     1420    0.000    0.000    0.000    0.000 format.py:196(_check_version)
+      660    0.000    0.000    0.011    0.000 <__array_function__ internals>:177(polyval)
+     1420    0.000    0.000    0.000    0.000 tokenize.py:612(generate_tokens)
+      710    0.000    0.000    0.000    0.000 {built-in method _abc._abc_instancecheck}
+      660    0.000    0.000    0.000    0.000 polynomial.py:1217(_coeffs)
+      118    0.000    0.000    0.001    0.000 rk.py:105(_estimate_error)
+      710    0.000    0.000    0.000    0.000 contextlib.py:463(_push_exit_callback)
+     1420    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
+      710    0.000    0.000    0.000    0.000 {built-in method sys.exc_info}
+      710    0.000    0.000    0.000    0.000 {method 'startswith' of 'bytes' objects}
+      710    0.000    0.000    0.000    0.000 zipfile.py:1408(<listcomp>)
+     2130    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
+      710    0.000    0.000    0.006    0.000 npyio.py:222(__del__)
+     2130    0.000    0.000    0.000    0.000 numeric.py:1407(_moveaxis_dispatcher)
+      710    0.000    0.000    0.000    0.000 contextlib.py:375(_create_exit_wrapper)
+      710    0.000    0.000    0.000    0.000 {built-in method numpy.promote_types}
+       86    0.000    0.000    0.000    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
+      710    0.000    0.000    0.000    0.000 zipfile.py:1819(__del__)
+     1420    0.000    0.000    0.000    0.000 {built-in method _struct.calcsize}
+      981    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+      710    0.000    0.000    0.001    0.000 abc.py:96(__instancecheck__)
+      118    0.000    0.000    0.001    0.000 rk.py:108(_estimate_error_norm)
+      660    0.000    0.000    0.000    0.000 polynomial.py:1185(coeffs)
+      127    0.000    0.000    0.000    0.000 AtmosphericDensity.py:5(lapse_tp)
+     1370    0.000    0.000    0.000    0.000 multiarray.py:1079(copyto)
+     1370    0.000    0.000    0.000    0.000 numeric.py:73(_zeros_like_dispatcher)
+       50    0.000    0.000    0.000    0.000 AtmosphericDensity.py:42(ussa76)
+       86    0.000    0.000    0.522    0.006 base.py:159(step)
+      710    0.000    0.000    0.000    0.000 {method '__enter__' of '_io._IOBase' objects}
+     1420    0.000    0.000    0.000    0.000 {built-in method builtins.chr}
+     1370    0.000    0.000    0.000    0.000 multiarray.py:84(empty_like)
+      121    0.000    0.000    0.001    0.000 common.py:61(norm)
         1    0.000    0.000    0.000    0.000 function_base.py:1320(diff)
-       88    0.000    0.000    0.000    0.000 fromnumeric.py:1888(_nonzero_dispatcher)
-       96    0.000    0.000    0.000    0.000 shape_base.py:1187(_tile_dispatcher)
-       96    0.000    0.000    0.000    0.000 fromnumeric.py:3080(_cumprod_dispatcher)
-        1    0.000    0.000    0.001    0.001 common.py:66(select_initial_step)
-       87    0.000    0.000    0.000    0.000 fromnumeric.py:1341(_searchsorted_dispatcher)
-        1    0.000    0.000    0.571    0.571 Propagators.py:133(numerical_prop)
-        6    0.000    0.000    0.000    0.000 fromnumeric.py:69(_wrapreduction)
-        1    0.000    0.000    0.571    0.571 SpaceObject.py:241(prop_catobject)
-        1    0.000    0.000    0.000    0.000 {built-in method scipy.optimize._zeros._brentq}
-        1    0.000    0.000    0.002    0.002 rk.py:85(__init__)
-        1    0.000    0.000    0.000    0.000 ivp.py:81(handle_events)
-        1    0.000    0.000    0.000    0.000 base.py:115(__init__)
+      269    0.000    0.000    0.001    0.000 fromnumeric.py:51(_wrapfunc)
+     1372    0.000    0.000    0.000    0.000 shape_base.py:19(_atleast_1d_dispatcher)
+      710    0.000    0.000    0.000    0.000 {built-in method _weakref.proxy}
+       85    0.000    0.000    0.000    0.000 rk.py:539(__init__)
+     1420    0.000    0.000    0.000    0.000 {method 'keys' of 'dict' objects}
+      660    0.000    0.000    0.000    0.000 polynomial.py:1214(_coeffs)
+     1420    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+      921    0.000    0.000    0.000    0.000 multiarray.py:740(dot)
+       95    0.000    0.000    0.000    0.000 {method 'repeat' of 'numpy.ndarray' objects}
+       85    0.000    0.000    0.001    0.000 rk.py:178(_dense_output_impl)
         1    0.000    0.000    0.000    0.000 {built-in method numpy.arange}
-        8    0.000    0.000    0.000    0.000 ivp.py:77(<lambda>)
+       95    0.000    0.000    0.001    0.000 Propagators.py:125(stop_propagation)
+      660    0.000    0.000    0.000    0.000 multiarray.py:345(where)
+      710    0.000    0.000    0.000    0.000 numeric.py:1482(_cross_dispatcher)
+      710    0.000    0.000    0.000    0.000 {built-in method posix.fspath}
+      710    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+      660    0.000    0.000    0.000    0.000 function_base.py:1796(_trim_zeros)
+      660    0.000    0.000    0.000    0.000 {method 'upper' of 'str' objects}
+      660    0.000    0.000    0.000    0.000 polynomial.py:700(_polyval_dispatcher)
+      710    0.000    0.000    0.000    0.000 contextlib.py:479(__enter__)
+       95    0.000    0.000    0.003    0.000 base.py:235(__call__)
+       95    0.000    0.000    0.001    0.000 ivp.py:580(<lambda>)
+       85    0.000    0.000    0.000    0.000 base.py:229(__init__)
+       85    0.000    0.000    0.001    0.000 base.py:192(dense_output)
+       95    0.000    0.000    0.001    0.000 fromnumeric.py:3084(cumprod)
+       87    0.000    0.000    0.000    0.000 {method 'nonzero' of 'numpy.ndarray' objects}
+       87    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(nonzero)
+       86    0.000    0.000    0.000    0.000 fromnumeric.py:1345(searchsorted)
+      275    0.000    0.000    0.000    0.000 shape_base.py:1273(<genexpr>)
+       87    0.000    0.000    0.000    0.000 fromnumeric.py:1892(nonzero)
+       95    0.000    0.000    0.001    0.000 <__array_function__ internals>:177(tile)
+       86    0.000    0.000    0.001    0.000 <__array_function__ internals>:177(searchsorted)
+       95    0.000    0.000    0.001    0.000 <__array_function__ internals>:177(cumprod)
+       86    0.000    0.000    0.001    0.000 ivp.py:610(<listcomp>)
+      190    0.000    0.000    0.000    0.000 shape_base.py:1263(<genexpr>)
+       95    0.000    0.000    0.000    0.000 shape_base.py:1187(_tile_dispatcher)
+       87    0.000    0.000    0.000    0.000 fromnumeric.py:1888(_nonzero_dispatcher)
+        1    0.000    0.000    0.001    0.001 common.py:66(select_initial_step)
+       95    0.000    0.000    0.000    0.000 fromnumeric.py:3080(_cumprod_dispatcher)
+        6    0.000    0.000    0.000    0.000 fromnumeric.py:69(_wrapreduction)
+       86    0.000    0.000    0.000    0.000 fromnumeric.py:1341(_searchsorted_dispatcher)
+        1    0.000    0.000    0.533    0.533 Propagators.py:133(numerical_prop)
+        1    0.000    0.000    0.533    0.533 SpaceObject.py:241(prop_catobject)
+        1    0.000    0.000    0.002    0.002 rk.py:85(__init__)
+        1    0.000    0.000    0.000    0.000 {built-in method scipy.optimize._zeros._brentq}
+        1    0.000    0.000    0.000    0.000 base.py:115(__init__)
+        1    0.000    0.000    0.000    0.000 ivp.py:81(handle_events)
         2    0.000    0.000    0.000    0.000 shape_base.py:299(hstack)
+        8    0.000    0.000    0.000    0.000 ivp.py:77(<lambda>)
         6    0.000    0.000    0.000    0.000 fromnumeric.py:2333(any)
-        1    0.000    0.000    0.000    0.000 common.py:43(validate_tol)
         1    0.000    0.000    0.000    0.000 ivp.py:53(solve_event_equation)
-        1    0.000    0.000    0.000    0.000 ivp.py:28(prepare_events)
-        2    0.000    0.000    0.000    0.000 {method 'any' of 'numpy.generic' objects}
+        1    0.000    0.000    0.000    0.000 common.py:43(validate_tol)
         1    0.000    0.000    0.000    0.000 _zeros_py.py:658(brentq)
-        3    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(concatenate)
+        1    0.000    0.000    0.000    0.000 ivp.py:28(prepare_events)
         6    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(any)
+        2    0.000    0.000    0.000    0.000 {method 'any' of 'numpy.generic' objects}
+        3    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(concatenate)
         1    0.000    0.000    0.000    0.000 base.py:4(check_arguments)
-        2    0.000    0.000    0.000    0.000 numerictypes.py:282(issubclass_)
         6    0.000    0.000    0.000    0.000 fromnumeric.py:70(<dictcomp>)
+        2    0.000    0.000    0.000    0.000 numerictypes.py:282(issubclass_)
         1    0.000    0.000    0.000    0.000 ivp.py:108(<listcomp>)
         1    0.000    0.000    0.000    0.000 numerictypes.py:356(issubdtype)
         2    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(hstack)
-        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1017(_handle_fromlist)
-        2    0.000    0.000    0.000    0.000 shape_base.py:218(_vhstack_dispatcher)
         1    0.000    0.000    0.000    0.000 {method 'argsort' of 'numpy.ndarray' objects}
-        2    0.000    0.000    0.000    0.000 _methods.py:55(_any)
+        2    0.000    0.000    0.000    0.000 shape_base.py:218(_vhstack_dispatcher)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1017(_handle_fromlist)
         6    0.000    0.000    0.000    0.000 fromnumeric.py:2328(_any_dispatcher)
-        6    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
-        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(diff)
-        2    0.000    0.000    0.000    0.000 shape_base.py:207(_arrays_for_stack_dispatcher)
-        3    0.000    0.000    0.000    0.000 multiarray.py:152(concatenate)
-        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(argsort)
         1    0.000    0.000    0.000    0.000 _optimize.py:172(__getattr__)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(diff)
+        2    0.000    0.000    0.000    0.000 _methods.py:55(_any)
+        1    0.000    0.000    0.000    0.000 <__array_function__ internals>:177(argsort)
+        6    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        3    0.000    0.000    0.000    0.000 multiarray.py:152(concatenate)
+        2    0.000    0.000    0.000    0.000 shape_base.py:207(_arrays_for_stack_dispatcher)
         1    0.000    0.000    0.000    0.000 fromnumeric.py:1038(argsort)
-        1    0.000    0.000    0.000    0.000 ivp.py:658(<listcomp>)
         1    0.000    0.000    0.000    0.000 ivp.py:582(<listcomp>)
-        2    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
-        1    0.000    0.000    0.000    0.000 ivp.py:580(<listcomp>)
-        1    0.000    0.000    0.000    0.000 common.py:26(warn_extraneous)
+        1    0.000    0.000    0.000    0.000 ivp.py:658(<listcomp>)
         1    0.000    0.000    0.000    0.000 ivp.py:659(<listcomp>)
-        1    0.000    0.000    0.000    0.000 ivp.py:583(<listcomp>)
         1    0.000    0.000    0.000    0.000 common.py:19(validate_max_step)
-        1    0.000    0.000    0.000    0.000 function_base.py:1316(_diff_dispatcher)
-        1    0.000    0.000    0.000    0.000 ivp.py:584(<listcomp>)
-        1    0.000    0.000    0.000    0.000 fromnumeric.py:1034(_argsort_dispatcher)
+        1    0.000    0.000    0.000    0.000 ivp.py:580(<listcomp>)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 ivp.py:583(<listcomp>)
+        1    0.000    0.000    0.000    0.000 common.py:26(warn_extraneous)
         1    0.000    0.000    0.000    0.000 _zeros_py.py:70(results_c)
+        1    0.000    0.000    0.000    0.000 ivp.py:584(<listcomp>)
+        1    0.000    0.000    0.000    0.000 function_base.py:1316(_diff_dispatcher)
+        1    0.000    0.000    0.000    0.000 fromnumeric.py:1034(_argsort_dispatcher)
 
 

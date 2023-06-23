@@ -7,7 +7,7 @@ Number of satellites in catalogue after dropping unmatching rows:  53294
 Number of satellites in catalogue after dropping rows that were missing data required for simulation:  43382
 building space objects from JSR/Space-track merged catalogue
 Creating Launch Model...
-Selected policies:  {'scenario_name': 'original_aleph_1', 'monthly_ton_capacity': '100', 'launch_start_date': '2019-01-01', 'startup_failure_rate': 0, 'satellite_failure': 0, 'espace': False, 'sim_start_date': '2019-01-01', 'sim_end_date': '2019-01-02', 'output_frequency': 1, 'sim_object_type': 'all', 'sim_propagation_type': 'sgp4', 'sim_object_catalogue': 'all', 'environment': 'development', 'repull_catalogues': True}
+Selected policies:  {'scenario_name': 'original_aleph_1', 'monthly_ton_capacity': '100', 'launch_start_date': '2019-01-01', 'startup_failure_rate': 0, 'satellite_failure': 0, 'espace': False, 'sim_start_date': '2019-01-01', 'sim_end_date': '2019-01-14', 'output_frequency': 1, 'sim_object_type': 'all', 'sim_propagation_type': 'sgp4', 'sim_object_catalogue': 'all', 'environment': 'development', 'repull_catalogues': True}
 number of rows with all data required in prediction CSV: 1
 number of launches per month: 5
 number of months required to put all satellites in orbit: 1

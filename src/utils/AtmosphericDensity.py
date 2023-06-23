@@ -93,15 +93,6 @@ def ussa76(h):
     # density
     rho = P / (R_air * T)
 
-    # # speed of sound
-    # C = np.sqrt(gamma * R_air * T)
-
-    # # dynamic viscosity by Sutherland's law
-    # eta = 1.458e-6*T**1.5/(T+110.4) 
-
-    # # thermal conductivity
-    # Kc = 2.64638e-3 * T ** 1.5 / (T + 245.4 * (10 ** (-12.0 / T))) 
-
     return rho
 
 def ussa76_rho(alts):
