@@ -468,4 +468,5 @@ def v_rel(state):
     atm_rot = np.array([0, 0, 72.9211e-6])  # rotation vector of the atmosphere in radians in ECI coordinates
     # speed of satellite relative to atmosphere
     v_rel = v - np.cross(atm_rot, r)
+    print("v_rel: ", v_rel)
     return v_rel

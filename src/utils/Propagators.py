@@ -3,6 +3,7 @@ import warnings
 from pyatmos import coesa76
 from scipy.integrate import solve_ivp
 from sgp4.api import Satrec
+import math
 
 #Local imports
 from utils.Conversions import v_rel
@@ -96,22 +97,25 @@ def accelerations (t, state, cd, area, mass):
     #--------------- MONOPOLE ACCELERATION -----------------#
     
     grav_mono=grav_acc(state) #calculate the acceleration due to gravity
+    print("a_mono: ", grav_mono)
     #--------------- J2 PERT ACCELERATION ------------------#
    
     a_j2 = j2_acc(state) #calculate the acceleration due to J2 perturbations
+    print("a_j2: ", a_j2)
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
     grav_a = grav_mono + a_j2
+    print("grav_tot: ", grav_a)
     #--------------- AERO DRAG ACCELERATION --------------#
 
     alt = r_norm - Re #altitude is the norm of the r vector minus the radius of the earth
+    print("alt: ", alt)
     rho = float(ussa76_rho(alt)) #get the density of the air at the altitude from USSA76 model
-
+    print("rho: ", rho)
     # Then we apply the density to the drag force model
 
     v_rel_atm= v_rel(state)
     v_norm = np.linalg.norm(v_rel_atm) #norm of v vector
-    alt = r_norm - Re #altitude is the norm of the r vector minus the radius of the earth
     acc_drag = -0.5 * rho * ((cd*area)/mass)*(1000*(v_rel_atm**2)) # Vallado and Finkleman 2014
     drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration
     
@@ -158,7 +162,7 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=10, type = "RK45"):
 
     # Call solve_ivp to propagate the orbit
     sol = solve_ivp(accelerations, [0, tot_time], x0, method=type, t_eval=np.arange(0, tot_time, h),
-                    args=(C_d, area, mass), events=stop_propagation, rtol=1e-3, atol=1e-3)
+                    args=(C_d, area, mass), events=stop_propagation, rtol=1e-5, atol=1e-5)
     #TODO: I have reduced the tolerance to 1e-4 to get the code to run faster. Need to decide on what is acceptable/necessary here
     return sol.y.T  # Returns an array where each row is the state at a time
 
@@ -237,7 +241,6 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     """
 
     # Defining radial distance and semi-latus rectum
-    GM = 398600.4418  # km^3/s^2
     p = a * (1 - (e**2))
     r = p / (1 + e * np.cos(V))
    
