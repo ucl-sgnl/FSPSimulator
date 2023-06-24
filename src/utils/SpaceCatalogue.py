@@ -18,7 +18,14 @@ class SpaceCatalogue:
         self.sim_object_type = sim_object_type
         self.sim_object_catalogue = sim_object_catalogue
         self.repull_catalogues = repull_catalogues
-        self.PullAllCataloguesIfNewer()
+
+        if self.repull_catalogues == True:
+            print("re-downloading JSR Cat")
+            self.PullCatalogueJSR()
+            print("re-downloading SpaceTrack Cat")
+            self.PullCatalogueSpaceTrack()
+        elif self.repull_catalogues == False:
+            print("using exisitng local catalogues")
 
     def CreateCatalogueActive(self):
         """
@@ -338,19 +345,6 @@ class SpaceCatalogue:
     #             f.write(retDataStr)
     #     session.close()
 
-    def PullAllCataloguesIfNewer(self):
-        """
-        Checks for each catalogue that is available (currently, JSR and SpaceTrack) whether a newer version is available.
-
-        If a newer version is available, it will pull it down and save it to the external directory.
-
-        During testing, some of these may be commented out due to the time it takes to pull the data.
-        """
-        if self.repull_catalogues == False:
-            return
-
-        self.PullCatalogueJSR()
-        self.PullCatalogueSpaceTrack()
 
 if __name__ == '__main__':
     with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/sim_settings.json'), 'r') as f:
