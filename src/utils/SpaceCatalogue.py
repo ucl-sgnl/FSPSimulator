@@ -2,9 +2,7 @@ import os
 import json
 import requests
 import wget
-import numpy as np
 import pandas as pd
-from dotenv import load_dotenv
 import datetime
 from utils.SpaceObject import SpaceObject
 from utils.Conversions import tle_parse
@@ -17,7 +15,7 @@ class SpaceCatalogue:
         self.CurrentCatalogue = None
         self.sim_object_type = sim_object_type
         self.sim_object_catalogue = sim_object_catalogue
-        self.repull_catalogues = repull_catalogues
+        self.repull_catalogues = bool(repull_catalogues)
 
         if self.repull_catalogues == True:
             print("re-downloading JSR Cat")

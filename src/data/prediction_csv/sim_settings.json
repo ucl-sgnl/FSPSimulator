@@ -12,5 +12,5 @@
   "sim_propagation_type": "sgp4",
   "sim_object_catalogue" : "all",
   "environment": "development",
-  "repull_catalogues": true
+  "repull_catalogues": false
 }
