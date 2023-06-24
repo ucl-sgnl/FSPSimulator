@@ -1,0 +1,635 @@
+#JCAT	DeepCat	Satcat	Piece	Active	Type	Name	LDate	Parent	Owner	State	SDate	ExpandedStatus	DDate	ODate	Period	Perigee	PF	Apogee	AF	Inc	IF	OpOrbit
+# Updated 2023 Jun 23 23:21:37
+S00001	-	00001	1957 ALP 1	R	R2          	8K71PS No. M1-10 Stage 2	1957 Oct  4	-	OKB1	SU	1957 Oct  4 1933	Reentered Earth atmosphere	1957 Dec  1 1000?	-	-	-	-	-	-	-	-	-
+S00002	-	00002	1957 ALP 2	P	P           	1-y ISZ	1957 Oct  4	S00001	OKB1	SU	1957 Oct  4 1933	Reentered Earth atmosphere	1958 Jan  4?	-	-	-	-	-	-	-	-	-
+S00003	-	00003	1957 BET 1	P	P A         	2-y ISZ	1957 Nov  3	A00002	OKB1	SU	1957 Nov  3 0235	Reentered attached to A00002 8K71PS No. M1-11 Stage 2	1958 Apr 14 0200?	-	-	-	-	-	-	-	-	-
+S00004	-	00004	1958 ALP	P	P A         	Explorer I	1958 Feb  1	A00004	MICOM/JPL	US	1958 Feb  1 0355	Reentered attached to A00004 Cluster 4 Assembly 4	1970 Mar 31 1045?	-	-	-	-	-	-	-	-	-
+S00005	-	00005	1958 BET 2	P	P           	Vanguard I	1958 Mar 17	S00016	NRL	US	1958 Mar 17 1224	In Earth orbit	-	2023 Jun 21 	     132.709 	     648	 	    3832	 	 34.26 	 	MEO
+S00006	-	00006	1958 GAM	P	P A         	Explorer III	1958 Mar 26	A00005	ABMA/JPLA	US	1958 Mar 26 1745	Reentered attached to A00005 Cluster 7 Assembly 4	1958 Jun 28	-	-	-	-	-	-	-	-	-
+S00007	-	00007	1958 DEL 1	R	R2          	8A91 No. B1-1 Stage 2	1958 May 15	-	OKB1	SU	1958 May 15 0705	Reentered Earth atmosphere	1958 Dec  3	-	-	-	-	-	-	-	-	-
+S00008	-	00008	1958 DEL 2	P	P           	3-y Sovetskiy ISZ	1958 May 15	S00007	OKB1	SU	1958 May 15 0706	Reentered Earth atmosphere	1960 Apr  6	-	-	-	-	-	-	-	-	-
+S00009	-	00009	1958 EPS	P	P A         	Explorer IV	1958 Jul 26	A00009	ABMA/JPL	US	1958 Jul 26 1507	Reentered attached to A00009 Cluster 9 Assembly 4	1959 Oct 23	-	-	-	-	-	-	-	-	-
+S00010	-	00010	1958 ZET	P	P A         	SCORE	1958 Dec 18	A00015	ARPA/SCEL	US	1958 Dec 18 2306	Reentered attached to A00015 Atlas B 10B	1959 Jan 21	-	-	-	-	-	-	-	-	-
+S00011	-	00011	1959 ALP 1	P	P           	Vanguard II	1959 Feb 17	S00012	GSFC	US	1959 Feb 17 1605	In Earth orbit	-	2023 Jun 22 	     121.294 	     552	 	    2925	 	 32.87 	 	LEO/I
+S00012	-	00012	1959 ALP 2	R	R3          	Vanguard SLV-4 Stage 3	1959 Feb 17	R02749	GSFC	US	1959 Feb 17 1604	In Earth orbit	-	2023 Jun 23 	     125.692 	     553	 	    3313	 	 32.90 	 	LEO/I
+S00013	-	00013	1959 BET	P	P A         	Discoverer 1	1959 Feb 28	A00017	ARPA/CIA	US	1959 Feb 28 2156	Reentered attached to A00017 Agena A 1022	1959 Mar  5	-	-	-	-	-	-	-	-	-
+S00014	-	00014	1959 GAM	P	P A         	Discoverer 2	1959 Apr 13	A00021	ARPA/CIA	US	1959 Apr 13 2126	Reentered attached to A00021 Agena A 1018	1959 Apr 26	-	-	-	-	-	-	-	-	-
+S00015	-	00015	1959 DEL 1	P	P           	Explorer VI	1959 Aug  7	S00017	GSFC	US	1959 Aug  7 1430	Reentered Earth atmosphere	1961 Jul  1	-	-	-	-	-	-	-	-	-
+S00016	-	00016	1958 BET 1	R	R3          	Vanguard TV-4 Stage 3	1958 Mar 17	R02064	NRL	US	1958 Mar 17 1223	In Earth orbit	-	2023 Jun 21 	     137.294 	     654	 	    4220	 	 34.26 	 	MEO
+S00017	-	00017	1959 DEL 2	R	R3          	Thor Able III Stage 3	1959 Aug  7	A00024	AFSSD	US	1959 Aug  7 1428	Reentered Earth atmosphere	1961 Jun 30	-	-	-	-	-	-	-	-	-
+S00018	-	00018	1959 EPS 1	P	P A         	Discoverer 5	1959 Aug 13	A00028	ARPA/CIA	US	1959 Aug 13 1906	Reentered attached to A00028 Agena A 1029	1959 Sep 28	-	-	-	-	-	-	-	-	-
+S00019	-	00019	1959 ZET	P	P A         	Discoverer 6	1959 Aug 19	A00030	ARPA/CIA	US	1959 Aug 19 1931	Reentered attached to A00030 Agena A 1028	1959 Oct 20	-	-	-	-	-	-	-	-	-
+S00020	-	00020	1959 ETA	P	P A         	Vanguard III	1959 Sep 18	A00034	GSFC	US	1959 Sep 18 0529	Attached to A00034 Vanguard SLV-7 Stage 3	-	-	-	-	-	-	-	-	-	-
+S00021	D00009	00021	1959 THE 1	P	P   D       	AMS Luna-3	1959 Oct  4	A00035	OKB1	SU	1959 Oct  4 0055?	Reentered Earth atmosphere	1960 Apr 29	-	-	-	-	-	-	-	-	-
+S00022	-	00022	1959 IOT 1	P	P           	Explorer 7	1959 Oct 13	S00023	GSFC	US	1959 Oct 13 1539	In Earth orbit	-	2023 Jun 22 	      95.936 	     476	 	     651	 	 50.28 	 	LLEO/I
+S00023	-	00023	1959 IOT 2	R	R4          	Cluster 13 Assembly 4	1959 Oct 13	R03267	MICOM	US	1959 Oct 13 1539	Reentered Earth atmosphere	1989 Jul 16	-	-	-	-	-	-	-	-	-
+S00024	-	00024	1959 KAP	P	P A         	Discoverer 7	1959 Nov  7	A00036	ARPA/CIA	US	1959 Nov  7 2035	Reentered attached to A00036 Agena A 1051	1959 Nov 26 1900?	-	-	-	-	-	-	-	-	-
+S00025	-	00025	1959 LAM	P	P A         	Discoverer 8	1959 Nov 20	A00039	CIA	US	1959 Nov 20 1931	Reentered attached to A00039 Agena A 1050	1960 Mar  8 0115?	-	-	-	-	-	-	-	-	-
+S00026	-	00026	1959 EPS 2	P	PX-R---     	SRV 111	1959 Aug 13	S00018	CIA	US	1959 Aug 14 2142	Reentered Earth atmosphere	1961 Feb 11	-	-	-	-	-	-	-	-	-
+S00027	D00011	00027	1960 ALP 1	P	P   D       	Pioneer V	1960 Mar 11	A00042	NASA	US	1960 Mar 11 1305	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00028	-	00028	1960 BET 1	R	R3          	Thor Able II Stage 3	1960 Apr  1	R03645	AFSSD2	US	1960 Apr  1 1151	Reentered Earth atmosphere	1991 Jul  2	-	-	-	-	-	-	-	-	-
+S00029	-	00029	1960 BET 2	P	P           	Tiros 1	1960 Apr  1	S00028	GSFC	US	1960 Apr  1 1218	In Earth orbit	-	2023 Jun 23 	      97.603 	     626	 	     660	 	 48.38 	 	LEO/I
+S00030	-	00030	1960 GAM 1	R	R2          	Ablestar 002	1960 Apr 13	R03657	AFSSD	US	1960 Apr 13 1228?	Reentered Earth atmosphere	1961 Aug 18 0430?	-	-	-	-	-	-	-	-	-
+S00031	-	00031	1960 GAM 2	P	P           	Transit I-B	1960 Apr 13	S00030	ARPA/NAVAIR	US	1960 Apr 13 1228?	Reentered Earth atmosphere	1967 Oct  5 0600?	-	-	-	-	-	-	-	-	-
+S00032	-	00032	1960 DEL	P	P A         	Discoverer 11	1960 Apr 15	A00046	AFBMD/CIA	US	1960 Apr 15 2036	Reentered attached to A00046 Agena A 1055	1960 Apr 26 1730?	-	-	-	-	-	-	-	-	-
+S00033	-	00033	1960 GAM 3	P	PX-D---     	Dummy subsatellite?	1960 Apr 13	S00031	APL	US	1960 Apr 13 1230?	Reentered Earth atmosphere	1960 Jul 17	-	-	-	-	-	-	-	-	-
+S00034	-	00034	1960 EPS 1	C	C  M        	Priborniy otsek	1960 May 15	S00036	OKB1	SU	1960 May 18 2352	Reentered Earth atmosphere	1962 Sep  5 0945?	-	-	-	-	-	-	-	-	-
+S00035	-	00035	1960 EPS 2	R	R3          	Vostok 8K72 No. 11 Stage 3	1960 May 15	R03713	RVSN	SU	1960 May 15 0011	Reentered Earth atmosphere	1960 Jul 17 1945?	-	-	-	-	-	-	-	-	-
+S00036	-	00036	1960 EPS 3	P	PP-H        	Korabl'-Sputnik	1960 May 15	S00035	OKB1	SU	1960 May 15 0011	Reentered Earth atmosphere	1965 Oct 15 1245?	-	-	-	-	-	-	-	-	-
+S00037	-	00037	1960 EPS 4	C	C  V        	Korabl'-Sputnik part	1960 May 15	S00036	OKB1	SU	1960 May 18 2352	Reentered Earth atmosphere	1961 Jun 30	-	-	-	-	-	-	-	-	-
+S00038	-	00038	1960 EPS 5	C	C  V        	Korabl'-Sputnik part	1960 May 15	S00036	OKB1	SU	1960 May 18 2352	Reentered Earth atmosphere	1960 Oct  1	-	-	-	-	-	-	-	-	-
+S00039	-	00039	1960 EPS 6	C	C  V        	Korabl'-Sputnik part	1960 May 15	S00036	OKB1	SU	1960 May 18 2352	Reentered Earth atmosphere	1960 Sep 24	-	-	-	-	-	-	-	-	-
+S00040	-	00040	1960 EPS 7	C	C  V        	Korabl'-Sputnik part	1960 May 15	S00036	OKB1	SU	1960 May 18 2352	Reentered Earth atmosphere	1960 Sep 24	-	-	-	-	-	-	-	-	-
+S00041	-	00041	1960 EPS 8	C	C  V        	Korabl'-Sputnik part	1960 May 15	S00036	OKB1	SU	1960 May 18 2352	Reentered Earth atmosphere	1960 Oct  1	-	-	-	-	-	-	-	-	-
+S00042	-	00042	1960 EPS 9	C	C  V        	Korabl'-Sputnik part	1960 May 15	S00036	OKB1	SU	1960 May 18 2352	Reentered Earth atmosphere	1960 Oct  1	-	-	-	-	-	-	-	-	-
+S00043	-	00043	1960 ZET 1	P	P A         	Midas 2	1960 May 24	A00050	SAMSO	US	1960 May 24 1748	Reentered attached to A00050 Agena A 1007	1974 Feb  7 2000?	-	-	-	-	-	-	-	-	-
+S00044	-	00044	1960 ZET 2	C	C  F        	Midas 2 Fairing	1960 May 24	A00050	AFBMD	US	1960 May 24 1748	Reentered Earth atmosphere	1960 Dec  5 0700?	-	-	-	-	-	-	-	-	-
+S00045	-	00045	1960 ETA 1	P	P           	Transit II-A	1960 Jun 22	S00047	NAVAIR	US	1960 Jun 22 0619	In Earth orbit	-	2023 Jun 22 	     100.402 	     591	 	     963	 	 66.69 	 	LEO/I
+S00046	-	00046	1960 ETA 2	P	P           	Solar Radiation 1	1960 Jun 22	S00045	NRL	US	1960 Jun 22 0620	In Earth orbit	-	2023 Jun 22 	      99.269 	     579	 	     867	 	 66.69 	 	LEO/I
+S00047	-	00047	1960 ETA 3	R	R2          	Ablestar 003	1960 Jun 22	R03794	SFSSC	US	1960 Jun 22 0619	In Earth orbit	-	2023 Jun 22 	      99.801 	     584	 	     913	 	 66.67 	 	LEO/I
+S00048	-	00048	1960 THE	P	P A         	Discoverer 13	1960 Aug 10	A00051	AFBMD/CIA	US	1960 Aug 10 2045	Reentered attached to A00051 Agena A 1057	1960 Nov 14 2000?	-	-	-	-	-	-	-	-	-
+S00049	-	00049	1960 IOT 1	P	P           	Echo 1	1960 Aug 12	S00051	LARCN	US	1960 Aug 12 1002?	Reentered Earth atmosphere	1968 May 24 0045?	-	-	-	-	-	-	-	-	-
+S00050	-	00050	1960 IOT 2	R	R3          	Delta 2 Stage 3	1960 Aug 12	R03997	GSFC	US	1960 Aug 12 0959?	In Earth orbit	-	2023 Jun 22 	     118.020 	    1501	 	    1682	 	 47.23 	 	LEO/I
+S00051	-	00051	1960 IOT 3	C	C  V        	A-11 Canister half	1960 Aug 12	S00050	LARCN	US	1960 Aug 12 1001?	In Earth orbit	-	2023 Jun 22 	     118.197 	    1513	 	    1686	 	 47.21 	 	LEO/I
+S00052	-	00052	1960 IOT 4	D	D  J        	Mylar piece?	1960 Aug 12	S00051	LARCN	US	1960 Aug 12 1002?	Lost	-	1976 Feb 28 	     118.257 	    1490	 	    1714	 	 47.15 	 	LEO/I
+S00053	-	00053	1960 IOT 5	C	C  V        	A-11 Canister half	1960 Aug 12	S00050	LARCN	US	1960 Aug 12 1001?	In Earth orbit	-	2023 Jun 23 	     118.294 	    1526	 	    1682	 	 47.28 	 	LEO/I
+S00054	-	00054	1960 KAP	P	P A         	Discoverer 14	1960 Aug 18	A00054	AFBMD/CIA	US	1960 Aug 18 2003	Reentered attached to A00054 Agena A 1056	1960 Sep 16 0030?	-	-	-	-	-	-	-	-	-
+S00055	-	00055	1960 LAM 1	P	PP-H        	Korabl'-Sputnik-2	1960 Aug 19	S00056	OKB1	SU	1960 Aug 19 0855	Landed on Earth	1960 Aug 20 0802	-	-	-	-	-	-	-	-	-
+S00056	-	00056	1960 LAM 2	R	R3          	Vostok 8K72 No. 12 Stage 3	1960 Aug 19	R04017	RVSN	SU	1960 Aug 19 0855	Reentered Earth atmosphere	1960 Sep 23 1345?	-	-	-	-	-	-	-	-	-
+S00057	-	00057	1960 MU	P	P A         	Discoverer 15	1960 Sep 13	A00059	AFBMD/CIA	US	1960 Sep 13 2220	Reentered attached to A00059 Agena A 1058	1960 Oct 18	-	-	-	-	-	-	-	-	-
+S00058	-	00058	1960 NU 1	P	P           	Courier 1B	1960 Oct  4	S00059	CECOMA	US	1960 Oct  4 2038	In Earth orbit	-	2023 Jun 22 	     106.956 	     962	 	    1208	 	 28.33 	 	LEO/I
+S00059	-	00059	1960 NU 2	R	R2          	Ablestar 005	1960 Oct  4	R04161	SFSSC	US	1960 Oct  4 2038	In Earth orbit	-	2023 Jun 21 	     106.428 	     920	 	    1201	 	 28.25 	 	LEO/I
+S00060	-	00060	1960 XI 1	P	P           	Explorer 8	1960 Nov  3	S00062	GSFC	US	1960 Nov  3 0533	Reentered Earth atmosphere	2012 Mar 28	-	-	-	-	-	-	-	-	-
+S00061	-	00061	1960 OMI	P	P A         	Discoverer 17	1960 Nov 12	A00067	AFBMD/CIA	US	1960 Nov 12 2050	Reentered attached to A00067 Agena B 1062	1960 Dec 29	-	-	-	-	-	-	-	-	-
+S00062	-	00062	1960 XI 2	R	R4          	Cluster 17 Assembly 4	1960 Nov  3	R04241	MSFC	US	1960 Nov  3 0531	Reentered Earth atmosphere	1985 Oct 27	-	-	-	-	-	-	-	-	-
+S00063	-	00063	1960 PI 1	P	P           	Tiros 2	1960 Nov 23	S00064	GSFC	US	1960 Nov 23 1126	Reentered Earth atmosphere	2014 May 18 0500?	-	-	-	-	-	-	-	-	-
+S00064	-	00064	1960 PI 2	R	R3          	Delta 3 Stage 3	1960 Nov 23	R04313	GSFC	US	1960 Nov 23 1126	Reentered Earth atmosphere	1981 Sep 23	-	-	-	-	-	-	-	-	-
+S00065	-	00065	1960 RHO 1	P	PP-H        	Korabl'-Sputnik-3	1960 Dec  1	S00066	OKB1	SU	1960 Dec  1 0741	Deorbited into Earth atmosphere	1960 Dec  2 0912	-	-	-	-	-	-	-	-	-
+S00066	-	00066	1960 RHO 2	R	R3          	Vostok 8K72 No. 13 Stage 3	1960 Dec  1	R04354	RVSN	SU	1960 Dec  1 0741	Reentered Earth atmosphere	1960 Dec  2	-	-	-	-	-	-	-	-	-
+S00067	-	00067	1960 SIG	P	P A         	Discoverer 18	1960 Dec  7	A00072	AFSSD/CIA	US	1960 Dec  7 2029	Reentered attached to A00072 Agena B 1103	1961 Apr  2	-	-	-	-	-	-	-	-	-
+S00068	-	00068	1960 TAU	P	P A         	Discoverer 19	1960 Dec 20	A00076	AFBMD/ARPA	US	1960 Dec 20 2040	Reentered attached to A00076 Agena B 1101	1961 Jan 23	-	-	-	-	-	-	-	-	-
+S00069	-	00069	1960 XI 3	C	C  Y        	Explorer VIII despin weight	1960 Nov  3	S00060	GSFC	US	1960 Nov  3 0531?	Reentered Earth atmosphere	1970 Feb 16	-	-	-	-	-	-	-	-	-
+S00070	-	00070	1961 ALP 1	P	P           	Samos 2 F-1	1961 Jan 31	S00079	SAMSO	US	1961 Feb  2 0515?	Reentered Earth atmosphere	1973 Oct 21	-	-	-	-	-	-	-	-	-
+S00071	-	00071	1961 BET 1	P	P A         	Tyazholiy Sputnik	1961 Feb  4	A00078	OKB1	SU	1961 Feb  4 0219	Reentered attached to A00078 Blok-L No. L1-7	1961 Feb 26	-	-	-	-	-	-	-	-	-
+S00072	-	00072	1961 BET 2	R	R3          	Molniya 8K78 L1-7V Blok-I	1961 Feb  4	R04491	RVSN	SU	1961 Feb  4 0127	Reentered Earth atmosphere	1961 Feb 13	-	-	-	-	-	-	-	-	-
+S00073	-	00073	1961 BET 3	C	C  M        	BOZ	1961 Feb  4	A00078	RVSN	SU	1961 Feb  4 0218	Reentered Earth atmosphere	1961 Mar 17	-	-	-	-	-	-	-	-	-
+S00074	-	00074	1960 PI 3	C	C  Y        	Tiros 2 despin weight	1960 Nov 23	S00063	GSFC	US	1960 Nov 23 1126	Reentered Earth atmosphere	1989 May 10	-	-	-	-	-	-	-	-	-
+S00075	-	00075	1960 PI 4	C	C  Y        	Tiros 2 despin weight	1960 Nov 23	S00063	GSFC	US	1960 Nov 23 1126	Reentered Earth atmosphere	1990 Jan 25	-	-	-	-	-	-	-	-	-
+S00076	-	00076	1961 GAM 2	R	R3          	Molniya 8K78 L1-6V Blok-I	1961 Feb 12	R04503	RVSN	SU	1961 Feb 12 0043	Reentered Earth atmosphere	1961 Feb 18	-	-	-	-	-	-	-	-	-
+S00077	-	00077	1961 GAM 3	C	C  M        	BOZ	1961 Feb 12	A00079	RVSN	SU	1961 Feb 12 0134	Reentered Earth atmosphere	1961 Feb 25	-	-	-	-	-	-	-	-	-
+S00078	-	00078	1961 GAM 4	D	D  O        	deb Tyazhyoliy Sputnik	1961 Feb 12	A00079	OKB1	SU	1961 Feb 12 0134?	Reentered Earth atmosphere	1961 Feb 18	-	-	-	-	-	-	-	-	-
+S00079	-	00079	1961 ALP 2	P	P A         	Samos 2	1961 Jan 31	A00077	SAMSO	US	1961 Jan 31 2031	Reentered attached to A00077 Agena A 2102	1970 Oct  9 0515?	-	-	-	-	-	-	-	-	-
+S00080	D00016	00080	1961 GAM 1	P	P   D       	AMS Venera	1961 Feb 12	A00079	RKKE	SU	1961 Feb 12 0138	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00081	-	00081	1961 DEL 1	P	P           	Explorer 9	1961 Feb 16	A00080	LARCN	US	1961 Feb 16 1320	Reentered Earth atmosphere	1964 Apr  9	-	-	-	-	-	-	-	-	-
+S00082	-	00082	1961 DEL 2	R	R4          	Scout ST-4 Stage 4	1961 Feb 16	R04521	LARCN	US	1961 Feb 16 1316	In Earth orbit	-	2023 Jun 22 	     117.434 	     639	 	    2491	 	 38.86 	 	LEO/I
+S00083	-	00083	1961 EPS 1	P	P A         	Discoverer 20	1961 Feb 17	A00081	AFSSD/ACE	US	1961 Feb 17 2032	Reentered attached to A00081 Agena B 1104	1962 Jul 28	-	-	-	-	-	-	-	-	-
+S00084	-	00084	1961 ZET	P	P A         	Discoverer 21	1961 Feb 18	A00083	AFSSD/ARPA	US	1961 Feb 18 2306	Reentered attached to A00083 Agena B 1102	1962 Apr 20	-	-	-	-	-	-	-	-	-
+S00085	-	00085	1961 DEL 3	C	C  V        	S-56A Canister part?	1961 Feb 16	S00082	LARCN	US	1961 Feb 16 1316	In Earth orbit	-	2023 Jun 22 	     100.228 	     534	 	    1004	 	 38.76 	 	LEO/I
+S00086	-	00086	1961 DEL 4	C	C  V        	S-56A Canister part?	1961 Feb 16	S00082	LARCN	US	1961 Feb 16 1316	Reentered Earth atmosphere	1962?	-	-	-	-	-	-	-	-	-
+S00087	-	00087	1961 ETA	P	P A         	Transit III-B	1961 Feb 22	A00084	BUWEPS	US	1961 Feb 22 0352?	Reentered attached to A00084 Ablestar 007	1961 Mar 30 1300?	-	-	-	-	-	-	-	-	-
+S00088	-	00088	1961 EPS 2	C	C  M        	Star 12	1961 Feb 17	S00090	AFBMD/CIA	US	1961 Feb 21 2030?	Reentered Earth atmosphere	1961 Mar 30	-	-	-	-	-	-	-	-	-
+S00089	-	00089	1961 EPS 3	C	C  F        	SRV heat shield	1961 Feb 17	S00090	AFSSD/CIA	US	1961 Feb 21 2030?	Reentered Earth atmosphere	1961 Apr 20	-	-	-	-	-	-	-	-	-
+S00090	-	00090	1961 EPS 4	P	PX-R---     	SRV 520	1961 Feb 17	S00083	AFSSD/CIA	US	1961 Feb 21 2030?	Reentered Earth atmosphere	1961 Oct 31	-	-	-	-	-	-	-	-	-
+S00091	-	00091	1961 THE 1	P	PP-H        	Korabl'-Sputnik-4	1961 Mar  9	S00092	OKB1	SU	1961 Mar  9 0640	Landed on Earth	1961 Mar  9 0809:54	-	-	-	-	-	-	-	-	-
+S00092	-	00092	1961 THE 2	R	R3          	Vostok 8K72 No. 14 Stage 3	1961 Mar  9	R04607	RVSN	SU	1961 Mar  9 0640	Reentered Earth atmosphere	1961 Mar 10	-	-	-	-	-	-	-	-	-
+S00093	-	00093	1961 THE 3	C	C  X        	deb Korabl'-Sputnik-4	1961 Mar  9	S00091	OKB1	SU	1961 Mar  9 0746?	Reentered Earth atmosphere	1961 Mar 10	-	-	-	-	-	-	-	-	-
+S00094	-	00094	1961 THE 4	C	C  X        	deb Korabl'-Sputnik-4	1961 Mar  9	S00091	OKB1	SU	1961 Mar  9 0746?	Reentered Earth atmosphere	1961 Mar 10	-	-	-	-	-	-	-	-	-
+S00095	-	00095	1961 IOT 1	P	PP          	Korabl'-Sputnik-5	1961 Mar 25	S00096	OKB1	SU	1961 Mar 25 0605:31	Landed on Earth	1961 Mar 25 0740:48	-	-	-	-	-	-	-	-	-
+S00096	-	00096	1961 IOT 2	R	R3          	Vostok 8K72 No. 15 Stage 3	1961 Mar 25	R04632	RVSN	SU	1961 Mar 25 0605:31	Reentered Earth atmosphere	1961 Mar 26	-	-	-	-	-	-	-	-	-
+S00097	-	00097	1961 IOT 3	C	C  X        	deb Korabl'-Sputnik-5	1961 Mar 25	S00095	OKB1	SU	1961 Mar 25 0711?	Reentered Earth atmosphere	1961 Mar 26	-	-	-	-	-	-	-	-	-
+S00098	D00017	00098	1961 KAP	P	P   D       	Explorer 10	1961 Mar 25	A00090	GSFC	US	1961 Mar 25 1525	Reentered Earth atmosphere	1968 Jun?	-	-	-	-	-	-	-	-	-
+S00099	-	00099	1960 GAM 4	C	C  Y        	Transit 1B despin weight	1960 Apr 13	S00031	NAVAIR	US	1960 Apr 13 1240?	Reentered Earth atmosphere	1979 Jul 17	-	-	-	-	-	-	-	-	-
+S00100	-	00100	1961 LAM 1	P	P A         	Discoverer 23	1961 Apr  8	A00091	AFSSD/ACE	US	1961 Apr  8 1928	Reentered attached to A00091 Agena B 1106	1962 Apr 16	-	-	-	-	-	-	-	-	-
+S00101	-	00101	1960 BET 3	C	C  Y        	Tiros 1 despin weight	1960 Apr  1	S00029	GSFC	US	1960 Apr  1 1218	Reentered Earth atmosphere	1983 Apr 17	-	-	-	-	-	-	-	-	-
+S00102	-	00102	1961 LAM 2	P	PX-R---     	SRV 521	1961 Apr  8	S00100	AFSSD/CIA	US	1961 Apr 10 1956?	Reentered Earth atmosphere	1962 May 23	-	-	-	-	-	-	-	-	-
+S00103	-	00103	1961 MU 1	P	PH H        	Vostok	1961 Apr 12	S00104	OKB1	SU	1961 Apr 12 0618	Landed on Earth	1961 Apr 12 0747	-	-	-	-	-	-	-	-	-
+S00104	-	00104	1961 MU 2	R	R3          	Vostok 8K72 No. 16 Stage 3	1961 Apr 12	R04680	RVSN	SU	1961 Apr 12 0618	Reentered Earth atmosphere	1961 Apr 16	-	-	-	-	-	-	-	-	-
+S00105	-	00105	1960 XI 4	C	C  Y        	Explorer VIII despin weight	1960 Nov  3	S00060	GSFC	US	1960 Nov  3 0533?	Reentered Earth atmosphere	1972 Mar  3	-	-	-	-	-	-	-	-	-
+S00106	-	00106	1961 LAM 3	C	C  M        	Star 12	1961 Apr  8	S00102	AFSSD/CIA	US	1961 Apr 10 1956?	Reentered Earth atmosphere	1961 Sep 10	-	-	-	-	-	-	-	-	-
+S00107	-	00107	1961 NU 1	P	P A         	Explorer 11	1961 Apr 27	A00095	GSFC	US	1961 Apr 27 1425	Attached to A00095 Cluster 18 Assembly 4	-	-	-	-	-	-	-	-	-	-
+S00108	-	00108	1961 XI 1	P	P A         	Discoverer 25	1961 Jun 16	A00096	AFSSD/CIA	US	1961 Jun 16 2309	Reentered attached to A00096 Agena B 1107	1961 Jul 12	-	-	-	-	-	-	-	-	-
+S00109	-	00109	1961 XI 2	C	C  F        	deb Discoverer XXV	1961 Jun 16	S00108	AFSSD	US	1961 Jun 16 2310?	Reentered Earth atmosphere	1961 Jun 19	-	-	-	-	-	-	-	-	-
+S00110	-	00110	1958 ETA	P	P           	Pioneer I	1958 Oct 11	A00010	NASA/TRW	US	1958 Oct 11 0848?	Reentered Earth atmosphere	1958 Oct 13 0446	-	-	-	-	-	-	-	-	-
+S00111	-	00111	1958 THE	P	P           	Pioneer III	1958 Dec  6	A00012	ABMA	US	1958 Dec  6 0549	Reentered Earth atmosphere	1958 Dec  7 1952	-	-	-	-	-	-	-	-	-
+S00112	D00002	00112	1959 MU 1	P	P   D       	AMS Luna-1	1959 Jan  2	A00016	RKKE	SU	1959 Jan  2 1653	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00113	D00003	00113	1959 NU 1	P	P   D       	Pioneer 4	1959 Mar  3	A00018	AMCOM	US	1959 Mar  3 0515	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00114	D00007	00114	1959 XI 1	P	P   D       	AMS Luna-2	1959 Sep 12	A00033	OKB1	SU	1959 Sep 12 0651?	Impacted Luna	1959 Sep 13 2102	-	-	-	-	-	-	-	-	-
+S00115	-	00115	1960 BET 4	C	C  Y        	Tiros 1 despin weight	1960 Apr  1	S00029	GSFC	US	1960 Apr  1 1218	In Earth orbit	-	2023 Jun 22 	      96.876 	     586	 	     631	 	 48.17 	 	LEO/I
+S00116	-	00116	1961 OMI 1	P	P           	Transit IV-A	1961 Jun 29	S00118	NAVAIR	US	1961 Jun 29 0452?	In Earth orbit	-	2023 Jun 23 	     103.454 	     863	 	     980	 	 66.81 	 	LEO/I
+S00117	-	00117	1961 OMI 2	P	P           	Injun I	1961 Jun 29	S00116	ONR/UIA	US	1961 Jun 29 0452?	In Earth orbit	-	2023 Jun 23 	     103.601 	     869	 	     987	 	 66.81 	 	LEO/I
+S00118	-	00118	1961 OMI 3	R	R2          	Ablestar 008	1961 Jun 29	R04877	SFSSC	US	1961 Jun 29 0430?	In Earth orbit	-	2023 Jun 23 	     102.713 	     823	 	     950	 	 66.76 	 	LEO/I
+S00119	-	00119	1961 OMI 4	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.110 	     733	 	     888	 	 66.73 	 	LEO/I
+S00120	-	00120	1961 OMI 5	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     100.949 	     725	 	     881	 	 66.71 	 	LEO/I
+S00121	-	00121	1961 OMI 6	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.869 	     830	 	     958	 	 66.75 	 	LEO/I
+S00122	-	00122	1961 OMI 7	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      97.678 	     600	 	     694	 	 66.75 	 	LEO/I
+S00123	-	00123	1961 OMI 8	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     100.128 	     681	 	     847	 	 66.69 	 	LEO/I
+S00124	-	00124	1961 OMI 9	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     100.560 	     732	 	     838	 	 66.54 	 	LEO/I
+S00125	-	00125	1961 OMI 10	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.411 	     821	 	     923	 	 66.88 	 	LEO/I
+S00126	-	00126	1961 OMI 11	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     100.129 	     714	 	     814	 	 66.71 	 	LEO/I
+S00127	-	00127	1961 OMI 12	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      99.927 	     709	 	     800	 	 66.83 	 	LEO/I
+S00128	-	00128	1961 OMI 13	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.753 	     818	 	     958	 	 66.68 	 	LEO/I
+S00129	-	00129	1961 OMI 14	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Aug 31	-	-	-	-	-	-	-	-	-
+S00130	-	00130	1961 OMI 15	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.937 	     832	 	     962	 	 66.77 	 	LEO/I
+S00131	-	00131	1961 OMI 16	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     102.784 	     836	 	     944	 	 66.74 	 	LEO/I
+S00132	-	00132	1961 OMI 17	C	C  Y        	Transit 4A despin weight?	1961 Jun 29	S00118	NAVAIR	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     103.267 	     855	 	     970	 	 66.66 	 	LEO/I
+S00133	-	00133	1961 OMI 18	C	C  Y        	Transit 4A despin weight?	1961 Jun 29	S00118	NAVAIR	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.449 	     782	 	     871	 	 67.12 	 	LEO/I
+S00134	-	00134	1961 OMI 19	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     103.071 	     838	 	     968	 	 66.88 	 	LEO/I
+S00135	-	00135	1961 OMI 20	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2002 Apr 17	-	-	-	-	-	-	-	-	-
+S00136	-	00136	1961 OMI 21	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     100.309 	     730	 	     816	 	 67.53 	 	LEO/I
+S00137	-	00137	1961 OMI 22	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1980 Dec 15	-	-	-	-	-	-	-	-	-
+S00138	-	00138	1961 OMI 23	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     102.670 	     856	 	     913	 	 67.15 	 	LEO/I
+S00139	-	00139	1961 OMI 24	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1978 Jul  8	-	-	-	-	-	-	-	-	-
+S00140	-	00140	1961 OMI 25	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1962 Sep 30	-	-	-	-	-	-	-	-	-
+S00141	-	00141	1961 OMI 26	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     103.784 	     900	 	     974	 	 66.59 	 	LEO/I
+S00142	-	00142	1961 OMI 27	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1967 Dec 25	-	-	-	-	-	-	-	-	-
+S00143	-	00143	1961 OMI 28	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1962 Jun 16	-	-	-	-	-	-	-	-	-
+S00144	-	00144	1961 OMI 29	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     103.557 	     892	 	     960	 	 66.50 	 	LEO/I
+S00145	-	00145	1961 OMI 30	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.719 	     842	 	     931	 	 66.93 	 	LEO/I
+S00146	-	00146	1961 OMI 31	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1969 Jul  7	-	-	-	-	-	-	-	-	-
+S00147	-	00147	1961 OMI 32	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.378 	     789	 	     858	 	 66.62 	 	LEO/I
+S00148	-	00148	1961 OMI 33	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.347 	     765	 	     973	 	 65.77 	 	LEO/I
+S00149	-	00149	1961 OMI 34	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1979 Mar  3	-	-	-	-	-	-	-	-	-
+S00150	-	00150	1961 OMI 35	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     104.198 	     912	 	    1001	 	 66.25 	 	LEO/I
+S00151	-	00151	1961 OMI 36	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1967 Dec  2	-	-	-	-	-	-	-	-	-
+S00152	-	00152	1961 OMI 37	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     102.139 	     745	 	     974	 	 66.59 	 	LEO/I
+S00153	-	00153	1961 OMI 38	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Apr 22	-	-	-	-	-	-	-	-	-
+S00154	-	00154	1961 OMI 39	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.492 	     819	 	     933	 	 66.66 	 	LEO/I
+S00155	-	00155	1961 OMI 40	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      99.858 	     721	 	     781	 	 66.88 	 	LEO/I
+S00156	-	00156	1961 OMI 41	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	1998 Sep 25	-	-	-	-	-	-	-	-	-
+S00157	-	00157	1961 OMI 42	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Jan  8	-	-	-	-	-	-	-	-	-
+S00158	-	00158	1961 OMI 43	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     113.781 	     925	 	    1874	 	 67.07 	 	LEO/I
+S00159	-	00159	1961 OMI 44	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     110.566 	     966	 	    1538	 	 65.52 	 	LEO/I
+S00160	-	00160	1961 PI	P	P A         	Discoverer 26	1961 Jul  7	A00103	AFSSD/CIA	US	1961 Jul  7 2336	Reentered attached to A00103 Agena B 1109	1961 Dec  5	-	-	-	-	-	-	-	-	-
+S00161	-	00161	1961 OMI 45	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Aug 29	-	-	-	-	-	-	-	-	-
+S00162	-	00162	1961 RHO 1	P	P           	Tiros 3	1961 Jul 12	S00165	GSFC	US	1961 Jul 12 1048	In Earth orbit	-	2023 Jun 22 	      99.696 	     712	 	     775	 	 47.90 	 	LEO/I
+S00163	-	00163	1961 SIG 1	P	P A         	Midas 3	1961 Jul 12	A00107	SFSSC	US	1961 Jul 12 1520	Attached to A00107 Agena B 1201	-	-	-	-	-	-	-	-	-	-
+S00164	-	00164	1961 SIG 2	C	C  F        	Midas  Fairing	1961 Jul 12	A00107	AFSSD	US	1961 Jul 12 1520?	Reentered Earth atmosphere	1961 Jul 25 2100?	-	-	-	-	-	-	-	-	-
+S00165	-	00165	1961 RHO 2	R	R3          	Delta 5 Stage 3	1961 Jul 12	R04921	GSFC	US	1961 Jul 12 1038	Reentered Earth atmosphere	2014 Feb 18 2200?	-	-	-	-	-	-	-	-	-
+S00166	-	00166	1961 RHO 3	C	C  Y        	Tiros 3 despin weight	1961 Jul 12	S00162	GSFC	US	1961 Jul 12 1052	Reentered Earth atmosphere	1992 Jan 19	-	-	-	-	-	-	-	-	-
+S00167	-	00167	1961 RHO 4	C	C  Y        	Tiros 3 despin weight	1961 Jul 12	S00162	GSFC	US	1961 Jul 12 1052	In Earth orbit	-	2023 Jun 21 	     101.187 	     748	 	     881	 	 47.84 	 	LEO/I
+S00168	-	00168	1961 TAU 1	P	PH H        	Vostok-2	1961 Aug  6	S00169	OKB1	SU	1961 Aug  6 0611	Landed on Earth	1961 Aug  7 0715	-	-	-	-	-	-	-	-	-
+S00169	-	00169	1961 TAU 2	R	R3          	Vostok 8K72 No. 17 Stage 3	1961 Aug  6	R04980	RVSN	SU	1961 Aug  6 0611	Reentered Earth atmosphere	1961 Aug  9	-	-	-	-	-	-	-	-	-
+S00170	-	00170	1961 UPS	P	P           	Explorer 12	1961 Aug 16	A00110	GSFC	US	1961 Aug 16 0357?	Reentered Earth atmosphere	1963 Aug 31	-	-	-	-	-	-	-	-	-
+S00171	-	00171	1961 OMI 46	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1962 Jan 29	-	-	-	-	-	-	-	-	-
+S00172	-	00172	1961 OMI 47	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     106.037 	     948	 	    1137	 	 67.07 	 	LEO/I
+S00173	-	00173	1961 PHI 1	P	P           	Ranger 1	1961 Aug 23	S00174	JPL	US	1961 Aug 23 1025	Reentered Earth atmosphere	1961 Aug 30 0830?	-	-	-	-	-	-	-	-	-
+S00174	-	00174	1961 PHI 2	R	R2-----*    	Agena B 6001	1961 Aug 23	R05032	MSFC	US	1961 Aug 23 1011	Reentered Earth atmosphere	1961 Sep  3	-	-	-	-	-	-	-	-	-
+S00175	-	00175	1961 OMI 48	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	1999 Mar 12	-	-	-	-	-	-	-	-	-
+S00176	-	00176	1961 OMI 49	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1982 Feb 12	-	-	-	-	-	-	-	-	-
+S00177	-	00177	1961 OMI 50	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     101.849 	     766	 	     925	 	 66.66 	 	LEO/I
+S00178	-	00178	1961 OMI 51	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     103.406 	     865	 	     973	 	 66.86 	 	LEO/I
+S00179	-	00179	1961 OMI 52	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2000 Mar  3 0330?	-	-	-	-	-	-	-	-	-
+S00180	-	00180	1961 CHI	P	P A         	Explorer 13	1961 Aug 25	A00115	LARCN	US	1961 Aug 25 1839	Reentered attached to A00115 Scout ST-6 Stage 4	1961 Aug 28	-	-	-	-	-	-	-	-	-
+S00181	-	00181	1961 PSI	P	P A         	Discoverer 29	1961 Aug 30	A00116	CIA	US	1961 Aug 30 2007	Reentered attached to A00116 Agena B 1112	1961 Sep  9 2330?	-	-	-	-	-	-	-	-	-
+S00182	-	00182	1961 OME 1	P	P A         	Discoverer 30	1961 Sep 12	A00121	NRO/CIA	US	1961 Sep 12 2006	Reentered attached to A00121 Agena B 1113	1961 Dec 11 2200?	-	-	-	-	-	-	-	-	-
+S00183	-	00183	1961 A ALP 1	P	PP-H        	Mercury MA-4	1961 Sep 13	S00184	STGL	US	1961 Sep 13 1409	Landed on Earth	1961 Sep 13 1553:20	-	-	-	-	-	-	-	-	-
+S00184	-	00184	1961 A ALP 2	R	R1          	Atlas D 88D	1961 Sep 13	-	STGL/AFSSD	US	1961 Sep 13 1409	Reentered Earth atmosphere	1961 Sep 13 1930?	-	-	-	-	-	-	-	-	-
+S00185	-	00185	1961 OME 2	D	D  O        	deb Discoverer XXX	1961 Sep 12	S00182	AFSSD	US	1961 Sep 12 2006?	Reentered Earth atmosphere	1961 Sep 18	-	-	-	-	-	-	-	-	-
+S00186	-	00186	1961 A BET	P	P A         	Discoverer 31	1961 Sep 17	A00129	NRO/CIA	US	1961 Sep 17 2107	Reentered attached to A00129 Agena B 1114	1961 Oct 26 1045?	-	-	-	-	-	-	-	-	-
+S00187	-	00187	1961 OME 3	D	D  O        	deb Discoverer XXX	1961 Sep 12	S00182	AFSSD	US	1961 Sep 12 2006?	Reentered Earth atmosphere	1961 Sep 28	-	-	-	-	-	-	-	-	-
+S00188	-	00188	1961 SIG 3	C	C  F        	Midas 3 solar array cover	1961 Jul 12	S00163	SFSSC	US	1961 Jul 12 1520?	In Earth orbit	-	2023 Jun 21 	     161.106 	    3306	 	    3552	 	 91.10 	 	MEO
+S00189	-	00189	1961 A GAM 1	P	P A         	Discoverer 32	1961 Oct 13	A00134	NRO/CIA	US	1961 Oct 13 1929	Reentered attached to A00134 Agena B 1115	1961 Nov 13	-	-	-	-	-	-	-	-	-
+S00190	-	00190	1961 A GAM 2	C	C  F        	deb Discoverer XXXII	1961 Oct 13	A00134	AFSSD	US	1961 Oct 13 1930?	Reentered Earth atmosphere	1961 Oct 25	-	-	-	-	-	-	-	-	-
+S00191	-	00191	1961 A GAM 3	C	C  F        	deb Discoverer XXXII	1961 Oct 13	A00134	AFSSD	US	1961 Oct 13 1930?	Reentered Earth atmosphere	1961 Oct 16	-	-	-	-	-	-	-	-	-
+S00192	-	00192	1961 A DEL 1	P	P A         	Midas 4	1961 Oct 21	A00140	SFSSC	US	1961 Oct 21 1504	Attached to A00140 Agena B 1202	-	-	-	-	-	-	-	-	-	-
+S00193	-	00193	1961 A DEL 2	C	C  F        	Midas Fairing	1961 Oct 21	A00140	AFSSD	US	1961 Oct 21 1403?	Reentered Earth atmosphere	1961 Dec  5	-	-	-	-	-	-	-	-	-
+S00194	-	00194	1961 A DEL 3	P	PX-S---     	West Ford 1 Dispenser	1961 Oct 21	A00140	SFSSC	US	1961 Oct 21 1505?	In Earth orbit	-	2023 Jun 22 	     165.502 	    3214	 	    4000	 	 95.84 	 	MEO
+S00195	-	00195	1961 A DEL 4	C	C  F        	Midas IV solar array cover	1961 Oct 21	A00140	SFSSC	US	1961 Oct 21 1505?	In Earth orbit	-	2023 Jun 22 	     166.357 	    3525	 	    3757	 	 95.86 	 	MEO
+S00196	-	00196	1961 SIG 4	C	C  F        	Midas 3 solar array cover	1961 Jul 12	S00163	SFSSC	US	1961 Jul 12 1520?	In Earth orbit	-	2023 Jun 22 	     161.854 	    3334	 	    3585	 	 91.12 	 	MEO
+S00197	-	00197	1961 A EPS 1	P	P A         	Discoverer 34	1961 Nov  5	A00143	NRO/CIA	US	1961 Nov  5 2007	Reentered attached to A00143 Agena B 1117	1962 Dec  7	-	-	-	-	-	-	-	-	-
+S00198	-	00198	1961 A EPS 2	D	D  O        	deb Discoverer XXXIV	1961 Nov  5	A00143	AFSSD	US	1961 Nov  5 2010?	Reentered Earth atmosphere	1961 Nov 30	-	-	-	-	-	-	-	-	-
+S00199	-	00199	1961 A EPS 3	D	D  O        	deb Discoverer XXXIV	1961 Nov  5	A00143	AFSSD	US	1961 Nov  5 2010?	Reentered Earth atmosphere	1961 Dec  9	-	-	-	-	-	-	-	-	-
+S00200	-	00200	1961 A EPS 4	D	D  O        	deb Discoverer XXXIV	1961 Nov  5	A00143	AFSSD	US	1961 Nov  5 2010?	Reentered Earth atmosphere	1961 Dec 10	-	-	-	-	-	-	-	-	-
+S00201	-	00201	1961 A ZET 1	P	P A         	Discoverer 35	1961 Nov 15	A00148	NRO/CIA	US	1961 Nov 15 2130	Reentered attached to A00148 Agena B 1118	1961 Dec  3	-	-	-	-	-	-	-	-	-
+S00202	-	00202	1961 A ETA 1	P	P           	Transit IV-B	1961 Nov 15	S00204	NAVAIR	US	1961 Nov 15 2250?	In Earth orbit	-	2023 Jun 23 	     105.602 	     947	 	    1097	 	 32.44 	 	LEO/I
+S00203	-	00203	1961 A EPS 5	D	D  O        	deb Discoverer XXXIV	1961 Nov  5	A00143	NRO/CIA	US	1961 Nov  5 2010?	Reentered Earth atmosphere	1961 Dec 12	-	-	-	-	-	-	-	-	-
+S00204	-	00204	1961 A ETA 3	R	R2          	Ablestar 009	1961 Nov 15	R05301	SFSSC	US	1961 Nov 15 2250?	In Earth orbit	-	2023 Jun 22 	     105.499 	     944	 	    1090	 	 32.44 	 	LEO/I
+S00205	-	00205	1961 A ETA 2	P	P           	Traac	1961 Nov 15	S00204	NAVAIR	US	1961 Nov 15 2300?	In Earth orbit	-	2023 Jun 22 	     105.691 	     951	 	    1102	 	 32.44 	 	LEO/I
+S00206	-	00206	1961 A THE	P	P           	Ranger 2	1961 Nov 18	A00151	JPL	US	1961 Nov 18 0832?	Reentered Earth atmosphere	1961 Nov 20	-	-	-	-	-	-	-	-	-
+S00207	-	00207	1961 A ZET 2	D	D  O        	deb Discoverer XXXV	1961 Nov 15	A00148	NRO/CIA	US	1961 Nov 15 2130?	Reentered Earth atmosphere	1961 Nov 23	-	-	-	-	-	-	-	-	-
+S00208	-	00208	1961 A IOT 1	P	PP-H        	Mercury MA-5	1961 Nov 29	S00209	NASA	US	1961 Nov 29 1513:00	Landed on Earth	1961 Nov 29 1828:56	-	-	-	-	-	-	-	-	-
+S00209	-	00209	1961 A IOT 2	R	R1          	Atlas 93D	1961 Nov 29	-	NASA	US	1961 Nov 29 1512:57	Reentered Earth atmosphere	1961 Nov 30	-	-	-	-	-	-	-	-	-
+S00210	-	00210	1961 OMI 53	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     103.827 	     898	 	     980	 	 66.46 	 	LEO/I
+S00211	-	00211	1961 OMI 54	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2002 Oct 17	-	-	-	-	-	-	-	-	-
+S00212	-	00212	1961 OMI 55	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1988 Aug 11	-	-	-	-	-	-	-	-	-
+S00213	-	00213	1961 A KAP 1	P	P A         	Discoverer 36	1961 Dec 12	A00158	NRO/CIA	US	1961 Dec 12 2047	Reentered attached to A00158 Agena B 1119	1962 Mar  8	-	-	-	-	-	-	-	-	-
+S00214	-	00214	1961 A KAP 2	P	P           	OSCAR 1	1961 Dec 12	A00158	OSCAR	US	1961 Dec 12 2100?	Reentered Earth atmosphere	1962 Jan 31	-	-	-	-	-	-	-	-	-
+S00215	-	00215	1961 A KAP 3	C	C  F        	Discoverer XXXVI inst cover	1961 Dec 12	A00158	AFSSD	US	1961 Dec 12 2100?	Reentered Earth atmosphere	1961 Dec 19	-	-	-	-	-	-	-	-	-
+S00216	-	00216	1961 OMI 56	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1989 Nov 13	-	-	-	-	-	-	-	-	-
+S00217	-	00217	1961 A LAM 1	C	C  T        	Samos 5 Reflector	1961 Dec 22	S00219	SAFSP	US	1961 Dec 23 0500?	Reentered Earth atmosphere	1962 Aug 14	-	-	-	-	-	-	-	-	-
+S00218	-	00218	1961 A LAM 2	P	PXA         	S.T. LOW	1961 Dec 22	A00163	SAFSP	US	1961 Dec 22 1921	Reentered attached to A00163 Agena B 2203	1961 Dec 31	-	-	-	-	-	-	-	-	-
+S00219	-	00219	1961 A LAM 3	P	P           	Samos 5	1961 Dec 22	A00163	SAFSP	US	1961 Dec 23 0500?	Reentered Earth atmosphere	1962 Jan  9	-	-	-	-	-	-	-	-	-
+S00220	-	00220	1961 OMI 57	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1966 Feb 21	-	-	-	-	-	-	-	-	-
+S00221	D00019	00221	1962 ALP 1	P	P   D       	Ranger 3	1962 Jan 26	S00222	NASA/JPL	US	1962 Jan 26 2050	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00222	D00020	00222	1962 ALP 2	R	R2  D       	Agena B 6003	1962 Jan 26	R05581	MSFC	US	1962 Jan 26 2037	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00223	-	00223	1961 OMI 58	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     103.690 	     884	 	     981	 	 66.89 	 	LEO/I
+S00224	-	00224	1961 OMI 59	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.191 	     820	 	     904	 	 66.74 	 	LEO/I
+S00225	-	00225	1961 OMI 60	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     100.488 	     700	 	     862	 	 66.80 	 	LEO/I
+S00226	-	00226	1962 BET 1	P	P           	Tiros 4	1962 Feb  8	S00229	GSFC	US	1962 Feb  8 1307	In Earth orbit	-	2023 Jun 23 	      99.581 	     683	 	     793	 	 48.30 	 	LEO/I
+S00227	-	00227	1962 BET 2	C	C  Y        	Tiros 4 despin weight	1962 Feb  8	S00226	GSFC	US	1962 Feb  8 1310	In Earth orbit	-	2023 Jun 22 	     100.079 	     668	 	     856	 	 48.15 	 	LEO/I
+S00228	-	00228	1962 BET 3	C	C  Y        	Tiros 4 despin weight	1962 Feb  8	S00226	GSFC	US	1962 Feb  8 1310	In Earth orbit	-	2023 Jun 22 	      95.540 	     536	 	     553	 	 48.43 	 	LLEO/I
+S00229	-	00229	1962 BET 4	R	R3          	Delta 7 Stage 3	1962 Feb  8	R05604	GSFC	US	1962 Feb  8 1256	Reentered Earth atmosphere	2002 Aug 10 0220?	-	-	-	-	-	-	-	-	-
+S00230	-	00230	1961 OMI 61	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     103.129 	     833	 	     979	 	 66.88 	 	LEO/I
+S00231	-	00231	1961 OMI 62	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1965 Feb 13	-	-	-	-	-	-	-	-	-
+S00232	-	00232	1961 OMI 63	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.879 	     853	 	     935	 	 66.82 	 	LEO/I
+S00233	-	00233	1961 OMI 64	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      97.970 	     636	 	     686	 	 66.85 	 	LEO/I
+S00234	-	00234	1961 OMI 65	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     102.655 	     830	 	     938	 	 66.88 	 	LEO/I
+S00235	-	00235	1961 OMI 66	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.172 	     747	 	     975	 	 66.95 	 	LEO/I
+S00236	-	00236	1961 OMI 67	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1969 May 13	-	-	-	-	-	-	-	-	-
+S00237	-	00237	1961 OMI 68	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1969 Apr 12	-	-	-	-	-	-	-	-	-
+S00238	-	00238	1961 OMI 69	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1969 Dec  7	-	-	-	-	-	-	-	-	-
+S00239	-	00239	1961 OMI 70	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1967 Jun 17	-	-	-	-	-	-	-	-	-
+S00240	-	00240	1962 GAM 1	P	PH H        	Friendship Seven	1962 Feb 20	S00241	NASA	US	1962 Feb 20 1452:42	Landed on Earth	1962 Feb 20 1943:02	-	-	-	-	-	-	-	-	-
+S00241	-	00241	1962 GAM 2	R	R1          	Atlas D 109D	1962 Feb 20	-	NASA	US	1962 Feb 20 1452:40	Reentered Earth atmosphere	1962 Feb 20	-	-	-	-	-	-	-	-	-
+S00242	-	00242	1962 DEL	P	P A         	FTV 2301	1962 Feb 21	A00170	NRO/SAFSP	US	1962 Feb 21 1851	Reentered attached to A00170 Agena B 2301	1962 Mar  9	-	-	-	-	-	-	-	-	-
+S00243	-	00243	1961 OMI 71	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     102.965 	     884	 	     913	 	 66.46 	 	LEO/I
+S00244	-	00244	1961 OMI 72	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     103.228 	     863	 	     959	 	 66.84 	 	LEO/I
+S00245	-	00245	1961 OMI 73	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     101.764 	     811	 	     873	 	 66.10 	 	LEO/I
+S00246	-	00246	1961 OMI 74	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	1994 May 10	-	-	-	-	-	-	-	-	-
+S00247	-	00247	1962 EPS 1	P	P A         	Discoverer 38	1962 Feb 27	A00171	NRO/CIA	US	1962 Feb 27 1946	Reentered attached to A00171 Agena B 1123	1962 Mar 21	-	-	-	-	-	-	-	-	-
+S00248	-	00248	1962 EPS 2	C	C  F        	Discoverer 38 camera door	1962 Feb 27	S00247	NRO/CIA	US	1962 Feb 27 1950?	Reentered Earth atmosphere	1962 Mar  3	-	-	-	-	-	-	-	-	-
+S00249	-	00249	1962 EPS 3	C	C  F        	Discoverer 38 camera door	1962 Feb 27	S00247	NRO/CIA	US	1962 Feb 27 1950?	Reentered Earth atmosphere	1962 Mar  3	-	-	-	-	-	-	-	-	-
+S00250	-	00250	1961 OMI 75	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Sep 13	-	-	-	-	-	-	-	-	-
+S00251	-	00251	1962 EPS 4	C	C  F        	Discoverer 38 camera door	1962 Feb 27	S00247	NRO/CIA	US	1962 Feb 27 1950?	Reentered Earth atmosphere	1962 Mar  7	-	-	-	-	-	-	-	-	-
+S00252	-	00252	1961 OMI 76	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     104.598 	     930	 	    1021	 	 67.08 	 	LEO/I
+S00253	-	00253	1961 OMI 77	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      98.127 	     643	 	     694	 	 66.93 	 	LEO/I
+S00254	-	00254	1961 OMI 78	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      99.678 	     692	 	     793	 	 66.78 	 	LEO/I
+S00255	-	00255	1962 ZET 1	P	P           	OSO 1	1962 Mar  7	S00257	GSFC	US	1962 Mar  7 1615?	Reentered Earth atmosphere	1981 Oct  8	-	-	-	-	-	-	-	-	-
+S00256	-	00256	1962 ETA 1	P	P           	Samos 6	1962 Mar  7	A00175	SAFSP	US	1962 Mar  9 2330?	Reentered Earth atmosphere	1963 Jun  7 2130?	-	-	-	-	-	-	-	-	-
+S00257	-	00257	1962 ZET 2	R	R3          	Delta 8 Stage 3	1962 Mar  7	R05683	GSFC	US	1962 Mar  7 1615?	Reentered Earth atmosphere	1970 May  3 0630?	-	-	-	-	-	-	-	-	-
+S00258	-	00258	1962 ETA 2	C	C  T        	Samos 6 Reflector	1962 Mar  7	S00259	SAFSP	US	1962 Mar  9 2330?	Reentered Earth atmosphere	1962 Mar 31	-	-	-	-	-	-	-	-	-
+S00259	-	00259	1962 ETA 3	P	PXA         	S.T. LOW	1962 Mar  7	A00175	SAFSP	US	1962 Mar  7 2219	Reentered attached to A00175 Agena B 2204	1962 Nov  3 0930?	-	-	-	-	-	-	-	-	-
+S00260	-	00260	1961 OMI 79	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     100.224 	     729	 	     808	 	 66.77 	 	LEO/I
+S00261	-	00261	1961 OMI 80	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     102.840 	     828	 	     957	 	 66.68 	 	LEO/I
+S00262	-	00262	1961 OMI 81	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      99.601 	     691	 	     787	 	 66.46 	 	LEO/I
+S00263	-	00263	1961 OMI 82	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      99.879 	     672	 	     832	 	 66.53 	 	LEO/I
+S00264	-	00264	1961 OMI 83	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     100.698 	     779	 	     803	 	 66.53 	 	LEO/I
+S00265	-	00265	1961 OMI 84	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1978 Oct 12	-	-	-	-	-	-	-	-	-
+S00266	-	00266	1962 THE 1	P	P           	Kosmos-1	1962 Mar 16	S00267	OKB586	SU	1962 Mar 16 1206	Reentered Earth atmosphere	1962 May 25	-	-	-	-	-	-	-	-	-
+S00267	-	00267	1962 THE 2	R	R2          	Kosmos 63S1 No. 6LK St 2	1962 Mar 16	R05705	RVSN	SU	1962 Mar 16 1206	Reentered Earth atmosphere	1962 Jun 18	-	-	-	-	-	-	-	-	-
+S00268	-	00268	1961 OMI 85	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     115.117 	     948	 	    1973	 	 67.94 	 	LEO/I
+S00269	-	00269	1962 IOT 1	P	P           	Kosmos-2	1962 Apr  6	S00270	OKB1	SU	1962 Apr  6 1722	Reentered Earth atmosphere	1963 Aug 20	-	-	-	-	-	-	-	-	-
+S00270	-	00270	1962 IOT 2	R	R2          	Kosmos 63S1 No. 5LK St 2	1962 Apr  6	R05776	RVSN	SU	1962 Apr  6 1722	Reentered Earth atmosphere	1962 Oct  6	-	-	-	-	-	-	-	-	-
+S00271	-	00271	1962 KAP 1	P	P A         	Midas 5	1962 Apr  9	A00178	SFSSC	US	1962 Apr  9 1514	Attached to A00178 Agena B 1203	-	-	-	-	-	-	-	-	-	-
+S00272	-	00272	1962 KAP 2	C	C  F        	Midas 5 Fairing	1962 Apr  9	A00178	AFSSD	US	1962 Apr  9 1514	Reentered Earth atmosphere	1962 May  4	-	-	-	-	-	-	-	-	-
+S00273	-	00273	1962 KAP 3	C	C  F        	Midas V solar array cover	1962 Apr  9	A00178	SFSSC	US	1962 Apr  9 1600?	In Earth orbit	-	2023 Jun 21 	     152.578 	    2787	 	    3373	 	 86.65 	 	MEO
+S00274	-	00274	1962 KAP 4	C	C  F        	Midas V solar array cover	1962 Apr  9	A00178	SFSSC	US	1962 Apr  9 1600?	In Earth orbit	-	2023 Jun 22 	     153.289 	    2764	 	    3454	 	 86.66 	 	MEO
+S00275	-	00275	1961 OMI 86	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2001 Dec  1	-	-	-	-	-	-	-	-	-
+S00276	-	00276	1962 LAM 1	P	P A         	Discoverer 39	1962 Apr 18	A00183	NRO/CIA	US	1962 Apr 18 0101	Reentered attached to A00183 Agena B 1124	1962 May 28	-	-	-	-	-	-	-	-	-
+S00277	-	00277	1962 LAM 2	C	C  F        	Discoverer 39 camera door	1962 Apr 18	S00276	NRO/CIA	US	1962 Apr 18 0102?	Reentered Earth atmosphere	1962 Apr 20	-	-	-	-	-	-	-	-	-
+S00278	-	00278	1962 LAM 3	C	C  F        	Discoverer 39 camera door	1962 Apr 18	S00276	NRO/CIA	US	1962 Apr 18 0102?	Reentered Earth atmosphere	1962 Apr 21	-	-	-	-	-	-	-	-	-
+S00279	-	00279	1962 LAM 4	C	C  F        	Discoverer 39 camera door	1962 Apr 18	S00276	NRO/CIA	US	1962 Apr 18 0102?	Reentered Earth atmosphere	1962 Apr 21	-	-	-	-	-	-	-	-	-
+S00280	D00024	00280	1962 MU 1	P	P   D       	Ranger 4	1962 Apr 23	S00282	NASA/JPL	US	1962 Apr 23 2105	Impacted Luna	1962 Apr 26 1250	-	-	-	-	-	-	-	-	-
+S00281	-	00281	1962 NU 1	P	P           	Kosmos-3	1962 Apr 24	S00283	OKB1	SU	1962 Apr 24 0407	Reentered Earth atmosphere	1962 Oct 17	-	-	-	-	-	-	-	-	-
+S00282	D00023	00282	1962 MU 2	R	R2  D       	Agena B 6004	1962 Apr 23	R05801	MSFC	US	1962 Apr 23 2057	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00283	-	00283	1962 NU 2	R	R2          	Kosmos 63S1 No. 4LK St 2	1962 Apr 24	R05803	RVSN	SU	1962 Apr 24 0407	Reentered Earth atmosphere	1962 Aug  5	-	-	-	-	-	-	-	-	-
+S00284	-	00284	1962 XI 2	R	R3          	Vostok 8K72 No. 20 Stage 3	1962 Apr 26	R05817	RVSN	SU	1962 Apr 26 1012	Reentered Earth atmosphere	1962 Jun 17	-	-	-	-	-	-	-	-	-
+S00285	-	00285	1962 OMI 1	P	P           	Ariel 1	1962 Apr 26	S00288	SRC	UK	1962 Apr 26 1828	Reentered Earth atmosphere	1976 May 24	-	-	-	-	-	-	-	-	-
+S00286	-	00286	1962 PI	P	P A         	FTV 2401	1962 Apr 26	A00192	SAFSP	US	1962 Apr 26 1905	Reentered attached to A00192 Agena B 2401	1962 Apr 28	-	-	-	-	-	-	-	-	-
+S00287	-	00287	1962 XI 1	P	P           	Kosmos-4	1962 Apr 26	S00284	OKB1	SU	1962 Apr 26 1012	Landed on Earth	1962 Apr 29 0910?	-	-	-	-	-	-	-	-	-
+S00288	-	00288	1962 OMI 2	R	R3          	Delta 9 Stage 3	1962 Apr 26	R05827	GSFC	US	1962 Apr 26 1811	Reentered Earth atmosphere	1971 Apr 28 1400?	-	-	-	-	-	-	-	-	-
+S00289	-	00289	1962 XI 3	D	D  O        	Kosmos-4 part	1962 Apr 26	S00287	OKB1	SU	1962 Apr 26 1012?	Reentered Earth atmosphere	1962 May  3	-	-	-	-	-	-	-	-	-
+S00290	-	00290	1962 RHO 1	P	P A         	FTV 1125	1962 Apr 29	A00194	NRO/CIA	US	1962 Apr 29 0037	Reentered attached to A00194 Agena B 1125	1962 May 26	-	-	-	-	-	-	-	-	-
+S00291	-	00291	1962 RHO 2	C	C  F        	CORONA camera door	1962 Apr 29	S00290	NRO/CIA	US	1962 Apr 29 0037?	Reentered Earth atmosphere	1962 May  1	-	-	-	-	-	-	-	-	-
+S00292	-	00292	1962 SIG 1	P	P A         	FTV 1126	1962 May 15	A00202	NRO/ACE	US	1962 May 15 1943	Reentered attached to A00202 Agena B 1126	1963 Nov 26	-	-	-	-	-	-	-	-	-
+S00293	-	00293	1962 SIG 2	C	C  F        	ARGON camera door	1962 May 15	S00292	AFSSD	US	1962 May 15 1943?	Reentered Earth atmosphere	1962 Jul  3	-	-	-	-	-	-	-	-	-
+S00294	-	00294	1962 SIG 3	C	C  F        	ARGON camera door	1962 May 15	S00292	AFSSD	US	1962 May 15 1943?	Reentered Earth atmosphere	1962 Jul 13	-	-	-	-	-	-	-	-	-
+S00295	-	00295	1962 TAU 1	P	PH H        	Aurora Seven	1962 May 24	S00296	MSC	US	1962 May 24 1250:30	Landed on Earth	1962 May 24 1741:21	-	-	-	-	-	-	-	-	-
+S00296	-	00296	1962 TAU 2	R	R1          	Atlas D 107D	1962 May 24	-	MSC	US	1962 May 24 1250:26	Reentered Earth atmosphere	1962 May 25	-	-	-	-	-	-	-	-	-
+S00297	-	00297	1962 UPS 1	P	P           	Kosmos-5	1962 May 28	S00298	OKB1	SU	1962 May 28 0307	Reentered Earth atmosphere	1963 May  2	-	-	-	-	-	-	-	-	-
+S00298	-	00298	1962 UPS 2	R	R2          	Kosmos 63S1 No. 3LK St 2	1962 May 28	R05915	RVSN	SU	1962 May 28 0307	Reentered Earth atmosphere	1962 Dec 15	-	-	-	-	-	-	-	-	-
+S00299	-	00299	1961 OMI 87	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     105.245 	     865	 	    1146	 	 67.17 	 	LEO/I
+S00300	-	00300	1961 OMI 88	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1979 Dec 15	-	-	-	-	-	-	-	-	-
+S00301	-	00301	1961 OMI 89	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Apr  8	-	-	-	-	-	-	-	-	-
+S00302	-	00302	1962 PHI 1	P	P A         	FTV 1128	1962 May 30	A00213	NRO/CIA	US	1962 May 30 0107	Reentered attached to A00213 Agena B 1128	1962 Jun 11	-	-	-	-	-	-	-	-	-
+S00303	-	00303	1962 PHI 2	C	C  F        	CORONA experiment door?	1962 May 30	A00213	NRO/CIA	US	1962 May 30 0107?	Reentered Earth atmosphere	1962 Jun  2	-	-	-	-	-	-	-	-	-
+S00304	-	00304	1962 CHI 1	P	P A         	FTV 1127	1962 Jun  2	A00215	NRO/CIA	US	1962 Jun  2 0034	Reentered attached to A00215 Agena B 1127	1962 Jun 28	-	-	-	-	-	-	-	-	-
+S00305	-	00305	1962 CHI 2	P	P           	OSCAR 2	1962 Jun  2	A00215	OSCAR	US	1962 Jun  2 0100?	Reentered Earth atmosphere	1962 Jun 21	-	-	-	-	-	-	-	-	-
+S00306	-	00306	1962 CHI 3	C	C  F        	CORONA experiment door?	1962 Jun  2	A00215	NRO/CIA	US	1962 Jun  2 0100?	Reentered Earth atmosphere	1962 Jun  6	-	-	-	-	-	-	-	-	-
+S00307	-	00307	1962 PSI	P	P A         	FTV 2402	1962 Jun 17	A00221	SAFSP	US	1962 Jun 17 1823	Reentered attached to A00221 Agena B 2402	1962 Jun 18 1750?	-	-	-	-	-	-	-	-	-
+S00308	-	00308	1962 OME 1	P	P A         	FTV 2312	1962 Jun 18	A00223	NRO/SAFSP	US	1962 Jun 18 2027	Reentered attached to A00223 Agena B 2312	1963 Oct 30	-	-	-	-	-	-	-	-	-
+S00309	-	00309	1962 A ALP 1	P	P           	Tiros 5	1962 Jun 19	S00311	GSFC	US	1962 Jun 19 1242?	In Earth orbit	-	2023 Jun 23 	      98.779 	     566	 	     833	 	 58.09 	 	LEO/I
+S00310	-	00310	1962 OME 2	C	C  F        	deb USAF satellite/Agena B	1962 Jun 18	S00308	SAFSP	US	1962 Jun 18 2030?	Reentered Earth atmosphere	1962 Jul 12	-	-	-	-	-	-	-	-	-
+S00311	-	00311	1962 A ALP 2	R	R3          	Delta 10 Stage 3	1962 Jun 19	R06023	GSFC	US	1962 Jun 19 1232?	Reentered Earth atmosphere	1990 Nov 28	-	-	-	-	-	-	-	-	-
+S00312	-	00312	1962 A ALP 3	C	C  Y        	Tiros 5 despin weight	1962 Jun 19	S00309	GSFC	US	1962 Jun 19 1245?	In Earth orbit	-	2023 Jun 21 	      98.890 	     563	 	     847	 	 58.25 	 	LEO/I
+S00313	-	00313	1962 A ALP 4	C	C  Y        	Tiros 5 despin weight	1962 Jun 19	S00309	GSFC	US	1962 Jun 19 1245?	Reentered Earth atmosphere	1992 Mar  2	-	-	-	-	-	-	-	-	-
+S00314	-	00314	1962 OME 3	C	C  F        	deb USAF satellite/Agena B	1962 Jun 18	S00308	SAFSP	US	1962 Jun 18 2030?	Reentered Earth atmosphere	1962 Jul 14	-	-	-	-	-	-	-	-	-
+S00315	-	00315	1962 A BET	P	P A         	FTV 1129	1962 Jun 23	A00224	NRO/CIA	US	1962 Jun 23 0037	Reentered attached to A00224 Agena B 1129	1962 Jul  7	-	-	-	-	-	-	-	-	-
+S00316	-	00316	1962 A GAM	P	P A         	FTV 1151	1962 Jun 28	A00228	NRO/CIA	US	1962 Jun 28 0116	Reentered attached to A00228 Agena D 1151	1962 Sep 14	-	-	-	-	-	-	-	-	-
+S00317	-	00317	1961 OMI 90	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Jan 11	-	-	-	-	-	-	-	-	-
+S00318	-	00318	1961 OMI 91	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      96.335 	     547	 	     618	 	 66.54 	 	LLEO/I
+S00319	-	00319	1961 OMI 92	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Jul 23	-	-	-	-	-	-	-	-	-
+S00320	-	00320	1961 OMI 93	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     100.853 	     704	 	     893	 	 66.91 	 	LEO/I
+S00321	-	00321	1961 OMI 94	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1969 Feb 26	-	-	-	-	-	-	-	-	-
+S00322	-	00322	1961 OMI 95	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1969 Jun  6	-	-	-	-	-	-	-	-	-
+S00323	-	00323	1961 OMI 96	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.831 	     791	 	     899	 	 66.85 	 	LEO/I
+S00324	-	00324	1961 OMI 97	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     102.048 	     811	 	     900	 	 66.87 	 	LEO/I
+S00325	-	00325	1961 OMI 98	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     101.444 	     787	 	     866	 	 66.92 	 	LEO/I
+S00326	-	00326	1961 OMI 99	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1979 Oct  7	-	-	-	-	-	-	-	-	-
+S00327	-	00327	1961 OMI 100	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     103.595 	     850	 	    1006	 	 66.54 	 	LEO/I
+S00328	-	00328	1961 OMI 101	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1970 May  3	-	-	-	-	-	-	-	-	-
+S00329	-	00329	1961 OMI 102	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     105.452 	     930	 	    1101	 	 66.78 	 	LEO/I
+S00330	-	00330	1961 OMI 103	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     102.598 	     839	 	     923	 	 66.98 	 	LEO/I
+S00331	-	00331	1961 OMI 104	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1989 Mar 24	-	-	-	-	-	-	-	-	-
+S00332	-	00332	1961 OMI 105	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1970 Sep 20	-	-	-	-	-	-	-	-	-
+S00333	-	00333	1961 OMI 106	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      98.479 	     654	 	     717	 	 66.71 	 	LEO/I
+S00334	-	00334	1961 OMI 107	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     103.492 	     866	 	     981	 	 66.92 	 	LEO/I
+S00335	-	00335	1961 OMI 108	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.499 	     794	 	     864	 	 66.84 	 	LEO/I
+S00336	-	00336	1961 OMI 109	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     105.211 	     944	 	    1064	 	 67.03 	 	LEO/I
+S00337	-	00337	1961 OMI 110	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     104.724 	     902	 	    1060	 	 67.01 	 	LEO/I
+S00338	-	00338	1962 A DEL 1	P	P           	Kosmos-6	1962 Jun 30	S00339	OKB586/PVO	SU	1962 Jun 30 1607	Reentered Earth atmosphere	1962 Sep  8	-	-	-	-	-	-	-	-	-
+S00339	-	00339	1962 A DEL 2	R	R2          	Kosmos 63S1 (N07) Stage 2	1962 Jun 30	R06060	RVSN	SU	1962 Jun 30 1607	Reentered Earth atmosphere	1962 Aug  8	-	-	-	-	-	-	-	-	-
+S00340	-	00340	1962 A EPS 1	P	P           	Telstar 1	1962 Jul 10	S00341	ATT	US	1962 Jul 10 0846	In Earth orbit	-	2023 Jun 21 	     157.744 	     947	 	    5637	 	 44.79 	 	MEO
+S00341	-	00341	1962 A EPS 2	R	R3          	Delta 11 Stage 3	1962 Jul 10	R06167	GSFC	US	1962 Jul 10 0846	In Earth orbit	-	2023 Jun 21 	     157.504 	     951	 	    5613	 	 44.81 	 	MEO
+S00342	-	00342	1962 A ZET 1	P	P A         	FTV 2403	1962 Jul 18	A00232	SAFSP	US	1962 Jul 18 2100	Reentered attached to A00232 Agena B 2403	1962 Jul 25	-	-	-	-	-	-	-	-	-
+S00343	-	00343	1962 A ZET 2	P	PX-R---     	FTV 2403 RV	1962 Jul 18	S00342	SAFSP	US	1962 Jul 19 2040?	Reentered Earth atmosphere	1962 Jul 27	-	-	-	-	-	-	-	-	-
+S00344	-	00344	1962 A ETA	P	P A         	FTV 1130	1962 Jul 21	A00233	NRO/CIA	US	1962 Jul 21 0103	Reentered attached to A00233 Agena B 1130	1962 Aug 14	-	-	-	-	-	-	-	-	-
+S00345	-	00345	1962 A THE	P	P A         	FTV 1131	1962 Jul 28	A00237	NRO/CIA	US	1962 Jul 28 0037	Reentered attached to A00237 Agena B 1131	1962 Aug 24	-	-	-	-	-	-	-	-	-
+S00346	-	00346	1962 A IOT 1	P	P           	Kosmos-7	1962 Jul 28	S00347	OKB1	SU	1962 Jul 28 0929	Landed on Earth	1962 Aug  1 0815?	-	-	-	-	-	-	-	-	-
+S00347	-	00347	1962 A IOT 2	R	R3          	Vostok-2 (N02) Stage 3	1962 Jul 28	R06252	RVSN	SU	1962 Jul 28 0929	Reentered Earth atmosphere	1962 Aug 21	-	-	-	-	-	-	-	-	-
+S00348	-	00348	1962 A IOT 3	C	C  F        	Kosmos-7 sensor cover?	1962 Jul 28	S00346	OKB1	SU	1962 Jul 28 0930?	Reentered Earth atmosphere	1962 Jul 31	-	-	-	-	-	-	-	-	-
+S00349	-	00349	1962 A IOT 4	C	C  F        	Kosmos-7 sensor cover?	1962 Jul 28	S00346	OKB1	SU	1962 Jul 28 0930?	Reentered Earth atmosphere	1962 Jul 30	-	-	-	-	-	-	-	-	-
+S00350	-	00350	1961 OMI 111	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     101.322 	     724	 	     918	 	 66.91 	 	LEO/I
+S00351	-	00351	1961 OMI 112	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      98.715 	     681	 	     713	 	 66.75 	 	LEO/I
+S00352	-	00352	1961 OMI 113	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1966 Dec 10	-	-	-	-	-	-	-	-	-
+S00353	-	00353	1961 OMI 114	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      91.403 	     324	 	     362	 	 66.47 	 	LLEO/I
+S00354	-	00354	1961 OMI 115	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     106.777 	     951	 	    1203	 	 67.07 	 	LEO/I
+S00355	-	00355	1961 OMI 116	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     108.053 	     945	 	    1327	 	 67.22 	 	LEO/I
+S00356	-	00356	1961 OMI 117	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Feb  2	-	-	-	-	-	-	-	-	-
+S00357	-	00357	1961 OMI 118	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.458 	     859	 	     890	 	 66.81 	 	LEO/I
+S00358	-	00358	1961 OMI 119	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1966 Aug 31	-	-	-	-	-	-	-	-	-
+S00359	-	00359	1961 OMI 120	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1965 Aug 31	-	-	-	-	-	-	-	-	-
+S00360	-	00360	1962 A KAP 1	P	P A         	FTV 1152	1962 Aug  2	A00241	NRO/CIA	US	1962 Aug  2 0024	Reentered attached to A00241 Agena D 1152	1962 Aug 26	-	-	-	-	-	-	-	-	-
+S00361	-	00361	1962 A LAM	P	P A         	FTV 2404	1962 Aug  5	A00243	SAFSP	US	1962 Aug  5 1807	Reentered attached to A00243 Agena B 2404	1962 Aug  6 1840?	-	-	-	-	-	-	-	-	-
+S00362	-	00362	1962 A KAP 2	C	C  F        	deb USAF satellite/Agena D	1962 Aug  2	A00241	NRO/CIA	US	1962 Aug  2 0030?	Reentered Earth atmosphere	1962 Aug  8	-	-	-	-	-	-	-	-	-
+S00363	-	00363	1962 A MU 1	P	PH H        	Vostok-3	1962 Aug 11	S00364	OKB1	SU	1962 Aug 11 0841	Landed on Earth	1962 Aug 15 0644	-	-	-	-	-	-	-	-	-
+S00364	-	00364	1962 A MU 2	R	R3          	Vostok 8K72 No. 23 Stage 3	1962 Aug 11	R06312	RVSN	SU	1962 Aug 11 0841	Reentered Earth atmosphere	1962 Aug 14	-	-	-	-	-	-	-	-	-
+S00365	-	00365	1962 A NU 1	P	PH H        	Vostok-4	1962 Aug 12	S00366	OKB1	SU	1962 Aug 12 0813	Landed on Earth	1962 Aug 15 0651	-	-	-	-	-	-	-	-	-
+S00366	-	00366	1962 A NU 2	R	R3          	Vostok 8K72 No. 22 Stage 3	1962 Aug 12	R06315	RVSN	SU	1962 Aug 12 0813	Reentered Earth atmosphere	1962 Aug 14	-	-	-	-	-	-	-	-	-
+S00367	-	00367	1962 A XI 1	P	P           	Kosmos-8	1962 Aug 18	S00368	OKB586	SU	1962 Aug 18 0507	Reentered Earth atmosphere	1963 Aug 17	-	-	-	-	-	-	-	-	-
+S00368	-	00368	1962 A XI 2	R	R2          	Kosmos 63S1 (N08) Stage 2	1962 Aug 18	R06326	RVSN	SU	1962 Aug 18 0507	Reentered Earth atmosphere	1962 Dec 19	-	-	-	-	-	-	-	-	-
+S00369	-	00369	1962 A OMI 1	P	P           	FTV 3502	1962 Aug 23	S00388	NROC	US	1962 Aug 23 1143?	In Earth orbit	-	2023 Jun 22 	      96.911 	     547	 	     673	 	 98.53 	 	LEO/S
+S00370	-	00370	1962 A OMI 2	C	C  Y        	P35 despin weight	1962 Aug 23	S00369	SAFSP	US	1962 Aug 23 1150?	Reentered Earth atmosphere	1980 Mar  2	-	-	-	-	-	-	-	-	-
+S00371	-	00371	1962 A PI 1	P	P A         	AMS	1962 Aug 25	A00249	OKB1	SU	1962 Aug 25 0320	Reentered attached to A00249 Blok-L No. T103-12	1962 Aug 28	-	-	-	-	-	-	-	-	-
+S00372	-	00372	1962 A PI 2	R	R3          	Molniya 8K78 T103-12 Blok-I	1962 Aug 25	R06349	RVSN	SU	1962 Aug 25 0227	Reentered Earth atmosphere	1962 Sep  2	-	-	-	-	-	-	-	-	-
+S00373	-	00373	1962 A PI 3	C	C  M        	BOZ	1962 Aug 25	A00249	RVSN	SU	1962 Aug 25 0319	Reentered Earth atmosphere	1962 Aug 31	-	-	-	-	-	-	-	-	-
+S00374	D00028	00374	1962 A RHO 1	P	P   D       	Mariner 2	1962 Aug 27	S00375	NASA/JPL	US	1962 Aug 27 0721	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00375	D00027	00375	1962 A RHO 2	R	R2  D       	Agena B 6902	1962 Aug 27	R06356	MSFC	US	1962 Aug 27 0700	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00376	-	00376	1962 A PI 6	D	D  O        	deb Sputnik	1962 Aug 25	A00249	OKB1	SU	1962 Aug 25 0320?	Reentered Earth atmosphere	1962 Sep  6	-	-	-	-	-	-	-	-	-
+S00377	-	00377	1962 A SIG	P	P A         	FTV 1153	1962 Aug 29	A00251	NRO/CIA	US	1962 Aug 29 0107	Reentered attached to A00251 Agena D 1153	1962 Sep 10	-	-	-	-	-	-	-	-	-
+S00378	-	00378	1962 A OMI 3	C	C  Y        	P35 despin weight	1962 Aug 23	S00369	SAFSP	US	1962 Aug 23 1150?	Reentered Earth atmosphere	1992 Aug 12	-	-	-	-	-	-	-	-	-
+S00379	-	00379	1962 A PI 4	D	D  O        	deb Sputnik	1962 Aug 25	A00249	OKB1	SU	1962 Aug 25 0320?	Reentered Earth atmosphere	1962 Sep  5	-	-	-	-	-	-	-	-	-
+S00380	-	00380	1962 A PI 5	D	D  O        	deb Sputnik	1962 Aug 25	A00249	OKB1	SU	1962 Aug 25 0320?	Reentered Earth atmosphere	1962 Aug 30	-	-	-	-	-	-	-	-	-
+S00381	-	00381	1962 A TAU 1	P	P A         	AMS	1962 Sep  1	A00256	OKB1	SU	1962 Sep  1 0314	Reentered attached to A00256 Blok-L No. T103-13	1962 Sep  6	-	-	-	-	-	-	-	-	-
+S00382	-	00382	1962 A TAU 2	R	R3          	Molniya 8K78 T103-13 Blok-I	1962 Sep  1	R06390	RVSN	SU	1962 Sep  1 0221	Reentered Earth atmosphere	1962 Sep  3	-	-	-	-	-	-	-	-	-
+S00383	-	00383	1962 A TAU 3	C	C  M        	BOZ	1962 Sep  1	A00256	RVSN	SU	1962 Sep  1 0312	Reentered Earth atmosphere	1962 Oct  1	-	-	-	-	-	-	-	-	-
+S00384	-	00384	1962 A TAU 4	D	D  O        	deb Sputnik	1962 Sep  1	A00256	OKB1	SU	1962 Sep  1 0312?	Reentered Earth atmosphere	1962 Sep 21	-	-	-	-	-	-	-	-	-
+S00385	-	00385	1962 A UPS	P	P A         	FTV 1132	1962 Sep  1	A00258	NRO/ACE	US	1962 Sep  1 2046	Reentered attached to A00258 Agena B 1132	1964 Oct 26 0930?	-	-	-	-	-	-	-	-	-
+S00386	-	00386	1962 A PI 7	D	D  O        	deb Sputnik	1962 Aug 25	A00249	OKB1	SU	1962 Aug 25 0320?	Reentered Earth atmosphere	1962 Sep  8	-	-	-	-	-	-	-	-	-
+S00387	-	00387	1962 A PI 8	D	D  O        	deb Sputnik	1962 Aug 25	A00249	OKB1	SU	1962 Aug 25 0320?	Reentered Earth atmosphere	1962 Sep  5	-	-	-	-	-	-	-	-	-
+S00388	-	00388	1962 A OMI 4	R	R4          	Scout S117 Stage 4	1962 Aug 23	R06338	LARCN	US	1962 Aug 23 1143?	Reentered Earth atmosphere	1999 May  3	-	-	-	-	-	-	-	-	-
+S00389	-	00389	1962 A PHI 1	P	P A         	AMS	1962 Sep 12	A00264	OKB1	SU	1962 Sep 12 0200	Reentered attached to A00264 Blok-L No. T103-14	1962 Sep 14	-	-	-	-	-	-	-	-	-
+S00390	-	00390	1962 A PHI 2	R	R3          	Molniya 8K78 T103-14 Blok-I	1962 Sep 12	R06403	RVSN	SU	1962 Sep 12 0108	Reentered Earth atmosphere	1962 Sep 12	-	-	-	-	-	-	-	-	-
+S00391	-	00391	1962 A PHI 3	C	C  M        	BOZ	1962 Sep 12	A00264	RVSN	SU	1962 Sep 12 0200	Reentered Earth atmosphere	1962 Sep 17	-	-	-	-	-	-	-	-	-
+S00392	-	00392	1962 A PHI 4	D	D  O        	deb Sputnik	1962 Sep 12	S00390	OKB1	SU	1962 Sep 12 0108	Reentered Earth atmosphere	1962 Sep 13	-	-	-	-	-	-	-	-	-
+S00393	-	00393	1962 A PHI 5	D	D  O        	deb Sputnik	1962 Sep 12	S00390	OKB1	SU	1962 Sep 12 0108	Reentered Earth atmosphere	1962 Sep 13	-	-	-	-	-	-	-	-	-
+S00394	-	00394	1962 A PHI 6	D	D  O        	deb Sputnik	1962 Sep 12	S00390	OKB1	SU	1962 Sep 12 0108	Reentered Earth atmosphere	1962 Sep 16	-	-	-	-	-	-	-	-	-
+S00395	-	00395	1962 A PHI 7	D	D  O        	deb Sputnik	1962 Sep 12	S00390	OKB1	SU	1962 Sep 12 0108	Reentered Earth atmosphere	1962 Sep 15	-	-	-	-	-	-	-	-	-
+S00396	-	00396	1962 A CHI	P	P A         	FTV 1133	1962 Sep 17	A00265	NRO/CIA	US	1962 Sep 17 2353	Reentered attached to A00265 Agena B 1133	1962 Nov 19	-	-	-	-	-	-	-	-	-
+S00397	-	00397	1962 A PSI 1	P	P           	Tiros 6	1962 Sep 18	S00398	GSFC	US	1962 Sep 18 0914?	In Earth orbit	-	2023 Jun 23 	      96.636 	     587	 	     608	 	 58.30 	 	LLEO/I
+S00398	-	00398	1962 A PSI 2	R	R3          	Delta 12 Stage 3	1962 Sep 18	R06420	GSFC	US	1962 Sep 18 0904	Reentered Earth atmosphere	1983 Jan 10	-	-	-	-	-	-	-	-	-
+S00399	-	00399	1962 A PSI 3	C	C  Y        	Tiros VI despin weight	1962 Sep 18	S00397	GSFC	US	1962 Sep 18 0916?	Reentered Earth atmosphere	2019 Jan 11	-	-	-	-	-	-	-	-	-
+S00400	-	00400	1962 A PSI 4	C	C  Y        	Tiros VI despin weight	1962 Sep 18	S00397	GSFC	US	1962 Sep 18 0916?	Reentered Earth atmosphere	1989 Apr  5	-	-	-	-	-	-	-	-	-
+S00401	-	00401	1961 OMI 121	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1989 Jan 25	-	-	-	-	-	-	-	-	-
+S00402	-	00402	1961 OMI 122	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      99.579 	     716	 	     760	 	 66.66 	 	LEO/I
+S00403	-	00403	1961 OMI 123	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     104.280 	     941	 	     979	 	 66.84 	 	LEO/I
+S00404	-	00404	1961 OMI 124	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     111.537 	     872	 	    1722	 	 66.47 	 	LEO/I
+S00405	-	00405	1961 OMI 125	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     105.411 	     947	 	    1080	 	 66.89 	 	LEO/I
+S00406	-	00406	1961 OMI 126	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     105.284 	     923	 	    1092	 	 66.78 	 	LEO/I
+S00407	-	00407	1961 OMI 127	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      98.854 	     646	 	     760	 	 66.33 	 	LEO/I
+S00408	-	00408	1961 OMI 128	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     104.680 	     933	 	    1025	 	 66.78 	 	LEO/I
+S00409	-	00409	1961 OMI 129	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.090 	     756	 	     864	 	 66.72 	 	LEO/I
+S00410	-	00410	1961 OMI 130	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     104.631 	     965	 	     988	 	 66.69 	 	LEO/I
+S00411	-	00411	1961 OMI 131	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1978 Jun 20	-	-	-	-	-	-	-	-	-
+S00412	-	00412	1961 OMI 132	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1980 Jun 30	-	-	-	-	-	-	-	-	-
+S00413	-	00413	1961 OMI 133	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1989 Dec  2	-	-	-	-	-	-	-	-	-
+S00414	-	00414	1961 OMI 134	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     104.558 	     943	 	    1003	 	 66.44 	 	LEO/I
+S00415	-	00415	1961 OMI 135	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1989 May 27	-	-	-	-	-	-	-	-	-
+S00416	-	00416	1961 OMI 136	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     101.910 	     793	 	     904	 	 66.52 	 	LEO/I
+S00417	-	00417	1961 OMI 137	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.541 	     781	 	     882	 	 66.75 	 	LEO/I
+S00418	-	00418	1961 OMI 138	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1991 Nov  5	-	-	-	-	-	-	-	-	-
+S00419	-	00419	1961 OMI 139	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2014 Dec  9	-	-	-	-	-	-	-	-	-
+S00420	-	00420	1961 OMI 140	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     100.698 	     723	 	     859	 	 66.81 	 	LEO/I
+S00421	-	00421	1961 OMI 141	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1984 Oct  2	-	-	-	-	-	-	-	-	-
+S00422	-	00422	1962 A OME 1	P	P           	Kosmos-9	1962 Sep 27	S00423	OKB1	SU	1962 Sep 27 0949	Landed on Earth	1962 Oct  1 0923	-	-	-	-	-	-	-	-	-
+S00423	-	00423	1962 A OME 2	R	R3          	Vostok-2 (N03) Stage 3	1962 Sep 27	R06445	RVSN	SU	1962 Sep 27 0949	Reentered Earth atmosphere	1962 Dec 22	-	-	-	-	-	-	-	-	-
+S00424	-	00424	1962 B ALP 1	P	P           	Alouette 1	1962 Sep 29	A00270	CRC	CA	1962 Sep 29 0700	In Earth orbit	 -	2023 Jun 22 	     105.165 	     984	 	    1019	 	 80.47 	 	LEO/I
+S00425	-	00425	1962 A OME 3	C	C  F        	Kosmos-9 sensor cover	1962 Sep 27	S00422	OKB1	SU	1962 Sep 27 0950?	Reentered Earth atmosphere	1962 Oct  6	-	-	-	-	-	-	-	-	-
+S00426	-	00426	1962 B ALP 2	P	P A         	TAVE	1962 Sep 29	A00270	GSFC	US	1962 Sep 29 0612	Attached to A00270 Agena B 6101	-	-	-	-	-	-	-	-	-	-
+S00427	-	00427	1962 B BET	P	P A         	FTV 1154	1962 Sep 29	A00271	NRO/CIA	US	1962 Sep 29 2342	Reentered attached to A00271 Agena D 1154	1962 Oct  8	-	-	-	-	-	-	-	-	-
+S00428	-	00428	1962 A OME 4	D	D  O        	deb Kosmos-9	1962 Sep 27	S00422	OKB1	SU	1962 Sep 27 0950?	Reentered Earth atmosphere	1962 Oct  8	-	-	-	-	-	-	-	-	-
+S00429	-	00429	1962 A OME 5	D	D  O        	deb Kosmos-9	1962 Sep 27	S00422	OKB1	SU	1962 Sep 27 0950?	Reentered Earth atmosphere	1962 Oct  4	-	-	-	-	-	-	-	-	-
+S00430	-	00430	1962 A OME 6	D	D  O        	deb Kosmos-9	1962 Sep 27	S00422	OKB1	SU	1962 Sep 27 0950?	Reentered Earth atmosphere	1962 Oct  8	-	-	-	-	-	-	-	-	-
+S00431	-	00431	1962 A OME 7	D	D  O        	deb Kosmos-9	1962 Sep 27	S00422	OKB1	SU	1962 Sep 27 0950?	Reentered Earth atmosphere	1962 Oct  3	-	-	-	-	-	-	-	-	-
+S00432	-	00432	1962 B GAM 1	P	P           	Explorer 14	1962 Oct  2	S26558	GSFC	US	1962 Oct  2 2225?	Reentered Earth atmosphere	1965?	-	-	-	-	-	-	-	-	-
+S00433	-	00433	1962 B DEL 1	P	PH H        	Sigma Seven	1962 Oct  3	S00434	MSC	US	1962 Oct  3 1220:29	Landed on Earth	1962 Oct  3 2128:22	-	-	-	-	-	-	-	-	-
+S00434	-	00434	1962 B DEL 2	R	R1          	Atlas D 113D	1962 Oct  3	-	MSC	US	1962 Oct  3 1220:26	Reentered Earth atmosphere	1962 Oct  4	-	-	-	-	-	-	-	-	-
+S00435	-	00435	1962 A OME 8	D	D  O        	deb Kosmos-9	1962 Sep 27	S00422	OKB1	SU	1962 Sep 27 0950?	Reentered Earth atmosphere	1962 Oct  6	-	-	-	-	-	-	-	-	-
+S00436	-	00436	1962 B EPS	P	P A         	FTV 1134	1962 Oct  9	A00283	NRO/ACE	US	1962 Oct  9 1842	Reentered attached to A00283 Agena B 1134	1962 Nov 16	-	-	-	-	-	-	-	-	-
+S00437	-	00437	1962 B ZET 1	P	P           	Kosmos-10	1962 Oct 17	S00438	OKB1	SU	1962 Oct 17 0909	Landed on Earth	1962 Oct 21 0750	-	-	-	-	-	-	-	-	-
+S00438	-	00438	1962 B ZET 2	R	R3          	Vostok-2 (N04) Stage 3	1962 Oct 17	R06544	RVSN	SU	1962 Oct 17 0909	Reentered Earth atmosphere	1962 Nov  5	-	-	-	-	-	-	-	-	-
+S00439	D00030	00439	1962 B ETA 1	P	P   D       	Ranger 5	1962 Oct 18	S00440	NASA/JPL	US	1962 Oct 18 1737	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00440	D00029	00440	1962 B ETA 2	R	R2  D       	Agena B 6005	1962 Oct 18	R06557	MSFC	US	1962 Oct 18 1707	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00441	-	00441	1962 B THE 1	P	P           	Kosmos-11	1962 Oct 20	S00442	OKB586	SU	1962 Oct 20 0407	Reentered Earth atmosphere	1964 May 18	-	-	-	-	-	-	-	-	-
+S00442	-	00442	1962 B THE 2	R	R2          	Kosmos 63S1 (N09) Stage 2	1962 Oct 20	R06566	RVSN	SU	1962 Oct 20 0407	Reentered Earth atmosphere	1963 Jun  6	-	-	-	-	-	-	-	-	-
+S00443	-	00443	1962 B IOT 1	P	P           	AMS	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Oct 29	-	-	-	-	-	-	-	-	-
+S00444	-	00444	1962 B KAP	P	P A         	Starad	1962 Oct 26	A00290	NRO/CIA	US	1962 Oct 26 1621	Reentered attached to A00290 Agena D 1401	1967 Oct  5 1615?	-	-	-	-	-	-	-	-	-
+S00445	-	00445	1962 B LAM 1	P	P           	Explorer 15	1962 Oct 27	S04924	GSFC	US	1962 Oct 27 2329?	Reentered Earth atmosphere	1978 Jan 15	-	-	-	-	-	-	-	-	-
+S00446	-	00446	1962 B MU 1	P	P           	ANNA 1B	1962 Oct 31	S00447	NAVAIR	US	1962 Oct 31 0840?	In Earth orbit	-	2023 Jun 22 	     107.841 	    1074	 	    1179	 	 50.14 	 	LEO/I
+S00447	-	00447	1962 B MU 2	R	R2          	Ablestar 012	1962 Oct 31	R06658	SFSSC	US	1962 Oct 31 0840?	In Earth orbit	-	2023 Jun 23 	     107.536 	    1063	 	    1161	 	 50.13 	 	LEO/I
+S00448	-	00448	1962 B NU 1	R	R3          	Molniya 8K78 T103-16 Blok-I	1962 Nov  1	R06695	RVSN	SU	1962 Nov  1 1623	Reentered Earth atmosphere	1962 Nov  2	-	-	-	-	-	-	-	-	-
+S00449	-	00449	1962 B NU 2	C	C  M        	BOZ	1962 Nov  1	A00293	RVSN	SU	1962 Nov  1 1714	Reentered Earth atmosphere	1962 Nov  3	-	-	-	-	-	-	-	-	-
+S00450	D00033	00450	1962 B NU 3	P	P   D       	AMS Mars	1962 Nov  1	A00293	RKKE	SU	1962 Nov  1 1719	In solar orbit	-	-	-	-	-	-	-	-	-	-
+S00451	-	00451	1962 B XI 1	P	P A         	AMS	1962 Nov  4	A00294	OKB1	SU	1962 Nov  4 1636	Reentered attached to A00294 Blok-L No. T103-17	1962 Nov  5	-	-	-	-	-	-	-	-	-
+S00452	-	00452	1962 B XI 2	R	R3          	Molniya 8K78 T103-17 Blok-I	1962 Nov  4	R06714	RVSN	SU	1962 Nov  4 1544	Reentered Earth atmosphere	1962 Nov  8	-	-	-	-	-	-	-	-	-
+S00453	-	00453	1962 B OMI	P	P A         	FTV 1136	1962 Nov  5	A00296	NRO/CIA	US	1962 Nov  5 2211	Reentered attached to A00296 Agena B 1136	1962 Dec  3	-	-	-	-	-	-	-	-	-
+S00454	-	00454	1962 B XI 3	C	C  M        	BOZ	1962 Nov  4	A00294	RVSN	SU	1962 Nov  4 1635	Reentered Earth atmosphere	1963 Jan 19	-	-	-	-	-	-	-	-	-
+S00455	-	00455	1962 B PI	P	P A         	FTV 2405	1962 Nov 11	A00301	SAFSP	US	1962 Nov 11 2026	Reentered attached to A00301 Agena B 2405	1962 Nov 12 2250?	-	-	-	-	-	-	-	-	-
+S00456	-	00456	1962 B IOT 2	R	R3          	Molniya 8K78 T103-15 Blok-I	1962 Oct 24	R06595	RVSN	SU	1962 Oct 24 1804	Reentered Earth atmosphere	1962 Dec 22	-	-	-	-	-	-	-	-	-
+S00457	-	00457	1962 B IOT 3	R	R4-----*    	Blok-L No. T103-15	1962 Oct 24	S00456	RVSN	SU	1962 Oct 24 1804	Reentered Earth atmosphere	1963 Feb 26	-	-	-	-	-	-	-	-	-
+S00458	-	00458	1962 B IOT 4	C	C  M        	BOZ	1962 Oct 24	S00457	RVSN	SU	1962 Oct 24 1855	Reentered Earth atmosphere	1962 Nov 29	-	-	-	-	-	-	-	-	-
+S00459	-	00459	1962 B IOT 5	D	D  O        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 24	-	-	-	-	-	-	-	-	-
+S00460	-	00460	1962 B IOT 6	D	D  O        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec  8	-	-	-	-	-	-	-	-	-
+S00461	-	00461	1961 OMI 142	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      98.230 	     642	 	     705	 	 67.51 	 	LEO/I
+S00462	-	00462	1961 OMI 143	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2001 Apr  1	-	-	-	-	-	-	-	-	-
+S00463	-	00463	1961 OMI 144	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      99.573 	     700	 	     775	 	 66.77 	 	LEO/I
+S00464	-	00464	1961 OMI 145	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1989 Dec 18	-	-	-	-	-	-	-	-	-
+S00465	-	00465	1961 OMI 146	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     100.368 	     745	 	     806	 	 66.32 	 	LEO/I
+S00466	-	00466	1961 OMI 147	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1988 Nov 26	-	-	-	-	-	-	-	-	-
+S00467	-	00467	1961 OMI 148	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     106.537 	     871	 	    1261	 	 66.56 	 	LEO/I
+S00468	-	00468	1961 OMI 149	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1981 Dec  3	-	-	-	-	-	-	-	-	-
+S00469	-	00469	1961 OMI 150	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     100.680 	     740	 	     841	 	 66.83 	 	LEO/I
+S00470	-	00470	1961 OMI 151	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     102.386 	     814	 	     928	 	 66.23 	 	LEO/I
+S00471	-	00471	1961 OMI 152	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2007 Aug  2	-	-	-	-	-	-	-	-	-
+S00472	-	00472	1961 OMI 153	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2003 Apr 26	-	-	-	-	-	-	-	-	-
+S00473	-	00473	1961 OMI 154	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1972 Mar  2	-	-	-	-	-	-	-	-	-
+S00474	-	00474	1961 OMI 155	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      95.980 	     551	 	     579	 	 66.24 	 	LLEO/I
+S00475	-	00475	1961 OMI 156	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     101.861 	     740	 	     952	 	 66.23 	 	LEO/I
+S00476	-	00476	1961 OMI 157	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2014 Apr  2	-	-	-	-	-	-	-	-	-
+S00477	-	00477	1961 OMI 158	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1982 Jan 18	-	-	-	-	-	-	-	-	-
+S00478	-	00478	1961 OMI 159	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      98.369 	     639	 	     722	 	 66.07 	 	LEO/I
+S00479	-	00479	1961 OMI 160	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2022 Nov 29	-	-	-	-	-	-	-	-	-
+S00480	-	00480	1961 OMI 161	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     100.322 	     719	 	     828	 	 66.24 	 	LEO/I
+S00481	-	00481	1962 B RHO	P	P A         	FTV 1135	1962 Nov 24	A00304	NRO/CIA	US	1962 Nov 24 2208	Reentered attached to A00304 Agena B 1135	1962 Dec 13	-	-	-	-	-	-	-	-	-
+S00482	-	00482	1962 B IOT 7	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 10	-	-	-	-	-	-	-	-	-
+S00483	-	00483	1962 B IOT 8	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1963 Jan  2	-	-	-	-	-	-	-	-	-
+S00484	-	00484	1962 B IOT 9	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec  4	-	-	-	-	-	-	-	-	-
+S00485	-	00485	1962 B IOT 10	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 10	-	-	-	-	-	-	-	-	-
+S00486	-	00486	1962 B IOT 11	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Nov 30	-	-	-	-	-	-	-	-	-
+S00487	-	00487	1962 B IOT 12	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec  1	-	-	-	-	-	-	-	-	-
+S00488	-	00488	1962 B XI 4	D	D  O        	deb Sputnik	1962 Nov  4	A00294	OKB1	SU	1962 Nov  4 1636?	Reentered Earth atmosphere	1962 Dec 25	-	-	-	-	-	-	-	-	-
+S00489	-	00489	1962 B XI 5	D	D  O        	deb Sputnik	1962 Nov  4	A00294	OKB1	SU	1962 Nov  4 1636?	Reentered Earth atmosphere	1962 Dec 27	-	-	-	-	-	-	-	-	-
+S00490	-	00490	1962 B SIG	P	P A         	FTV 1155	1962 Dec  4	A00308	NRO/CIA	US	1962 Dec  4 2137	Reentered attached to A00308 Agena D 1155	1962 Dec  8	-	-	-	-	-	-	-	-	-
+S00491	-	00491	1962 B IOT 13	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 25	-	-	-	-	-	-	-	-	-
+S00492	-	00492	1962 B IOT 14	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 15	-	-	-	-	-	-	-	-	-
+S00493	-	00493	1962 B IOT 15	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 21	-	-	-	-	-	-	-	-	-
+S00494	-	00494	1962 B IOT 16	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 17	-	-	-	-	-	-	-	-	-
+S00495	-	00495	1962 B IOT 17	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 26	-	-	-	-	-	-	-	-	-
+S00496	-	00496	1962 B IOT 18	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 23	-	-	-	-	-	-	-	-	-
+S00497	-	00497	1962 B IOT 19	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 26	-	-	-	-	-	-	-	-	-
+S00498	-	00498	1962 B IOT 20	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 10	-	-	-	-	-	-	-	-	-
+S00499	-	00499	1962 B IOT 21	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec  9	-	-	-	-	-	-	-	-	-
+S00500	-	00500	1962 B IOT 22	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 28	-	-	-	-	-	-	-	-	-
+S00501	-	00501	1962 B IOT 23	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 26	-	-	-	-	-	-	-	-	-
+S00502	-	00502	1962 B TAU 1	P	P           	NRL PL120	1962 Dec 13	A08428	NRO/NRL	US	1962 Dec 13 0500?	Reentered Earth atmosphere	1967 Feb  9 0315?	-	-	-	-	-	-	-	-	-
+S00503	-	00503	1962 B UPS 1	P	P           	Relay 1	1962 Dec 13	S00515	GSFC	US	1962 Dec 13 2351?	In Earth orbit	-	2023 Jun 22 	     185.051 	    1313	 	    7443	 	 47.53 	 	MEO
+S00504	-	00504	1962 B TAU 2	P	P           	Injun III	1962 Dec 13	A08428	NRL	US	1962 Dec 13 0500?	Reentered Earth atmosphere	1968 Aug 25 1000?	-	-	-	-	-	-	-	-	-
+S00505	-	00505	1962 B PHI	P	P A         	FTV 1156	1962 Dec 14	A00311	NRO/CIA	US	1962 Dec 14 2133	Reentered attached to A00311 Agena D 1156	1963 Jan  8	-	-	-	-	-	-	-	-	-
+S00506	-	00506	1962 B CHI	P	P A         	Explorer 16	1962 Dec 16	A00313	LARCN	US	1962 Dec 16 1443	Attached to A00313 Scout S115 Stage 4	-	-	-	-	-	-	-	-	-	-
+S00507	-	00507	1962 B TAU 3	P	P           	Calsphere 1	1962 Dec 13	A08428	NRL	US	1962 Dec 13 0500?	Reentered Earth atmosphere	1963 Jul  1	-	-	-	-	-	-	-	-	-
+S00508	-	00508	1962 B TAU 4	P	P           	SURCAL 2	1962 Dec 13	A08428	NRL	US	1962 Dec 13 0500?	Reentered Earth atmosphere	1966 Jan 18 2000?	-	-	-	-	-	-	-	-	-
+S00509	-	00509	1962 B PSI 1	P	P           	Transit VA-1	1962 Dec 19	S00519	NAVAIR	US	1962 Dec 19 0135	Reentered Earth atmosphere	1986 Sep 25	-	-	-	-	-	-	-	-	-
+S00510	-	00510	1962 B ALP 3	D	D  O        	deb Alouette 1	1962 Sep 29	S00424	CRC	CA	1962 Sep 29 0700?	In Earth orbit	-	2023 Jun 21 	     105.122 	     988	 	    1011	 	 80.51 	 	LEO/I
+S00511	-	00511	1962 B ALP 4	D	D  O        	deb Alouette 1	1962 Sep 29	S00424	CRC	CA	1962 Sep 29 0700?	In Earth orbit	-	2023 Jun 21 	     105.238 	     983	 	    1028	 	 80.43 	 	LEO/I
+S00512	-	00512	1962 B IOT 24	D	D  P        	deb Sputnik	1962 Oct 24	S00457	OKB1	SU	1962 Oct 24 1856	Reentered Earth atmosphere	1962 Dec 31	-	-	-	-	-	-	-	-	-
+S00513	-	00513	1962 B TAU 5	P	P           	NRL PL121	1962 Dec 13	A08428	NRO/NRL	US	1962 Dec 13 0500?	Reentered Earth atmosphere	1967 Feb  5 1500?	-	-	-	-	-	-	-	-	-
+S00514	-	00514	1962 B PSI 2	C	C  Y        	Transit VA-1 despin weight	1962 Dec 19	S00509	NAVAIR	US	1962 Dec 19 0135	Reentered Earth atmosphere	1969 Apr 22	-	-	-	-	-	-	-	-	-
+S00515	-	00515	1962 B UPS 2	R	R3          	Delta 15 Stage 3	1962 Dec 13	R06935	GSFC	US	1962 Dec 13 2349	In Earth orbit	-	2023 Jun 23 	     184.794 	    1314	 	    7423	 	 47.52 	 	MEO
+S00516	-	00516	1961 OMI 162	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     103.467 	     862	 	     982	 	 66.00 	 	LEO/I
+S00517	-	00517	1962 B OME 1	P	P           	Kosmos-12	1962 Dec 22	S00518	OKB1	SU	1962 Dec 22 0932	Landed on Earth	1962 Dec 30 0728?	-	-	-	-	-	-	-	-	-
+S00518	-	00518	1962 B OME 2	R	R3          	Vostok-2 (N05) Stage 3	1962 Dec 22	R06978	RVSN	SU	1962 Dec 22 0932	Reentered Earth atmosphere	1963 Jan 22	-	-	-	-	-	-	-	-	-
+S00519	-	00519	1962 B PSI 3	R	R4          	Scout S118 Stage 4	1962 Dec 19	R06970	LARCN	US	1962 Dec 19 0135	Reentered Earth atmosphere	1989 Oct 21	-	-	-	-	-	-	-	-	-
+S00520	-	00520	1962 B TAU 6	P	P A         	WILD BILL 2	1962 Dec 13	A08428	SAFSP	US	1962 Dec 13 0414	Reentered attached to A08428 Agena D 2351	1968 Mar 24 0500?	-	-	-	-	-	-	-	-	-
+S00521	-	00521	1963-001A	R	R3          	Molniya 8K78 T103-09 Blok-I	1963 Jan  4	R07059	RVSN	SU	1963 Jan  4 0858	Reentered Earth atmosphere	1963 Jan  5	-	-	-	-	-	-	-	-	-
+S00522	-	00522	1963-001B	P	P           	AMS	1963 Jan  4	A00317	OKB1	SU	1963 Jan  4 0950	Reentered Earth atmosphere	1963 Jan 11	-	-	-	-	-	-	-	-	-
+S00523	-	00523	1962 B PSI 4	C	C  Y        	Transit VA-1 despin weight	1962 Dec 19	S00509	NAVAIR	US	1962 Dec 19 0135	Reentered Earth atmosphere	1980 Nov 30	-	-	-	-	-	-	-	-	-
+S00524	-	00524	1963-001C	C	C  M        	BOZ?	1963 Jan  4	A00317	RVSN	SU	1963 Jan  4 0949	Reentered Earth atmosphere	1963 Jan 11	-	-	-	-	-	-	-	-	-
+S00525	-	00525	1963-002A	P	P A         	OPS 0048	1963 Jan  7	A00321	NRO/CIA	US	1963 Jan  7 2116	Reentered attached to A00321 Agena D 1157	1963 Jan 24	-	-	-	-	-	-	-	-	-
+S00526	-	00526	1963-002B	D	D  O        	deb USAF satellite/Agena D	1963 Jan  7	S00525	NRO/CIA	US	1963 Jan  7 2120?	Reentered Earth atmosphere	1963 Jan 16	-	-	-	-	-	-	-	-	-
+S00527	-	00527	1963-003A	P	P A         	OPS 0180	1963 Jan 16	A00324	NRO/SAFSP	US	1963 Jan 16 2206	Reentered attached to A00324 Agena B 2313	1969 Jan  9 1200?	-	-	-	-	-	-	-	-	-
+S00528	-	00528	1963-003B	C	C  X        	deb USAF satellite/Agena D	1963 Jan 16	S00527	NRO/SAFSP	US	1963 Jan 16 2300?	Reentered Earth atmosphere	1963 Nov  8	-	-	-	-	-	-	-	-	-
+S00529	-	00529	1963-003C	C	C  X        	deb USAF satellite/Agena D	1963 Jan 16	S00527	NRO/SAFSP	US	1963 Jan 16 2300?	Reentered Earth atmosphere	1963 Dec 31	-	-	-	-	-	-	-	-	-
+S00530	-	00530	1961 OMI 163	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     102.960 	     835	 	     961	 	 66.88 	 	LEO/I
+S00531	-	00531	1961 OMI 164	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SAMSO	US	1961 Jun 29 0608	Reentered Earth atmosphere	1971 Apr 15	-	-	-	-	-	-	-	-	-
+S00532	-	00532	1963-004B	R	R3          	Delta 16 Stage 3	1963 Feb 14	R07159	GSFC	US	1963 Feb 14 0550?	Reentered Earth atmosphere	1981 Nov  2	-	-	-	-	-	-	-	-	-
+S00533	-	00533	1963-005A	P	P           	OPS 0240	1963 Feb 19	S00534	NRO/SAFSP	US	1963 Feb 19 1702?	Reentered Earth atmosphere	1979 Dec 26	-	-	-	-	-	-	-	-	-
+S00534	-	00534	1963-005B	R	R4          	Scout S126 Stage 4	1963 Feb 19	R07173	LARCN	US	1963 Feb 19 1702?	Reentered Earth atmosphere	1984 May 29	-	-	-	-	-	-	-	-	-
+S00535	-	00535	1963-005C	C	C  Y        	FTV 0240 despin weight	1963 Feb 19	S00534	SAFSP	US	1963 Feb 19 1702?	Reentered Earth atmosphere	1969 Jun 29	-	-	-	-	-	-	-	-	-
+S00536	-	00536	1963-005D	C	C  Y        	FTV 0240 despin weight	1963 Feb 19	S00534	SAFSP	US	1963 Feb 19 1702?	Reentered Earth atmosphere	1978 Jul 18	-	-	-	-	-	-	-	-	-
+S00537	-	00537	1961 OMI 165	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     105.610 	     895	 	    1150	 	 67.23 	 	LEO/I
+S00538	-	00538	1961 OMI 166	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	      99.371 	     719	 	     737	 	 67.81 	 	LEO/I
+S00539	-	00539	1961 OMI 167	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1991 Feb 24	-	-	-	-	-	-	-	-	-
+S00540	-	00540	1961 OMI 168	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1991 Aug 20	-	-	-	-	-	-	-	-	-
+S00541	-	00541	1961 OMI 169	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     103.950 	     892	 	     998	 	 67.22 	 	LEO/I
+S00542	-	00542	1961 OMI 170	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1991 Jul  6	-	-	-	-	-	-	-	-	-
+S00543	-	00543	1961 OMI 171	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     105.223 	     949	 	    1060	 	 67.03 	 	LEO/I
+S00544	-	00544	1961 OMI 172	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     106.258 	     908	 	    1197	 	 66.87 	 	LEO/I
+S00545	-	00545	1961 OMI 173	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     105.139 	     884	 	    1117	 	 67.23 	 	LEO/I
+S00546	-	00546	1961 OMI 174	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSMC	US	1961 Jun 29 0608	Reentered Earth atmosphere	2014 Nov  5	-	-	-	-	-	-	-	-	-
+S00547	-	00547	1961 OMI 175	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1989 Nov 20	-	-	-	-	-	-	-	-	-
+S00548	-	00548	1961 OMI 176	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	      98.159 	     586	 	     754	 	 66.67 	 	LEO/I
+S00549	-	00549	1961 OMI 177	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     107.786 	     957	 	    1290	 	 66.69 	 	LEO/I
+S00550	-	00550	1961 OMI 178	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1991 Feb  3	-	-	-	-	-	-	-	-	-
+S00551	-	00551	1961 OMI 179	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1990 Feb 16	-	-	-	-	-	-	-	-	-
+S00552	-	00552	1961 OMI 180	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     103.291 	     829	 	     999	 	 67.74 	 	LEO/I
+S00553	-	00553	1963-004A	P	P           	Syncom 1	1963 Feb 14	S00532	GSFC	US	1963 Feb 14 0550?	In Earth orbit	-	2023 Jun 21 	    1236.221 	   28895	 	   34659	 	 28.98 	 	MEO
+S00554	-	00554	1963-006A	P	P           	Kosmos-13	1963 Mar 21	S00555	OKB1	SU	1963 Mar 21 0839?	Landed on Earth	1963 Mar 29 0635?	-	-	-	-	-	-	-	-	-
+S00555	-	00555	1963-006B	R	R3          	Vostok-2 (N06) Stage 3	1963 Mar 21	R07293	RVSN	SU	1963 Mar 21 0839?	Reentered Earth atmosphere	1963 Apr  9	-	-	-	-	-	-	-	-	-
+S00556	-	00556	1961 OMI 181	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD2	US	1961 Jun 29 0608	Reentered Earth atmosphere	1990 May 28	-	-	-	-	-	-	-	-	-
+S00557	-	00557	1961 OMI 182	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	AFSSD	US	1961 Jun 29 0608	Reentered Earth atmosphere	1967 Feb 14	-	-	-	-	-	-	-	-	-
+S00558	-	00558	1961 OMI 183	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 21 	     111.975 	     952	 	    1682	 	 65.70 	 	LEO/I
+S00559	-	00559	1961 OMI 184	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	      99.338 	     674	 	     779	 	 66.61 	 	LEO/I
+S00560	-	00560	1961 OMI 185	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 23 	     106.435 	     829	 	    1293	 	 67.16 	 	LEO/I
+S00561	-	00561	1961 OMI 186	D	D  P        	deb Ablestar 008	1961 Jun 29	S00118	SFSSC	US	1961 Jun 29 0608	In Earth orbit	-	2023 Jun 22 	     116.072 	     999	 	    2008	 	 67.75 	 	LEO/I
+S00562	-	00562	1963-007A	P	P A         	OPS 0720	1963 Apr  1	A00327	NRO/CIA	US	1963 Apr  1 2308	Reentered attached to A00327 Agena D 1160	1963 Apr 26	-	-	-	-	-	-	-	-	-
+S00563	-	00563	1963-008A	R	R3          	Molniya 8K78 (N13) Blok-I	1963 Apr  2	R07347	RVSN	SU	1963 Apr  2 0825	Reentered Earth atmosphere	1963 Apr  3	-	-	-	-	-	-	-	-	-
+S00564	-	00564	1963-009A	P	P           	Explorer 17	1963 Apr  3	S00565	GSFC	US	1963 Apr  3 0208	Reentered Earth atmosphere	1966 Nov 24 0830?	-	-	-	-	-	-	-	-	-
+S00565	-	00565	1963-009B	R	R3          	Delta 17 Stage 3	1963 Apr  3	R07357	GSFC	US	1963 Apr  3 0208	Reentered Earth atmosphere	1963 Nov 24	-	-	-	-	-	-	-	-	-
+S00566	D00036	00566	1963-008B	P	P   D       	Luna-4	1963 Apr  2	A00328	RKKE	SU	1963 Apr  2 0920	Lost	-	1963 Apr  2	   42178.419 	   90000	?	  700000	?	 65.00 	?	CLO
+S00567	-	00567	1963-010A	P	P           	Kosmos-14	1963 Apr 13	S00568	VNIEM	SU	1963 Apr 13 1107?	Reentered Earth atmosphere	1963 Aug 29	-	-	-	-	-	-	-	-	-
+S00568	-	00568	1963-010B	R	R2          	Kosmos 63S1 (N12) Stage 2	1963 Apr 13	R07398	RVSN	SU	1963 Apr 13 1107?	Reentered Earth atmosphere	1963 Jul  6	-	-	-	-	-	-	-	-	-
+S00569	-	00569	1963-011A	P	P           	Kosmos-15	1963 Apr 22	S00570	OKB1	SU	1963 Apr 22 0839?	Landed on Earth	1963 Apr 27 0645?	-	-	-	-	-	-	-	-	-
+S00570	-	00570	1963-011B	R	R3          	Vostok-2 (N07) Stage 3	1963 Apr 22	R07439	RVSN	SU	1963 Apr 22 0839?	Reentered Earth atmosphere	1963 May  1	-	-	-	-	-	-	-	-	-
+S00571	-	00571	1963-012A	P	P           	Kosmos-16	1963 Apr 28	S00572	OKB1	SU	1963 Apr 28 0859?	Landed on Earth	1963 May  8 0650?	-	-	-	-	-	-	-	-	-
+S00572	-	00572	1963-012B	R	R3          	Vostok-2 (N08) Stage 3	1963 Apr 28	R07478	RVSN	SU	1963 Apr 28 0859?	Reentered Earth atmosphere	1963 May 20	-	-	-	-	-	-	-	-	-
+S00573	-	00573	1963-013A	P	P           	Telstar 2	1963 May  7	S00575	ATT	US	1963 May  7 1153	In Earth orbit	-	2023 Jun 21 	     225.258 	     965	 	   10805	 	 42.78 	 	MEO
+S00574	-	00574	1963-014A	P	P A         	Midas 7	1963 May  9	A00337	SFSSC	US	1963 May  9 2015	Attached to A00337 Agena B 1206	-	-	-	-	-	-	-	-	-	-
+S00575	-	00575	1963-013B	R	R3          	Delta 18 Stage 3	1963 May  7	R07501	GSFC	US	1963 May  7 1153	In Earth orbit	-	2023 Jun 21 	     224.913 	     964	 	   10780	 	 42.79 	 	MEO
+S00576	-	00576	1963-015A	P	PH H        	Faith Seven	1963 May 15	S00577	MSC	US	1963 May 15 1309:19	Landed on Earth	1963 May 16 2324:02	-	-	-	-	-	-	-	-	-
+S00577	-	00577	1963-015B	R	R1          	Atlas D 130D	1963 May 15	-	MSC	US	1963 May 15 1309:16	Reentered Earth atmosphere	1963 May 16 0500?	-	-	-	-	-	-	-	-	-
+S00578	-	00578	1963-016A	P	P A         	OPS 0924	1963 May 18	A00349	NRO/CIA	US	1963 May 18 2227	Reentered attached to A00349 Agena D 1165	1963 May 27	-	-	-	-	-	-	-	-	-
+S00579	-	00579	1963-014B	P	P           	TRS 5	1963 May  9	A00337	AFSMC	US	1963 May  9 2130?	Reentered Earth atmosphere	2011 Nov 11	-	-	-	-	-	-	-	-	-
+S00580	-	00580	1963-017A	P	P           	Kosmos-17	1963 May 22	S00588	YUZH	SU	1963 May 22 0308	Reentered Earth atmosphere	1965 Jun  2 2200?	-	-	-	-	-	-	-	-	-
+S00581	-	00581	1963-017B	D	D  O        	deb Kosmos-17	1963 May 22	S00580	OKB1	SU	1963 May 22 0308?	Reentered Earth atmosphere	1963 Aug 26	-	-	-	-	-	-	-	-	-
+S00582	-	00582	1963-017C	D	D  O        	deb Kosmos-17	1963 May 22	S00580	YUZH	SU	1963 May 22 0308?	Reentered Earth atmosphere	1965 May 12	-	-	-	-	-	-	-	-	-
+S00583	-	00583	1963-017D	D	D  O        	deb Kosmos-17	1963 May 22	S00580	OKB586	SU	1963 May 22 0308?	Reentered Earth atmosphere	1963 Aug 30	-	-	-	-	-	-	-	-	-
+S00584	-	00584	1963-017E	D	D  O        	deb Kosmos-17	1963 May 22	S00580	OKB586	SU	1963 May 22 0308?	Reentered Earth atmosphere	1963 Jul 25	-	-	-	-	-	-	-	-	-
+S00585	-	00585	1963-017F	D	D  O        	deb Kosmos-17	1963 May 22	S00580	OKB586	SU	1963 May 22 0308?	Reentered Earth atmosphere	1963 Sep 30	-	-	-	-	-	-	-	-	-
+S00586	-	00586	1963-018A	P	P           	Kosmos-18	1963 May 24	S00587	OKB1	SU	1963 May 24 1042?	Landed on Earth	1963 Jun  2 0748?	-	-	-	-	-	-	-	-	-
+S00587	-	00587	1963-018B	R	R3          	Vostok-2 (N09) Stage 3	1963 May 24	R07617	RVSN	SU	1963 May 24 1042?	Reentered Earth atmosphere	1963 Jun  8	-	-	-	-	-	-	-	-	-
+S00588	-	00588	1963-017G	R	R2          	Kosmos 63S1 (N13) Stage 2	1963 May 22	R07585	RVSN	SU	1963 May 22 0308	Reentered Earth atmosphere	1964 Apr  2	-	-	-	-	-	-	-	-	-
+S00589	-	00589	1963-014D	P	P           	DASH 1	1963 May  9	A00337	SFSSC?	US	1963 May  9 2130?	In Earth orbit	-	2023 Jun 20 	     166.349 	    3473	 	    3809	 	 87.31 	 	MEO
+S00590	-	00590	1963-019A	P	P A         	OPS 0954	1963 Jun 12	A00355	NRO/CIA	US	1963 Jun 13 0005	Reentered attached to A00355 Agena D 1161/EROS?	1963 Jul 12	-	-	-	-	-	-	-	-	-
+S00591	-	00591	1963-020A	P	PH H        	Vostok-5	1963 Jun 14	S00592	OKB1	SU	1963 Jun 14 1208	Landed on Earth	1963 Jun 19 1059	-	-	-	-	-	-	-	-	-
+S00592	-	00592	1963-020B	R	R3          	Vostok 8K72 No. 24 Stage 3	1963 Jun 14	R07712	RVSN	SU	1963 Jun 14 1208	Reentered Earth atmosphere	1963 Jun 16	-	-	-	-	-	-	-	-	-
+S00593	-	00593	1963-021A	P	P A         	WILD BILL 4	1963 Jun 15	A08433	SAFSP	US	1963 Jun 15 1436	Reentered attached to A08433 Agena D 2353	1963 Aug  7	-	-	-	-	-	-	-	-	-
+S00594	-	00594	1963-022A	P	P           	Transit VA-3	1963 Jun 16	S00603	NAVAIR	US	1963 Jun 16 0200	Reentered Earth atmosphere	1990 Aug  3	-	-	-	-	-	-	-	-	-
+S00595	-	00595	1963-023A	P	PH H        	Vostok-6	1963 Jun 16	S00596	OKB1	SU	1963 Jun 16 0939	Landed on Earth	1963 Jun 19 0815	-	-	-	-	-	-	-	-	-
+S00596	-	00596	1963-023B	R	R3          	Vostok 8K72 No. 25 Stage 3	1963 Jun 16	R07722	RVSN	SU	1963 Jun 16 0939	Reentered Earth atmosphere	1963 Jun 18	-	-	-	-	-	-	-	-	-
+S00597	-	00597	1963-021F	P	P           	SURCAL 3	1963 Jun 15	A08433	NRL	US	1963 Jun 15 1524	Reentered Earth atmosphere	1963 Jul  5	-	-	-	-	-	-	-	-	-
+S00598	-	00598	1963-021E	P	P           	NRL PL112	1963 Jun 15	A08433	NRO/NRL	US	1963 Jun 15 1524	Reentered Earth atmosphere	1963 Jul 27	-	-	-	-	-	-	-	-	-
+S00599	-	00599	1963-021C	P	P           	SR VI	1963 Jun 15	A08433	NRO/NRL	US	1963 Jun 15 1524	Reentered Earth atmosphere	1963 Aug  1	-	-	-	-	-	-	-	-	-
+S00600	-	00600	1963-021D	P	P           	NRL PL130	1963 Jun 15	A08433	NRO/NRL	US	1963 Jun 15 1524	Reentered Earth atmosphere	1963 Jul 30	-	-	-	-	-	-	-	-	-
+S00601	-	00601	1963-021B	P	P           	Lofti IIB	1963 Jun 15	A08433	NRL	US	1963 Jun 15 1524	Reentered Earth atmosphere	1963 Jul 18	-	-	-	-	-	-	-	-	-
+S00602	-	00602	1963-014E	C	C  F        	Midas solar array cover	1963 May  9	A00337	SFSSC	US	1963 May  9 2130?	In Earth orbit	-	2023 Jun 22 	     166.045 	    3573	 	    3684	 	 87.32 	 	MEO
+S00603	-	00603	1963-022B	R	R4          	Scout S120 Stage 4	1963 Jun 16	R07719	LARCN	US	1963 Jun 16 0200	Reentered Earth atmosphere	2000 May 17	-	-	-	-	-	-	-	-	-
+S00604	-	00604	1963-024A	P	P           	Tiros 7	1963 Jun 19	S00605	GSFC	US	1963 Jun 19 1011	Reentered Earth atmosphere	1994 Jun  3	-	-	-	-	-	-	-	-	-
+S00605	-	00605	1963-024B	R	R3          	Delta 19 Stage 3	1963 Jun 19	R07750	GSFC	US	1963 Jun 19 1001	Reentered Earth atmosphere	1978 Dec 23	-	-	-	-	-	-	-	-	-
+S00606	-	00606	1963-024C	C	C  Y        	Tiros VII despin weight	1963 Jun 19	S00604	GSFC	US	1963 Jun 19 1015	Reentered Earth atmosphere	1988 Jun  9	-	-	-	-	-	-	-	-	-
+S00607	-	00607	1963-024D	C	C  Y        	Tiros VII despin weight	1963 Jun 19	S00604	GSFC	US	1963 Jun 19 1015	Reentered Earth atmosphere	1980 Feb  1	-	-	-	-	-	-	-	-	-
+S00608	-	00608	1963-014C	P	P           	TRS 6	1963 May  9	A00337	SFSSC	US	1963 May  9 2130?	In Earth orbit	-	2023 Jun 20 	     166.417 	    3552	 	    3735	 	 87.31 	 	MEO
+S00609	-	00609	1963-025A	P	P A         	OPS 0999	1963 Jun 27	A00361	NRO/CIA	US	1963 Jun 27 0043	Reentered attached to A00361 Agena D 1166	1963 Jul 26	-	-	-	-	-	-	-	-	-
+S00610	-	00610	1963-022C	C	C  Y        	Transit VA-3 despin weight	1963 Jun 16	S00594	NAVAIR	US	1963 Jun 16 0200	Reentered Earth atmosphere	1991 Nov 15	-	-	-	-	-	-	-	-	-
+S00611	-	00611	1963-022D	C	C  Y        	Transit VA-3 despin weight	1963 Jun 16	S00594	NAVAIR	US	1963 Jun 16 0200	Reentered Earth atmosphere	1971 Mar  1	-	-	-	-	-	-	-	-	-
+S00612	-	00612	1963-026A	P	P A         	GRS	1963 Jun 28	A00362	AFGL	US	1963 Jun 28 2129	Reentered attached to A00362 Scout S113 Stage 4	1983 Dec 14	-	-	-	-	-	-	-	-	-
+S00613	-	00613	1963-027A	P	P A         	OPS 1440	1963 Jun 29	A00363	NRO/SAFSP	US	1963 Jun 29 2323	Reentered attached to A00363 Agena B 2314	1969 Oct 26 1600?	-	-	-	-	-	-	-	-	-
+S00614	-	00614	1963-025B	P	P           	Hitchhiker 1	1963 Jun 27	A00361	NROC/NROC	US	1963 Jul  1 1600?	In Earth orbit	-	2023 Jun 22 	      95.479 	     290	 	     793	 	 81.97 	 	LLEO/I
+S00615	-	00615	1963-027B	D	D  O        	deb USAF satellite/Agena B	1963 Jun 29	S00613	SAFSP	US	1963 Jun 29 2323	Reentered Earth atmosphere	1964 Nov 14	-	-	-	-	-	-	-	-	-
+S00616	-	00616	1963-027C	D	D  O        	deb USAF satellite/Agena B	1963 Jun 29	S00613	SAFSP	US	1963 Jun 29 2323	Reentered Earth atmosphere	1963 Jul 10	-	-	-	-	-	-	-	-	-
+S00617	-	00617	1963-021G	D	D  O        	deb USN satellite/Agena D	1963 Jun 15	A08433	SAFSP	US	1963 Jun 15 1524	Reentered Earth atmosphere	1963 Jul  3	-	-	-	-	-	-	-	-	-
+S00618	-	00618	1963-028A	P	P           	OPS 1467	1963 Jul 12	S00620	NRO/SAFSP	US	1963 Jul 14 0050?	Reentered Earth atmosphere	1963 Jul 18	-	-	-	-	-	-	-	-	-
+S00619	-	00619	1963-028B	C	C  F        	AFP-206 sensor cover?	1963 Jul 12	S00618	SAFSP	US	1963 Jul 12 2100?	Reentered Earth atmosphere	1963 Jul 13	-	-	-	-	-	-	-	-	-
+S00620	-	00620	1963-028C	R	R2          	Agena D 4702	1963 Jul 12	R07898	AFSSD	US	1963 Jul 12 2055	Reentered Earth atmosphere	1963 Jul 16	-	-	-	-	-	-	-	-	-
+S00621	-	00621	1963-029A	P	P A         	OPS 1266	1963 Jul 19	A00370	NRO/CIA	US	1963 Jul 19 0007	Reentered attached to A00370 Agena D 1412	1963 Aug 13	-	-	-	-	-	-	-	-	-
+S00622	-	00622	1963-030A	P	P A         	Midas 9	1963 Jul 19	A00371	SFSSC	US	1963 Jul 19 0500?	Attached to A00371 Agena B 1207	-	-	-	-	-	-	-	-	-	-
+S00623	-	00623	1963-029B	D	D  O        	deb USAF satellite/Agena D	1963 Jul 19	S00621	AFSSD	US	1963 Jul 19 0010?	Reentered Earth atmosphere	1963 Jul 29	-	-	-	-	-	-	-	-	-
+S00624	-	00624	1963-030D	P	P           	DASH 2	1963 Jul 19	A00371	SAMSO	US	1963 Jul 19 0500?	Reentered Earth atmosphere	1971 Apr 12 0900?	-	-	-	-	-	-	-	-	-
+S00625	-	00625	1963-031B	R	R3          	Delta 20 Stage 3	1963 Jul 26	R07958	GSFC	US	1963 Jul 26 1443?	Reentered Earth atmosphere	1989 Jul  9	-	-	-	-	-	-	-	-	-
+S00626	-	00626	1963-032A	P	P A         	OPS 1370	1963 Jul 31	A00378	NRO/CIA	US	1963 Jul 31 0007	Reentered attached to A00378 Agena D 1167	1963 Aug 12	-	-	-	-	-	-	-	-	-
+S00627	-	00627	1963-032B	C	C  F        	LANYARD camera door?	1963 Jul 31	S00626	NRO/CIA	US	1963 Jul 31 0007	Reentered Earth atmosphere	1963 Aug 10	-	-	-	-	-	-	-	-	-
+S00628	-	00628	1963-014F	C	C  F        	Midas solar array cover	1963 May  9	A00337	SFSSC	US	1963 May  9 2130?	In Earth orbit	-	2023 Jun 20 	     166.789 	    3619	 	    3698	 	 87.32 	 	MEO
+S00629	-	00629	1963-014G	P	P  V        	West Ford 3 Telem Package	1963 May  9	A00339	SFSSC	US	1963 May 10 1756	In Earth orbit	-	2023 Jun 21 	     166.362 	    3510	 	    3772	 	 87.31 	 	MEO
+S00630	-	00630	1963-030C	C	C  F        	Midas solar array cover	1963 Jul 19	A00371	SFSSC	US	1963 Jul 19 0500?	In Earth orbit	-	2023 Jun 21 	     167.470 	    3657	 	    3715	 	 88.39 	 	MEO
+S00631	-	00631	1963-030E	C	C  F        	Midas solar array cover	1963 Jul 19	A00371	SFSSC	US	1963 Jul 19 0500?	In Earth orbit	-	2023 Jun 22 	     168.246 	    3523	 	    3911	 	 88.38 	 	MEO
+S00632	-	00632	1963-033A	P	P           	Kosmos-19	1963 Aug  6	S00633	OKB586/PVO	SU	1963 Aug  6 0608?	Reentered Earth atmosphere	1964 Mar 30 0745?	-	-	-	-	-	-	-	-	-
+S00633	-	00633	1963-033B	R	R2          	Kosmos 63S1
