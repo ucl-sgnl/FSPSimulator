@@ -62,7 +62,7 @@ def run_sim(settings):
         if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'): # if we know that the decay date is before the start of the simulation, we can remove it from the catalogue
             SATCAT.Catalogue.remove(satellite)
             decayed_before_start += 1
-    print("# sats decayed before sim start date: ", decayed_before_start)
+    print("# sats decayed by active/known decay date before sim start date: ", decayed_before_start)
 
     for satellite in tqdm(SATCAT.Catalogue): #tqdm is a progress bar
         satellite.prop_catobject(jd_start = jd_start, jd_stop = jd_stop, step_size = 10, propagator="RK45") # propagate each satellite using sgp4, and output a state vector every timestep
@@ -78,7 +78,7 @@ def propagate_satellite(args):
 
     satellite, jd_start, jd_stop = args
     # Execute the prop_catobject method
-    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=20, propagator="RK45")
+    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=10, propagator="RK45")
 
     return satellite
 
@@ -122,8 +122,9 @@ def run_parallel_sim(settings):
     # Propagate satellites in parallel
     print("Propagating satellites in parallel...")
 
-    #slice SATCAT.Catalogue to retain only 1000 satellites for testing
-    SATCAT.Catalogue = SATCAT.Catalogue[:100]
+    #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
+    SATCAT.Catalogue = SATCAT.Catalogue[-100:] + SATCAT.Catalogue[:100]
+
 
     chunksize = len(SATCAT.Catalogue) // cpu_count()
     SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)

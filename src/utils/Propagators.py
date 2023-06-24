@@ -107,9 +107,10 @@ def accelerations (t, state, cd, area, mass):
 
     alt = r_norm - Re #altitude is the norm of the r vector minus the radius of the earth
     rho = float(ussa76_rho(alt)) #get the density of the air at the altitude from USSA76 model
-    # Then we apply the density to the drag force model
 
+    # Then we apply the density to the drag force model
     v_rel_atm= v_rel(state)
+
     v_norm = np.linalg.norm(v_rel_atm) #norm of v vector
 
     #v_rel_atm outputs the relative velocity in km/s. We need to convert it to m/s to use in the drag force model
@@ -151,7 +152,7 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=20, type = "RK45"):
         array: nested array containing the cartesian state vectors for the propagated orbit at each time step.
     """
 
-    if h > 200:
+    if h > 30:
         warnings.warn(f'The time step of {h} seconds is large. The results may be inaccurate.')
 
     pos = np.array(pos) #cast to numpy array
@@ -161,7 +162,7 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=20, type = "RK45"):
 
     # Call solve_ivp to propagate the orbit
     sol = solve_ivp(accelerations, [0, tot_time], x0, method=type, t_eval=np.arange(0, tot_time, h),
-                    args=(C_d, area, mass), events=stop_propagation, rtol=1e-5, atol=1e-5)
+                    args=(C_d, area, mass), events=stop_propagation, rtol=1e-8, atol=1e-8)
     #TODO: I have reduced the tolerance to 1e-4 to get the code to run faster. Need to decide on what is acceptable/necessary here
     return sol.y.T  # Returns an array where each row is the state at a time
 
