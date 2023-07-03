@@ -83,34 +83,18 @@ def propagate_satellite(args):
     return satellite
 
 def run_parallel_sim(settings):
+    # This function will define the simulation settings and run the simulation based on the SpaceCatalogue class instantiation.
+    # The SpaceCatalogue class will create a catalogue(list) of SpaceObjects based on the settings provided.
+    # This list of SpaceObjects is just metadata (empty ephemerides) until we propagate the SpaceObjects using the prop_catobject method.
+
     SATCAT = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
+    print("SATCAT ", SATCAT)
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
     scenario_name = settings["scenario_name"]
 
-    if settings["repull_catalogues"] and os.path.exists(get_path('src/data/catalogue/All_catalogue_latest.csv')):
-        if settings["sim_object_type"] == "all":
-            SATCAT.CreateCatalogueAll()
-        elif settings["sim_object_type"] != "debris":  
-            SATCAT.CreateCatalogueActive()
-
-        SATCAT.Catalogue2SpaceObjects()
-        
-        dump_pickle('src/data/catalogue/SATCAT_before_prop.pickle', SATCAT)
-
-    else:
-        SATCAT.Catalogue = load_pickle('src/data/catalogue/SATCAT_before_prop.pickle')
-
-    if settings["environment"] == "development" and os.path.exists(get_path(f'src/data/catalogue/SATCAT_before_prop_{scenario_name}.pickle')):
-        SATCAT = load_pickle(f'src/data/catalogue/SATCAT_before_prop_{scenario_name}.pickle')
-    else:
-        if settings["scenario_name"] != "baseline":
-            print("Creating Launch Model...")
-            launch_file_object = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions_full.csv', 'src/data/prediction_csv/sim_settings.json')
-            SATCAT.Catalogue.extend(launch_file_object)
-
-    print("Number of Satellites: ", len(SATCAT.Catalogue))
-    print(f"Propagating Satellites and saving state every {settings['output_frequency']} days...")
+    print("Number of Satellites in catalogue specified: ", len(SATCAT.Catalogue))
+    print(f"Propagating Satellites and saving state vector every {settings['output_frequency']} days...")
 
     decayed_before_start = 0
     for satellite in SATCAT.Catalogue:
@@ -119,12 +103,12 @@ def run_parallel_sim(settings):
             decayed_before_start += 1
     print("# sats decayed before sim start date: ", decayed_before_start)
 
-    # Propagate satellites in parallel
-    print("Propagating satellites in parallel...")
-
+    #TODO: testin
     #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
     SATCAT.Catalogue = SATCAT.Catalogue[-100:] + SATCAT.Catalogue[:100]
 
+    # Propagate satellites in parallel
+    print("Propagating satellites in parallel...")
 
     chunksize = len(SATCAT.Catalogue) // cpu_count()
     SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
