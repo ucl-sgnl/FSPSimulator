@@ -282,7 +282,6 @@ class SpaceObject:
             self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
         
         elif not self.station_keeping:  # object will not station keep, propagate using the numerical integrator
-            print("rso name: ", self.rso_name)
             self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
 
 if __name__ == "__main__":

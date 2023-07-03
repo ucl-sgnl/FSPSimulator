@@ -86,7 +86,7 @@ def run_parallel_sim(settings):
         if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
             SATCAT.Catalogue.remove(satellite)
             decayed_before_start += 1
-    print("# sats decayed before sim start date: ", decayed_before_start)
+    print(" sats decayed by active/known decay date before sim start date:", decayed_before_start)
 
     # Propagate satellites in parallel
     print("Propagating satellites in parallel...")
