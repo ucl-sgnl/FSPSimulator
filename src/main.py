@@ -27,7 +27,7 @@ def propagate_satellite(args):
 
     satellite, jd_start, jd_stop, step_size = args
     # Execute the prop_catobject method
-    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=10, propagator="RK45")
+    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, propagator="RK45")
 
     return satellite
 
@@ -52,9 +52,9 @@ def run_parallel_sim(settings):
             decayed_before_start += 1
     print("# sats decayed before sim start date: ", decayed_before_start)
 
-    #TODO: testin
+    #TODO: testing
     #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
-    SATCAT.Catalogue = SATCAT.Catalogue[-100:] + SATCAT.Catalogue[:100]
+    SATCAT.Catalogue = SATCAT.Catalogue[:100]
 
     # Propagate satellites in parallel
     print("Propagating satellites in parallel...")

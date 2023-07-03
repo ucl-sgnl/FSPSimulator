@@ -11,7 +11,7 @@ from utils.AtmosphericDensity import ussa76_rho
 
 # Useful constants
 Re = 6378.137  # km
-GM = 3.9860043543609598e05  # km^3 / s^2
+GM = 398600.4418 #km^3/s^2
 j2 = 1.082626925638815e-3  # km3/s2
 
 # def ussa76_rho(altitude):
@@ -114,12 +114,11 @@ def accelerations (t, state, cd, area, mass):
     v_norm = np.linalg.norm(v_rel_atm) #norm of v vector
 
     #v_rel_atm outputs the relative velocity in km/s. We need to convert it to m/s to use in the drag force model
-    v_rel_atm_m = v_rel_atm * 1000
-    
-    acc_drag = -0.5 * rho * ((cd*area)/mass)*((v_rel_atm_m**2)) # Vallado and Finkleman 2014
+    acc_drag =  -0.5 * rho * ((cd*area)/mass)*(1000*(v_rel_atm**2)) # Vallado and Finkleman (2014)
     drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration
     
     #TODO: Add solar radiation pressure acceleration
+    #TODO: Add third body perturbations
 
     #--------------- SUM OF ALL ACCELERATIONS --------------#
     
@@ -134,7 +133,7 @@ def stop_propagation(t, y, *args):
 
 stop_propagation.terminal = True  # Stop the integration when this event occurs
 
-def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=20, type = "RK45"):
+def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=10, type = "RK45"):
     """
     Numerical Propagation of the orbit
 
@@ -163,7 +162,7 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=20, type = "RK45"):
     # Call solve_ivp to propagate the orbit
     sol = solve_ivp(accelerations, [0, tot_time], x0, method=type, t_eval=np.arange(0, tot_time, h),
                     args=(C_d, area, mass), events=stop_propagation, rtol=1e-8, atol=1e-8)
-    #TODO: I have reduced the tolerance to 1e-4 to get the code to run faster. Need to decide on what is acceptable/necessary here
+    #TODO: I have reduced the tolerance to get the code to run faster. Need to decide on what is acceptable/necessary here
     return sol.y.T  # Returns an array where each row is the state at a time
 
 def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
