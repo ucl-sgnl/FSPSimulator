@@ -7,7 +7,7 @@
   "espace": false,
   "sim_start_date":"2019-01-01",
   "sim_end_date":"2020-01-01",
-  "output_frequency": 1,
+  "output_frequency": 30,
   "integrator_step_size": 20,
   "sim_object_type": "all",
   "sim_object_catalogue" : "all",

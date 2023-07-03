@@ -4,12 +4,9 @@ import os
 import json
 import pickle
 from tqdm import tqdm
-from tqdm.contrib.concurrent import process_map 
 from multiprocessing import Pool, cpu_count
-import cProfile
 
 from utils.SpaceCatalogue import SpaceCatalogue
-from utils.LaunchModel import Prediction2SpaceObjects
 from utils.Conversions import utc_to_jd
 
 def get_path(*args):
@@ -56,12 +53,17 @@ def run_parallel_sim(settings):
     #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
     SATCAT.Catalogue = SATCAT.Catalogue[:100]
 
-    # Propagate satellites in parallel
     print("Propagating satellites in parallel...")
 
-    chunksize = len(SATCAT.Catalogue) // cpu_count()
-    SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop, step_size) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
+    iterable = [(satellite, jd_start, jd_stop, step_size) for satellite in SATCAT.Catalogue]
+    with Pool(processes=cpu_count()) as pool:
+        with tqdm(total=len(iterable)) as pbar:
+            results = []
+            for result in pool.imap_unordered(propagate_satellite, iterable):
+                results.append(result)
+                pbar.update()
 
+    SATCAT.Catalogue = results
     print("Exporting results...")
     dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
 
