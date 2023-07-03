@@ -2,29 +2,82 @@ import os
 import json
 import requests
 import wget
+import pickle
 import pandas as pd
 import datetime
 from utils.SpaceObject import SpaceObject
 from utils.Conversions import tle_parse
+from utils.LaunchModel import Prediction2SpaceObjects
+
+def get_path(*args):
+    return os.path.join(os.getcwd(), *args)
+
+def load_pickle(file_path):
+    with open(get_path(file_path), 'rb') as f:
+        loaded_data = pickle.load(f)
+        print("Loaded data type:", type(loaded_data))
+        return loaded_data
+    
+def dump_pickle(file_path, data):
+    with open(get_path(file_path), 'wb') as f:
+        pickle.dump(data, f)
 
 class SpaceCatalogue:
     def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
-        self.TotalEnergy = []
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
-        self.sim_object_type = sim_object_type
-        self.sim_object_catalogue = sim_object_catalogue
+        self.sim_object_type = sim_object_type # this can be "active", "all", or "debris"
+        self.sim_object_catalogue = sim_object_catalogue # this can be "jsr", "spacetrack", or "both"
         self.repull_catalogues = bool(repull_catalogues)
 
+        # If we are repulling the catalogues call the appropriate function depending on the sim_object_catalogue
         if self.repull_catalogues == True:
-            print("re-downloading JSR Cat")
-            self.PullCatalogueJSR()
-            print("re-downloading SpaceTrack Cat")
-            self.PullCatalogueSpaceTrack()
-        elif self.repull_catalogues == False:
-            print("using exisitng local catalogues")
+            if self.sim_object_catalogue == "jsr":
+                print("re-downloading JSR Cat")
+                self.PullCatalogueJSR()
+            elif self.sim_object_catalogue == "spacetrack":
+                print("re-downloading SpaceTrack Cat")
+                self.PullCatalogueSpaceTrack()
+            elif self.sim_object_catalogue == "both":
+                print("re-downloading JSR and SpaceTrack Cat")
+                self.PullCatalogueJSR()
+                self.PullCatalogueSpaceTrack()
 
+            print("saving new catalogue data to pickle")
+            dump_pickle('src/data/catalogue/SATCAT_before_prop.pickle', self)
+
+        # If we are not repulling the catalogues just use the existing local catalogues
+        else:
+            print("using existing local catalogues")
+            loaded_data = self.load_from_file('src/data/catalogue/SATCAT_before_prop.pickle')
+            self.__dict__ = loaded_data.__dict__
+
+        # Now use the catalogues to create a list of SpaceObjects which will be appended to the Catalogue list
+        if self.sim_object_type == "active":
+            self.CreateCatalogueActive()
+        elif self.sim_object_type == "all":
+            self.CreateCatalogueAll()
+        elif self.sim_object_type == "debris":
+            raise Exception("Debris not yet implemented")
+        
+        self.Catalogue2SpaceObjects()
+        
+        # Now add the predictions to the Catalogue attribuet of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
+        predicted_space_objects = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions_full.csv', 'src/data/prediction_csv/sim_settings.json')
+        print("len(predicted_space_objects): ", len(predicted_space_objects))
+        self.Catalogue.extend(predicted_space_objects)
+        return None
+    
+    @classmethod
+    def load_from_file(cls, file_path):
+        with open(get_path(file_path), 'rb') as f:
+            loaded_data = pickle.load(f)
+            if isinstance(loaded_data, cls):
+                print("Loaded data type:", type(loaded_data))
+                return loaded_data
+            else:
+                raise TypeError(f"Expected a {cls.__name__} instance, but got {type(loaded_data)}")
     def CreateCatalogueActive(self):
         """
         This function will merge the JSR and SpaceTrack catalogues
