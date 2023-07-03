@@ -25,7 +25,7 @@ def dump_pickle(file_path, data):
 
 def propagate_satellite(args):
 
-    satellite, jd_start, jd_stop = args
+    satellite, jd_start, jd_stop, step_size = args
     # Execute the prop_catobject method
     satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=10, propagator="RK45")
 
@@ -37,9 +37,9 @@ def run_parallel_sim(settings):
     # This list of SpaceObjects is just metadata (empty ephemerides) until we propagate the SpaceObjects using the prop_catobject method.
 
     SATCAT = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
-    print("SATCAT ", SATCAT)
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
+    step_size = int(settings["integrator_step_size"]) # in seconds
     scenario_name = settings["scenario_name"]
 
     print("Number of Satellites in catalogue specified: ", len(SATCAT.Catalogue))
@@ -60,7 +60,7 @@ def run_parallel_sim(settings):
     print("Propagating satellites in parallel...")
 
     chunksize = len(SATCAT.Catalogue) // cpu_count()
-    SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
+    SATCAT.Catalogue = process_map(propagate_satellite, [(satellite, jd_start, jd_stop, step_size) for satellite in SATCAT.Catalogue], max_workers=cpu_count(), chunksize=chunksize)
 
     print("Exporting results...")
     dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
@@ -71,5 +71,5 @@ def run_parallel_sim(settings):
 
 if __name__ == '__main__':
     ##### Profiling #####
-    policy = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
-    run_parallel_sim(policy)
+    settings = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
+    run_parallel_sim(settings)
