@@ -230,7 +230,8 @@ def global_launch_schedule(sub_constellation_metadata_dicts, policy, monthly_ton
         constellation_launch_cost = constellation_mass * LEO_launchers[rocket]['cost_per_kg']
         constellation_mass_tons = constellation_mass / 1000
         no_launches_required = math.ceil(constellation_mass_tons / monthly_ton_capacity)
-        print(f"{sub_constellation['_soname']}, mass: {constellation_mass_tons} T, #Launches: {no_launches_required}, M$: {constellation_launch_cost/1000000} M")
+        #TODO: instead of printing here write this to a csv file with the sub constellation name, mass, number of launches required and cost
+        # print(f"{sub_constellation['_soname']}, mass: {constellation_mass_tons} T, #Launches: {no_launches_required}, M$: {constellation_launch_cost/1000000} M")
         sub_constellation_launches_required[sub_constellation['_soname']] = no_launches_required
 
     # now we need to calculate the launch dates for each sub constellation
