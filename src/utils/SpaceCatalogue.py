@@ -28,6 +28,11 @@ class SpaceCatalogue:
         self.CurrentCatalogue = None
         self.sim_object_type = sim_object_type # this can be "active", "all", or "debris"
         self.sim_object_catalogue = sim_object_catalogue # this can be "jsr", "spacetrack", or "both"
+        # raise exception if invalid sim_object_type or sim_object_catalogue is specified
+        if self.sim_object_type not in ["active", "all", "debris"]:
+            raise Exception("Invalid sim_object_type specified, must be 'active', 'all', or 'debris'")
+        if self.sim_object_catalogue not in ["jsr", "spacetrack", "both"]:
+            raise Exception("Invalid sim_object_catalogue specified, must be 'jsr', 'spacetrack', or 'both'")
         self.repull_catalogues = bool(repull_catalogues)
 
         # If we are repulling the catalogues call the appropriate function depending on the sim_object_catalogue
