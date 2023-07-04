@@ -25,7 +25,7 @@ j2 = 1.082626925638815e-3  # km3/s2
 #     atmosphere = coesa76(altitude)
 #     return atmosphere.rho
 
-def grav_acc(state):
+def monopole_earth_grav_acc(state):
     """
     Calculate the acceleration of the satellite in the ECI frame
     Args:
@@ -33,8 +33,8 @@ def grav_acc(state):
     Returns:
          (float/int): result of acceleration
     """
-    r = state[:3]
-    acc = -GM * r / np.linalg.norm(r) ** 3
+    r = state[:3] # distance to the center of mass of the Earth
+    acc = -GM * r / np.linalg.norm(r) ** 3 # calculate the acceleration due to gravity
     return acc
 
 def j2_acc(state):
@@ -96,10 +96,10 @@ def accelerations (t, state, cd, area, mass):
     r_norm = np.linalg.norm(r) #norm of r vector
     #--------------- MONOPOLE ACCELERATION -----------------#
     
-    grav_mono=grav_acc(state) #calculate the acceleration due to gravity
+    grav_mono=monopole_earth_grav_acc(state) #calculate the monopole term of acceleration due to Earth's gravity
     #--------------- J2 PERT ACCELERATION ------------------#
    
-    a_j2 = j2_acc(state) #calculate the acceleration due to J2 perturbations
+    a_j2 = j2_acc(state) #calculate the acceleration due to J2 perturbations (oblateness of the Earth)
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
     grav_a = grav_mono + a_j2
@@ -118,7 +118,13 @@ def accelerations (t, state, cd, area, mass):
     drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration
     
     #TODO: Add solar radiation pressure acceleration
+    # function get vector from the Earth to the sun from DE421 ephemeris
+    # function to get the vector from the satellite to the sun (get from dissertation)
+    # function to calculate whether in umbra or penumbra or neither
+    # function take the calculate SRP based on canonball model where the diameter of the canonball is the characteristic length of the satellite
+
     #TODO: Add third body perturbations
+    # function to calculate the moon - satellite vector
 
     #--------------- SUM OF ALL ACCELERATIONS --------------#
     
@@ -133,19 +139,19 @@ def stop_propagation(t, y, *args):
 
 stop_propagation.terminal = True  # Stop the integration when this event occurs
 
-def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=10, type = "RK45"):
+def numerical_prop(tot_time, pos, vel, C_d, area, mass, h, integrator_type):
     """
     Numerical Propagation of the orbit
 
     Args:
         tot_time (float): total propagation time (seconds)
-        h (float): time step of the propagation (seconds). Defaults to 10 seconds.
+        h (float): time step of the propagation (seconds).
         pos (array): cartesian position vector [x,y,z] (km) at initial conditions
         vel (array): cartesian velocity vector [u,v,w] (km/s) at initial conditions
         C_d (float): drag coefficient
         area (float): cross-sectional area of the satellite (m^2)
         mass (float): mass of the satellite (kg)
-        type (str): type of numerical integration to use. Defaults to "RK45".
+        integrator_type (str): type of numerical integration to use.
 
     Returns:
         array: nested array containing the cartesian state vectors for the propagated orbit at each time step.
@@ -160,8 +166,8 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, h=10, type = "RK45"):
     x0 = np.concatenate((pos, vel))  # Initial state is position and velocity
 
     # Call solve_ivp to propagate the orbit
-    sol = solve_ivp(accelerations, [0, tot_time], x0, method=type, t_eval=np.arange(0, tot_time, h),
-                    args=(C_d, area, mass), events=stop_propagation, rtol=1e-8, atol=1e-8)
+    sol = solve_ivp(accelerations, [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
+                    args=(C_d, area, mass), events=stop_propagation, rtol=1e-7, atol=1e-7)
     #TODO: I have reduced the tolerance to get the code to run faster. Need to decide on what is acceptable/necessary here
     return sol.y.T  # Returns an array where each row is the state at a time
 

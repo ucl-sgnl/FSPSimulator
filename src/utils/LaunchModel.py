@@ -397,7 +397,6 @@ def apply_policy_at_constellation_level(metadata_dicts, policy):
 
     return list_of_dicts_policy_applied
 
-
 def Prediction2SpaceObjects(in_csv_path, policy_json):
     """Generate instances of the SpaceObject class for each of the satellties in the prediction data excel file
 

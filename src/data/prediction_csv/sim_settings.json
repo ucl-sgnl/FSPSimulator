@@ -7,11 +7,11 @@
   "espace": false,
   "sim_start_date":"2019-01-01",
   "sim_end_date":"2019-04-01",
-  "output_frequency": 1296000,
+  "output_frequency": 648000,
   "integrator_step_size": 20,
   "integrator_type": "RK45",
   "sim_object_type": "all",
-  "sim_object_catalogue" : "all",
+  "sim_object_catalogue" : "both",
   "environment": "development",
   "repull_catalogues": false
 }
