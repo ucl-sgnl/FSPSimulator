@@ -238,7 +238,7 @@ class SpaceObject:
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, propagator="RK45"):
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type="RK45"):
         """
         Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
         
@@ -247,14 +247,14 @@ class SpaceObject:
         jd_stop (float): Julian stop date for propagation
         step_size (float): Step size for propagation
         output_freq (float): Frequency at which to output the ephemeris (in seconds)
-        propagator (str): String indicating which numerical integrator to use, default is "RK45"
+        integrator_type (str): String indicating which numerical integrator to use, default is "RK45"
         
         Returns:
         None: The function does not return anything but updates the `ephemeris` attribute of the object.
         """
-        valid_propagators = ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
-        if propagator not in valid_propagators:
-            raise ValueError(f"Invalid propagator. Must be one of the following: {valid_propagators}")
+        valid_integrator_type = ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
+        if integrator_type not in integrator_type:
+            raise ValueError(f"Invalid propagator. Must be one of the following: {integrator_type}")
 
         tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
 
