@@ -252,9 +252,9 @@ class SpaceObject:
         Returns:
         None: The function does not return anything but updates the `ephemeris` attribute of the object.
         """
-        valid_integrator_type = ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
+        valid_integrator_types = ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
         if integrator_type not in integrator_type:
-            raise ValueError(f"Invalid propagator. Must be one of the following: {integrator_type}")
+            raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
 
         tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
 
@@ -277,7 +277,7 @@ class SpaceObject:
 
             # recalculate total time for the remaining journey after station keeping
             tot_time = (jd_stop - self.station_keeping[1]) * 24 * 60 * 60
-            ephemeris_numerical = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
+            ephemeris_numerical = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=integrator_type)
 
             # reformat the ephemeris output
             steps = int(tot_time/step_size)
@@ -299,7 +299,7 @@ class SpaceObject:
 
         
         elif not self.station_keeping:  # object will not station keep, propagate using the numerical integrator
-            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
+            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=integrator_type)
             self.ephemeris = self.ephemeris[::output_freq_steps]  # resample the ephemeris with respect to output frequency
 
 if __name__ == "__main__":

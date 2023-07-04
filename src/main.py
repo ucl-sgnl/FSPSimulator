@@ -38,8 +38,8 @@ def run_parallel_sim(settings):
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
     step_size = int(settings["integrator_step_size"]) # in seconds
     output_freq = int(settings["output_frequency"]) # in seconds
-    scenario_name = settings["scenario_name"]
-    integrator_type = settings["integrator_type"]  #"RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"
+    scenario_name = settings["scenario_name"] # this will be used to name the output pickle file
+    integrator_type = settings["integrator_type"]  # must be one of "RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"
 
     print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
     print(f"Propagating space_object and saving state vector every {settings['output_frequency']} seconds...")
@@ -53,7 +53,7 @@ def run_parallel_sim(settings):
 
     #TODO: testing
     #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
-    SATCAT.Catalogue = SATCAT.Catalogue[:10]
+    SATCAT.Catalogue = SATCAT.Catalogue[-25:]
 
     print("Propagating space objects in parallel...")
 
@@ -74,6 +74,5 @@ def run_parallel_sim(settings):
     print("Simulation Complete")
 
 if __name__ == '__main__':
-    ##### Profiling #####
-    settings = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r'))
-    run_parallel_sim(settings)
+    settings = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r')) # load simulation settings
+    run_parallel_sim(settings) # run simulation
