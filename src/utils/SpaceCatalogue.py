@@ -15,7 +15,6 @@ def get_path(*args):
 def load_pickle(file_path):
     with open(get_path(file_path), 'rb') as f:
         loaded_data = pickle.load(f)
-        print("Loaded data type:", type(loaded_data))
         return loaded_data
     
 def dump_pickle(file_path, data):
@@ -29,6 +28,11 @@ class SpaceCatalogue:
         self.CurrentCatalogue = None
         self.sim_object_type = sim_object_type # this can be "active", "all", or "debris"
         self.sim_object_catalogue = sim_object_catalogue # this can be "jsr", "spacetrack", or "both"
+        # raise exception if invalid sim_object_type or sim_object_catalogue is specified
+        if self.sim_object_type not in ["active", "all", "debris"]:
+            raise Exception("Invalid sim_object_type specified, must be 'active', 'all', or 'debris'")
+        if self.sim_object_catalogue not in ["jsr", "spacetrack", "both"]:
+            raise Exception("Invalid sim_object_catalogue specified, must be 'jsr', 'spacetrack', or 'both'")
         self.repull_catalogues = bool(repull_catalogues)
 
         # If we are repulling the catalogues call the appropriate function depending on the sim_object_catalogue
@@ -65,7 +69,6 @@ class SpaceCatalogue:
         
         # Now add the predictions to the Catalogue attribuet of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
         predicted_space_objects = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions_full.csv', 'src/data/prediction_csv/sim_settings.json')
-        print("len(predicted_space_objects): ", len(predicted_space_objects))
         self.Catalogue.extend(predicted_space_objects)
         return None
     
@@ -74,10 +77,10 @@ class SpaceCatalogue:
         with open(get_path(file_path), 'rb') as f:
             loaded_data = pickle.load(f)
             if isinstance(loaded_data, cls):
-                print("Loaded data type:", type(loaded_data))
                 return loaded_data
             else:
-                raise TypeError(f"Expected a {cls.__name__} instance, but got {type(loaded_data)}")
+                raise TypeError(f"When loading catalogue from file, expected a {cls.__name__} instance, but got {type(loaded_data)}")
+            
     def CreateCatalogueActive(self):
         """
         This function will merge the JSR and SpaceTrack catalogues
@@ -227,7 +230,6 @@ class SpaceCatalogue:
         #TODO: ~10,000 rows are dropped here. Need to investigate why this is happening.  
         # Export the cleaned catalogue for sanity checking
         self.CurrentCatalogueDF.to_csv(os.path.join(os.getcwd(), 'src/data/catalogue/All_catalogue_latest.csv'), index=False)
-
         
     def Catalogue2SpaceObjects(self):
         """
@@ -395,7 +397,6 @@ class SpaceCatalogue:
     #         with open(spacetrack_path, 'w') as f:
     #             f.write(retDataStr)
     #     session.close()
-
 
 if __name__ == '__main__':
     with open(os.path.join(os.getcwd(), 'src/data/prediction_csv/sim_settings.json'), 'r') as f:
