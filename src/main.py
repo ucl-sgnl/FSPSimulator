@@ -53,7 +53,7 @@ def run_parallel_sim(settings):
 
     #TODO: testing
     #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
-    SATCAT.Catalogue = SATCAT.Catalogue[-25:]
+    SATCAT.Catalogue = SATCAT.Catalogue[-100:]
 
     print("Propagating space objects in parallel...")
 

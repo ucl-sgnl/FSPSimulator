@@ -7,6 +7,7 @@ from astropy.time import Time
 from poliastro.bodies import Earth
 from poliastro.twobody import Orbit
 from poliastro.frames import Planes
+from jplephem.spk import SPK
 
 Re = 6378.137 #km Earth's equatorial radius
 
@@ -343,8 +344,6 @@ def generate_cospar_id(launch_year, launch_number, launch_piece):
 
     return cospar_id
 
-
-
 def tle_exponent_format(value):
     # Format a value in scientific notation used in TLEs
     if value == 0:
@@ -469,3 +468,43 @@ def v_rel(state):
     # speed of satellite relative to atmosphere
     v_rel = v - np.cross(atm_rot, r)
     return v_rel
+
+def earth_sun_vec(jd, unit = True):
+    """
+    Calculates the Earth-Sun vector in ECI coordinates.
+    Args:
+        jd (float): Julian Date for which we want the Earth-Sun vector.
+        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
+    Returns:
+        earth_sun_vec (array): Earth-Sun vector in ECI coordinates.
+    """
+    #use glob to find the path ending in '.bsp'
+    bsp_file = glob.glob('*.bsp')[0] #select the first (and only) one
+    kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
+    position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
+    position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
+    position -= kernel[3,399].compute(jd) # Earth Barycenter -> Earth vector
+    
+    if unit == False:
+        return position #output in Km
+    
+    if unit == True:
+        return position/np.linalg.norm(position)
+
+def probe_sun_vec(r, jd, unit = True):
+    """
+    Calculates the probe-Sun vector in ECI coordinates.
+    Args:
+        r (array): probe position in ECI coordinates.
+        jd (float): Julian Date for which we want the probe-Sun vector.
+        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
+    Returns:
+        probe_sun_vec (array): Probe-Sun vector in ECI coordinates.
+    """
+    s = earth_sun_vec(jd, unit = False)
+    p = (s-r) #probe-sun vector = earth-sun vector - earth-probe vector
+    if unit == False:
+        return p #output in Km
+    
+    if unit == True:
+        return p/np.linalg.norm(p)
