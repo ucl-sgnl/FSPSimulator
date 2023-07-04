@@ -238,7 +238,7 @@ class SpaceObject:
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, propagator="RK45"):
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, propagator="RK45"):
         """
         Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
         
@@ -246,6 +246,7 @@ class SpaceObject:
         jd_start (float): Julian start date for propagation
         jd_stop (float): Julian stop date for propagation
         step_size (float): Step size for propagation
+        output_freq (float): Frequency at which to output the ephemeris (in seconds)
         propagator (str): String indicating which numerical integrator to use, default is "RK45"
         
         Returns:
@@ -255,7 +256,10 @@ class SpaceObject:
         if propagator not in valid_propagators:
             raise ValueError(f"Invalid propagator. Must be one of the following: {valid_propagators}")
 
-        tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds once
+        tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
+        
+        output_freq_steps = max(1, round(output_freq / step_size))  # output frequency in steps of the numerical integrator
+
 
         if isinstance(self.station_keeping, list):  # list implies station keeping start and end dates
             combined_ephemeris = []
@@ -266,23 +270,30 @@ class SpaceObject:
 
             # recalculate total time for the remaining journey after station keeping
             tot_time = (jd_stop - self.station_keeping[1]) * 24 * 60 * 60
-            ephemeris_RK45 = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
+            ephemeris_numerical = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
 
             # reformat the ephemeris output
             steps = int(tot_time/step_size)
             time_stamps = np.linspace(self.station_keeping[1], jd_stop, steps)
-            positions = np.array([x[:3] for x in ephemeris_RK45])
-            velocities = np.array([x[3:] for x in ephemeris_RK45])
-            ephemeris_RK45 = list(zip(time_stamps, positions, velocities))
-            combined_ephemeris.append(ephemeris_RK45)
+            positions = np.array([x[:3] for x in ephemeris_numerical])
+            velocities = np.array([x[3:] for x in ephemeris_numerical])
+            ephemeris_numerical = list(zip(time_stamps, positions, velocities))
+            combined_ephemeris.append(ephemeris_numerical)
+
+            # reformat the ephemeris output with respect to output frequency
+            sampled_ephemeris_numerical = ephemeris_numerical[::output_freq_steps]
+            combined_ephemeris.append(sampled_ephemeris_numerical)
 
             self.ephemeris = np.concatenate(combined_ephemeris)
 
         elif self.station_keeping == True:  # object will station keep from launch to decay
             self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+            self.ephemeris = self.ephemeris[::output_freq_steps]  # resample the ephemeris with respect to output frequency
+
         
         elif not self.station_keeping:  # object will not station keep, propagate using the numerical integrator
             self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, type=propagator)
+            self.ephemeris = self.ephemeris[::output_freq_steps]  # resample the ephemeris with respect to output frequency
 
 if __name__ == "__main__":
     pass

@@ -20,13 +20,13 @@ def dump_pickle(file_path, data):
     with open(get_path(file_path), 'wb') as f:
         pickle.dump(data, f)
 
-def propagate_satellite(args):
+def propagate_space_object(args):
 
-    satellite, jd_start, jd_stop, step_size = args
-    # Execute the prop_catobject method
-    satellite.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, propagator="RK45")
+    space_object, jd_start, jd_stop, step_size = args
+    # Execute the prop_catobject method on the space object
+    space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, propagator="RK45")
 
-    return satellite
+    return space_object
 
 def run_parallel_sim(settings):
     # This function will define the simulation settings and run the simulation based on the SpaceCatalogue class instantiation.
@@ -39,13 +39,13 @@ def run_parallel_sim(settings):
     step_size = int(settings["integrator_step_size"]) # in seconds
     scenario_name = settings["scenario_name"]
 
-    print("Number of Satellites in catalogue specified: ", len(SATCAT.Catalogue))
-    print(f"Propagating Satellites and saving state vector every {settings['output_frequency']} days...")
+    print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
+    print(f"Propagating space_object and saving state vector every {settings['output_frequency']} days...")
 
     decayed_before_start = 0
-    for satellite in SATCAT.Catalogue:
-        if satellite.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
-            SATCAT.Catalogue.remove(satellite)
+    for space_object in SATCAT.Catalogue:
+        if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
+            SATCAT.Catalogue.remove(space_object)
             decayed_before_start += 1
     print("# sats decayed before sim start date: ", decayed_before_start)
 
@@ -53,13 +53,13 @@ def run_parallel_sim(settings):
     #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
     SATCAT.Catalogue = SATCAT.Catalogue[:100]
 
-    print("Propagating satellites in parallel...")
+    print("Propagating space objects in parallel...")
 
-    iterable = [(satellite, jd_start, jd_stop, step_size) for satellite in SATCAT.Catalogue]
+    iterable = [(space_object, jd_start, jd_stop, step_size) for space_object in SATCAT.Catalogue]
     with Pool(processes=cpu_count()) as pool:
         with tqdm(total=len(iterable)) as pbar:
             results = []
-            for result in pool.imap_unordered(propagate_satellite, iterable):
+            for result in pool.imap_unordered(propagate_space_object, iterable):
                 results.append(result)
                 pbar.update()
 
