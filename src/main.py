@@ -22,9 +22,9 @@ def dump_pickle(file_path, data):
 
 def propagate_space_object(args):
 
-    space_object, jd_start, jd_stop, step_size = args
+    space_object, jd_start, jd_stop, step_size, output_freq, integrator_type= args
     # Execute the prop_catobject method on the space object
-    space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, propagator="RK45")
+    space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq= output_freq, integrator_type="RK45")
 
     return space_object
 
@@ -37,10 +37,12 @@ def run_parallel_sim(settings):
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
     step_size = int(settings["integrator_step_size"]) # in seconds
+    output_freq = int(settings["output_frequency"]) # in seconds
     scenario_name = settings["scenario_name"]
+    integrator_type = settings["integrator_type"]  #"RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"
 
     print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
-    print(f"Propagating space_object and saving state vector every {settings['output_frequency']} days...")
+    print(f"Propagating space_object and saving state vector every {settings['output_frequency']} seconds...")
 
     decayed_before_start = 0
     for space_object in SATCAT.Catalogue:
@@ -51,11 +53,11 @@ def run_parallel_sim(settings):
 
     #TODO: testing
     #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
-    SATCAT.Catalogue = SATCAT.Catalogue[:100]
+    SATCAT.Catalogue = SATCAT.Catalogue[:10]
 
     print("Propagating space objects in parallel...")
 
-    iterable = [(space_object, jd_start, jd_stop, step_size) for space_object in SATCAT.Catalogue]
+    iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type) for space_object in SATCAT.Catalogue]
     with Pool(processes=cpu_count()) as pool:
         with tqdm(total=len(iterable)) as pbar:
             results = []
@@ -68,7 +70,7 @@ def run_parallel_sim(settings):
     dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
 
     print(f"Output: {get_path(f'src/data/catalogue/{scenario_name}.pickle')}")
-    print(f"Number of Satellites: {len(SATCAT.Catalogue)}")
+    print(f"Number of Satellites in catalogue after propagation: {len(SATCAT.Catalogue)}")
     print("Simulation Complete")
 
 if __name__ == '__main__':
