@@ -257,9 +257,16 @@ class SpaceObject:
             raise ValueError(f"Invalid propagator. Must be one of the following: {valid_propagators}")
 
         tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
-        
-        output_freq_steps = max(1, round(output_freq / step_size))  # output frequency in steps of the numerical integrator
 
+        #if output_freq is not specified set it to equal the step_size
+        if output_freq is None:
+            output_freq = step_size
+        #if output_freq is specified, check that it is not smaller than the step_size
+        elif output_freq < step_size:
+            raise ValueError('output_freq cannot be smaller than step_size')
+        # Calculate the output frequency in steps of the numerical integrator
+        else:
+            output_freq_steps = max(1, round(output_freq / step_size))  
 
         if isinstance(self.station_keeping, list):  # list implies station keeping start and end dates
             combined_ephemeris = []
