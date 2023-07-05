@@ -53,7 +53,7 @@ def run_parallel_sim(settings):
 
     #TODO: testing
     #slice SATCAT.Catalogue 
-    SATCAT.Catalogue = SATCAT.Catalogue[:20]
+    SATCAT.Catalogue = SATCAT.Catalogue[-20:]
 
     print("Propagating space objects in parallel...")
 

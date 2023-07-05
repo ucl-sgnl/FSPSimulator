@@ -96,17 +96,12 @@ def solar_shadow_function(state, jd_time):
     a = np.arcsin(RSun/ np.linalg.norm(probe_sun_vector - state[:3])) # apparent radius of the occulted body (the Sun)
     b = np.arcsin(Re / np.linalg.norm(state[:3])) # apparent radius of the occulting body (the Earth)
     c = np.arccos(np.dot(-state[:3], probe_sun_vector) / (np.linalg.norm(state[:3]) * np.linalg.norm(probe_sun_vector))) # Angle between the vectors to the Sun and to the Earth
-    print("a: ", a)
-    print("b: ", b)
-    print("c: ", c)
+
     if a + b <= c:
-        print("sun")
         return "sun"  # Satellite is in full sunlight
     elif a + c <= b:
-        print("umbra")
         return "umbra"  # Satellite is in total shadow (umbra)
     else:
-        print("penumbra")
         return "penumbra"  # Satellite is in partial shadow (penumbra)
 
 def aero_drag_acc(state, cd, area, mass, density_model, jd):
@@ -149,23 +144,21 @@ def srp_acc(mass, area, state, jd_time, cr=1):
     """
     Calculate the acceleration due to solar radiation pressure (SRP) acting on the satellite in the ECI frame.
     Args:
-        mass(float): Mass of the satellite.
-        area(float): Cross-sectional area of the satellite.
-        state(float/int): State of the satellite.
-        jd_time (float): Julian date time.
-        cr(float, optional): Coefficient of reflectivity. Defaults to 1 (perfect reflection).
+        mass(float): Mass of the satellite. in kg
+        area(float): Cross-sectional area of the satellite. in m^2
+        state(float/int): State of the satellite. in km
+        jd_time (float): Julian date time. in JD
+        cr(float, optional): Coefficient of reflectivity. Defaults to 1 (perfect reflection). 
     Returns:
         (float/int): Resultant acceleration due to SRP.
     """
     probe_sun_vector = probe_sun_vec(state[0:3], jd_time, unit=False) #distance to the center of mass of the Sun
 
-    shadow = solar_shadow_function(state, jd_time)
+    shadow = solar_shadow_function(state, jd_time) #calculate whether the satellite is in the umbra, penumbra, or full phase of the Earth's shadow
     if shadow == "sun":
+        Power_Sun = 4.56e-6 #N/m^-2 (power of the sun at 1 AU)
         probe_sun_norm = np.linalg.norm(probe_sun_vector)
-        A_sun = P_sun / (probe_sun_norm/AU_km)**2
-        F_SRP = A_sun * cr * area / (c * 1000) #c is the speed of light in m/s
-        a_SRP = F_SRP / mass
-        a_srp_vec = a_SRP * (probe_sun_vector / probe_sun_norm)
+        a_srp_vec = -Power_Sun*cr*(area/mass)*probe_sun_vector/(probe_sun_norm**3)*AU_km**2 #Canonball SRP from Montenbruck and Gill (2000)
     elif shadow == "umbra":
         a_srp_vec = np.array([0,0,0])
     elif shadow == "penumbra":
@@ -196,14 +189,15 @@ def accelerations (t, state, cd, area, mass, jd_time):
     # print("earth j2: ", a_j2)
     #--------------- MOON AND SUN PERTURBATIONS ------------#
 
-    sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
-    moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
+    # sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
+    # moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
     # print("sun grav_mono: ", sun_grav_mono)
     # print("moon grav_mono: ", moon_grav_mono)
 
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
-    grav_a = grav_mono + a_j2 + sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
+    grav_a = grav_mono + a_j2 #+ sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
+
     # print("grav_a: ", grav_a)
     
     #--------------- AERO DRAG ACCELERATION --------------#
