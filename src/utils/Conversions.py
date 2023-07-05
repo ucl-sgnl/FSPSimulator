@@ -510,13 +510,13 @@ def earth_moon_vec(jd, unit = True):
     if unit == True:
         return position/np.linalg.norm(position)
 
-def probe_sun_vec(r, jd, unit = True):
+def probe_sun_vec(r, jd, unit = False):
     """
     Calculates the probe-Sun vector in ECI coordinates.
     Args:
         r (array): probe position in ECI coordinates.
         jd (float): Julian Date for which we want the probe-Sun vector.
-        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
+        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is False.
     Returns:
         probe_sun_vec (array): Probe-Sun vector in ECI coordinates.
     """
@@ -528,13 +528,13 @@ def probe_sun_vec(r, jd, unit = True):
     if unit == True:
         return p/np.linalg.norm(p)
     
-def probe_moon_vec(r, jd, unit = True):
+def probe_moon_vec(r, jd, unit = False):
     """
     Calculates the probe-Moon vector in ECI coordinates.
     Args:
         r (array): probe position in ECI coordinates.
         jd (float): Julian Date for which we want the probe-Moon vector.
-        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
+        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is False.
     Returns:
         probe_moon_vec (array): Probe-Moon vector in ECI coordinates.
     """
