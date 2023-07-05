@@ -18,7 +18,7 @@ j2 = 1.082626925638815e-3  # km3/s2
 c = 299792.458 #km/s
 P_sun = 1367 #W/m^2 (power of the sun at 1 AU)
 AU_km = 149597870.7 #km (1 AU in km)
-
+RSun = 695700 #km (radius of the sun)
 
 def monopole_earth_grav_acc(state):
     """
@@ -62,7 +62,7 @@ def monopole_sun_grav_acc(state, jd_time):
     Returns:
         (float/int): Resultant acceleration due to the Sun's gravity.
     """
-    probe_sun_vector = probe_sun_vec(state, jd_time) #distance to the center of mass of the Sun
+    probe_sun_vector = probe_sun_vec(state[:3], jd_time, unit=False) #distance to the center of mass of the Sun
     sun_acc = -GM_sun * probe_sun_vector / np.linalg.norm(probe_sun_vector) ** 3 # calculate the acceleration due to gravity
     return sun_acc
 
@@ -75,9 +75,39 @@ def monopole_moon_grav_acc(state, jd_time):
     Returns:
         (float/int): Resultant acceleration due to the Moon's gravity.
     """
-    probe_moon_vector = probe_moon_vec(state, jd_time)
+    probe_moon_vector = probe_moon_vec(state[:3], jd_time, unit=False)
     moon_acc = -GM_moon * probe_moon_vector / np.linalg.norm(probe_moon_vector) ** 3
     return moon_acc
+
+def solar_shadow_function(state, jd_time):
+    #TODO: this needs some proper testing to make sure it works. Seems reasonable but have not rigorously tested it.
+    """
+    Calculate whether the satellite is in the umbra, penumbra, or full phase of the Earth's shadow.
+    Args:
+        state(numpy.array): State of the satellite.
+        jd_time (float): Julian date time.
+    Returns:
+        (str): "sun", "umbra", or "penumbra"
+    """
+
+    probe_sun_vector = probe_sun_vec(state[:3], jd_time, unit=False)
+    s = state[:3] - probe_sun_vector # vector from the satellite to the center of mass of the Sun
+
+    a = np.arcsin(RSun/ np.linalg.norm(probe_sun_vector - state[:3])) # apparent radius of the occulted body (the Sun)
+    b = np.arcsin(Re / np.linalg.norm(state[:3])) # apparent radius of the occulting body (the Earth)
+    c = np.arccos(np.dot(-state[:3], probe_sun_vector) / (np.linalg.norm(state[:3]) * np.linalg.norm(probe_sun_vector))) # Angle between the vectors to the Sun and to the Earth
+    print("a: ", a)
+    print("b: ", b)
+    print("c: ", c)
+    if a + b <= c:
+        print("sun")
+        return "sun"  # Satellite is in full sunlight
+    elif a + c <= b:
+        print("umbra")
+        return "umbra"  # Satellite is in total shadow (umbra)
+    else:
+        print("penumbra")
+        return "penumbra"  # Satellite is in partial shadow (penumbra)
 
 def aero_drag_acc(state, cd, area, mass, density_model, jd):
     """
@@ -104,9 +134,9 @@ def aero_drag_acc(state, cd, area, mass, density_model, jd):
         rho = float(ussa76_rho(alt))
     elif density_model == "jb08":
         rho = float(jb08_rho(alt, jd))
+   
     # Then we apply the density to the drag force model
     v_rel_atm= v_rel(state)
-
     v_norm = np.linalg.norm(v_rel_atm) #norm of v vector
 
     #v_rel_atm outputs the relative velocity in km/s. We need to convert it to m/s to use in the drag force model
@@ -127,13 +157,19 @@ def srp_acc(mass, area, state, jd_time, cr=1):
     Returns:
         (float/int): Resultant acceleration due to SRP.
     """
-    probe_sun_vector = probe_sun_vec(state, jd_time)
-    # TODO: turn on or off based on function to calculate whether in umbra or penumbra or in full phase
-    probe_sun_norm = np.linalg.norm(probe_sun_vector)
-    A_sun = P_sun / (probe_sun_norm/AU_km)**2
-    F_SRP = A_sun * cr * area / (c * 1000) #c is the speed of light in m/s
-    a_SRP = F_SRP / mass
-    a_srp_vec = a_SRP * (probe_sun_vector / probe_sun_norm)
+    probe_sun_vector = probe_sun_vec(state[0:3], jd_time, unit=False) #distance to the center of mass of the Sun
+
+    shadow = solar_shadow_function(state, jd_time)
+    if shadow == "sun":
+        probe_sun_norm = np.linalg.norm(probe_sun_vector)
+        A_sun = P_sun / (probe_sun_norm/AU_km)**2
+        F_SRP = A_sun * cr * area / (c * 1000) #c is the speed of light in m/s
+        a_SRP = F_SRP / mass
+        a_srp_vec = a_SRP * (probe_sun_vector / probe_sun_norm)
+    elif shadow == "umbra":
+        a_srp_vec = np.array([0,0,0])
+    elif shadow == "penumbra":
+        a_srp_vec = np.array([0,0,0]) #TODO: this is not correct. Need to calculate the SRP acceleration in the penumbra. For now just set to zero.
     return a_srp_vec
 
 def accelerations (t, state, cd, area, mass, jd_time):
@@ -153,26 +189,33 @@ def accelerations (t, state, cd, area, mass, jd_time):
     #--------------- MONOPOLE ACCELERATION -----------------#
     
     grav_mono=monopole_earth_grav_acc(state)
+    # print("earth grav_mono: ", grav_mono)
     #--------------- J2 PERT ACCELERATION ------------------#
    
     a_j2 = j2_acc(state)
-
+    # print("earth j2: ", a_j2)
     #--------------- MOON AND SUN PERTURBATIONS ------------#
 
     sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
     moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
+    # print("sun grav_mono: ", sun_grav_mono)
+    # print("moon grav_mono: ", moon_grav_mono)
 
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
     grav_a = grav_mono + a_j2 + sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
+    # print("grav_a: ", grav_a)
     
     #--------------- AERO DRAG ACCELERATION --------------#
     drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) #TODO: make the density model type an input of the sim settings file
-
+    # print("drag_aero_vec: ", drag_aero_vec)
     #--------------- SOLAR RADIATION PRESSURE ACCELERATION --------------#
     a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
+    solar_shadow_function(state, jd_time)
+    # print("a_srp_vec: ", a_srp_vec)
     
     a_tot = grav_a + drag_aero_vec + a_srp_vec #sum of all accelerations
+    # print("a_tot: ", a_tot)
     return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
 
 def stop_propagation(t, y, *args):

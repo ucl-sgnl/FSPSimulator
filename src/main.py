@@ -52,8 +52,8 @@ def run_parallel_sim(settings):
     print("# sats decayed before sim start date: ", decayed_before_start)
 
     #TODO: testing
-    #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
-    SATCAT.Catalogue = SATCAT.Catalogue[-2:]
+    #slice SATCAT.Catalogue 
+    SATCAT.Catalogue = SATCAT.Catalogue[:20]
 
     print("Propagating space objects in parallel...")
 
