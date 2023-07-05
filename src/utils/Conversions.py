@@ -2,6 +2,7 @@ import numpy as np
 import warnings
 import math
 import datetime
+import glob
 from astropy import units as u
 from astropy.time import Time
 from poliastro.bodies import Earth
@@ -121,7 +122,6 @@ def car2kep(x, y, z, u, v, w, deg=False, arg_l=False):
             return a, e, i, w, W, V
 
     return a, e, i, w, W, V                
-
 
 def true_to_eccentric_anomaly(true_anomaly, eccentricity):
     cos_E = (eccentricity + math.cos(true_anomaly)) / (1 + eccentricity * math.cos(true_anomaly))
@@ -433,7 +433,6 @@ def get_day_of_year_and_fractional_day(epoch):
     fractional_day = seconds_since_midnight / 86400
     return day_of_year + fractional_day
 
-
 def UTC_step(date_list, steps,h):
     """ Make an array of datetime strings in UTC format
 
@@ -478,12 +477,32 @@ def earth_sun_vec(jd, unit = True):
     Returns:
         earth_sun_vec (array): Earth-Sun vector in ECI coordinates.
     """
-    #use glob to find the path ending in '.bsp'
-    bsp_file = glob.glob('*.bsp')[0] #select the first (and only) one
+    bsp_file = 'src/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
     kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
     position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
     position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
     position -= kernel[3,399].compute(jd) # Earth Barycenter -> Earth vector
+    
+    if unit == False:
+        return position #output in Km
+    
+    if unit == True:
+        return position/np.linalg.norm(position)
+
+def earth_moon_vec(jd, unit = True):
+    """
+    Calculates the Earth-Moon vector in ECI coordinates.
+    Args:
+        jd (float): Julian Date for which we want the Earth-Moon vector.
+        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
+    Returns:
+        earth_moon_vec (array): Earth-Moon vector in ECI coordinates.
+    """
+    bsp_file = 'src/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
+    kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
+    position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
+    position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
+    position -= kernel[3,301].compute(jd) # Earth Barycenter -> Moon vector
     
     if unit == False:
         return position #output in Km
@@ -503,6 +522,24 @@ def probe_sun_vec(r, jd, unit = True):
     """
     s = earth_sun_vec(jd, unit = False)
     p = (s-r) #probe-sun vector = earth-sun vector - earth-probe vector
+    if unit == False:
+        return p #output in Km
+    
+    if unit == True:
+        return p/np.linalg.norm(p)
+    
+def probe_moon_vec(r, jd, unit = True):
+    """
+    Calculates the probe-Moon vector in ECI coordinates.
+    Args:
+        r (array): probe position in ECI coordinates.
+        jd (float): Julian Date for which we want the probe-Moon vector.
+        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
+    Returns:
+        probe_moon_vec (array): Probe-Moon vector in ECI coordinates.
+    """
+    m = earth_moon_vec(jd, unit = False)
+    p = (m-r) #probe-moon vector = earth-moon vector - earth-probe vector
     if unit == False:
         return p #output in Km
     

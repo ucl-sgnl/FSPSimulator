@@ -133,6 +133,10 @@ def ussa76_rho(alts):
 
     return rhos
 
+def jb08_rho(state, jd):
+    #not implemented yet so return error
+    raise NotImplementedError
+
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
     rhos = ussa76_rho(np.linspace(0,1000,1000))
