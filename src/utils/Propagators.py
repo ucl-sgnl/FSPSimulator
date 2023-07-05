@@ -153,12 +153,16 @@ def srp_acc(mass, area, state, jd_time, cr=1):
         (float/int): Resultant acceleration due to SRP.
     """
     probe_sun_vector = probe_sun_vec(state[0:3], jd_time, unit=False) #distance to the center of mass of the Sun
+    probe_sun_vec_m = probe_sun_vector * 1000 #convert to metres
+    AU_m = AU_km * 1000 #convert AU to metres
 
     shadow = solar_shadow_function(state, jd_time) #calculate whether the satellite is in the umbra, penumbra, or full phase of the Earth's shadow
     if shadow == "sun":
         Power_Sun = 4.56e-6 #N/m^-2 (power of the sun at 1 AU)
-        probe_sun_norm = np.linalg.norm(probe_sun_vector)
-        a_srp_vec = -Power_Sun*cr*(area/mass)*probe_sun_vector/(probe_sun_norm**3)*AU_km**2 #Canonball SRP from Montenbruck and Gill (2000)
+        probe_sun_norm = np.linalg.norm(probe_sun_vec_m)
+        a_srp_vec = -Power_Sun*cr*(area/mass)*(probe_sun_vec_m)/(probe_sun_norm**3)*(AU_m**2) #Canonball SRP from Montenbruck and Gill (2000)
+        # units
+        a_srp_vec = a_srp_vec/1000 #convert from km/s^2 to m/s^2
     elif shadow == "umbra":
         a_srp_vec = np.array([0,0,0])
     elif shadow == "penumbra":
@@ -182,34 +186,31 @@ def accelerations (t, state, cd, area, mass, jd_time):
     #--------------- MONOPOLE ACCELERATION -----------------#
     
     grav_mono=monopole_earth_grav_acc(state)
-    # print("earth grav_mono: ", grav_mono)
+    
     #--------------- J2 PERT ACCELERATION ------------------#
    
     a_j2 = j2_acc(state)
-    # print("earth j2: ", a_j2)
+    
     #--------------- MOON AND SUN PERTURBATIONS ------------#
 
     # sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
     # moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
-    # print("sun grav_mono: ", sun_grav_mono)
-    # print("moon grav_mono: ", moon_grav_mono)
 
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
     grav_a = grav_mono + a_j2 #+ sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
-
-    # print("grav_a: ", grav_a)
     
     #--------------- AERO DRAG ACCELERATION --------------#
     drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) #TODO: make the density model type an input of the sim settings file
-    # print("drag_aero_vec: ", drag_aero_vec)
+
+    #combine all the above print statemtnts into one print statement
     #--------------- SOLAR RADIATION PRESSURE ACCELERATION --------------#
     a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
     solar_shadow_function(state, jd_time)
-    # print("a_srp_vec: ", a_srp_vec)
     
     a_tot = grav_a + drag_aero_vec + a_srp_vec #sum of all accelerations
-    # print("a_tot: ", a_tot)
+    
+    print("aerodrag: ", drag_aero_vec, "a_srp_vec: ", a_srp_vec, "altitude: ", np.linalg.norm(state[:3]) - Re)
     return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
 
 def stop_propagation(t, y, *args):

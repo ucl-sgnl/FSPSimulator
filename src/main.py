@@ -52,8 +52,8 @@ def run_parallel_sim(settings):
     print("# sats decayed before sim start date: ", decayed_before_start)
 
     #TODO: testing
-    #slice SATCAT.Catalogue 
-    SATCAT.Catalogue = SATCAT.Catalogue[-20:]
+    #slice SATCAT.Catalogue to select 100 elements evenly spaced throughout the list
+    SATCAT.Catalogue = SATCAT.Catalogue[::int(len(SATCAT.Catalogue)/35)]
 
     print("Propagating space objects in parallel...")
 
