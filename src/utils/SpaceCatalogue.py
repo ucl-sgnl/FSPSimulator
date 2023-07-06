@@ -9,6 +9,48 @@ from utils.SpaceObject import SpaceObject
 from utils.Conversions import tle_parse
 from utils.LaunchModel import Prediction2SpaceObjects
 
+import json
+
+def check_json_file(json):
+    # Define the valid keys and their types
+    expected_keys = {
+        "scenario_name": str,
+        "monthly_ton_capacity": str,
+        "launch_start_date": str,
+        "remove_operators": str,
+        "sim_start_date": str,
+        "sim_end_date": str,
+        "output_frequency": int,
+        "integrator_step_size": int,
+        "integrator_type": str,
+        "sim_object_type": str,
+        "sim_object_catalogue": str,
+        "environment": str,
+        "repull_catalogues": bool,
+        "satellite_predictions_csv": str
+    }
+
+    # Define the valid values for keys with a limited set of valid options
+    valid_values = {
+        "integrator_type": ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"],
+        "sim_object_type": ["all", "debris", "active"],
+        "sim_object_catalogue": ["jsr", "spacetrack", "both"],
+    }
+
+    for key, expected_type in expected_keys.items():
+        if key not in json:
+            print(f"Error: Missing key '{key}' in JSON file.")
+            return False
+        if not isinstance(json[key], expected_type):
+            print(f"Error: Incorrect type for key '{key}'. Expected {expected_type.__name__}, but got {type(json[key]).__name__}.")
+            return False
+        if key in valid_values and json[key] not in valid_values[key]:
+            print(f"Error: Invalid value for key '{key}'. Expected one of {valid_values[key]}, but got {json[key]}.")
+            return False
+
+    print("JSON file is valid.")
+    return True
+
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
 
@@ -22,7 +64,11 @@ def dump_pickle(file_path, data):
         pickle.dump(data, f)
 
 class SpaceCatalogue:
-    def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
+    def __init__(self, settings):
+        satellite_predictions_csv = str("src/data/prediction_csv/") + settings["satellite_predictions_csv"]
+        sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
+        sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
+        repull_catalogues = settings["repull_catalogues"]
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
@@ -67,8 +113,8 @@ class SpaceCatalogue:
         
         self.Catalogue2SpaceObjects()
         
-        # Now add the predictions to the Catalogue attribuet of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
-        predicted_space_objects = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions_full.csv', 'src/data/prediction_csv/sim_settings.json')
+        # Now add the predictions to the Catalogue attribute of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
+        predicted_space_objects = Prediction2SpaceObjects(satellite_predictions_csv = satellite_predictions_csv, simsettings=settings)
         self.Catalogue.extend(predicted_space_objects)
         return None
     

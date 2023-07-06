@@ -6,7 +6,7 @@ import pickle
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 
-from utils.SpaceCatalogue import SpaceCatalogue
+from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from utils.Conversions import utc_to_jd
 
 def get_path(*args):
@@ -33,7 +33,7 @@ def run_parallel_sim(settings):
     # The SpaceCatalogue class will create a catalogue(list) of SpaceObjects based on the settings provided.
     # This list of SpaceObjects is just metadata (empty ephemerides) until we propagate the SpaceObjects using the prop_catobject method.
 
-    SATCAT = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
+    SATCAT = SpaceCatalogue(settings = settings)
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
     step_size = int(settings["integrator_step_size"]) # in seconds
@@ -52,8 +52,8 @@ def run_parallel_sim(settings):
     print("# sats decayed before sim start date: ", decayed_before_start)
 
     #TODO: testing
-    #slice SATCAT.Catalogue to retain only the first and last 100 satellites for testing (first 100 are from JSR/SpaceTrack, last 100 are from FSP predictions)
-    SATCAT.Catalogue = SATCAT.Catalogue[-25:]
+    #slice SATCAT.Catalogue to select 100 elements evenly spaced throughout the list
+    SATCAT.Catalogue = SATCAT.Catalogue[::int(len(SATCAT.Catalogue)/100)]
 
     print("Propagating space objects in parallel...")
 
@@ -67,12 +67,19 @@ def run_parallel_sim(settings):
 
     SATCAT.Catalogue = results
     print("Exporting results...")
-    dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
+    dump_pickle(f'src/data/catalogue/simresult_{scenario_name}.pickle', SATCAT)
 
     print(f"Output: {get_path(f'src/data/catalogue/{scenario_name}.pickle')}")
     print(f"Number of Satellites in catalogue after propagation: {len(SATCAT.Catalogue)}")
     print("Simulation Complete")
 
 if __name__ == '__main__':
-    settings = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r')) # load simulation settings
-    run_parallel_sim(settings) # run simulation
+    #list all the json files in src/data/specify_simulations
+    sims = os.listdir(get_path('src/data/specify_simulation'))
+    for sim in sims:
+        if sim.endswith('.json'):
+            print(f"Running simulation: {sim}")
+            settings = json.load(open(get_path(f'src/data/specify_simulation/{sim}'), 'r'))
+            check_json_file(settings)#check if the json file is filled out correctly
+            run_parallel_sim(settings)
+            print(f"Simulation {sim} complete")
