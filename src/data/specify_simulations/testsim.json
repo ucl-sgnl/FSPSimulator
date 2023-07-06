@@ -2,8 +2,6 @@
   "scenario_name": "testrun",
   "monthly_ton_capacity": "100",
   "launch_start_date":"2019-01-01",
-  "startup_failure_rate": 0,
-  "satellite_failure_rate" : 0,
   "remove_operators": "E-Space",
   "sim_start_date":"2019-01-01",
   "sim_end_date":"2019-01-08",

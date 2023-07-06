@@ -74,5 +74,11 @@ def run_parallel_sim(settings):
     print("Simulation Complete")
 
 if __name__ == '__main__':
-    settings = json.load(open(get_path('src/data/specify_simulation/testsim.json'), 'r')) # load simulation settings
-    run_parallel_sim(settings) # run simulation
+    #list all the json files in src/data/specify_simulations
+    sims = os.listdir(get_path('src/data/specify_simulation'))
+    for sim in sims:
+        if sim.endswith('.json'):
+            print(f"Running simulation: {sim}")
+            settings = json.load(open(get_path(f'src/data/specify_simulation/{sim}'), 'r'))
+            run_parallel_sim(settings)
+            print(f"Simulation {sim} complete")
