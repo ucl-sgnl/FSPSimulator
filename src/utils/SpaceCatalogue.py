@@ -22,7 +22,11 @@ def dump_pickle(file_path, data):
         pickle.dump(data, f)
 
 class SpaceCatalogue:
-    def __init__(self, sim_object_type, sim_object_catalogue, repull_catalogues):
+    def __init__(self, settings):
+        satellite_predictions_csv = str("src/data/prediction_csv/") + settings["satellite_predictions_csv"]
+        sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
+        sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
+        repull_catalogues = settings["repull_catalogues"]
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
@@ -67,8 +71,8 @@ class SpaceCatalogue:
         
         self.Catalogue2SpaceObjects()
         
-        # Now add the predictions to the Catalogue attribuet of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
-        predicted_space_objects = Prediction2SpaceObjects('src/data/prediction_csv/FSP_Predictions_full.csv', 'src/data/prediction_csv/sim_settings.json')
+        # Now add the predictions to the Catalogue attribute of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
+        predicted_space_objects = Prediction2SpaceObjects(satellite_predictions_csv = satellite_predictions_csv, simsettings=settings)
         self.Catalogue.extend(predicted_space_objects)
         return None
     

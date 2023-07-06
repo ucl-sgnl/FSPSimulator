@@ -33,7 +33,7 @@ def run_parallel_sim(settings):
     # The SpaceCatalogue class will create a catalogue(list) of SpaceObjects based on the settings provided.
     # This list of SpaceObjects is just metadata (empty ephemerides) until we propagate the SpaceObjects using the prop_catobject method.
 
-    SATCAT = SpaceCatalogue(settings["sim_object_type"], settings["sim_object_catalogue"], settings["repull_catalogues"])
+    SATCAT = SpaceCatalogue(settings = settings)
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
     step_size = int(settings["integrator_step_size"]) # in seconds
@@ -74,5 +74,5 @@ def run_parallel_sim(settings):
     print("Simulation Complete")
 
 if __name__ == '__main__':
-    settings = json.load(open(get_path('src/data/prediction_csv/sim_settings.json'), 'r')) # load simulation settings
+    settings = json.load(open(get_path('src/data/specify_simulation/testsim.json'), 'r')) # load simulation settings
     run_parallel_sim(settings) # run simulation
