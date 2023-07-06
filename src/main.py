@@ -42,7 +42,7 @@ def run_parallel_sim(settings):
     integrator_type = settings["integrator_type"]  # must be one of "RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"
 
     print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
-    print(f"Propagating space_object and saving state vector every {settings['output_frequency']} seconds...")
+    print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
 
     decayed_before_start = 0
     for space_object in SATCAT.Catalogue:
@@ -53,7 +53,7 @@ def run_parallel_sim(settings):
 
     #TODO: testing
     #slice SATCAT.Catalogue to select n elements evenly spaced throughout the list
-    SATCAT.Catalogue = SATCAT.Catalogue[::int(len(SATCAT.Catalogue)/3)]
+    SATCAT.Catalogue = SATCAT.Catalogue[::int(len(SATCAT.Catalogue)/10)]
 
     print("Propagating space objects in parallel...")
 
@@ -68,10 +68,7 @@ def run_parallel_sim(settings):
     SATCAT.Catalogue = results
     print("Exporting results...")
     dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
-
-    print(f"Output: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
-    print(f"Number of Satellites in catalogue after propagation: {len(SATCAT.Catalogue)}")
-    print("Simulation Complete")
+    print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
 
 if __name__ == '__main__':
     #list all the json files in src/data/specify_simulations
