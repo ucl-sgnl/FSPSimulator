@@ -1,3 +1,5 @@
+#Only way i could rin this was to bring it into src and run using "python -m src.tests.PropagatorTest"
+
 import numpy as np
 import matplotlib.pyplot as plt
 from utils.Conversions import tle_parse, tle_convert, TLE_time, jd_to_utc
