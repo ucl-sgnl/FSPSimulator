@@ -1,6 +1,6 @@
 # 🚀FSP Simulator
 
-Welcome to the Python version of the Future Space Populations Simulator! This modern adaptation provides an updated approach to running source-sink evolutionary simulations of objects in space. The simulator is designed to be modular, allowing for easy integration of new models and features. We hope that this will allow for the simulator to be used as a tool for the community to test new ideas and models. If you have feedback, would like to get involved please feel free submit a pull request or raise an issue. There are a number of features under development and we are open to collaboration on many of these.
+Welcome to the Python version of the Future Space Populations Simulator! This modern adaptation provides an updated approach to running source-sink evolutionary simulations of objects in space. The simulator is designed to be modular, allowing for easy integration of new models and features. We hope that this will allow for the simulator to be used as a tool for the community to test new ideas and models. If you have feedback, would like to get involved please feel free submit a pull request or raise an issue. As a "v0.1" there are a number of features under development and we are open to collaboration on many of these.
 
 ## 🏁 Getting Started
 
@@ -49,8 +49,9 @@ A typical simulation configuration can be represented in the JSON file format as
 
 ## Outputs of the simulation
 For each run:
-    - A CSV file with the name of the scenario will be created in the `src/data/results/predicted_constellation_metadata` directory to reflect which constellations were retained in the simulation process (currentl does not do anything as the failure rate has been set to 0% before the relevant code is fixed).
-    - A pickle file with the name of the scenario will be created in the `src/data/results/propagated_catalogs` directory. This will contain all the SpaceObject instances that were propagated in the simulation. These can be manipulated using the SpaceObject methods to return the relevant information (ephemeris, orbital elements, physical characteristics, etc.).
+- A CSV file with the name of the scenario will be created in the `src/data/results/predicted_constellation_metadata` directory to reflect which constellations were retained in the simulation process (currentl does not do anything as the failure rate has been set to 0% before the relevant code is fixed).
+
+- A pickle file with the name of the scenario will be created in the `src/data/results/propagated_catalogs` directory. This will contain all the SpaceObject instances that were propagated in the simulation. These can be manipulated using the SpaceObject methods to return the relevant information (ephemeris, orbital elements, physical characteristics, etc.).
 
 ### 📊 Visualizing the results
 The easiest way to get started with visualizing your results is to make use of the `Visualization.ipynb` notebook.
