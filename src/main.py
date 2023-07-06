@@ -6,7 +6,7 @@ import pickle
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 
-from utils.SpaceCatalogue import SpaceCatalogue
+from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from utils.Conversions import utc_to_jd
 
 def get_path(*args):
@@ -67,7 +67,7 @@ def run_parallel_sim(settings):
 
     SATCAT.Catalogue = results
     print("Exporting results...")
-    dump_pickle(f'src/data/catalogue/prop_{scenario_name}.pickle', SATCAT)
+    dump_pickle(f'src/data/catalogue/simresult_{scenario_name}.pickle', SATCAT)
 
     print(f"Output: {get_path(f'src/data/catalogue/{scenario_name}.pickle')}")
     print(f"Number of Satellites in catalogue after propagation: {len(SATCAT.Catalogue)}")
@@ -80,5 +80,6 @@ if __name__ == '__main__':
         if sim.endswith('.json'):
             print(f"Running simulation: {sim}")
             settings = json.load(open(get_path(f'src/data/specify_simulation/{sim}'), 'r'))
+            check_json_file(settings)#check if the json file is filled out correctly
             run_parallel_sim(settings)
             print(f"Simulation {sim} complete")

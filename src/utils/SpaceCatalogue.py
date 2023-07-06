@@ -9,6 +9,48 @@ from utils.SpaceObject import SpaceObject
 from utils.Conversions import tle_parse
 from utils.LaunchModel import Prediction2SpaceObjects
 
+import json
+
+def check_json_file(json):
+    # Define the valid keys and their types
+    expected_keys = {
+        "scenario_name": str,
+        "monthly_ton_capacity": str,
+        "launch_start_date": str,
+        "remove_operators": str,
+        "sim_start_date": str,
+        "sim_end_date": str,
+        "output_frequency": int,
+        "integrator_step_size": int,
+        "integrator_type": str,
+        "sim_object_type": str,
+        "sim_object_catalogue": str,
+        "environment": str,
+        "repull_catalogues": bool,
+        "satellite_predictions_csv": str
+    }
+
+    # Define the valid values for keys with a limited set of valid options
+    valid_values = {
+        "integrator_type": ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"],
+        "sim_object_type": ["all", "debris", "active"],
+        "sim_object_catalogue": ["jsr", "spacetrack", "both"],
+    }
+
+    for key, expected_type in expected_keys.items():
+        if key not in json:
+            print(f"Error: Missing key '{key}' in JSON file.")
+            return False
+        if not isinstance(json[key], expected_type):
+            print(f"Error: Incorrect type for key '{key}'. Expected {expected_type.__name__}, but got {type(json[key]).__name__}.")
+            return False
+        if key in valid_values and json[key] not in valid_values[key]:
+            print(f"Error: Invalid value for key '{key}'. Expected one of {valid_values[key]}, but got {json[key]}.")
+            return False
+
+    print("JSON file is valid.")
+    return True
+
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
 
