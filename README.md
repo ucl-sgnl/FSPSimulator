@@ -9,6 +9,14 @@ conda env create -f settings/fspsim_env.yml
 conda activate fspsim/ source activate fspsim
 ```
 
+To run on Virtual Machine you will need miniconda to activate the environment:
+``` bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+source ~/.bashrc
+conda --version
+
 # Installation Error Fixes:
 If you get module import errors, the first to show will be 'src' not found if you run main.py try::
 Mac:
