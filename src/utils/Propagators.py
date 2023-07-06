@@ -62,7 +62,7 @@ def monopole_sun_grav_acc(state, jd_time):
     Returns:
         (float/int): Resultant acceleration due to the Sun's gravity.
     """
-    probe_sun_vector = probe_sun_vec(state[:3], jd_time, unit=False) #distance to the center of mass of the Sun
+    probe_sun_vector = -probe_sun_vec(state[:3], jd_time, unit=False) #distance to the center of mass of the Sun
     sun_acc = -GM_sun * probe_sun_vector / np.linalg.norm(probe_sun_vector) ** 3 # calculate the acceleration due to gravity
     return sun_acc
 
@@ -75,7 +75,7 @@ def monopole_moon_grav_acc(state, jd_time):
     Returns:
         (float/int): Resultant acceleration due to the Moon's gravity.
     """
-    probe_moon_vector = probe_moon_vec(state[:3], jd_time, unit=False)
+    probe_moon_vector = -probe_moon_vec(state[:3], jd_time, unit=False)
     moon_acc = -GM_moon * probe_moon_vector / np.linalg.norm(probe_moon_vector) ** 3
     return moon_acc
 
@@ -194,7 +194,9 @@ def accelerations (t, state, cd, area, mass, jd_time):
     #--------------- MOON AND SUN PERTURBATIONS ------------#
 
     # sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
+    # print("sun_grav_mono: ", sun_grav_mono)
     # moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
+    # print("moon_grav_mono: ", moon_grav_mono)
 
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
@@ -206,11 +208,11 @@ def accelerations (t, state, cd, area, mass, jd_time):
     #combine all the above print statemtnts into one print statement
     #--------------- SOLAR RADIATION PRESSURE ACCELERATION --------------#
     a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
-    solar_shadow_function(state, jd_time)
     
-    a_tot = grav_a + drag_aero_vec + a_srp_vec #sum of all accelerations
     
-    print("aerodrag: ", drag_aero_vec, "a_srp_vec: ", a_srp_vec, "altitude: ", np.linalg.norm(state[:3]) - Re)
+    a_tot = grav_a + drag_aero_vec + a_srp_vec 
+    
+    # print("aerodrag: ", drag_aero_vec, "a_srp_vec: ", a_srp_vec, "altitude: ", np.linalg.norm(state[:3]) - Re)
     return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
 
 def stop_propagation(t, y, *args):
@@ -283,6 +285,7 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
     #split at the new line
     split_tle = TLE.split('\n')
+    print("split_tle: ", split_tle)
 
     if len(split_tle) == 3:
         # three line TLE
