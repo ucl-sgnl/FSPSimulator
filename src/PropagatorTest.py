@@ -29,7 +29,7 @@ def TLEvsNumerical():
     
         print("tle epoch:", tle_epoch)
         print("tle time:", tle_time_JD)
-        prop_days = 3
+        prop_days = 15
         tle_epehem = sgp4_prop_TLE(test_tles[tle], jd_start = tle_time_JD, jd_end = tle_time_JD + prop_days, dt = 20)
 
         tle_epehem_first_pos = np.array(tle_epehem[0][1])
