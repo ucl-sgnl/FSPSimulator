@@ -12,7 +12,7 @@ When executing `main.py`, it will automatically run all the simulations as per t
 
 A typical simulation configuration can be represented in the JSON file format as follows:
 
-\```json
+```json
 {
   "scenario_name": "testrun",
   "monthly_ton_capacity": "100",
@@ -29,7 +29,7 @@ A typical simulation configuration can be represented in the JSON file format as
   "repull_catalogues": false,
   "satellite_predictions_csv": "FSP_Predictions_full.csv"
 }
-\```
+```
 
 In the JSON content format provided above:
 
