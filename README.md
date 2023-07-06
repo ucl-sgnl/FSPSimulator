@@ -1,14 +1,14 @@
-# FSP Simulator
+# 🚀FSP Simulator
 
-Welcome to the Python version of the Orbital Debris Lab (ODL) Full Spectrum Project (FSP) Simulator. This modern adaptation provides an updated approach to running simulations.
+Welcome to the Python version of the Future Space Populations Simulator! This modern adaptation provides an updated approach to running source-sink evolutionary simulations of objects in space. The simulator is designed to be modular, allowing for easy integration of new models and features. We hope that this will allow for the simulator to be used as a tool for the community to test new ideas and models. If you have feedback, would like to get involved please feel free submit a pull request or raise an issue. There are a number of features under development and we are open to collaboration on many of these.
 
-## Getting Started
+## 🏁 Getting Started
 
 Each new simulation you wish to run should be configured by creating a new `.json` file and putting in the following directory `src/data/specify_simulation`.
 
 When executing `main.py`, it will automatically run all the simulations as per the settings in the respective `.json` files.
 
-## JSON Configuration Structure
+## 📝 JSON Configuration Structure
 
 A typical simulation configuration can be represented in the JSON file format as follows:
 
@@ -31,8 +31,7 @@ A typical simulation configuration can be represented in the JSON file format as
 }
 ```
 
-In the JSON content format provided above:
-
+### Explanation of the parameters:
 - __scenario_name__: Specifies the destination folder name for storing the simulation results.
 - __monthly_ton_capacity__: Specifies the global maximum monthly capacity for the launches.
 - __launch_start_date__: Specifies the starting date for prediction-based launches.
@@ -48,13 +47,15 @@ In the JSON content format provided above:
 - __repull_catalogues__: Determines if the catalogues are to be updated with recent data.
 - __satellite_predictions_csv__: The name of the CSV file with your satellite predictions should be specified here. This must follow the format of the sample CSV file provided in the repository. Any rows deviating from the correct format will be disregarded.
 
-# Outputs of the simulation
+## Outputs of the simulation
 For each run:
     - A CSV file with the name of the scenario will be created in the `src/data/results/predicted_constellation_metadata` directory to reflect which constellations were retained in the simulation process (currentl does not do anything as the failure rate has been set to 0% before the relevant code is fixed).
     - A pickle file with the name of the scenario will be created in the `src/data/results/propagated_catalogs` directory. This will contain all the SpaceObject instances that were propagated in the simulation. These can be manipulated using the SpaceObject methods to return the relevant information (ephemeris, orbital elements, physical characteristics, etc.).
 
-# Environment Setup:
+### 📊 Visualizing the results
+The easiest way to get started with visualizing your results is to make use of the `Visualization.ipynb` notebook.
 
+## Environment Setup:
 Execute the following commands to install and activate the environment:
 
 ``` bash
@@ -63,7 +64,7 @@ conda env create -f settings/fspsim_env.yml
 conda activate fspsim
 ```
 
-For running on a Virtual Machine, you will need Miniconda to activate the environment:
+To run the simulations on a Virtual Machine, you will need Miniconda to activate the environment:
 
 ``` bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
