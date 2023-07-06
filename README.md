@@ -1,5 +1,35 @@
-# FSPSimulator
-This is the updated Python Version of the ODL FSP, written in python.
+# FSP Simulator
+
+Welcome to the Python version of the Orbital Debris Lab (ODL) Full Spectrum Project (FSP) Simulator. This modern adaptation provides an updated approach to running simulations.
+
+## Getting Started
+
+All the simulation settings should be specified within `.json` files located in `src/data/specify_simulation`.
+
+When executing `main.py`, it will automatically run all the simulations as per the settings in the respective `.json` files.
+
+## JSON Content Format
+
+A typical configuration for a simulation can be represented in the following format in a JSON file:
+
+```json
+{
+  "scenario_name": "simulation_name",
+  "monthly_ton_capacity": "100",
+  "launch_start_date": "2019-01-01",
+  "startup_failure_rate": 0,
+  "satellite_failure": 0,
+  "sim_start_date": "2019-01-01",
+  "sim_end_date": "2019-01-08",
+  "output_frequency": 360,
+  "integrator_step_size,": 20,
+  "integrator_type": "RK45",
+  "sim_object_type": "all",
+  "sim_object_catalogue" : "both",
+  "environment": "development",
+  "repull_catalogues": false
+}
+
 
 # Environment Installation:
 
