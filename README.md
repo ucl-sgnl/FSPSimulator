@@ -48,6 +48,11 @@ In the JSON content format provided above:
 - __repull_catalogues__: Determines if the catalogues are to be updated with recent data.
 - __satellite_predictions_csv__: The name of the CSV file with your satellite predictions should be specified here. This must follow the format of the sample CSV file provided in the repository. Any rows deviating from the correct format will be disregarded.
 
+# Outputs of the simulation
+For each run:
+    - A CSV file with the name of the scenario will be created in the `src/data/results/predicted_constellation_metadata` directory to reflect which constellations were retained in the simulation process (currentl does not do anything as the failure rate has been set to 0% before the relevant code is fixed).
+    - A pickle file with the name of the scenario will be created in the `src/data/results/propagated_catalogs` directory. This will contain all the SpaceObject instances that were propagated in the simulation. These can be manipulated using the SpaceObject methods to return the relevant information (ephemeris, orbital elements, physical characteristics, etc.).
+
 # Environment Setup:
 
 Execute the following commands to install and activate the environment:

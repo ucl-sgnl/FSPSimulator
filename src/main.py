@@ -67,19 +67,19 @@ def run_parallel_sim(settings):
 
     SATCAT.Catalogue = results
     print("Exporting results...")
-    dump_pickle(f'src/data/catalogue/simresult_{scenario_name}.pickle', SATCAT)
+    dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
 
-    print(f"Output: {get_path(f'src/data/catalogue/{scenario_name}.pickle')}")
+    print(f"Output: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
     print(f"Number of Satellites in catalogue after propagation: {len(SATCAT.Catalogue)}")
     print("Simulation Complete")
 
 if __name__ == '__main__':
     #list all the json files in src/data/specify_simulations
-    sims = os.listdir(get_path('src/data/specify_simulation'))
+    sims = os.listdir(get_path('src/data/specify_simulations'))
     for sim in sims:
         if sim.endswith('.json'):
             print(f"Running simulation: {sim}")
-            settings = json.load(open(get_path(f'src/data/specify_simulation/{sim}'), 'r'))
+            settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
             check_json_file(settings)#check if the json file is filled out correctly
             run_parallel_sim(settings)
             print(f"Simulation {sim} complete")

@@ -2,7 +2,7 @@
     "scenario_name": "allsats_to_2028",
     "monthly_ton_capacity": "200",
     "launch_start_date":"2019-01-01",
-    "remove_operators": "E-Space",
+    "remove_operators": "none",
     "sim_start_date":"2019-01-01",
     "sim_end_date":"2019-03-01",
     "output_frequency": 360,
