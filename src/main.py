@@ -53,7 +53,7 @@ def run_parallel_sim(settings):
 
     #TODO: testing
     #slice SATCAT.Catalogue to select 100 elements evenly spaced throughout the list
-    SATCAT.Catalogue = SATCAT.Catalogue[::int(len(SATCAT.Catalogue)/35)]
+    SATCAT.Catalogue = SATCAT.Catalogue[::int(len(SATCAT.Catalogue)/100)]
 
     print("Propagating space objects in parallel...")
 

@@ -6,7 +6,7 @@
   "satellite_failure" : 0,
   "espace": false,
   "sim_start_date":"2019-01-01",
-  "sim_end_date":"2019-01-03",
+  "sim_end_date":"2019-01-08",
   "output_frequency": 360,
   "integrator_step_size": 20,
   "integrator_type": "RK45",
