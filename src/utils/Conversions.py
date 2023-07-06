@@ -488,6 +488,7 @@ def earth_sun_vec(jd, unit = True):
     
     if unit == True:
         return position/np.linalg.norm(position)
+    print("length of earth-sun vector is: ", np.linalg.norm(position))
 
 def earth_moon_vec(jd, unit = True):
     """
@@ -509,6 +510,7 @@ def earth_moon_vec(jd, unit = True):
     
     if unit == True:
         return position/np.linalg.norm(position)
+    print("length of earth-moon vector is: ", np.linalg.norm(position))
 
 def probe_sun_vec(r, jd, unit = False):
     """
@@ -527,6 +529,7 @@ def probe_sun_vec(r, jd, unit = False):
     
     if unit == True:
         return p/np.linalg.norm(p)
+    print("length of probe-sun vector is: ", np.linalg.norm(p))
     
 def probe_moon_vec(r, jd, unit = False):
     """
@@ -545,3 +548,4 @@ def probe_moon_vec(r, jd, unit = False):
     
     if unit == True:
         return p/np.linalg.norm(p)
+    print("length of probe-moon vector is: ", np.linalg.norm(p))

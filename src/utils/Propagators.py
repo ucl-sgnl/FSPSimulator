@@ -62,8 +62,8 @@ def monopole_sun_grav_acc(state, jd_time):
     Returns:
         (float/int): Resultant acceleration due to the Sun's gravity.
     """
-    probe_sun_vector = -probe_sun_vec(state[:3], jd_time, unit=False) #distance to the center of mass of the Sun
-    sun_acc = -GM_sun * probe_sun_vector / np.linalg.norm(probe_sun_vector) ** 3 # calculate the acceleration due to gravity
+    probe_sun_vector = probe_sun_vec(r= state[:3], jd = jd_time, unit=False) # distance from the probe to the center of mass of the Sun
+    sun_acc = GM_sun * probe_sun_vector / np.linalg.norm(probe_sun_vector) ** 3 # calculate the acceleration due to gravity
     return sun_acc
 
 def monopole_moon_grav_acc(state, jd_time):
@@ -75,8 +75,8 @@ def monopole_moon_grav_acc(state, jd_time):
     Returns:
         (float/int): Resultant acceleration due to the Moon's gravity.
     """
-    probe_moon_vector = -probe_moon_vec(state[:3], jd_time, unit=False)
-    moon_acc = -GM_moon * probe_moon_vector / np.linalg.norm(probe_moon_vector) ** 3
+    probe_moon_vector = probe_moon_vec(r= state[:3], jd = jd_time, unit=False) # distance from the probe to the center of mass of the Moon
+    moon_acc = GM_moon * probe_moon_vector / np.linalg.norm(probe_moon_vector) ** 3 # calculate the acceleration due to gravity
     return moon_acc
 
 def solar_shadow_function(state, jd_time):
