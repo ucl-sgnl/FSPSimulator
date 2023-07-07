@@ -98,6 +98,7 @@ def main():
             'integrator_type': specs['integrator_type'],
             'sim_duration': sim_duration,
             'time_taken': time_taken,
+            'satellite_predictions_csv': specs['satellite_predictions_csv'],
         }, ignore_index=True)
 
         cleanup_simulation_files([specs])
