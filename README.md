@@ -56,6 +56,10 @@ For each run:
 ### 📊 Visualizing the results
 The easiest way to get started with visualizing your results is to make use of the `Visualization.ipynb` notebook.
 
+### Overview of the system
+The following diagram provides a high-level overview of the system. It is certainly not exhaustive, but it should provide a good starting point for understanding how FSP generates the results it does.
+![System Diagram](docs/FSPSim_system_diag_v1.png)
+
 ## Environment Setup:
 Execute the following commands to install and activate the environment:
 
