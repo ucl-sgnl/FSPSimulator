@@ -214,8 +214,9 @@ class SpaceCatalogue:
         rows_with_decay_date = self.CurrentCatalogueDF[self.CurrentCatalogueDF['DECAY_DATE'].notnull()]
         # now check that these decay dates are before the launch date
         # first we need to convert the dates to datetime objects
-        rows_with_decay_date['LAUNCH_DATE'] = pd.to_datetime(rows_with_decay_date['LAUNCH_DATE'])
-        rows_with_decay_date['DECAY_DATE'] = pd.to_datetime(rows_with_decay_date['DECAY_DATE'])
+        self.CurrentCatalogueDF.loc[self.CurrentCatalogueDF['DECAY_DATE'].notnull(), 'LAUNCH_DATE'] = pd.to_datetime(self.CurrentCatalogueDF.loc[self.CurrentCatalogueDF['LAUNCH_DATE'].notnull(), 'LAUNCH_DATE'])
+        self.CurrentCatalogueDF.loc[self.CurrentCatalogueDF['DECAY_DATE'].notnull(), 'DECAY_DATE'] = pd.to_datetime(self.CurrentCatalogueDF.loc[self.CurrentCatalogueDF['DECAY_DATE'].notnull(), 'DECAY_DATE'])
+
         # now we can check if the decay date is before the launch date
         rows_with_bad_decay_date = rows_with_decay_date[rows_with_decay_date['DECAY_DATE'] < rows_with_decay_date['LAUNCH_DATE']]
         # now we can drop these rows from the dataframe
@@ -314,7 +315,6 @@ class SpaceCatalogue:
                 self.Catalogue.append(SpaceObject(object_type=row['OBJECT_TYPE'], 
                                                         mass=row['Mass'], 
                                                         launch_site=row["SITE"],
-                                                        # bstar=row['BSTAR'],
                                                         sma=row['SEMIMAJOR_AXIS'], 
                                                         eccentricity=row['ECCENTRICITY'], 
                                                         inc=row['INCLINATION'], 
