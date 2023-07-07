@@ -195,14 +195,14 @@ def accelerations (t, state, cd, area, mass, jd_time):
     
     #--------------- MOON AND SUN PERTURBATIONS ------------#
 
-    sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
+    # sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
     # print("sun_grav_mono: ", sun_grav_mono)
-    moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
+    # moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
     # print("moon_grav_mono: ", moon_grav_mono)
 
     #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
     
-    grav_a = grav_mono + a_j2 + sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
+    grav_a = grav_mono + a_j2 #+ sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
     
     #--------------- AERO DRAG ACCELERATION --------------#
     drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) #TODO: make the density model type an input of the sim settings file

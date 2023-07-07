@@ -8,7 +8,7 @@ import numpy as np
 
 def generate_simulation_specs(step_size_range, run_time_years, integrator_types, remove_operators, prediction_csv):
     # Generate step sizes from start to end with a step of 5
-    step_sizes = list(range(step_size_range[0], step_size_range[1] + 1, 10))
+    step_sizes = list(range(step_size_range[0], step_size_range[1] + 1, 5))
     
     # Generate end dates for each year in the run time range
     start_date = datetime.datetime(2019, 1, 1)
@@ -70,11 +70,12 @@ def cleanup_simulation_files(simulation_specs_list):
 def main():
     # Define the path to your main.py script
     run_script_path = 'src/main.py'
-    step_size_range = [20, 40]
-    run_time_years = [0.02,0.01]
-    integrator_types = ["RK45", "RK23"] #, "DOP853", "Radau", "BDF", "LSODA"
+    step_size_range = [15, 30]
+    run_time_years = [0.04, 0.03,0.02,0.01]
+    integrator_types = ["RK45"] #"RK23", "DOP853", "Radau", "BDF", "LSODA"
     remove_operators = ["none"]
     prediction_csv = ["benchmark_preds_few.csv", "benchmark_preds_many.csv"]
+    #TODO: will have to get the number of objects in the catalogues from the .pickle files
 
     simulation_specs_list = generate_simulation_specs(step_size_range, run_time_years, integrator_types, remove_operators, prediction_csv)
     print(f"Total number of benchmarks to run: {len(simulation_specs_list)}")
