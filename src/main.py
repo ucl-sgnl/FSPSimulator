@@ -52,8 +52,8 @@ def run_parallel_sim(settings):
     print("# sats decayed before sim start date: ", decayed_before_start)
 
     #TODO: testing
-    #slice SATCAT.Catalogue to select n elements evenly spaced throughout the list
-    SATCAT.Catalogue = SATCAT.Catalogue[::int(len(SATCAT.Catalogue)/10)]
+    #slice SATCAT.Catalogue to select everth 1000th space object
+    SATCAT.Catalogue = SATCAT.Catalogue[::1000]
 
     print("Propagating space objects in parallel...")
 
@@ -72,11 +72,11 @@ def run_parallel_sim(settings):
 
 if __name__ == '__main__':
     #list all the json files in src/data/specify_simulations
-    sims = os.listdir(get_path('src/data/specify_simulations'))
+    sims = os.listdir(get_path('src/data/specify_simulations/benchmarking_sims/'))
     for sim in sims:
         if sim.endswith('.json'):
             print(f"Running simulation: {sim}")
-            settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
+            settings = json.load(open(get_path(f'src/data/specify_simulations/benchmarking_sims/{sim}'), 'r'))
             check_json_file(settings)#check if the json file is filled out correctly
             run_parallel_sim(settings)
             print(f"Simulation {sim} complete")

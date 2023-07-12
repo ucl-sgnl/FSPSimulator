@@ -1,0 +1,3 @@
+Sub-Constellation,Mega-Constellation,Launched,Approved,Number of sats,Owner Type (Company/ Govt.),Inclination,Altitude,Orbit,Number of Planes,Form Factor,Country,Mass(kg),Mission type/application,Maneuverable,Propulsion,Information Sources,Reasoning for selected orbit values,Extra information,,,
+4pi Lab,SSOCubesat,,,16,Company ,97.8,600,LEO,,2U,CA,,EO,n,None,http://site.4pilab.com/,,First launch 2023,,,
+ADA Space,SSOCubesat,,,192,Company,97,500,LEO,,6U,CN,8,EO,n,None,,,,,,

@@ -314,7 +314,6 @@ class SpaceCatalogue:
                 self.Catalogue.append(SpaceObject(object_type=row['OBJECT_TYPE'], 
                                                         mass=row['Mass'], 
                                                         launch_site=row["SITE"],
-                                                        # bstar=row['BSTAR'],
                                                         sma=row['SEMIMAJOR_AXIS'], 
                                                         eccentricity=row['ECCENTRICITY'], 
                                                         inc=row['INCLINATION'], 
