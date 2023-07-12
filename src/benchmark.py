@@ -6,7 +6,7 @@ import pandas as pd
 import datetime
 import numpy as np
 
-def generate_simulation_specs(step_size_range, run_time_years, integrator_types, remove_operators):
+def generate_simulation_specs(step_size_range, run_time_years, integrator_types, remove_operators, prediction_csv):
     # Generate step sizes from start to end with a step of 5
     step_sizes = list(range(step_size_range[0], step_size_range[1] + 1, 5))
     
@@ -17,8 +17,8 @@ def generate_simulation_specs(step_size_range, run_time_years, integrator_types,
     # Initialize the simulation specs list
     simulation_specs_list = []
 
-    # Generate a simulation spec for each combination of step size, end date, integrator type, and remove operator
-    for i, (step_size, end_date, integrator_type, remove_operator) in enumerate(np.array(np.meshgrid(step_sizes, end_dates, integrator_types, remove_operators)).T.reshape(-1,4)):
+    # Generate a simulation spec for each combination of step size, end date, integrator type, remove operator, and prediction csv
+    for i, (step_size, end_date, integrator_type, remove_operator, pred_csv) in enumerate(np.array(np.meshgrid(step_sizes, end_dates, integrator_types, remove_operators, prediction_csv)).T.reshape(-1,5)):
         simulation_specs_list.append({
             "scenario_name": f"benchmark_{i+1}",
             "monthly_ton_capacity": "100",
@@ -27,13 +27,13 @@ def generate_simulation_specs(step_size_range, run_time_years, integrator_types,
             "sim_start_date":"2019-01-01",
             "sim_end_date": end_date,
             "output_frequency": 360,
-            "integrator_step_size": step_size,
+            "integrator_step_size": int(step_size),
             "integrator_type": integrator_type,
             "sim_object_type": "all",
             "sim_object_catalogue" : "both",
             "environment": "development",
-            "repull_catalogues": 'false',
-            "satellite_predictions_csv": "FSP_Predictions_full.csv"
+            "repull_catalogues": bool(False),
+            "satellite_predictions_csv": pred_csv
         })
         
     return simulation_specs_list
@@ -42,7 +42,7 @@ def benchmark_simulation(simulation_specs):
     """Generates a JSON file with the given simulation specs."""
     
     # Generate file name based on the specs
-    file_name = f'src/data/specify_simulations/{simulation_specs["scenario_name"]}.json'
+    file_name = f'src/data/specify_simulations/benchmarking_sims/{simulation_specs["scenario_name"]}.json'
     
     # Save the JSON file
     with open(file_name, 'w') as file:
@@ -63,20 +63,21 @@ def cleanup_simulation_files(simulation_specs_list):
     """Removes the JSON files after the simulation."""
     
     for specs in simulation_specs_list:
-        file_name = f'src/data/specify_simulations/{specs["scenario_name"]}.json'
+        file_name = f'src/data/specify_simulations/benchmarking_sims/{specs["scenario_name"]}.json'
         if os.path.exists(file_name):
             os.remove(file_name)
 
 def main():
     # Define the path to your main.py script
     run_script_path = 'src/main.py'
+    step_size_range = [15, 30]
+    run_time_years = [0.04, 0.03,0.02,0.01]
+    integrator_types = ["RK45"] #"RK23", "DOP853", "Radau", "BDF", "LSODA"
+    remove_operators = ["none"]
+    prediction_csv = ["benchmark_preds_few.csv", "benchmark_preds_many.csv"]
+    #TODO: will have to get the number of objects in the catalogues from the .pickle files
 
-    step_size_range = [20, 50]
-    run_time_years = range(1, 5)  # from 1 to 5 years
-    integrator_types = ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
-    remove_operators = ["E-Space", "none"]
-
-    simulation_specs_list = generate_simulation_specs(step_size_range, run_time_years, integrator_types, remove_operators)
+    simulation_specs_list = generate_simulation_specs(step_size_range, run_time_years, integrator_types, remove_operators, prediction_csv)
     print(f"Total number of benchmarks to run: {len(simulation_specs_list)}")
     # Prepare a DataFrame to store the results
     results = pd.DataFrame(columns=['scenario_name', 'step_size', 'output_frequency', 'integrator_type', 'sim_duration', 'time_taken'])
@@ -98,12 +99,13 @@ def main():
             'integrator_type': specs['integrator_type'],
             'sim_duration': sim_duration,
             'time_taken': time_taken,
+            'satellite_predictions_csv': specs['satellite_predictions_csv'],
         }, ignore_index=True)
 
         cleanup_simulation_files([specs])
                 
     # Save the results to a CSV file
-    results.to_csv('benchmark_results.csv', index=False)
+    results.to_csv('src/data/results/benchmark_results.csv', index=False)
 
 if __name__ == "__main__":
     main()

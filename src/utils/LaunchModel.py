@@ -17,21 +17,6 @@ def import_configuration_json(filename):
         data = json.load(f)
     return data
 
-def dict_to_csv(data, filename):
-    # Get the field names from the first dictionary in the list
-    fieldnames = data[0].keys()
-
-    # Open a new CSV file in write mode
-    with open(os.path.join(os.getcwd(), f'src/data/results/SATCAT_after_prop_{filename}.csv'), mode='w', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-
-        # Write the header row
-        writer.writeheader()
-
-        # Write each row of data
-        for row in data:
-            writer.writerow(row)
-
 def calculate_form_factor(form_factor_str):
     """reads a string describing the form factor of satellties in a sub constellation and 
     returns characteristic length and area of to populate the SpaceObject class metadata
@@ -208,14 +193,11 @@ def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_t
         sub_constellation['total_cost'] = (sub_constellation['_mass'] * sub_constellation['N']) * LEO_launchers[rocket]['cost_per_kg']
         # print(f"cost in Millions of USD:",total_cost/1000000)
 
-    # export the constellation info to csv
-    dict_to_csv(sub_constellation_metadata_dicts, settings["scenario_name"])
-
     # calculate the number of launches required to put all the satellites in orbit based on the monthly ton capacity
     total_mass_tons = total_mass / 1000 # convert from kg to tons
     max_ton_per_launch = LEO_launchers[rocket]['capacity']
     monthly_launches_frequency = math.ceil(monthly_ton_capacity / max_ton_per_launch) 
-    print('number of launches per month:',monthly_launches_frequency)
+    print('max number of launches per month:',monthly_launches_frequency)
     
     # now how many months are required to launch the total mass of satellites
     months_required = math.ceil(total_mass_tons / monthly_ton_capacity)

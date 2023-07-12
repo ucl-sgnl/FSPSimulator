@@ -1,5 +1,0 @@
-﻿Sub-Constellation,Mega-Constellation,Launched,Approved,Number of sats,Owner Type (Company/ Govt.),Inclination,Altitude,Orbit,Number of Planes,Form Factor,Country,Mass(kg),Mission type/application,Maneuverable,Propulsion,Information Sources,Reasoning for selected orbit values,Extra information,,,
-4pi Lab,SSOCubesat,,,16,Company ,97.8,600,LEO,,2U,CA,,EO,n,None,http://site.4pilab.com/,,First launch 2023,,,
-ADA Space,SSOCubesat,,,192,Company,97,500,LEO,,6U,CN,8,EO,n,None,,,,,,
-AISTech,SSOCubesat,,,20,Company,97.2,"490, 507, 574, 592",LEO,,6U,ESP,,EO,n,None,https://www.newspace.im/constellations/aistech,,,,,
-Albedo Space ,SSOCubesat,,,24,Company,97,525,VLEO,,2U,CA,,EO,n,None,,,First few satellites in 2024 and full constellation in 2027,,,

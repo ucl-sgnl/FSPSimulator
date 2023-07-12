@@ -78,7 +78,7 @@ class SpaceObject:
         possible_operational_status = ['+', '-', 'P', 'B', 'S', 'X', 'D', '?'] #https://celestrak.org/satcat/status.php -> this is the FSP operational status code
         if self.payload_operational_status not in possible_operational_status: 
             #raise a warning that still lets the code run and forces the operational status to be '?'
-            warnings.warn('WARNING: payload_operational_status should be one of the following: {}'.format(possible_operational_status))
+            # warnings.warn('WARNING: payload_operational_status should be one of the following: {}'.format(possible_operational_status))
             self.payload_operational_status = '?'
         
         #Object type
