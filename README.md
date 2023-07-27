@@ -4,9 +4,9 @@ Welcome to the Python version of the Future Space Populations Simulator! This mo
 
 ## 🏁 Getting Started
 
-Each new simulation you wish to run should be configured by creating a new `.json` file and putting in the following directory `src/data/specify_simulation`.
+Each new simulation you wish to run should be configured by creating a new `.json` file and putting in the following directory `src/fspsim/data/specify_simulation`.
 
-When executing `main.py`, it will automatically run all the simulations as per the settings in the respective `.json` files.
+When executing `simulate.py`, it will automatically run all the simulations as per the settings in the respective `.json` files.
 
 ## 📝 JSON Configuration Structure
 
@@ -49,16 +49,16 @@ A typical simulation configuration can be represented in the JSON file format as
 
 ## Outputs of the simulation
 For each run:
-- A CSV file with the name of the scenario will be created in the `src/data/results/predicted_constellation_metadata` directory to reflect which constellations were retained in the simulation process (currentl does not do anything as the failure rate has been set to 0% before the relevant code is fixed).
+- A CSV file with the name of the scenario will be created in the `src/fspsim/data/results/predicted_constellation_metadata` directory to reflect which constellations were retained in the simulation process (currentl does not do anything as the failure rate has been set to 0% before the relevant code is fixed).
 
-- A pickle file with the name of the scenario will be created in the `src/data/results/propagated_catalogs` directory. This will contain all the SpaceObject instances that were propagated in the simulation. These can be manipulated using the SpaceObject methods to return the relevant information (ephemeris, orbital elements, physical characteristics, etc.).
+- A pickle file with the name of the scenario will be created in the `src/fspsim/data/results/propagated_catalogs` directory. This will contain all the SpaceObject instances that were propagated in the simulation. These can be manipulated using the SpaceObject methods to return the relevant information (ephemeris, orbital elements, physical characteristics, etc.).
 
 ### 📊 Visualizing the results
 The easiest way to get started with visualizing your results is to make use of the `Visualization.ipynb` notebook.
 
 ### Overview of the system
 The following diagram provides a high-level overview of the system. It is certainly not exhaustive, but it should provide a good starting point for understanding how FSP generates the results it does.
-![System Diagram](docs/FSPSim_system_diag_v1.png)
+![System Diagram](docs/fspsim_system_diag_v1.png)
 
 ## Environment Setup:
 Execute the following commands to install and activate the environment:

@@ -1,4 +1,4 @@
-*/src/tests/profiling_results
+*/src/fspsim/tests/profiling_results
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
