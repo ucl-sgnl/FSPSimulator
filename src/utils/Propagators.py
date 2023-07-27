@@ -1,6 +1,5 @@
 import numpy as np
 import warnings
-from pyatmos import coesa76
 from scipy.integrate import solve_ivp
 from sgp4.api import Satrec
 import math
@@ -255,7 +254,7 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass,JD_time_stamps, h, integr
     # Call solve_ivp to propagate the orbit
     # Call solve_ivp to propagate the orbit
     sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, np.interp(t, np.arange(0, tot_time, h), JD_time_stamps)), [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
-                        events=stop_propagation, rtol=1e-7, atol=1e-7)
+                        events=stop_propagation, rtol=1e-7, atol=1e-5)
 
     #TODO: I have reduced the tolerance to get the code to run faster. Need to decide on what is acceptable/necessary here
     return sol.y.T  # Returns an array where each row is the state at a time

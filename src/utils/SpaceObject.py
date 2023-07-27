@@ -3,11 +3,8 @@ import datetime
 import warnings
 from enum import Enum
 import numpy as np
-from pyatmos import coesa76
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 
-from utils.Conversions import kep2car, true_to_mean_anomaly, utc_to_jd, tle_parse, tle_convert, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc
+from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day
 from utils.Propagators import numerical_prop, kepler_prop
 
 class OperationalStatus(Enum):
