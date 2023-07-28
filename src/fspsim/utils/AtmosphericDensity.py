@@ -1,4 +1,5 @@
 import numpy as np
+import importlib.resources
 # all of this is basically yeeted from pyatmos source code.
 # I have just stripped out the parts I don't need to make it faster. 
 # If you run this file, it will plot the density from 500-1000km. This was just a check to cross reference with the original code output (roughly the same).
@@ -114,7 +115,8 @@ def ussa76_rho(alts):
     zb = np.array([86, 91, 100, 110, 120, 150, 200, 300, 500, 750, np.inf])
 
     # load the coefficients used to approximate density and pressure above 86km 
-    data = np.load('src/fspsim/data/density_coeffs/coesa76_coeffs.npz')
+    coeffs_path = importlib.resources.path('fspsim.data.density_coeffs', 'coesa76_coeffs.npz')
+    data = np.load(coeffs_path)
     rho_coeffs, _ = data['rho'], data['p']
 
     # Test if altitudes are inside valid range

@@ -1,6 +1,5 @@
 import numpy as np
 import warnings
-from pyatmos import coesa76
 from scipy.integrate import solve_ivp
 from sgp4.api import Satrec
 import math

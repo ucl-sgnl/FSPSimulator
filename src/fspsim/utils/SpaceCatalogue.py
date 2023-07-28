@@ -16,6 +16,11 @@ from dotenv import load_dotenv
 
 home = str(Path.home())
 direc = home + '/.fspsim/'
+# firstly create a storage file in their home directory
+os.makedirs(direc + str("data/catalogue/"), exist_ok=True)
+os.makedirs(direc + str("data/results/"), exist_ok=True)
+os.makedirs(direc + str("data/external/"), exist_ok=True)
+cataloguepath, resultspath, externalpath = direc + str("data/catalogue/"), direc + str("data/results/"), direc + str("data/external/")
 
 def check_json_file(json):
     # Define the valid keys and their types
@@ -54,8 +59,6 @@ def check_json_file(json):
         if key in valid_values and json[key] not in valid_values[key]:
             print(f"Error: Invalid value for key '{key}'. Expected one of {valid_values[key]}, but got {json[key]}.")
             return False
-
-    print("JSON file is valid.")
     return True
 
 def get_path(*args):
@@ -72,17 +75,8 @@ def dump_pickle(file_path, data):
 
 class SpaceCatalogue:
     def __init__(self, settings):
-
-        # firstly create a storage file in their home directory
-        os.makedirs(direc + str("data/catalogue/"), exist_ok=True)
-        os.makedirs(direc + str("data/results/"), exist_ok=True)
-        os.makedirs(direc + str("data/external/"), exist_ok=True)
-
-        print("Creating folder: " + direc + str("data/catalogue/"))
-
-        # get path of satellite_predictions_csv
-        # satellite_predictions_csv = direc + str("data/prediction_csv/") + settings["satellite_predictions_csv"]
-        satellite_predictions_csv = importlib.resources.path('fspsim.data.prediction_csv', settings["satellite_predictions_csv"])
+        # check to see if they have included a file that exists, if not then use the default from the package
+        satellite_predictions_csv = settings["satellite_predictions_csv"]
         sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
         sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
@@ -111,14 +105,14 @@ class SpaceCatalogue:
                 self.PullCatalogueJSR(external_dir=direc + str("data/external/"))
                 self.PullCatalogueSpaceTrack(external_dir=direc + str("data/external/"))
 
-            logging.info("saving new catalogue data to pickle")
-            output_path = home + 'src/fspsim/data/catalogue/SATCAT_before_prop.pickle'
+            logging.info("Saving new catalogue to /src/ file")
+            output_path = f'{cataloguepath}SATCAT_before_prop.pickle'
             dump_pickle(output_path, self)
 
         # If we are not repulling the catalogues just use the existing local catalogues
         else:
             print("using existing local catalogues")
-            loaded_data = self.load_from_file('src/fspsim/data/catalogue/SATCAT_before_prop.pickle')
+            loaded_data = self.load_from_file(cataloguepath + 'SATCAT_before_prop.pickle')
             self.__dict__ = loaded_data.__dict__
 
         # Now use the catalogues to create a list of SpaceObjects which will be appended to the Catalogue list
@@ -153,9 +147,9 @@ class SpaceCatalogue:
         - List of merged space objects to 'src/fspsim/data/external/active_jsr_spacetrack.csv'
         """
         # This merges the JSR and Spacetrack active catalogues
-        jsr_cat = pd.read_csv(os.path.join(os.getcwd(), 'src/fspsim/data/external/currentcat.tsv'), sep='\t')
-        jsr_cat_extra_info = pd.read_csv(os.path.join(os.getcwd(), 'src/fspsim/data/external/satcat.tsv'), sep='\t')
-        with open(os.path.join(os.getcwd(), 'src/fspsim/data/external/spacetrack_active.txt'), 'r') as f:
+        jsr_cat = pd.read_csv(externalpath +'currentcat.tsv', sep='\t')
+        jsr_cat_extra_info = pd.read_csv(externalpath + 'satcat.tsv', sep='\t')
+        with open(externalpath + 'spacetrack_active.txt', 'r') as f:
             three_line_elements = f.readlines()
 
         # merge the each three line element into one string
@@ -191,7 +185,7 @@ class SpaceCatalogue:
 
         # Export for audit purposes
         # Open the file in 'w' mode (write mode, overwrite if exists)
-        with open(os.path.join(os.getcwd(), 'src/fspsim/data/catalogue/active_jsr_spacetrack_latest.csv'), 'w') as f:
+        with open(cataloguepath + 'catalogue/active_jsr_spacetrack_latest.csv', 'w') as f:
             # Write the header and data to the file
             self.CurrentCatalogueDF.to_csv(f, index=False)
 
@@ -204,9 +198,9 @@ class SpaceCatalogue:
             - 'src/fspsim/data/catalogue/All_catalogue_latest.txt'
         """ 
         # Space Track's catalogue is a json
-        spacetrack = pd.read_json(os.path.join(os.getcwd(), 'src/fspsim/data/external/spacetrack_all.json'))
+        spacetrack = pd.read_json(externalpath + 'spacetrack_all.json')
         print("Number of satellites in spacetrack catalogue: ", len(spacetrack))
-        jsr_cat_extra_info = pd.read_csv(os.path.join(os.getcwd(), 'src/fspsim/data/external/satcat.tsv'), sep='\t')
+        jsr_cat_extra_info = pd.read_csv(externalpath + 'satcat.tsv', sep='\t')
         print("Number of satellites in jsr catalogue: ", len(jsr_cat_extra_info))
         # merge the two dataframes, keeping all items in spacetrack dataframe
         self.CurrentCatalogueDF = spacetrack.merge(jsr_cat_extra_info, right_on='Piece', left_on='OBJECT_ID', how='left')
@@ -293,7 +287,7 @@ class SpaceCatalogue:
         print("Number of satellites in catalogue after dropping rows that were missing data required for simulation: ", len(self.CurrentCatalogueDF))
         #TODO: ~10,000 rows are dropped here. Need to investigate why this is happening.  
         # Export the cleaned catalogue for sanity checking
-        self.CurrentCatalogueDF.to_csv(os.path.join(os.getcwd(), 'src/fspsim/data/catalogue/All_catalogue_latest.csv'), index=False)
+        self.CurrentCatalogueDF.to_csv(externalpath + 'All_catalogue_latest.csv', index=False)
         
     def Catalogue2SpaceObjects(self):
         """
@@ -368,39 +362,30 @@ class SpaceCatalogue:
         cwd = os.getcwd()
         # external_dir = os.path.join(cwd, 'src/fspsim/data/external/')
         tsv_cat_path = external_dir + 'currentcat.tsv'
-        payload_cat_path = external_dir + 'payloadcat.tsv'
+        payload_cat_path = external_dir + 'satcat.tsv'
 
         urls = {tsv_cat_path: 'http://planet4589.org/space/gcat/tsv/derived/currentcat.tsv',
-            payload_cat_path: 'http://planet4589.org/space/gcat/tsv/cat/psatcat.tsv'}
+            payload_cat_path: 'http://planet4589.org/space/gcat/tsv/cat/satcat.tsv'}
 
         for path, url in urls.items():
             self.DownloadJSRCatalogueIfNewer(path, url)
 
     def PullCatalogueSpaceTrack(self, external_dir):
         """ Pull down the entire SpaceTrack catalogue """
-        # location of file
-        cwd = os.getcwd()
     
         spacetrack_path = external_dir + f'spacetrack_all.json'
-
-        # this should change
-        if os.path.exists(spacetrack_path):
-            print("File already exists, not pulling an updated version of spacetrack's entire catalogue")
-            return
 
         # Will require spacetrak login
         load_dotenv('.env')
         username = os.getenv('SPACETRACK_USERNAME')
         password = os.getenv('SPACETRACK_PASSWORD')
         siteCred = {'identity': username, 'password': password}
-        print(siteCred)
 
         # required urls
         uriBase                = "https://www.space-track.org"
         requestLogin           = "/ajaxauth/login"
         requestCmdAction       = "/basicspacedata/query" 
         entire_catalogue = '/class/gp/EPOCH/%3Enow-30/orderby/NORAD_CAT_ID,EPOCH/format/json'
-
 
         # use requests package to drive the RESTful session with space-track.org
         with requests.Session() as session:
@@ -438,3 +423,4 @@ if __name__ == '__main__':
     catalogue.CreateCatalogueAll()
     # catalogue.Catalogue2SpaceObjects()
 
+ 

@@ -9,6 +9,7 @@ from poliastro.bodies import Earth
 from poliastro.twobody import Orbit
 from poliastro.frames import Planes
 from jplephem.spk import SPK
+import importlib.resources
 
 Re = 6378.137 #km Earth's equatorial radius
 
@@ -477,7 +478,7 @@ def earth_sun_vec(jd, unit = True):
     Returns:
         earth_sun_vec (array): Earth-Sun vector in ECI coordinates.
     """
-    bsp_file = 'src/fspsim/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
+    bsp_file = importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp')
     kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
     position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
     position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
@@ -499,7 +500,7 @@ def earth_moon_vec(jd, unit = True):
     Returns:
         earth_moon_vec (array): Earth-Moon vector in ECI coordinates.
     """
-    bsp_file = 'src/fspsim/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
+    bsp_file = importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp')
     kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
     position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
     position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 

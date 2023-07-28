@@ -45,7 +45,7 @@ A typical simulation configuration can be represented in the JSON file format as
 - __sim_object_catalogue__: Specifies the catalogue type to be used. Available options: "jsr", "spacetrack", "both".
 - __environment__: Specifies the environment.
 - __repull_catalogues__: Determines if the catalogues are to be updated with recent data.
-- __satellite_predictions_csv__: The name of the CSV file with your satellite predictions should be specified here. This must follow the format of the sample CSV file provided in the repository. Any rows deviating from the correct format will be disregarded.
+- __satellite_predictions_csv__: The name of the CSV file with your satellite predictions should be specified here. This must follow the format of the sample CSV file provided in the repository. Any rows deviating from the correct format will be disregarded. Note: If you supply your own file, please provide a path. It will default to an example if nothing file path is provided. 
 
 ## Outputs of the simulation
 For each run:

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "fspsim"
-version = "0.0.6"
+version = "0.0.7"
 authors = [
   { name="Indigo Brownhall", email="indigo.brownhall.20@ucl.ac.uk" },
   { name="Charles Constant", email="chales.constant.18@ucl.ac.uk" },

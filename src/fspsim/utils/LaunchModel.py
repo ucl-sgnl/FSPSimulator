@@ -11,6 +11,7 @@ import numpy as np
 from datetime import timedelta
 from fspsim.utils.Conversions import orbit_classify, orbital_period, generate_cospar_id
 from fspsim.utils.SpaceObject import SpaceObject
+import importlib.resources
 
 def import_configuration_json(filename):
     with open(filename) as f:
@@ -63,7 +64,7 @@ def calculate_form_factor(form_factor_str):
     # print('number of rows remaining after startup failure rate applied:',sat_df.shape[0])
     #####======= THIS NEEDS TO BE ITS OWN FUNCTION =========#####
 
-def satellite_metadata(file_path):
+def satellite_metadata(file):
     """Reads in the excel file predictions and generates a dicitonary of metadate for each subconsetllation
 
     Args:
@@ -76,8 +77,13 @@ def satellite_metadata(file_path):
     #function that reads in the excel file predictions and generates a dicitonary of metadate for each subconsetllation
     # this subconstellation metadata will then be used to generate the correct SpaceObject instances later on
 
-    sat_df = pd.read_csv(file_path, sep=',') # this is the csv file with all the satellite data
-
+    # test to see if it is a string, then it will have been entered by the user
+    if os.path.exists(file):
+        sat_df = pd.read_csv(file, sep=',') # this is the csv file with all the satellite data
+    else:
+        # open the default launch file from the package
+        with importlib.resources.open_text('fspsim.data.prediction_csv', file) as f:
+            sat_df = pd.read_csv(f, sep=',')
     # slice the dataframe to remove all the rows that have missing values or nan values in the 'Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor' columns
     sat_df = sat_df.dropna(subset=['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion'])
     #print the number of rows remaining
@@ -386,8 +392,9 @@ def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
     """
     operators_to_remove = simsettings["remove_operators"]
     all_space_objects = []
+    
     # create a list of dictionaries containing the metadata for each sub-constellation
-    metadata_dicts = satellite_metadata(file_path=satellite_predictions_csv)
+    metadata_dicts = satellite_metadata(file=satellite_predictions_csv)
 
     # need to be able to policy to the constellation companies, then at constellation level (i.e number of satellites that have failed)
     metadata_dicts = apply_settings_at_organisation_level(metadata_dicts,failure_rate = 0, remove_operators =  operators_to_remove)

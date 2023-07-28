@@ -11,6 +11,16 @@ import logging
 import importlib.resources
 import pandas as pd
 from dotenv import set_key
+from pathlib import Path
+
+home = str(Path.home())
+direc = home + '/.fspsim/'
+os.makedirs(direc + str("data/catalogue/"), exist_ok=True)
+os.makedirs(direc + str("data/results/"), exist_ok=True)
+os.makedirs(direc + str("data/external/"), exist_ok=True)
+os.makedirs(direc + str("data/results/propagated_catalogues"), exist_ok=True)
+cataloguepath, resultspath, externalpath, propagatedpath = direc + str("data/catalogue/"), direc + str("data/results/"), direc + str("data/external/"), direc + str("data/results/propagated_catalogues/")  
+
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -71,26 +81,28 @@ def run_parallel_sim(settings):
     logging.info(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
 
     print("Stopping for now because we need to test the code")
-    # decayed_before_start = 0
-    # for space_object in SATCAT.Catalogue:
-    #     if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
-    #         SATCAT.Catalogue.remove(space_object)
-    #         decayed_before_start += 1
-    # logging.info("# sats decayed before sim start date: ", decayed_before_start)
+    decayed_before_start = 0
+    for space_object in SATCAT.Catalogue:
+        if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
+            SATCAT.Catalogue.remove(space_object)
+            decayed_before_start += 1
+    logging.info("# sats decayed before sim start date: ", decayed_before_start)
 
-    # logging.info("Propagating space objects in parallel...")
-    # iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type) for space_object in SATCAT.Catalogue]
-    # with Pool(processes=cpu_count()) as pool:
-    #     with tqdm(total=len(iterable)) as pbar:
-    #         results = []
-    #         for result in pool.imap_unordered(propagate_space_object, iterable):
-    #             results.append(result)
-    #             pbar.update()
+    SATCAT.Catalogue = SATCAT.Catalogue[::1000]
 
-    # SATCAT.Catalogue = results
-    # logging.info("Exporting results...")
-    # dump_pickle(f'src/fspsim/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
-    # logging.info(f"Simulation complete. Results saved to: {get_path(f'src/fspsim/data/results/propagated_catalogs/{scenario_name}.pickle')}")
+    logging.info("Propagating space objects in parallel...")
+    iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type) for space_object in SATCAT.Catalogue]
+    with Pool(processes=cpu_count()) as pool:
+        with tqdm(total=len(iterable)) as pbar:
+            results = []
+            for result in pool.imap_unordered(propagate_space_object, iterable):
+                results.append(result)
+                pbar.update()
+
+    SATCAT.Catalogue = results
+    logging.info("Exporting results...")
+    dump_pickle(propagatedpath + f'{scenario_name}.pickle', SATCAT)
+    logging.info(f"Simulation complete. Results saved to: {get_path(propagatedpath + f'{scenario_name}.pickle')}")
 
 if __name__ == '__main__':
     sims = os.listdir(get_path('src/fspsim/data/specify_simulations/'))
