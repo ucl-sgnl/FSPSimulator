@@ -36,7 +36,7 @@ def kepler_vs_numerical_test_plot():
     # Propagate the same orbit using the numerical propagator and a wide range of time steps (10-1000 seconds in steps of 10 seconds)
     # Record the RMS of the position and velocity at each time step for the numerically propagated orbits against the keplerian propagated orbit
     
-    step_sizes = [10000000]
+    step_sizes = [10000]
 
     for sat in test_tles:
         print("Propagating: ", sat)

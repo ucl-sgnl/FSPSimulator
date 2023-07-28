@@ -256,9 +256,8 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_stamps, h, integ
 
     # Call solve_ivp to propagate the orbit
     sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, np.interp(t, np.arange(0, tot_time, h), JD_time_stamps),force_model), [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
-                        events=stop_propagation, rtol=1e-13, atol=1e-13)
-
-    #TODO: I have reduced the tolerance to get the code to run faster. Need to decide on what is acceptable/necessary here
+                        events=stop_propagation, rtol=1e-13, atol=1e-11)
+    #NOTE: these tolerances have been selected to keep the accuracy of the solver within ~1cm after 6 months.
     return sol.y.T  # Returns an array where each row is the state at a time
 
 def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
