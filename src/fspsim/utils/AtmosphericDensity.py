@@ -115,8 +115,8 @@ def ussa76_rho(alts):
     zb = np.array([86, 91, 100, 110, 120, 150, 200, 300, 500, 750, np.inf])
 
     # load the coefficients used to approximate density and pressure above 86km 
-    coeffs_path = importlib.resources.path('fspsim.data.density_coeffs', 'coesa76_coeffs.npz')
-    data = np.load(coeffs_path)
+    with importlib.resources.path('fspsim.data.density_coeffs', 'coesa76_coeffs.npz') as path:
+        data = np.load(path)
     rho_coeffs, _ = data['rho'], data['p']
 
     # Test if altitudes are inside valid range

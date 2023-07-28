@@ -44,8 +44,19 @@ A typical simulation configuration can be represented in the JSON file format as
 - __sim_object_type__: Specifies the object types to be simulated. Available options: "all", "debris", "active".
 - __sim_object_catalogue__: Specifies the catalogue type to be used. Available options: "jsr", "spacetrack", "both".
 - __environment__: Specifies the environment.
-- __repull_catalogues__: Determines if the catalogues are to be updated with recent data.
+- __repull_catalogues__: Determines if the catalogues are to be updated with recent data. See below on adding space-track credentials. If false, the last run version with this packge will be used. 
 - __satellite_predictions_csv__: The name of the CSV file with your satellite predictions should be specified here. This must follow the format of the sample CSV file provided in the repository. Any rows deviating from the correct format will be disregarded. Note: If you supply your own file, please provide a path. It will default to an example if nothing file path is provided. 
+
+## SpaceTrack login
+This version of fspsim uses Spacetrack to get an up-to-date version of each object's position. This will require a space-track.org account. 
+
+In your root directory of your python file, create a .env file and add the following code: 
+```
+SPACETRACK_USERNAME=<your email>
+SPACETRACK_PASSWORD=<your password>
+```
+
+NOTE: Please do not put your credentials in quotations. The dotenv package will assume they're part of the password or username. 
 
 ## Outputs of the simulation
 For each run:
@@ -65,8 +76,7 @@ Execute the following commands to install and activate the environment:
 
 ``` bash
 conda update -n base -c defaults conda
-conda env create -f settings/fspsim_env.yml
-conda activate fspsim
+pip install -i https://test.pypi.org/simple/ fspsim
 ```
 
 To run the simulations on a Virtual Machine, you will need Miniconda to activate the environment:
@@ -77,4 +87,22 @@ chmod +x Miniconda3-latest-Linux-x86_64.sh
 ./Miniconda3-latest-Linux-x86_64.sh
 source ~/.bashrc
 conda --version
+```
+
+## Example 
+
+```python
+
+from fspsim import simulate
+import json
+
+# ensure that you have created a .env file with the spacetrack credentials if you wanted an updated version
+
+# load your simulation template
+with open('template.json') as f:
+    template = json.load(f)
+
+simulate.run_parallel_sim(template)
+
+# your output will be your home directory + /.fspsim/results + your simulation name
 ```

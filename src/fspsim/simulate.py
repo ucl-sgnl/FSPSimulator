@@ -12,6 +12,8 @@ import importlib.resources
 import pandas as pd
 from dotenv import set_key
 from pathlib import Path
+from joblib import Parallel, delayed
+
 
 home = str(Path.home())
 direc = home + '/.fspsim/'
@@ -37,10 +39,9 @@ def set_spacetrack_login(username, password):
     set_key(".env", "SPACETRACK_USERNAME", username)
     set_key(".env", "SPACETRACK_PASSWORD", password)
 
-def propagate_space_object(args):
-    space_object, jd_start, jd_stop, step_size, output_freq, integrator_type= args
+def propagate_space_object(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type):
     # Execute the prop_catobject method on the space object
-    space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq= output_freq, integrator_type="RK45")
+    space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type)
     return space_object
 
 def return_baseline_catalogue():
@@ -55,7 +56,7 @@ def return_baseline_csv():
     with importlib.resources.open_text('fspsim.data.catalogue', 'Cleaned_All_catalogue_latest.csv') as file:
         df = pd.read_csv(file)
     return df
- 
+
 def run_parallel_sim(settings):
     """
     The main entry point into the FSP Simulator. This function will run the simulation based on the settings provided in the json file.
@@ -68,7 +69,6 @@ def run_parallel_sim(settings):
     # first check the json file
     if check_json_file(settings) == False:
         sys.exit()
-
     SATCAT = SpaceCatalogue(settings = settings)
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
@@ -80,7 +80,6 @@ def run_parallel_sim(settings):
     logging.info("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
     logging.info(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
 
-    print("Stopping for now because we need to test the code")
     decayed_before_start = 0
     for space_object in SATCAT.Catalogue:
         if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
@@ -88,21 +87,26 @@ def run_parallel_sim(settings):
             decayed_before_start += 1
     logging.info("# sats decayed before sim start date: ", decayed_before_start)
 
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000]
+    SATCAT.Catalogue = SATCAT.Catalogue[:10]
 
+    parallel_test(SATCAT, jd_start, jd_stop, step_size, output_freq, scenario_name, integrator_type)
+
+def parallel_test(SATCAT, jd_start, jd_stop, step_size, output_freq, scenario_name, integrator_type):
     logging.info("Propagating space objects in parallel...")
     iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type) for space_object in SATCAT.Catalogue]
-    with Pool(processes=cpu_count()) as pool:
-        with tqdm(total=len(iterable)) as pbar:
-            results = []
-            for result in pool.imap_unordered(propagate_space_object, iterable):
-                results.append(result)
-                pbar.update()
-
+    # with Pool(processes=cpu_count()) as pool:
+    #     with tqdm(total=len(iterable)) as pbar:
+    #         results = []
+    #         for result in pool.imap_unordered(propagate_space_object, iterable):
+    #             results.append(result)
+    #             pbar.update()
+        
+    results = Parallel(n_jobs=cpu_count())(delayed(propagate_space_object)(*args) for args in iterable)
     SATCAT.Catalogue = results
     logging.info("Exporting results...")
     dump_pickle(propagatedpath + f'{scenario_name}.pickle', SATCAT)
     logging.info(f"Simulation complete. Results saved to: {get_path(propagatedpath + f'{scenario_name}.pickle')}")
+
 
 if __name__ == '__main__':
     sims = os.listdir(get_path('src/fspsim/data/specify_simulations/'))

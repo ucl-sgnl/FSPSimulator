@@ -10,7 +10,7 @@ from fspsim.utils.Conversions import tle_parse
 from fspsim.utils.LaunchModel import Prediction2SpaceObjects
 import logging
 from pathlib import Path
-import importlib.resources
+import tqdm
 import json
 from dotenv import load_dotenv
 
@@ -320,26 +320,26 @@ class SpaceCatalogue:
         elif self.sim_object_type == "all":
             # the dataframe we are looking at is the merged JSR and SpaceTrack catalogue
             # it contains the columns from both catalogues
-            print("building space objects from JSR/Space-track merged catalogue")
+            print(f"Building {len(self.CurrentCatalogueDF)} space objects from JSR/Space-Track merged catalogue")         
             for _, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
                 tle = row["TLE_LINE1"] + "\n" + row["TLE_LINE2"]
                 self.Catalogue.append(SpaceObject(object_type=row['OBJECT_TYPE'], 
-                                                        mass=row['Mass'], 
-                                                        launch_site=row["SITE"],
-                                                        sma=row['SEMIMAJOR_AXIS'], 
-                                                        eccentricity=row['ECCENTRICITY'], 
-                                                        inc=row['INCLINATION'], 
-                                                        argp=row['ARG_OF_PERICENTER'], 
-                                                        raan=row['RA_OF_ASC_NODE'], 
-                                                        source = row['COUNTRY_CODE'],
-                                                        launch_date=row['LAUNCH_DATE'], 
-                                                        decay_date=row['DECAY_DATE'], 
-                                                        rso_name=row['OBJECT_NAME'],
-                                                        perigee=row['PERIAPSIS'],
-                                                        apogee=row['APOAPSIS'],
-                                                        tle=tle,
-                                                        epoch=row['EPOCH']
-                                                    ))
+                                                    mass=row['Mass'], 
+                                                    launch_site=row["SITE"],
+                                                    sma=row['SEMIMAJOR_AXIS'], 
+                                                    eccentricity=row['ECCENTRICITY'], 
+                                                    inc=row['INCLINATION'], 
+                                                    argp=row['ARG_OF_PERICENTER'], 
+                                                    raan=row['RA_OF_ASC_NODE'], 
+                                                    source = row['COUNTRY_CODE'],
+                                                    launch_date=row['LAUNCH_DATE'], 
+                                                    decay_date=row['DECAY_DATE'], 
+                                                    rso_name=row['OBJECT_NAME'],
+                                                    perigee=row['PERIAPSIS'],
+                                                    apogee=row['APOAPSIS'],
+                                                    tle=tle,
+                                                    epoch=row['EPOCH']
+                                                ))
         else:
             raise Exception("Invalid sim_object_type specified")
         return self.Catalogue
@@ -385,7 +385,7 @@ class SpaceCatalogue:
         uriBase                = "https://www.space-track.org"
         requestLogin           = "/ajaxauth/login"
         requestCmdAction       = "/basicspacedata/query" 
-        entire_catalogue = '/class/gp/EPOCH/%3Enow-30/orderby/NORAD_CAT_ID,EPOCH/format/json'
+        entire_catalogue = '/class/gp/orderby/NORAD_CAT_ID,EPOCH/format/json'
 
         # use requests package to drive the RESTful session with space-track.org
         with requests.Session() as session:

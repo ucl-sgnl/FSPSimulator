@@ -478,8 +478,8 @@ def earth_sun_vec(jd, unit = True):
     Returns:
         earth_sun_vec (array): Earth-Sun vector in ECI coordinates.
     """
-    bsp_file = importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp')
-    kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
+    with importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp') as path:
+        kernel = SPK.open(path)
     position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
     position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
     position -= kernel[3,399].compute(jd) # Earth Barycenter -> Earth vector
@@ -500,8 +500,8 @@ def earth_moon_vec(jd, unit = True):
     Returns:
         earth_moon_vec (array): Earth-Moon vector in ECI coordinates.
     """
-    bsp_file = importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp')
-    kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
+    with importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp') as path:
+        kernel = SPK.open(path)
     position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
     position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
     position -= kernel[3,301].compute(jd) # Earth Barycenter -> Moon vector
