@@ -255,9 +255,8 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_stamps, h, integ
     x0 = np.concatenate((pos, vel))  # Initial state is position and velocity
 
     # Call solve_ivp to propagate the orbit
-    # Call solve_ivp to propagate the orbit
     sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, np.interp(t, np.arange(0, tot_time, h), JD_time_stamps),force_model), [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
-                        events=stop_propagation, rtol=1e-7, atol=1e-7)
+                        events=stop_propagation, rtol=1e-13, atol=1e-13)
 
     #TODO: I have reduced the tolerance to get the code to run faster. Need to decide on what is acceptable/necessary here
     return sol.y.T  # Returns an array where each row is the state at a time
@@ -326,7 +325,7 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     Args:
         jd_start:  starting time in Julian Date
         jd_stop: ending time in Julian Date
-        step (int): sampling time of the orbit in seconds
+        step_size (int): sampling time of the orbit in seconds
         a (float): semi-major axis in Kilometers
         e (float): eccentricity of the orbit
         i (float): inclination of the orbit in degrees
@@ -336,66 +335,62 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     Returns:
         ephemeris (list): list in the form [(time, position, velocity), (time, position, velocity), ...]
     """
+    # Convert angles to radians
+    i, w, W, V = map(np.deg2rad, [i, w, W, V])
 
     # Defining radial distance and semi-latus rectum
     p = a * (1 - (e**2))
     r = p / (1 + e * np.cos(V))
-   
+
     # empty list to store the time step in each iteration
     ephemeris = []
+
     # calculate the number of steps between jd_start and jd_stop if the step size is step_size seconds) 
-    t_diff = jd_stop-jd_start # time difference in Julian Days
+    t_diff = jd_stop-jd_start  # time difference in Julian Days
     t_diff_secs = 86400 * t_diff
     current_jd = jd_start
-    steps = math.ceil(t_diff_secs/step_size) # total number of integer steps
-    for i in range(0, steps, 1):
-        time = 0 #internal timer
+    steps = math.ceil(t_diff_secs/step_size)  # total number of integer steps
+    for step in range(steps):
         # Compute the mean motion
         n = np.sqrt(GM_earth / (a**3))
-        
+
         # Compute the eccentric anomaly at t=t0
         cos_Eo = ((r * np.cos(V)) / a) + e
         sin_Eo = (r * np.sin(V)) / (a * np.sqrt(1 - e**2))
-        # adding 2 pi for for very small values
-        # ensures that Eo stays in the range 0< Eo <2Pi
-        Eo = math.atan2(sin_Eo, cos_Eo)
-        if Eo < 0.0:
-            Eo = Eo + 2 * np.pi
-        else:
-            Eo = Eo
+        Eo = np.arctan2(sin_Eo, cos_Eo)
+        Eo = Eo if Eo >= 0 else Eo + 2*np.pi
+
         # Compute mean anomaly at start point
-        Mo = Eo - e * np.sin(Eo)  # From Kepler's equation
+        Mo = Eo - e * np.sin(Eo)
+
         # Compute the mean anomaly at t+newdt
-        Mi = Mo + n * time
+        Mi = Mo + n * (step * step_size)
+
         # Solve Kepler's equation to compute the eccentric anomaly at t+newdt
         M = Mi
-        
+
         # Initial Guess at Eccentric Anomaly
-        # (taken these conditions from
-        # Fundamentals of Astrodynamics by Roger.E.Bate)
-        r_tol = 1e-7 # relative tolerance
         if M < np.pi:
             E = M + (e / 2)
-        if M > np.pi:
+        if M >= np.pi:
             E = M - (e / 2)
-        # Initial Conditions
+
+        # Iterative solution for E
+        r_tol = 1e-7  # relative tolerance
         f = E - e * np.sin(E) - M
         f_prime = 1 - e * np.cos(E)
         ratio = f / f_prime
-        # Numerical iteration for ratio compared to level of accuracy wanted
         while abs(ratio) > r_tol:
             f = E - e * np.sin(E) - M
             f_prime = 1 - e * np.cos(E)
             ratio = f / f_prime
-            if abs(ratio) > r_tol:
-                E = E - ratio
-            if abs(ratio) < r_tol:
-                break
+            E -= ratio
 
         Ei = E
+
         # Compute the gaussian vector component x,y
         x_new = a * (np.cos(Ei) - e)
-        y_new = a * ((np.sqrt(1 - e**2)) * (np.sin(Ei)))
+        y_new = a * (np.sqrt(1 - e**2) * np.sin(Ei))
         # Compute the in-orbital plane Gaussian Vectors
         # This gives P and Q in ECI components
         P = np.matrix(
@@ -436,11 +431,8 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         vel = ([cart_vel_x_new, cart_vel_y_new, cart_vel_z_new])
         
         ephemeris.append([current_jd, pos, vel])
-
         # Update the JD time stamp
-        current_jd = current_jd + step_size
-        # Update the internal timer
-        time = time + step_size
+        current_jd = current_jd + step_size/86400.0  # convert seconds to days
     return ephemeris
 
 if __name__ == "__main__":
