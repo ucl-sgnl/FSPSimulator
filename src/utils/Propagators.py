@@ -170,7 +170,7 @@ def srp_acc(mass, area, state, jd_time, cr=1):
         a_srp_vec = np.array([0,0,0]) #TODO: this is not correct. Need to calculate the SRP acceleration in the penumbra. For now just set to zero.
     return a_srp_vec
 
-def accelerations (t, state, cd, area, mass, jd_time):
+def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
     """For a single time step, calculates the accelerations for a given state vector at a given time.
 
     Args:
@@ -179,41 +179,44 @@ def accelerations (t, state, cd, area, mass, jd_time):
         cd (float): drag coefficient
         area (float): cross-sectional area of the satellite (m^2)
         mass (float): mass of the satellite (kg)
- 
+        force_models (list of str): list of force models to be included in the calculation. Possible values include "grav_mono", "a_j2", "drag_aero", "a_srp", "all". Default is ["all"].
+
     Returns:
         array: cartesian velocity and the new accelerations in the x,y,z dimensions
     """
 
+    a_tot = np.zeros(3)
+
     #--------------- MONOPOLE ACCELERATION -----------------#
-    
-    grav_mono=monopole_earth_grav_acc(state)
-    
+    if "all" in force_model or "grav_mono" in force_model:
+        grav_mono=monopole_earth_grav_acc(state)
+        a_tot += grav_mono
+
     #--------------- J2 PERT ACCELERATION ------------------#
-   
-    a_j2 = j2_acc(state)
-    
-    #--------------- MOON AND SUN PERTURBATIONS ------------#
+    if "all" in force_model or "j2" in force_model:
+        a_j2 = j2_acc(state)
+        a_tot += a_j2
 
-    # sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
-    # print("sun_grav_mono: ", sun_grav_mono)
-    # moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
-    # print("moon_grav_mono: ", moon_grav_mono)
+    #--------------- SUN GRAVITY ------------------------#
+    if "all" in force_model or "sun_grav" in force_model:
+        sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
+        a_tot += sun_grav_mono
 
-    #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
-    
-    grav_a = grav_mono + a_j2 #+ sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
-    
+    #--------------- MOON GRAVITY -----------------------#
+    if "all" in force_model or "moon_grav" in force_model:
+        moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
+        a_tot += moon_grav_mono
+
     #--------------- AERO DRAG ACCELERATION --------------#
-    drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) #TODO: make the density model type an input of the sim settings file
+    if "all" in force_model or "drag_aero" in force_model:
+        drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) 
+        a_tot += drag_aero_vec
 
-    #combine all the above print statemtnts into one print statement
     #--------------- SOLAR RADIATION PRESSURE ACCELERATION --------------#
-    a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
-    
-    
-    a_tot = grav_a + drag_aero_vec + a_srp_vec 
-    
-    # print("aerodrag: ", drag_aero_vec, "a_srp_vec: ", a_srp_vec, "altitude: ", np.linalg.norm(state[:3]) - Re)
+    if "all" in force_model or "srp" in force_model:
+        a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
+        a_tot += a_srp_vec
+
     return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
 
 def stop_propagation(t, y, *args):
@@ -224,7 +227,7 @@ def stop_propagation(t, y, *args):
 
 stop_propagation.terminal = True  # Stop the integration when this event occurs
 
-def numerical_prop(tot_time, pos, vel, C_d, area, mass,JD_time_stamps, h, integrator_type):
+def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_stamps, h, integrator_type, force_model):
     """
     Numerical Propagation of the orbit
 
@@ -253,8 +256,8 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass,JD_time_stamps, h, integr
 
     # Call solve_ivp to propagate the orbit
     # Call solve_ivp to propagate the orbit
-    sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, np.interp(t, np.arange(0, tot_time, h), JD_time_stamps)), [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
-                        events=stop_propagation, rtol=1e-7, atol=1e-5)
+    sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, np.interp(t, np.arange(0, tot_time, h), JD_time_stamps),force_model), [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
+                        events=stop_propagation, rtol=1e-7, atol=1e-7)
 
     #TODO: I have reduced the tolerance to get the code to run faster. Need to decide on what is acceptable/necessary here
     return sol.y.T  # Returns an array where each row is the state at a time

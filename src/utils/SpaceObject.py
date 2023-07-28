@@ -235,7 +235,7 @@ class SpaceObject:
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type):
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model=["all"]):
         """
         Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
         
@@ -278,7 +278,7 @@ class SpaceObject:
 
             # recalculate total time for the remaining journey after station keeping
             tot_time = (jd_stop - self.station_keeping[1]) * 24 * 60 * 60
-            ephemeris_numerical = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, integrator_type=integrator_type)
+            ephemeris_numerical = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, integrator_type=integrator_type, force_model=force_model)
 
             # reformat the ephemeris output
             steps = int(tot_time/step_size)
@@ -300,7 +300,7 @@ class SpaceObject:
 
         
         elif not self.station_keeping:  # object will not station keep, propagate using the numerical integrator
-            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass,JD_time_stamps= jd_time_stamps, h=step_size, integrator_type=integrator_type)
+            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass,JD_time_stamps= jd_time_stamps, h=step_size, integrator_type=integrator_type, force_model=force_model)
             self.ephemeris = self.ephemeris[::output_freq_steps]  # resample the ephemeris with respect to output frequency
             #TODO: calculate the JD time stamps of all the steps in the ephemeris and add them an array which I will pass to an updated version of numerical_prop so that it can calculate the solar radiaition pressure which is a function of JD time stamp
 if __name__ == "__main__":
