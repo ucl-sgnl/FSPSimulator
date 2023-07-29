@@ -93,9 +93,9 @@ def SP3_file_validate():
     print("jd start: ", jd_start)
     print("jd end: ", jd_end)
 
-    stella_sim.prop_catobject(jd_start=jd_start, jd_stop=jd_end, step_size=100, output_freq=10800, integrator_type="RK45", force_model = ["all"])
-    stella_ephem = stella_sim.ephemeris
-    np.save("src/tests/sim_ephemeris/stella_ephem.npy", stella_ephem)
+    # stella_sim.prop_catobject(jd_start=jd_start, jd_stop=jd_end, step_size=1000, output_freq=10800, integrator_type="RK45", force_model = ["all"])
+    # stella_ephem = stella_sim.ephemeris
+    # np.save("src/tests/sim_ephemeris/stella_ephem.npy", stella_ephem)
 
     #load starlette_ephem from .npy file
     stella_ephem = np.load("src/tests/sim_ephemeris/stella_ephem.npy")
@@ -112,6 +112,7 @@ def SP3_file_validate():
 
     #position difference at the first time step
     print("sp3pos: ", sp3pos)
+    sp3pos = sp3pos[:-8]
     print("sp3pos[0]: ", sp3pos[0])
     print("starlettepos[0]: ", stellapos[0])
     pos_diff = np.linalg.norm(sp3pos[0] - stellapos[0])
@@ -122,7 +123,7 @@ def SP3_file_validate():
     print("pos_diff: ", pos_diff)
 
     # # Plot it over time
-    obstimes_short = obstimes[:-1]
+    obstimes_short = obstimes[:-9]
     plt.plot(obstimes_short.datetime, pos_diff)
 
     #3D scatter plot of both positions
@@ -133,6 +134,13 @@ def SP3_file_validate():
     ax.set_xlabel('X [km]')
     ax.set_ylabel('Y [km]')
     ax.set_zlabel('Z [km]')
+    plt.show()
+
+    #find the altitude difference over time
+    alt_diff = np.linalg.norm(sp3pos, axis=1) - np.linalg.norm(stellapos, axis=1)
+    # Plot it over time
+    obstimes_short = obstimes[:-9]
+    plt.plot(obstimes_short.datetime, alt_diff)
     plt.show()
 
 if __name__ == '__main__':
