@@ -81,7 +81,6 @@ def monopole_moon_grav_acc(state, jd_time):
     return moon_acc
 
 def solar_shadow_function(state, jd_time):
-    #TODO: this needs some proper testing to make sure it works. Seems reasonable but have not rigorously tested it.
     """
     Calculate whether the satellite is in the umbra, penumbra, or full phase of the Earth's shadow.
     Args:
@@ -90,20 +89,36 @@ def solar_shadow_function(state, jd_time):
     Returns:
         (str): "sun", "umbra", or "penumbra"
     """
+    # Ensure input arrays are numpy arrays
+    state = np.array(state)
 
-    probe_sun_vector = probe_sun_vec(state[:3], jd_time, unit=False)
-    s = state[:3] - probe_sun_vector # vector from the satellite to the center of mass of the Sun
+    # Check if the probe_sun_vec function returns expected values
+    try:
+        probe_sun_vector = probe_sun_vec(state[:3], jd_time, unit=False)
+    except Exception as e:
+        print(f"Error in probe_sun_vec function: {e}")
+        return None
 
-    a = np.arcsin(RSun/ np.linalg.norm(probe_sun_vector - state[:3])) # apparent radius of the occulted body (the Sun)
-    b = np.arcsin(Re / np.linalg.norm(state[:3])) # apparent radius of the occulting body (the Earth)
-    c = np.arccos(np.dot(-state[:3], probe_sun_vector) / (np.linalg.norm(state[:3]) * np.linalg.norm(probe_sun_vector))) # Angle between the vectors to the Sun and to the Earth
+    # Ensure probe_sun_vector is a numpy array
+    probe_sun_vector = np.array(probe_sun_vector)
 
+    # Calculate apparent radii and angle
+    try:
+        a = np.arcsin(RSun / np.linalg.norm(probe_sun_vector - state[:3]))  # apparent radius of the Sun
+        b = np.arcsin(Re / np.linalg.norm(state[:3]))  # apparent radius of the Earth
+        c = np.arccos(np.dot(-state[:3], probe_sun_vector) / (np.linalg.norm(state[:3]) * np.linalg.norm(probe_sun_vector)))  # Angle between the vectors to the Sun and to the Earth
+    except Exception as e:
+        print(f"Error in calculation of a, b, c: {e}")
+        return None
+
+    # Determine satellite's location relative to shadow
     if a + b <= c:
         return "sun"  # Satellite is in full sunlight
     elif a + c <= b:
         return "umbra"  # Satellite is in total shadow (umbra)
     else:
         return "penumbra"  # Satellite is in partial shadow (penumbra)
+
 
 def aero_drag_acc(state, cd, area, mass, density_model, jd):
     """
@@ -187,6 +202,8 @@ def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
 
     a_tot = np.zeros(3)
 
+    print('t: ', t)
+
     #--------------- MONOPOLE ACCELERATION -----------------#
     if "all" in force_model or "grav_mono" in force_model:
         grav_mono=monopole_earth_grav_acc(state)
@@ -197,15 +214,15 @@ def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
         a_j2 = j2_acc(state)
         a_tot += a_j2
 
-    #--------------- SUN GRAVITY ------------------------#
-    if "all" in force_model or "sun_grav" in force_model:
-        sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
-        a_tot += sun_grav_mono
+    # #--------------- SUN GRAVITY ------------------------#
+    # if "all" in force_model or "sun_grav" in force_model:
+    #     sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
+    #     a_tot += sun_grav_mono
 
-    #--------------- MOON GRAVITY -----------------------#
-    if "all" in force_model or "moon_grav" in force_model:
-        moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
-        a_tot += moon_grav_mono
+    # #--------------- MOON GRAVITY -----------------------#
+    # if "all" in force_model or "moon_grav" in force_model:
+    #     moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
+    #     a_tot += moon_grav_mono
 
     #--------------- AERO DRAG ACCELERATION --------------#
     if "all" in force_model or "drag_aero" in force_model:
@@ -245,9 +262,6 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_stamps, h, integ
     Returns:
         array: nested array containing the cartesian state vectors for the propagated orbit at each time step.
     """
-
-    if h > 30:
-        warnings.warn(f'The time step of {h} seconds is large. The results may be inaccurate.')
 
     pos = np.array(pos) #cast to numpy array
     vel = np.array(vel)

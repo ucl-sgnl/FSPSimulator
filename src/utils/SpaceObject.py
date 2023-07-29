@@ -3,6 +3,7 @@ import datetime
 import warnings
 from enum import Enum
 import numpy as np
+from astropy.time import Time
 
 from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day
 from utils.Propagators import numerical_prop, kepler_prop
@@ -175,8 +176,6 @@ class SpaceObject:
         self.tran = verify_angle(tran, 'tran', random=True) # random=True means that if tran is None, then a random value between 0 and 360 is imputed
         self.eccentricity = verify_eccentricity(eccentricity)
         self.meananomaly = true_to_mean_anomaly(self.tran, self.eccentricity)
-            
-        self.altitude = self.perigee #TODO: this needs to get deleted imo (discuss first)
 
         # This is to store the result of the conversion of the Keplerian elements to cartesian ECI coordinates
         self.cart_state = self.generate_cart() #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
@@ -231,7 +230,11 @@ class SpaceObject:
     def generate_cart(self):
         # generate cartesian state vector from keplerian elements
         # Keplerian elements are in radians
-        x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran))
+        
+        #This is the format of the epoch: datetime.datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S') #in UTC
+        # COnvert it to astropy time
+        print("kep2car: ", self.sma, self.eccentricity, self.inc, self.argp, self.raan, self.tran, self.epoch)
+        x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran), epoch=Time(self.epoch, format='datetime'))
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 

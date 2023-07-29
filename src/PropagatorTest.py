@@ -1,143 +1,139 @@
-#Only way i could rin this was to bring it into src and run using "python -m src.tests.PropagatorTest"
+# #Only way i could rin this was to bring it into src and run using "python -m src.tests.PropagatorTest"
 import numpy as np
 import datetime
 import matplotlib.pyplot as plt
-from utils.Conversions import tle_parse, tle_convert, TLE_time, jd_to_utc, utc_to_jd
+import sp3
+import astropy.time
+import astropy.coordinates
+import pandas as pd
+import astropy.units as u
+from utils.Conversions import car2kep
+# Convert to GCRS 
+from astropy import units as u
+from astropy.coordinates import CartesianDifferential, CartesianRepresentation, GCRS, ITRS
+from astropy.time import Time
+import unittest
+from utils.Conversions import tle_parse, tle_convert, TLE_time, jd_to_utc, utc_to_jd, car2kep, ecef2eci_astropy
 from utils.Propagators import sgp4_prop_TLE, numerical_prop, kepler_prop
 from utils.SpaceObject import SpaceObject
 
-#Satellites used in validation
+def SP3_file_validate():
+    sp3.cddis.username = "charlesc"
+    sp3.cddis.password = "0!EQVG8aDRWE"
 
-#Doing 1 MEO + 2 LEOs
-#navstar81, pulled on 27Apr2023
-test_tle1 = "1 48859U 21054A   23116.83449170 -.00000109  00000-0  00000-0 0  9996\n2 48859  55.3054  18.4561 0008790 213.9679 183.6522  2.00556923 13748"
-#OneWeb20, pulled on 27Apr2023
-test_tle2 = "1 45133U 20008C   23116.69886660  .00000678  00000-0  19052-2 0  9998\n2 45133  87.8784 264.1991 0001687  89.2910 270.8411 13.10377378158066"
-#Starlink70, pulled on 27Apr2023
-test_tle3 = "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
+    # Generate dates from 2022-01-01 to 2023-01-01 at 24-hour intervals
+    dates = pd.date_range(start="2022-01-01", end="2022-03-01", freq='3H')
+    #convert the start and end dates to JD
+    jd_start = astropy.time.Time(dates[0]).jd
+    jd_end = astropy.time.Time(dates[-1]).jd
 
-#dictionary of TLEs
-test_tles = {'navstar81': test_tle1, 'OneWeb20': test_tle2, 'Starlink70': test_tle3}
+    obstimes = astropy.time.Time(dates)
 
-prop_start = [datetime.datetime.strptime('2023-05-02 12:45:00', '%Y-%m-%d %H:%M:%S')]
-prop_end = [datetime.datetime.strptime('2023-08-02 12:45:00', '%Y-%m-%d %H:%M:%S')]
-start_jd = utc_to_jd(prop_start)
-end_jd = utc_to_jd(prop_end)
+    # Get position in ITRS coordinate system
+    sp3_itrs = sp3.itrs(
+        id=sp3.NoradId("22824"), # Stella NORAD ID
+        obstime=obstimes,
+        download_directory="src/tests/SP3",
+    )
 
-# Function to calculate 3D position difference
-def calculate_position_difference(keplerian_output, numerical_output):
-    keplerian_position = np.array(keplerian_output[1])
-    numerical_position = numerical_output[:3]
-    position_difference = np.abs(np.linalg.norm(keplerian_position) - np.linalg.norm(numerical_position))
-    return position_difference
+    # Extract position and velocity data
+    positions = sp3_itrs.cartesian.xyz.value.T  # Transpose to get shape (N, 3) #these are in meters
+    #convert to km
+    positions = positions/1000
+    velocities = sp3_itrs.velocity.d_xyz.value.T  # Transpose to get shape (N, 3) #these are in kilometers per second already
 
-def kepler_vs_numerical_test_plot():
-    # Propagate an object using the keplerian propgator
-    # Propagate the same orbit using the numerical propagator and a wide range of time steps (10-1000 seconds in steps of 10 seconds)
-    # Record the RMS of the position and velocity at each time step for the numerically propagated orbits against the keplerian propagated orbit
+    # Convert ECEF to ECI for each timestamp using ecef2eci_astropy
+    mjds = obstimes.jd - 2400000.5  # Convert from JD to MJD
+
+    eci_coords = [ecef2eci_astropy(pos, vel, mjd) for pos, vel, mjd in zip(positions, velocities, mjds)]
+
+    print("eci_coords: ", eci_coords)
+
+    print("first set of eci_coords: ", eci_coords[0])
+    print("first position: ", eci_coords[0])
+    print("first velocity: ", eci_coords[1])
+
+    # Extract positions and velocities in the ECI frame
+    positions_eci = np.squeeze(np.array([coord[0] for coord in eci_coords]))  # in km
+    velocities_eci = np.squeeze(np.array([coord[1] for coord in eci_coords]))  # in km/s
+
+    print("positions_eci: ", positions_eci)
+    print("velocities_eci: ", velocities_eci)
+
+    # Compute velocity magnitudes
+    velocity_magnitudes = np.linalg.norm(velocities_eci, axis=1)
+    #compute altitude
+    altitudes_km = np.linalg.norm(positions_eci, axis=1) - 6378.137
+    print("altitudes_km: ", altitudes_km)
+    print("velocity_magnitudes: ", velocity_magnitudes)
+
+    # Take the first position and convert it to Keplerian elements
+    print("first position: ", positions_eci[0])
+    print("first velocity: ", velocities_eci[0])
+
+    posx = positions_eci[0][0]
+    posy = positions_eci[0][1]
+    posz = positions_eci[0][2]
+
+    velx = velocities_eci[0][0]
+    vely = velocities_eci[0][1]
+    velz = velocities_eci[0][2]
+
+    print("posx: ", posx)
+    print("posy: ", posy)
+    print("posz: ", posz)
+    print("velx: ", velx)
+    print("vely: ", vely)
+    print("velz: ", velz)
     
-    step_sizes = [10000]
+    a, e, i, w, W, V = car2kep(posx, posy, posz, velx, vely, velz)
+    print(f"Keplerian elements: a={a}, e={e}, i={i}, w={w}, W={W}, V={V}")
 
-    for sat in test_tles:
-        print("Propagating: ", sat)
+    stella_sim = SpaceObject(sma = a, perigee=804, apogee=812, eccentricity=e, inc = np.rad2deg(i), argp = np.rad2deg(w), raan=np.rad2deg(W), tran=np.rad2deg(V), characteristic_area=0.206, mass = 48, epoch = "2022-01-01 00:00:00", launch_date='2022-01-01')
+    print("jd start: ", jd_start)
+    print("jd end: ", jd_end)
 
-        #Get the Keplerian elements from the TLE
-        tle_dict = tle_parse(test_tles[sat])
-        tle_kepels = tle_convert(tle_dict)
+    stella_sim.prop_catobject(jd_start=jd_start, jd_stop=jd_end, step_size=100, output_freq=10800, integrator_type="RK45", force_model = ["all"])
+    stella_ephem = stella_sim.ephemeris
+    np.save("src/tests/sim_ephemeris/stella_ephem.npy", stella_ephem)
 
-        #Get the epoch from the TLE
-        tle_time = TLE_time(test_tles[sat])
-        tle_epoch = jd_to_utc(tle_time)
+    #load starlette_ephem from .npy file
+    stella_ephem = np.load("src/tests/sim_ephemeris/stella_ephem.npy")
+    print("stella_ephem: ", stella_ephem)
 
-        # make a SpaceObject from the TLE
-        tle_epoch_str = str(tle_epoch)
-        epoch = tle_epoch_str.replace(' ', 'T')
-        test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=0.011, mass = 250, epoch = epoch, launch_date='2023-05-02')
-        
-        cart_diffs = []
-        cart_diff_means = []
+    #now the position difference between the SP3 and the starlette_ephem
+    sp3pos = positions_eci[:-1]
+    sp3pos = sp3pos.reshape(-1, 3)
 
-        for step_size in step_sizes:
-            #Propagate the SpaceObject using the keplerian propagator
-            print(f"Propagating numerically with step size {step_size} seconds")
-            test_sat.prop_catobject(jd_start=start_jd[0], jd_stop=end_jd[0], step_size=step_size, integrator_type="RK45", output_freq = step_size, force_model = ["grav_mono"])
-            test_sat_ephem = test_sat.ephemeris
-            keplerian_test_sat_ephem = kepler_prop(jd_start = start_jd[0], jd_stop=end_jd[0], step_size=step_size, a = tle_kepels['a'], e = tle_kepels['e'], i = tle_kepels['i'], w = tle_kepels['arg_p'], W = tle_kepels['RAAN'], V = tle_kepels['true_anomaly'])
-            cart_diff = []
-            for i in range(len(test_sat_ephem)):
-                cart_diff.append(calculate_position_difference(keplerian_test_sat_ephem[i], test_sat_ephem[i]))
+    stellapos = stella_ephem[:,0:3]
 
-            print(f"Initial position difference at start of prop {step_size} is: {cart_diff[0]}")
-            print(f"Final position difference at end of prop {step_size} is: {cart_diff[-1]}")
-            print(f"Mean position difference for prop {step_size} is: {np.mean(cart_diff)}")
-            print(f"variance of position difference for prop {step_size} is: {np.var(cart_diff)}")
-            cart_diffs.append(cart_diff)
-            cart_diff_means.append(np.mean(cart_diff))
+    a_stel, e_stel, i_stel, w_stel, W_stel, V_stel = car2kep(stellapos[0][0], stellapos[0][1], stellapos[0][2], stella_ephem[0][3], stella_ephem[0][4], stella_ephem[0][5])
+    print("keplerian elements of first pos of stella_sim: ", a_stel, e_stel, i_stel, w_stel, W_stel, V_stel)
 
-        for i, step_size in enumerate(step_sizes):
-            jd_time_stamps = np.linspace(start_jd[0], end_jd[0], num=len(cart_diffs[i]))
+    #position difference at the first time step
+    print("sp3pos: ", sp3pos)
+    print("sp3pos[0]: ", sp3pos[0])
+    print("starlettepos[0]: ", stellapos[0])
+    pos_diff = np.linalg.norm(sp3pos[0] - stellapos[0])
+    print("pos_diff at start: ", pos_diff)
 
-            #plot the RMS of the position difference against the time stamps for each step size
-            plt.scatter(jd_time_stamps, cart_diffs[i], label = f"Step size: {step_size} seconds", s=1, alpha=0.2)
-        
-        plt.xlabel("Julian Date")
-        plt.ylabel("3D position difference (km)")
-        plt.title(f"Norm of position difference between keplerian and numerical propagators for {sat}")
-        plt.yscale('log')  # This line sets the y-axis to a logarithmic scale
+    #take the norm of the difference
+    pos_diff = np.linalg.norm(sp3pos - stellapos, axis=1)
+    print("pos_diff: ", pos_diff)
 
-        plt.legend()
-        plt.show()
+    # # Plot it over time
+    obstimes_short = obstimes[:-1]
+    plt.plot(obstimes_short.datetime, pos_diff)
 
-if __name__ == "__main__":
-    kepler_vs_numerical_test_plot()
+    #3D scatter plot of both positions
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.scatter(sp3pos[:,0], sp3pos[:,1], sp3pos[:,2], c='r', marker='o')
+    ax.scatter(stellapos[:,0], stellapos[:,1], stellapos[:,2], c='b', marker='o')
+    ax.set_xlabel('X [km]')
+    ax.set_ylabel('Y [km]')
+    ax.set_zlabel('Z [km]')
+    plt.show()
 
-import numpy as np
-import warnings
-
-def kepler_vs_numerical_test(tolerance):
-    # Propagate an object using the keplerian propgator
-    # Propgate the same orbit using the numerical propagator and a wide range of time steps (10-1000 seconds in steps of 10 seconds)
-    # record the RMS of the position and velocity at each time step for the numericall propagated orbits agains the keplerian propagated orbit
-
-    step_sizes = np.arange(10, 20000, 1000)
-
-    for sat in test_tles:
-        print("Propagating numerically: ", sat)
-
-        #Get the Keplerian elements from the TLE
-        tle_dict = tle_parse(test_tles[sat])
-        tle_kepels = tle_convert(tle_dict)
-
-        #Get the epoch from the TLE
-        tle_time = TLE_time(test_tles[sat])
-        tle_epoch = jd_to_utc(tle_time)
-
-        # make a SpaceObject from the TLE
-        tle_epoch_str = str(tle_epoch)
-        epoch = tle_epoch_str.replace(' ', 'T')
-        test_sat = SpaceObject(sma = tle_kepels['a'], perigee=tle_kepels['a']-6378.137, apogee=tle_kepels['a']-6378.137, eccentricity=tle_kepels['e'], inc = tle_kepels['i'], argp = tle_kepels['arg_p'], raan=tle_kepels['RAAN'], tran=tle_kepels['true_anomaly'], characteristic_area=0.011, mass = 250, epoch = epoch, launch_date='2023-05-02')
-        
-        cart_diffs = []
-
-        for step_size in step_sizes:
-            #Propagate the SpaceObject using the keplerian propagator
-            test_sat.prop_catobject(jd_start=start_jd[0], jd_stop=end_jd[0], step_size=step_size, integrator_type="RK45", output_freq = step_size, force_model = ["grav_mono"])
-            test_sat_ephem = test_sat.ephemeris
-            keplerian_test_sat_ephem = kepler_prop(jd_start = start_jd[0], jd_stop=end_jd[0], step_size=step_size, a = tle_kepels['a'], e = tle_kepels['e'], i = tle_kepels['i'], w = tle_kepels['arg_p'], W = tle_kepels['RAAN'], V = tle_kepels['true_anomaly'])
-            cart_diff = []
-            for i in range(len(test_sat_ephem)):
-                cart_diff.append(calculate_position_difference(keplerian_test_sat_ephem[i], test_sat_ephem[i]))
-
-            cart_diffs.append(cart_diff)
-        
-        # convert to numpy array for easy calculation
-        cart_diffs = np.array(cart_diffs)
-
-        min_diff = np.min(cart_diffs)
-        max_diff = np.max(cart_diffs)
-        mean_diff = np.mean(cart_diffs)
-
-        print(f"For satellite {sat}, the minimum, maximum, and mean position differences are {min_diff}, {max_diff}, and {mean_diff} respectively")
-
-        if mean_diff > tolerance:
-            warnings.warn("Mean position difference exceeds the tolerance level!")
+if __name__ == '__main__':
+    SP3_file_validate()

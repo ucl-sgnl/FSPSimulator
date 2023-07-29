@@ -2,13 +2,14 @@ import numpy as np
 import warnings
 import math
 import datetime
-import glob
 from astropy import units as u
 from astropy.time import Time
 from poliastro.bodies import Earth
 from poliastro.twobody import Orbit
 from poliastro.frames import Planes
 from jplephem.spk import SPK
+from astropy.coordinates import CartesianRepresentation, CartesianDifferential, GCRS, ITRS
+from typing import Tuple
 
 Re = 6378.137 #km Earth's equatorial radius
 
@@ -44,20 +45,60 @@ def jd_to_utc(jd):
     utc = time.datetime
     return utc
 
-def kep2car(a, e, i, w, W, V):
+from typing import Tuple
+import numpy as np
+from astropy.coordinates import CartesianRepresentation, CartesianDifferential
+from astropy.coordinates import ITRS, GCRS
+from astropy import units as u
+from astropy.time import Time
+
+def ecef2eci_astropy(ecef_pos: np.ndarray, ecef_vel: np.ndarray, mjd: float) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Convert ECEF (Earth-Centered, Earth-Fixed) coordinates to ECI (Earth-Centered Inertial) coordinates using Astropy.
+
+    Parameters
+    ----------
+    ecef_pos : np.ndarray
+        ECEF position vectors.
+    ecef_vel : np.ndarray
+        ECEF velocity vectors.
+    mjd : float
+        Modified Julian Date.
+
+    Returns
+    -------
+    tuple
+        ECI position vectors and ECI velocity vectors.
+    """
+    # Convert MJD to isot format for Astropy
+    time_utc = Time(mjd, format="mjd", scale='utc')
+
+    # Convert ECEF position and velocity to ITRS coordinates using Astropy
+    ecef_cartesian = CartesianRepresentation(ecef_pos.T * u.km)
+    ecef_velocity = CartesianDifferential(ecef_vel.T * u.km / u.s)
+    itrs_coords = ITRS(ecef_cartesian.with_differentials(ecef_velocity), obstime=time_utc)
+    gcrs_coords = itrs_coords.transform_to(GCRS(obstime=time_utc))
+
+    # Get ECI position and velocity from Astropy coordinates
+    eci_pos = np.column_stack((gcrs_coords.cartesian.x.value, gcrs_coords.cartesian.y.value, gcrs_coords.cartesian.z.value))
+    eci_vel = np.column_stack((gcrs_coords.velocity.d_x.value, gcrs_coords.velocity.d_y.value, gcrs_coords.velocity.d_z.value))
+
+    return eci_pos, eci_vel
+
+def kep2car(a, e, i, w, W, V, epoch):
     # Suppress the UserWarning for true anomaly wrapping
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", UserWarning)
+    # with warnings.catch_warnings():
+    #     warnings.simplefilter("ignore", UserWarning)
         
-        # Create an Orbit object from the Keplerian elements
-        orbit = Orbit.from_classical(Earth,
-                                     a * u.km,
-                                     e * u.one,
-                                     i * u.rad,
-                                     w * u.rad,
-                                     W * u.rad,
-                                     V * u.rad,
-                                     epoch=Time.now())
+    # Create an Orbit object from the Keplerian elements
+    orbit = Orbit.from_classical(Earth,
+                                    a * u.km,
+                                    e * u.one,
+                                    i * u.rad,
+                                    w * u.rad,
+                                    W * u.rad,
+                                    V * u.rad,
+                                    epoch=epoch)
 
     # Get the position and velocity vectors in ECI frame
     pos_vec = orbit.r.value
@@ -69,59 +110,33 @@ def kep2car(a, e, i, w, W, V):
 
     return x, y, z, vx, vy, vz
 
-def car2kep(x, y, z, u, v, w, deg=False, arg_l=False):
-    """Convert cartesian to keplerian elements.
+def car2kep(x, y, z, vx, vy, vz, deg=False, arg_l=False):
+    #TODO: add the option to return the argument of latitude
+    
+    r = u.Quantity([x, y, z], unit=u.km)
+    v = u.Quantity([vx, vy, vz], unit=u.km/u.s)
 
-    Args:
-        x (float): x position in km
-        y (float): y position in km
-        z (float): z position in km
-        u (float): x velocity in km/s
-        v (float): y velocity in km/s
-        w (float): z velocity in km/s
-        deg (bool, optional): If True, return angles in degrees. If False, return angles in radians. Defaults to False.
-        arg_l (bool, optional): If True, return argument of latitude in degrees. If False, return argument of latitude in radians. Defaults to False.
-
-    Returns:
-        tuple: a, e, i, w, W, V, arg_lat
-    """
-    #TODO: add argument of latitude
-    #make the vectors in as astropy Quantity objects
-    r = [x, y, z] * u.km
-    v = [u, v, w] * u.km / u.s
-
-    #convert to cartesian
     orb = Orbit.from_vectors(Earth, r, v, plane=Planes.EARTH_EQUATOR)
 
-    #convert to keplerian
-    if deg == True:
+    a = orb.a.value
+    e = orb.ecc.value
+    i = orb.inc.value
+    w = orb.raan.value
+    W = orb.argp.value
+    V = orb.nu.value
 
-        a = orb.a.value
-        e = orb.ecc.value
-        i = np.rad2deg(orb.inc.value)
-        w = np.rad2deg(orb.raan.value)
-        W = np.rad2deg(orb.argp.value)
-        V = np.rad2deg(orb.nu.value)
-        # arg_lat = np.rad2deg(orb.arglat.value)
+    # Check if the true anomaly is negative, if so add 2pi (or 360 degrees)
+    if V < 0:
+        V += 2*np.pi if not deg else 360
 
-        if arg_l == True:
-            return a, e, i, w, W, V
-        elif arg_l == False:
-            return a, e, i, w, W, V
+    if deg:
+        i = np.rad2deg(i)
+        w = np.rad2deg(w)
+        W = np.rad2deg(W)
+        V = np.rad2deg(V)
 
-    elif deg == False:
-        a = orb.a.value
-        e = orb.ecc.value
-        i = orb.inc.value
-        w = orb.raan.value
-        W = orb.argp.value
-        V = orb.nu.value
-        # arg_lat = orb.arg_lat.value
-
-        if arg_l == True:
-            return a, e, i, w, W, V
-
-    return a, e, i, w, W, V                
+    return a, e, i, w, W, V
+                
 
 def true_to_eccentric_anomaly(true_anomaly, eccentricity):
     cos_E = (eccentricity + math.cos(true_anomaly)) / (1 + eccentricity * math.cos(true_anomaly))
