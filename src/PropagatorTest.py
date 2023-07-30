@@ -90,7 +90,7 @@ def SP3_file_validate():
     a, e, i, w, W, V = car2kep(posx, posy, posz, velx, vely, velz)
     print(f"Keplerian elements: a={a}, e={e}, i={i}, w={w}, W={W}, V={V}")
 
-    stella_sim = SpaceObject(sma = a, perigee=804, apogee=812, eccentricity=e, inc = np.rad2deg(i), argp = np.rad2deg(w), raan=np.rad2deg(W), tran=np.rad2deg(V), characteristic_area=2000.6, mass = 48, epoch = "2022-01-01 00:00:00", launch_date='2022-01-01')
+    stella_sim = SpaceObject(sma = a, perigee=804, apogee=812, eccentricity=e, inc = np.rad2deg(i), argp = np.rad2deg(w), raan=np.rad2deg(W), tran=np.rad2deg(V), characteristic_area=2.5, mass = 48, epoch = "2022-01-01 00:00:00", launch_date='2022-01-01')
     print("jd start: ", jd_start)
     print("jd end: ", jd_end)
 

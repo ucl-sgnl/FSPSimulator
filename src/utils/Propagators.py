@@ -154,7 +154,7 @@ def aero_drag_acc(state, cd, area, mass, density_model, jd):
 
     #v_rel_atm outputs the relative velocity in km/s. We need to convert it to m/s to use in the drag force model
     acc_drag =  -0.5 * rho * ((cd*area)/mass)*(1000*(v_rel_atm**2)) # Vallado and Finkleman (2014)
-    drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration
+    drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration and convert it back to km/s^2
 
     return drag_a_vec
 
@@ -180,7 +180,7 @@ def srp_acc(mass, area, state, jd_time, cr=1):
         probe_sun_norm = np.linalg.norm(probe_sun_vec_m)
         a_srp_vec = -Power_Sun*cr*(area/mass)*(probe_sun_vec_m)/(probe_sun_norm**3)*(AU_m**2) #Canonball SRP from Montenbruck and Gill (2000)
         # units
-        a_srp_vec = a_srp_vec/1000 #convert from km/s^2 to m/s^2
+        a_srp_vec = a_srp_vec/1000 #convert from m/s^2 to km/s^2
     elif shadow == "umbra":
         a_srp_vec = np.array([0,0,0])
     elif shadow == "penumbra":
@@ -209,37 +209,37 @@ def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
     #--------------- MONOPOLE ACCELERATION -----------------#
     if "all" in force_model or "grav_mono" in force_model:
         grav_mono=monopole_earth_grav_acc(state)
-        # print('grav_mono norm: ', np.linalg.norm(grav_mono))
+        print('grav_mono norm: ', np.linalg.norm(grav_mono))
         a_tot += grav_mono
 
     #--------------- J2 PERT ACCELERATION ------------------#
     if "all" in force_model or "j2" in force_model:
         a_j2 = j2_acc(state)
-        # print('a_j2 norm: ', np.linalg.norm(a_j2))
+        print('a_j2 norm: ', np.linalg.norm(a_j2))
         a_tot += a_j2
 
     #--------------- SUN GRAVITY ------------------------#
     if "all" in force_model or "sun_grav" in force_model:
         sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
-        # print('sun_grav_mono norm: ', np.linalg.norm(sun_grav_mono))
+        print('sun_grav_mono norm: ', np.linalg.norm(sun_grav_mono))
         a_tot += sun_grav_mono
 
     #--------------- MOON GRAVITY -----------------------#
     if "all" in force_model or "moon_grav" in force_model:
         moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
-        # print('moon_grav_mono norm: ', np.linalg.norm(moon_grav_mono))
+        print('moon_grav_mono norm: ', np.linalg.norm(moon_grav_mono))
         a_tot += moon_grav_mono
 
     #--------------- AERO DRAG ACCELERATION --------------#
     if "all" in force_model or "drag_aero" in force_model:
         drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) 
-        # print('drag_aero_vec norm: ', np.linalg.norm(drag_aero_vec))
+        print('drag_aero_vec norm: ', np.linalg.norm(drag_aero_vec))
         a_tot += drag_aero_vec
 
     #--------------- SOLAR RADIATION PRESSURE ACCELERATION --------------#
     if "all" in force_model or "srp" in force_model:
         a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
-        # print('a_srp_vec norm: ', np.linalg.norm(a_srp_vec))
+        print('a_srp_vec norm: ', np.linalg.norm(a_srp_vec))
         a_tot += a_srp_vec
 
     return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
