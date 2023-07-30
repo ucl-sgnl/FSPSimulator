@@ -16,13 +16,14 @@ import unittest
 from utils.Conversions import tle_parse, tle_convert, TLE_time, jd_to_utc, utc_to_jd, car2kep, ecef2eci_astropy
 from utils.Propagators import sgp4_prop_TLE, numerical_prop, kepler_prop
 from utils.SpaceObject import SpaceObject
+from typing import List, Tuple
 
 def SP3_file_validate():
     sp3.cddis.username = "charlesc"
     sp3.cddis.password = "0!EQVG8aDRWE"
 
     # Generate dates from 2022-01-01 to 2023-01-01 at 24-hour intervals
-    dates = pd.date_range(start="2022-01-01", end="2022-03-01", freq='3H')
+    dates = pd.date_range(start="2022-01-01", end="2022-01-02", freq='3H')
     #convert the start and end dates to JD
     jd_start = astropy.time.Time(dates[0]).jd
     jd_end = astropy.time.Time(dates[-1]).jd
@@ -89,58 +90,75 @@ def SP3_file_validate():
     a, e, i, w, W, V = car2kep(posx, posy, posz, velx, vely, velz)
     print(f"Keplerian elements: a={a}, e={e}, i={i}, w={w}, W={W}, V={V}")
 
-    stella_sim = SpaceObject(sma = a, perigee=804, apogee=812, eccentricity=e, inc = np.rad2deg(i), argp = np.rad2deg(w), raan=np.rad2deg(W), tran=np.rad2deg(V), characteristic_area=0.206, mass = 48, epoch = "2022-01-01 00:00:00", launch_date='2022-01-01')
+    stella_sim = SpaceObject(sma = a, perigee=804, apogee=812, eccentricity=e, inc = np.rad2deg(i), argp = np.rad2deg(w), raan=np.rad2deg(W), tran=np.rad2deg(V), characteristic_area=2000.6, mass = 48, epoch = "2022-01-01 00:00:00", launch_date='2022-01-01')
     print("jd start: ", jd_start)
     print("jd end: ", jd_end)
 
-    # stella_sim.prop_catobject(jd_start=jd_start, jd_stop=jd_end, step_size=1000, output_freq=10800, integrator_type="RK45", force_model = ["all"])
-    # stella_ephem = stella_sim.ephemeris
-    # np.save("src/tests/sim_ephemeris/stella_ephem.npy", stella_ephem)
+    stella_sim.prop_catobject(jd_start=jd_start, jd_stop=jd_end, step_size=1000, output_freq=10800, integrator_type="RK45", force_model = ["all"])
+    stella_ephem = stella_sim.ephemeris
+    np.save("src/tests/sim_ephemeris/stella_ephem_3bp.npy", stella_ephem)
 
     #load starlette_ephem from .npy file
-    stella_ephem = np.load("src/tests/sim_ephemeris/stella_ephem.npy")
+    stella_ephem = np.load("src/tests/sim_ephemeris/stella_ephem_3bp.npy") #this one does not have lunisolar perturbations
     print("stella_ephem: ", stella_ephem)
 
     #now the position difference between the SP3 and the starlette_ephem
     sp3pos = positions_eci[:-1]
+    sp3vel = velocities_eci[:-1]
     sp3pos = sp3pos.reshape(-1, 3)
+    sp3vel = sp3vel.reshape(-1, 3)
 
     stellapos = stella_ephem[:,0:3]
-
+    stellavel = stella_ephem[:,3:6]
     a_stel, e_stel, i_stel, w_stel, W_stel, V_stel = car2kep(stellapos[0][0], stellapos[0][1], stellapos[0][2], stella_ephem[0][3], stella_ephem[0][4], stella_ephem[0][5])
     print("keplerian elements of first pos of stella_sim: ", a_stel, e_stel, i_stel, w_stel, W_stel, V_stel)
 
     #position difference at the first time step
-    print("sp3pos: ", sp3pos)
-    sp3pos = sp3pos[:-8]
     print("sp3pos[0]: ", sp3pos[0])
     print("starlettepos[0]: ", stellapos[0])
     pos_diff = np.linalg.norm(sp3pos[0] - stellapos[0])
     print("pos_diff at start: ", pos_diff)
 
-    #take the norm of the difference
-    pos_diff = np.linalg.norm(sp3pos - stellapos, axis=1)
-    print("pos_diff: ", pos_diff)
-
     # # Plot it over time
-    obstimes_short = obstimes[:-9]
-    plt.plot(obstimes_short.datetime, pos_diff)
-
+    obstimes_short = obstimes[:-1]
     #3D scatter plot of both positions
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
-    ax.scatter(sp3pos[:,0], sp3pos[:,1], sp3pos[:,2], c='r', marker='o')
-    ax.scatter(stellapos[:,0], stellapos[:,1], stellapos[:,2], c='b', marker='o')
+    ax.scatter(sp3pos[:,0], sp3pos[:,1], sp3pos[:,2], c='r', marker='o', s=1, label='SP3')
+    ax.scatter(stellapos[:,0], stellapos[:,1], stellapos[:,2], c='b', marker='o', s=1, label='Starlette')
     ax.set_xlabel('X [km]')
     ax.set_ylabel('Y [km]')
     ax.set_zlabel('Z [km]')
+    ax.legend()
     plt.show()
 
-    #find the altitude difference over time
-    alt_diff = np.linalg.norm(sp3pos, axis=1) - np.linalg.norm(stellapos, axis=1)
-    # Plot it over time
-    obstimes_short = obstimes[:-9]
-    plt.plot(obstimes_short.datetime, alt_diff)
+    #plot the altitude of the SP3 and starlette_ephem over time
+    sp3alt = np.linalg.norm(sp3pos, axis=1) - 6378.137
+    stellaalt = np.linalg.norm(stellapos, axis=1) - 6378.137   
+    plt.plot(obstimes_short.datetime, sp3alt, label='SP3')
+    plt.plot(obstimes_short.datetime, stellaalt, label='Starlette')
+    plt.legend()
+    plt.xlabel('Time')
+    plt.ylabel('Altitude [km]')
+    plt.show()
+
+    #plot the velocity magnitude of the SP3 and starlette_ephem over time
+    sp3vel_mag = np.linalg.norm(sp3vel, axis=1)
+    stellavel_mag = np.linalg.norm(stellavel, axis=1)
+    plt.plot(obstimes_short.datetime, sp3vel_mag, label='SP3')
+    plt.plot(obstimes_short.datetime, stellavel_mag, label='Starlette')
+    plt.legend()
+    plt.xlabel('Time')
+    plt.ylabel('Velocity magnitude [km/s]')
+    plt.show()
+
+    #3D/cartesian difference between the two positions
+    pos_diff = sp3pos - stellapos
+    pos_diff = pos_diff.reshape(-1, 3)
+    pos_diff_mag = np.linalg.norm(pos_diff, axis=1)
+    plt.plot(obstimes_short.datetime, pos_diff_mag)
+    plt.xlabel('Time')
+    plt.ylabel('Position difference magnitude [km]')
     plt.show()
 
 if __name__ == '__main__':
