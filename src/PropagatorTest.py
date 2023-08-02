@@ -72,13 +72,13 @@ def SP3_file_validate():
     print("first position: ", positions_eci[0])
     print("first velocity: ", velocities_eci[0])
 
-    posx = positions_eci[0][0]
-    posy = positions_eci[0][1]
-    posz = positions_eci[0][2]
+    posx = positions_eci[0][0]+3.6
+    posy = positions_eci[0][1]+0.87
+    posz = positions_eci[0][2]+1.49
 
-    velx = velocities_eci[0][0]
-    vely = velocities_eci[0][1]
-    velz = velocities_eci[0][2]
+    velx = velocities_eci[0][0]+0.00066
+    vely = velocities_eci[0][1]+0.0005
+    velz = velocities_eci[0][2]+0.0018
 
     print("posx: ", posx)
     print("posy: ", posy)
@@ -94,9 +94,9 @@ def SP3_file_validate():
     print("jd start: ", jd_start)
     print("jd end: ", jd_end)
 
-    stella_sim.prop_catobject(jd_start=jd_start, jd_stop=jd_end, step_size=1000, output_freq=10800, integrator_type="RK45", force_model = ["all"])
-    stella_ephem = stella_sim.ephemeris
-    np.save("src/tests/sim_ephemeris/stella_ephem_3bp.npy", stella_ephem)
+    # stella_sim.prop_catobject(jd_start=jd_start, jd_stop=jd_end, step_size=1000, output_freq=10800, integrator_type="RK45", force_model = ["all"])
+    # stella_ephem = stella_sim.ephemeris
+    # np.save("src/tests/sim_ephemeris/stella_ephem_3bp.npy", stella_ephem)
 
     #load starlette_ephem from .npy file
     stella_ephem = np.load("src/tests/sim_ephemeris/stella_ephem_3bp.npy") #this one does not have lunisolar perturbations
@@ -116,8 +116,12 @@ def SP3_file_validate():
     #position difference at the first time step
     print("sp3pos[0]: ", sp3pos[0])
     print("starlettepos[0]: ", stellapos[0])
-    pos_diff = np.linalg.norm(sp3pos[0] - stellapos[0])
-    print("pos_diff at start: ", pos_diff)
+    print("sp3vel[0]: ", sp3vel[0])
+    print("starlettevel[0]: ", stellavel[0])
+    sp3_r = np.linalg.norm(sp3pos[0])
+    stella_r = np.linalg.norm(stellapos[0])
+    cart_pos_diff_t0 = np.linalg.norm(sp3_r - stella_r)
+    print("pos_diff at start: ", cart_pos_diff_t0)
 
     # # Plot it over time
     obstimes_short = obstimes[:-1]
@@ -152,14 +156,22 @@ def SP3_file_validate():
     plt.ylabel('Velocity magnitude [km/s]')
     plt.show()
 
-    #3D/cartesian difference between the two positions
-    pos_diff = sp3pos - stellapos
-    pos_diff = pos_diff.reshape(-1, 3)
-    pos_diff_mag = np.linalg.norm(pos_diff, axis=1)
-    plt.plot(obstimes_short.datetime, pos_diff_mag)
+    #3D/cartesian difference between the two positions over time
+    cart_pos_diffs_all = []
+    for i in range(len(sp3pos)):
+        sp3_r = np.linalg.norm(sp3pos[i])
+        stella_r = np.linalg.norm(stellapos[i])
+        cart_pos_diff = np.linalg.norm(sp3_r - stella_r)
+        print("cart_pos_diff: ", cart_pos_diff)
+        print("sp3pos[i]: ", sp3pos[i])
+        print("stellapos[i]: ", stellapos[i])
+        cart_pos_diffs_all.append(cart_pos_diff)
+
+    plt.plot(obstimes_short.datetime, cart_pos_diffs_all)
     plt.xlabel('Time')
-    plt.ylabel('Position difference magnitude [km]')
+    plt.ylabel('Cartesian position difference [km]')
     plt.show()
+
 
 if __name__ == '__main__':
     SP3_file_validate()

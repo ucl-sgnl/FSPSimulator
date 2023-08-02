@@ -209,37 +209,37 @@ def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
     #--------------- MONOPOLE ACCELERATION -----------------#
     if "all" in force_model or "grav_mono" in force_model:
         grav_mono=monopole_earth_grav_acc(state)
-        print('grav_mono norm: ', np.linalg.norm(grav_mono))
+        # print('grav_mono norm: ', np.linalg.norm(grav_mono))
         a_tot += grav_mono
 
     #--------------- J2 PERT ACCELERATION ------------------#
     if "all" in force_model or "j2" in force_model:
         a_j2 = j2_acc(state)
-        print('a_j2 norm: ', np.linalg.norm(a_j2))
+        # print('a_j2 norm: ', np.linalg.norm(a_j2))
         a_tot += a_j2
 
     #--------------- SUN GRAVITY ------------------------#
     if "all" in force_model or "sun_grav" in force_model:
         sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
-        print('sun_grav_mono norm: ', np.linalg.norm(sun_grav_mono))
+        # print('sun_grav_mono norm: ', np.linalg.norm(sun_grav_mono))
         a_tot += sun_grav_mono
 
     #--------------- MOON GRAVITY -----------------------#
     if "all" in force_model or "moon_grav" in force_model:
         moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
-        print('moon_grav_mono norm: ', np.linalg.norm(moon_grav_mono))
+        # print('moon_grav_mono norm: ', np.linalg.norm(moon_grav_mono))
         a_tot += moon_grav_mono
 
     #--------------- AERO DRAG ACCELERATION --------------#
     if "all" in force_model or "drag_aero" in force_model:
         drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) 
-        print('drag_aero_vec norm: ', np.linalg.norm(drag_aero_vec))
+        # print('drag_aero_vec norm: ', np.linalg.norm(drag_aero_vec))
         a_tot += drag_aero_vec
 
     #--------------- SOLAR RADIATION PRESSURE ACCELERATION --------------#
     if "all" in force_model or "srp" in force_model:
         a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
-        print('a_srp_vec norm: ', np.linalg.norm(a_srp_vec))
+        # print('a_srp_vec norm: ', np.linalg.norm(a_srp_vec))
         a_tot += a_srp_vec
 
     return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
