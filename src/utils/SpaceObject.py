@@ -233,7 +233,6 @@ class SpaceObject:
         
         #This is the format of the epoch: datetime.datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S') #in UTC
         # COnvert it to astropy time
-        print("kep2car: ", self.sma, self.eccentricity, self.inc, self.argp, self.raan, self.tran, self.epoch)
         x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran), epoch=Time(self.epoch, format='datetime'))
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
@@ -261,9 +260,6 @@ class SpaceObject:
         #if output_freq is not specified set it to equal the step_size
         if output_freq is None:
             output_freq = step_size
-        #if output_freq is specified, check that it is not smaller than the step_size
-        elif output_freq < step_size:
-            raise ValueError('output_freq cannot be smaller than step_size')
         # Calculate the output frequency in steps of the numerical integrator
         else:
             output_freq_steps = max(1, round(output_freq / step_size))  
