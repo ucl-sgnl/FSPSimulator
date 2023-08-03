@@ -250,14 +250,11 @@ class SpaceObject:
         Returns:
         None: The function does not return anything but updates the `ephemeris` attribute of the object.
         """
-        print("Propagating space object...")
-        print("variables: ", jd_start, jd_stop, step_size, output_freq, integrator_type, long_term_sgp4)
         valid_integrator_types = ["RK45"]
         if integrator_type not in valid_integrator_types:
             raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
 
         tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
-        print(f"Propagating from {jd_start} to {jd_stop}...")
         # If output_freq is not specified, set it to equal the step_size
         if output_freq is None:
             output_freq = step_size
