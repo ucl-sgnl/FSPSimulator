@@ -711,11 +711,16 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     print("generated keplerian elements from initial state")
     print("a,e,i,pa,raan,ma", a, e, i, pa, raan, ma)
     dates = generate_dates(mjds)
+    print("dates:", dates)
     obstimes = Time(dates)
-    mjds = obstimes.jd - 2400000.5
+    print("obstimes:", obstimes)
+    mjds = obstimes.mjd - 2400000.5
 
     # Create spacecraft states
     print("creating spacecraft states")
+    print("positions_eci:", positions_eci)
+    print("velocities_eci:", velocities_eci)
+    print("mjds:", mjds)
     spacecraft_states = create_spacecraft_states(positions_eci, velocities_eci, mjds)
     print("spacecraft states created")
     ## Placeholder parameters.
