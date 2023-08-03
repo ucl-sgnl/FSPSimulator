@@ -600,9 +600,8 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         # Get the Modified Julian Time Scale
         time_scale = TimeScalesFactory.getUTC() # or use another appropriate time scale
         # Convert MJD to seconds since the epoch of the time scale
-        offset_seconds = (date_mjd - AbsoluteDate.MODIFIED_JULIAN_EPOCH) * 86400.0
         # Create the AbsoluteDate object
-        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, offset_seconds, time_scale)
+        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd * 86400.0)
         print("date_orekit:", date_orekit)
         pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
