@@ -73,7 +73,10 @@ def run_parallel_sim(settings):
 
     SATCAT.Catalogue = results
     print("Exporting results...")
+    save_path = os.path.dirname(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')
+    os.makedirs(save_path, exist_ok=True)
     dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
+
     print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
 
 if __name__ == '__main__':

@@ -268,7 +268,7 @@ class SpaceObject:
 
         if long_term_sgp4:
             print("Propagating using SGP4 for 120-minute segments...")
-            segment_time_minutes = 3 # 2 hours of higher fidelity numerical propagation to fit the TLE to
+            segment_time_minutes = 30 # 2 hours of higher fidelity numerical propagation to fit the TLE to
             segment_time_seconds = segment_time_minutes * 60
 
             # Check if station keeping is specified

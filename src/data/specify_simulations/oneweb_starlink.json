@@ -4,7 +4,7 @@
     "launch_start_date":"2019-01-01",
     "remove_operators": " ",
     "sim_start_date":"2019-01-01",
-    "sim_end_date":"2019-01-07",
+    "sim_end_date":"2025-01-01",
     "output_frequency": 86400,
     "integrator_step_size": 1000,
     "integrator_type": "RK45",
