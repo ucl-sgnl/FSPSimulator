@@ -590,13 +590,16 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         ArrayList: List of SpacecraftState objects.
     """
     frame = FramesFactory.getICRF()
+    print("making spacecraft states:")
     spacecraft_states = ArrayList()
     for position, velocity, date_mjd in zip(positions, velocities, dates_mjd):
         date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd * 86400.0)
         pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
+        print("state:", state)
         spacecraft_states.add(state)
+    print("spacecraft states made")
     return spacecraft_states
 
 def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
@@ -652,7 +655,9 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     threshold = 1.0 #TODO: what is the physical meaning of this threshold?
     tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000)
+    print("converting spacecraft states")
     fitter.convert(spacecraft_states, False, 'BSTAR')
+    print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
     return tle_propagator.getTLE()
 
@@ -700,13 +705,16 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     pa = float(np.deg2rad(pa))
     raan = float(np.deg2rad(raan))
     ma = float(np.deg2rad(ma))
-
+    print("generated keplerian elements from initial state")
+    print("a,e,i,pa,raan,ma", a, e, i, pa, raan, ma)
     dates = generate_dates(mjds)
     obstimes = Time(dates)
     mjds = obstimes.jd - 2400000.5
 
     # Create spacecraft states
+    print("creating spacecraft states")
     spacecraft_states = create_spacecraft_states(positions_eci, velocities_eci, mjds)
+    print("spacecraft states created")
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
     ## TODO: we must double check that none of these are used in the propagation itself.
