@@ -589,9 +589,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     Returns:
         ArrayList: List of SpacecraftState objects.
     """
-    download_orekit_data_curdir()
-    orekit.initVM()
-    setup_orekit_curdir()
+    initialize_orekit()
     frame = FramesFactory.getICRF()
     print("making spacecraft states:")
     spacecraft_states = ArrayList()
