@@ -738,12 +738,6 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     """
 
     a, e, i, pa, raan, ma = car2kep(*positions_eci[0], *velocities_eci[0])
-    print("a:", a)
-    print("e:", e)
-    print("i:", i)
-    print("pa:", pa)
-    print("raan:", raan)
-    print("ma:", ma)
     e = float(e)
     i = float(i)
     pa = float(pa)
@@ -753,7 +747,9 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     obstimes = Time(dates)
     mjds = obstimes.mjd
     # Create spacecraft states
-    spacecraft_states = create_spacecraft_states(positions_eci, velocities_eci, mjds)
+    positions_eci_meters = [[coord * 1000 for coord in position] for position in positions_eci]
+    velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
+    spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
     ## TODO: we must double check that none of these are used in the propagation itself.
