@@ -242,7 +242,7 @@ def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
         # print('a_srp_vec norm: ', np.linalg.norm(a_srp_vec))
         a_tot += a_srp_vec
 
-    return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
+    return np.array([state[3], state[4], state[5], a_tot[0], a_tot[1], a_tot[2]])
 
 def stop_propagation(t, y, *args):
     """Event function for solve_ivp to stop integration when altitude is less than 105 km."""
@@ -252,35 +252,33 @@ def stop_propagation(t, y, *args):
 
 stop_propagation.terminal = True  # Stop the integration when this event occurs
 
-def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_stamps, h, integrator_type, force_model):
+def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_start, integrator_type, force_model):
     """
     Numerical Propagation of the orbit
 
     Args:
-        tot_time (float): total propagation time (seconds)
-        pos (array): cartesian position vector [x,y,z] (km) at initial conditions
-        vel (array): cartesian velocity vector [u,v,w] (km/s) at initial conditions
-        C_d (float): drag coefficient
-        area (float): cross-sectional area of the satellite (m^2)
-        mass (float): mass of the satellite (kg)
-        JD_time_stamps (array): array of Julian Date time stamps for each of the time steps
-        h (float): time step of the propagation (seconds).
-        integrator_type (str): type of numerical integration to use.
+        # (rest of the parameters description)
+        JD_time_start (float): Julian Date of the start time
 
     Returns:
-        array: nested array containing the cartesian state vectors for the propagated orbit at each time step.
+        array: nested array containing the time (MJD), cartesian state vectors for the propagated orbit at each time step.
     """
-
-    pos = np.array(pos) #cast to numpy array
-    vel = np.array(vel)
     
-    x0 = np.concatenate((pos, vel))  # Initial state is position and velocity
+    x0 = np.concatenate((pos, vel))
 
     # Call solve_ivp to propagate the orbit
-    sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, np.interp(t, np.arange(0, tot_time, h), JD_time_stamps),force_model), [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
-                        events=stop_propagation, rtol=1e-13, atol=1e-11)
-    #NOTE: these tolerances have been selected to keep the accuracy of the solver within ~1cm after 6 months.
-    return sol.y.T  # Returns an array where each row is the state at a time
+    sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, JD_time_start + t / 86400.0, force_model), [0, tot_time], x0, method=integrator_type,
+                        events=stop_propagation, rtol=1e-13, atol=1e-11, dense_output=True)
+
+    ephemeris = []
+    for t in sol.t:
+        state_at_t = sol.sol(t)
+        time_mjd = JD_time_start - 2400000.5 + t / 86400.0  # Convert seconds to MJD
+        pos_at_t = state_at_t[:3]
+        vel_at_t = state_at_t[3:6]
+        ephemeris.append([time_mjd, pos_at_t, vel_at_t])
+
+    return ephemeris
 
 def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
@@ -414,14 +412,14 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         y_new = a * (np.sqrt(1 - e**2) * np.sin(Ei))
         # Compute the in-orbital plane Gaussian Vectors
         # This gives P and Q in ECI components
-        P = np.matrix(
+        P = np.array(
             [
                 [np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)],
                 [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)],
                 [np.sin(i) * np.sin(w)],
             ]
         )
-        Q = np.matrix(
+        Q = np.array(
             [
                 [-np.cos(W) * np.sin(w) - np.sin(W) * np.cos(i) * np.cos(w)],
                 [-np.sin(W) * np.sin(w) + np.cos(W) * np.cos(i) * np.cos(w)],
@@ -434,9 +432,10 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         # Thus we can project the satellite position onto the ECI basis.
         # calcualting the new x coordiante
 
-        cart_pos_x_new = (x_new * P.item(0)) + (y_new * Q.item(0))
-        cart_pos_y_new = (x_new * P.item(1)) + (y_new * Q.item(1))
-        cart_pos_z_new = (x_new * P.item(2)) + (y_new * Q.item(2))
+        cart_pos_x_new = (x_new * P[0, 0]) + (y_new * Q[0, 0])
+        cart_pos_y_new = (x_new * P[1, 0]) + (y_new * Q[1, 0])
+        cart_pos_z_new = (x_new * P[2, 0]) + (y_new * Q[2, 0])
+        
         # Compute the range at t+dt
         r_new = a * (1 - e * (np.cos(Ei)))
         # Compute the gaussian velocity components
@@ -445,9 +444,10 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         f_new = (np.sqrt(a * GM_earth)) / r_new
         g_new = np.sqrt(1 - e**2)
        
-        cart_vel_x_new = (-f_new * sin_Ei * P.item(0)) + (f_new * g_new * cos_Ei * Q.item(0))  # x component of velocity
-        cart_vel_y_new = (-f_new * sin_Ei * P.item(1)) + (f_new * g_new * cos_Ei * Q.item(1))  # y component of velocity
-        cart_vel_z_new = (-f_new * sin_Ei * P.item(2)) + (f_new * g_new * cos_Ei * Q.item(2))
+        cart_vel_x_new = (-f_new * sin_Ei * P[0, 0]) + (f_new * g_new * cos_Ei * Q[0, 0])
+        cart_vel_y_new = (-f_new * sin_Ei * P[1, 0]) + (f_new * g_new * cos_Ei * Q[1, 0])
+        cart_vel_z_new = (-f_new * sin_Ei * P[2, 0]) + (f_new * g_new * cos_Ei * Q[2, 0])
+
         pos = ([cart_pos_x_new, cart_pos_y_new, cart_pos_z_new])
         vel = ([cart_vel_x_new, cart_vel_y_new, cart_vel_z_new])
         

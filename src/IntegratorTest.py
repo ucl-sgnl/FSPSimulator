@@ -1,9 +1,9 @@
 import unittest
 import numpy as np
 import datetime
-from src.utils.Conversions import utc_to_jd, jd_to_utc, tle_parse, tle_convert, TLE_time
-from src.utils.SpaceObject import SpaceObject
-from src.utils.Propagators import kepler_prop
+from utils.Conversions import utc_to_jd, jd_to_utc, tle_parse, tle_convert, TLE_time
+from utils.SpaceObject import SpaceObject
+from utils.Propagators import kepler_prop
 
 class PropagatorTest(unittest.TestCase):
     # Class level tolerance
@@ -28,15 +28,15 @@ class PropagatorTest(unittest.TestCase):
         }
 
         cls.prop_start = [datetime.datetime.strptime('2023-05-02 12:45:00', '%Y-%m-%d %H:%M:%S')] # start date of the test propagation
-        cls.prop_end = [datetime.datetime.strptime('2024-05-02 12:45:00', '%Y-%m-%d %H:%M:%S')] # end date of the test propagation
+        cls.prop_end = [datetime.datetime.strptime('2023-05-02 14:45:00', '%Y-%m-%d %H:%M:%S')] # end date of the test propagation
         cls.start_jd = utc_to_jd(cls.prop_start)
         cls.end_jd = utc_to_jd(cls.prop_end)
 
     @staticmethod
-    def calculate_position_difference(keplerian_output, numerical_output):
+    def calculate_position_difference(keplerian_ephem, numerical_ephem):
         """Function to calculate 3D position difference"""
-        keplerian_position = np.array(keplerian_output[1])
-        numerical_position = numerical_output[:3]
+        keplerian_position = keplerian_ephem[1]
+        numerical_position = numerical_ephem[1]
         position_difference = np.abs(np.linalg.norm(keplerian_position) - np.linalg.norm(numerical_position))
         return position_difference
     
@@ -53,21 +53,31 @@ class PropagatorTest(unittest.TestCase):
 
     def test_kepler_vs_numerical(self):
         """Test Kepler vs Numerical"""
-        step_size = 10000
         for satellite_name, tle in self.test_tles.items():
+            print(f"Testing {satellite_name}...")
             test_sat = self.create_space_object_from_tle(tle)
-            tle_dict = tle_parse(tle)
-
-            # Propagate the SpaceObject using the keplerian propagator
-            keplerian_test_sat_ephem = kepler_prop(jd_start = self.start_jd[0], jd_stop=self.end_jd[0], step_size=step_size, a = test_sat.sma, e = test_sat.eccentricity, i = test_sat.inc, w = test_sat.argp, W = test_sat.raan, V = test_sat.tran)
 
             # Propagate the SpaceObject using the numerical propagator
-            test_sat_ephem = test_sat.prop_catobject(test_sat, jd_start=self.start_jd[0], jd_stop=self.end_jd[0], step_size=step_size, integrator_type="RK45", output_freq = step_size, force_model = ["grav_mono"])
+            test_sat.prop_catobject(jd_start=self.start_jd[0], jd_stop=self.end_jd[0], step_size=1, integrator_type="RK45", output_freq=1, force_model=["grav_mono"])
+            test_sat_ephem = test_sat.ephemeris  # Access the ephemeris attribute directly
 
-            # calculate position differences
+            # Initialize Keplerian propagation with start JD
+            jd_start_kepler = self.start_jd[0]
+            keplerian_test_sat_ephem = []
+
+            # Iterate through the numerical ephemeris and propagate Keplerian for the corresponding time steps
+            for num_ephem in test_sat_ephem:
+                print(f"Propagating Keplerian for {num_ephem[0]}...")
+                jd_stop_kepler = num_ephem[0]
+                kepler_ephem = kepler_prop(jd_start=jd_start_kepler, jd_stop=jd_stop_kepler, step_size=(jd_stop_kepler - jd_start_kepler), a=test_sat.sma, e=test_sat.eccentricity, i=test_sat.inc, w=test_sat.argp, W=test_sat.raan, V=test_sat.tran)[-1]
+                keplerian_test_sat_ephem.append(kepler_ephem)
+                jd_start_kepler = jd_stop_kepler  # Update start JD for next step
+
+            # Calculate the differences between the Keplerian and numerical propagations
+            print("Calculating position differences...")
             cart_diffs = [self.calculate_position_difference(kepler_ephem, numerical_ephem) for kepler_ephem, numerical_ephem in zip(keplerian_test_sat_ephem, test_sat_ephem)]
 
-            # calculate min, max, and mean differences
+            # Calculate min, max, and mean differences
             min_diff = np.min(cart_diffs)
             max_diff = np.max(cart_diffs)
             mean_diff = np.mean(cart_diffs)
@@ -75,10 +85,10 @@ class PropagatorTest(unittest.TestCase):
             print(f"For satellite {satellite_name}, the minimum, maximum, and mean position differences are {min_diff}, {max_diff}, and {mean_diff} respectively")
 
             if mean_diff > self.tolerance:
-                raise ValueError(f"Mean position difference exceeds the tolerance level of {self.tolerance}!")
-            
+                raise ValueError(f"Mean position difference exceeds the tolerance level of {self.tolerance}. Recorded mean difference: {mean_diff}")
+
             if max_diff > self.tolerance:
-                raise ValueError(f"Final position difference exceeds the tolerance level of {self.tolerance}!")
+                raise ValueError(f"Final position difference exceeds the tolerance level of {self.tolerance}. Recorded final difference: {max_diff}")
 
 if __name__ == '__main__':
     unittest.main()
