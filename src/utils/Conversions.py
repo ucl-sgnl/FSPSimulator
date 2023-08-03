@@ -609,21 +609,8 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         # date_datetime = absolutedate_to_datetime(date)
         # # Convert datetime to AbsoluteDate
         # date_orekit = datetime_to_absolutedate(date_datetime)
-
-        test_vector = Vector3D(1.0, 2.0, 3.0)
-        print("testvector",test_vector)
-
-
-        print("date_orekit:", date_orekit)
         pos_x, pos_y, pos_z = position
-        print("pos_x:", pos_x)
-        print("pos_y:", pos_y)
-        print("pos_z:", pos_z)
         vel_x, vel_y, vel_z = velocity
-        print("vel_x:", vel_x)
-        print("vel_y:", vel_y)
-        print("vel_z:", vel_z)
-
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
         print("position_vector:", position_vector)
@@ -768,8 +755,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     mean_motion_first_derivative = 0.0
     mean_motion_second_derivative = 0.0
     revolution_number = 12345
-
-    date_start_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, mjds[0]*86400.0)  # set the start date of the TLE
+    date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
     b_star_first_guess = 1e-5 # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
