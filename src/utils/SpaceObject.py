@@ -293,7 +293,7 @@ class SpaceObject:
 
                 # Concatenate results
                 combined_ephemeris += ephemeris_numerical + ephemeris_sgp4
-                print(f"Combined ephemeris length: {len(combined_ephemeris)}"
+                print(f"Combined ephemeris length: {len(combined_ephemeris)}")
 
                 # Update current JD to continue propagation
                 current_jd = next_jd
