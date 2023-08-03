@@ -601,15 +601,6 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     spacecraft_states = ArrayList()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
-        print("position:", position)
-        print("velocity:", velocity)
-        print("dates_orekit:", date_orekit)
-        # # Get the Modified Julian Time Scale
-        # # Create the AbsoluteDate object
-        # date = TimeScalesFactory.getUTC().offsetFromTAI(AbsoluteDate(date_mjd, TimeScalesFactory.getTT()))
-        # date_datetime = absolutedate_to_datetime(date)
-        # # Convert datetime to AbsoluteDate
-        # date_orekit = datetime_to_absolutedate(date_datetime)
         pos_x, pos_y, pos_z = position
         vel_x, vel_y, vel_z = velocity
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
@@ -690,10 +681,10 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1000.0 #TODO: what is the physical meaning of this threshold?
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
+    threshold = 10000.0 #TODO: what is the physical meaning of this threshold?
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0)
     print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 100000)
     print("fitter:", fitter)
     fitter.convert(spacecraft_states, False, 'BSTAR')
     print("spacecraft states converted")

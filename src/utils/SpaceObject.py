@@ -284,6 +284,7 @@ class SpaceObject:
                 positions_eci, velocities_eci, mjds =  prep_ephemeris_for_tle_fitting(ephemeris_numerical)
                 # Fit TLE from numerical ephemeris
                 TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
+                print(f"Fitted TLE: {TLE}")
                 # Propagate using SGP4 for the rest of the orbit
                 print(f"Propagating {self.rso_name} from {next_jd} to {jd_stop} using SGP4")
                 ephemeris_sgp4 = sgp4_prop_TLE(TLE, next_jd, jd_stop, step_size)
