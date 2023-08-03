@@ -17,11 +17,11 @@ from org.orekit.time import AbsoluteDate
 from org.orekit.propagation.analytical.tle import TLE
 from org.orekit.utils import Constants, PVCoordinates
 from org.hipparchus.geometry.euclidean.threed import Vector3D
-from org.orekit.time import TimeScalesFactory
+from org.orekit.time import AbsoluteDate, TimeScalesFactory
 from org.orekit.frames import FramesFactory
 from org.orekit.propagation.conversion import TLEPropagatorBuilder, FiniteDifferencePropagatorConverter
 from org.orekit.propagation.analytical.tle import TLEPropagator
-from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir
+from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir, absolutedate_to_datetime, datetime_to_absolutedate
 from java.util import ArrayList
 
 Re = 6378.137 #km Earth's equatorial radius
@@ -598,10 +598,11 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         print("velocity:", velocity)
         print("date_mjd:", date_mjd)
         # Get the Modified Julian Time Scale
-        time_scale = TimeScalesFactory.getUTC() # or use another appropriate time scale
-        # Convert MJD to seconds since the epoch of the time scale
         # Create the AbsoluteDate object
-        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd * 86400.0)
+        date = TimeScalesFactory.getUTC().offsetFromTAI(AbsoluteDate(date_mjd, TimeScalesFactory.getTT()))
+        date_datetime = absolutedate_to_datetime(date)
+        # Convert datetime to AbsoluteDate
+        date_orekit = datetime_to_absolutedate(date_datetime)
         print("date_orekit:", date_orekit)
         pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
