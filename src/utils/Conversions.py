@@ -21,6 +21,7 @@ from org.orekit.time import AbsoluteDate, TimeScalesFactory
 from org.orekit.frames import FramesFactory
 from org.orekit.propagation.conversion import TLEPropagatorBuilder, FiniteDifferencePropagatorConverter
 from org.orekit.propagation.analytical.tle import TLEPropagator
+from org.orekit.utils import Constants as orekit_constants
 from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir, absolutedate_to_datetime, datetime_to_absolutedate
 from java.util import ArrayList
 
@@ -771,10 +772,10 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     launch_piece = 'A'
     ephemeris_type = 0
     element_number = 999
-    mean_motion = 15  # Example mean motion in revs per day
+    mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a, 3)))
     mean_motion_first_derivative = 0.0
     mean_motion_second_derivative = 0.0
-    revolution_number = 12345
+    revolution_number = 100
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
     print("date_start_orekit:", date_start_orekit)
     b_star_first_guess = 1e-5 # doesn't matter what this is set to, it will be fit to the spacecraft states
