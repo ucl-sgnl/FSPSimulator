@@ -280,12 +280,9 @@ class SpaceObject:
             while current_jd < jd_stop:
                 # Propagate numerically for 120 minutes
                 next_jd = min(current_jd + segment_time_seconds / 86400, jd_stop)
-                print(f"Propagating {self.rso_name} from {current_jd} to {next_jd} using numerical integrator")
                 ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
-                print("preparing ephemeris for TLE fitting")
                 positions_eci, velocities_eci, mjds =  prep_ephemeris_for_tle_fitting(ephemeris_numerical)
                 # Fit TLE from numerical ephemeris
-                print("fitting TLE to ephemeris")
                 TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
                 # Propagate using SGP4 for the rest of the orbit
                 print(f"Propagating {self.rso_name} from {next_jd} to {jd_stop} using SGP4")
