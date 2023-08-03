@@ -624,8 +624,8 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         print("vel_y:", vel_y)
         print("vel_z:", vel_z)
 
-        position_vector = Vector3D(pos_x, pos_y, pos_z)
-        velocity_vector = Vector3D(vel_x, vel_y, vel_z)
+        position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
+        velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
         print("position_vector:", position_vector)
         print("velocity_vector:", velocity_vector)
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
