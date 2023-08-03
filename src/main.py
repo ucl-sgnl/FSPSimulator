@@ -98,6 +98,7 @@ def run_parallel_sim(settings):
     integrator_type = str(settings["integrator_type"])
     sgp4_long_term = bool(settings["sgp4_long_term"])
     force_model = settings["force_model"]
+    initialize_orekit()
 
     print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
     print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
