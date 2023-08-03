@@ -12,5 +12,6 @@
     "sim_object_catalogue" : "both",
     "environment": "development",
     "repull_catalogues": false,
-    "satellite_predictions_csv": "oneweb_starlink.csv"
+    "satellite_predictions_csv": "oneweb_starlink.csv",
+    "sgp4_long_term":true
   }

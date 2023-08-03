@@ -237,7 +237,7 @@ class SpaceObject:
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model=["all"], long_term_sp4=False):
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sp4):
         """
         Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
 
