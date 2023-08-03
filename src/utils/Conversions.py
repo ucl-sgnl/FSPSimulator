@@ -694,6 +694,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000)
     print("converting spacecraft states")
+    print("spacecraft_states:", spacecraft_states)
     fitter.convert(spacecraft_states, False, 'BSTAR')
     print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
