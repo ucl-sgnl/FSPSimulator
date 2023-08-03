@@ -690,8 +690,8 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 100.0 #TODO: what is the physical meaning of this threshold?
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
+    threshold = 1000.0 #TODO: what is the physical meaning of this threshold?
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
     print("tle_builder:", tle_builder)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000)
     print("fitter:", fitter)
