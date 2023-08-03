@@ -5,7 +5,6 @@ import json
 import pickle
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
-
 from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from utils.Conversions import utc_to_jd
 
@@ -21,11 +20,15 @@ def dump_pickle(file_path, data):
         pickle.dump(data, f)
 
 def propagate_space_object(args):
-
-    space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, long_term_sgp4 = args
+    space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4 = args
     # Execute the prop_catobject method on the space object
     print(f"Propagating {space_object.rso_name}...")
-    space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq= output_freq, integrator_type=integrator_type, long_term_sgp4=long_term_sgp4)
+    try:
+        space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type, force_model=force_model, long_term_sp4=long_term_sgp4)
+    except Exception as e:
+        print(f"An error occurred while propagating {space_object.rso_name}: {e}")
+        import traceback
+        traceback.print_exc()
 
     return space_object
 
@@ -42,6 +45,7 @@ def run_parallel_sim(settings):
     scenario_name = str(settings["scenario_name"]) # this will be used to name the output pickle file
     integrator_type = str(settings["integrator_type"])  # must be one of "RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"
     sgp4_long_term = bool(settings["sgp4_long_term"]) # boolean, if true, use sgp4 long term propagator
+    force_model = settings["force_model"] # list of strings, can be  # "all" or "grav_mono" and/or "j2"  and/or "sun_grav" and/or "moon_grav" and/or "drag_aero" and/or "srp" 
 
     print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
     print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
@@ -59,7 +63,7 @@ def run_parallel_sim(settings):
 
     print("Propagating space objects in parallel...")
 
-    iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, sgp4_long_term) for space_object in SATCAT.Catalogue]
+    iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
     with Pool(processes=cpu_count()) as pool:
         with tqdm(total=len(iterable)) as pbar:
             results = []

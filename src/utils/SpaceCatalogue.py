@@ -28,6 +28,7 @@ def check_json_file(json):
         "environment": str,
         "repull_catalogues": bool,
         "satellite_predictions_csv": str,
+        "force_model": list,
         "sgp4_long_term":bool
     }
 
@@ -36,6 +37,7 @@ def check_json_file(json):
         "integrator_type": ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"],
         "sim_object_type": ["all", "debris", "active"],
         "sim_object_catalogue": ["jsr", "spacetrack", "both"],
+        "force_model": ["all", "grav_mono", "j2", "sun_grav", "moon_grav", "drag_aero", "srp"],
     }
 
     for key, expected_type in expected_keys.items():
