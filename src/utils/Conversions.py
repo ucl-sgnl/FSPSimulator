@@ -582,7 +582,7 @@ def initialize_orekit():
 # Convert MJD to datetime
 def mjd_to_datetime(mjd):
     jd = mjd + 2400000.5
-    return datetime(1858, 11, 17) + timedelta(days=jd - 2400000.5)
+    return datetime(1858, 11, 17) + datetime.timedelta(days=jd - 2400000.5)
 
 def create_spacecraft_states(positions: List[List[float]], velocities: List[List[float]], dates_mjd: List[float]) -> ArrayList:
     """Creates a list of SpacecraftState objects based on positions, velocities, and dates.
