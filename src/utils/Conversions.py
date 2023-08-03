@@ -690,14 +690,15 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1.0 #TODO: what is the physical meaning of this threshold?
+    threshold = 100.0 #TODO: what is the physical meaning of this threshold?
     tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000)
-    print("converting spacecraft states")
-    print("spacecraft_states:", spacecraft_states)
+    print("tle_builder:", tle_builder)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000)
+    print("fitter:", fitter)
     fitter.convert(spacecraft_states, False, 'BSTAR')
     print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+    print("tle_propagator:", tle_propagator)
     return tle_propagator.getTLE()
 
 def generate_dates(mjds: list) -> pd.DatetimeIndex:
