@@ -668,6 +668,19 @@ def generate_dates(mjds: list) -> pd.DatetimeIndex:
     utc_times = [Time(mjd, format="mjd", scale="utc").datetime for mjd in mjds]
     return pd.DatetimeIndex(utc_times)
 
+def prep_ephemeris_for_tle_fitting(ephemeris):
+    mjds = []
+    positions_eci = []
+    velocities_eci = []
+
+    for item in ephemeris:
+        time_mjd, pos_at_t, vel_at_t = item
+        mjds.append(time_mjd)
+        positions_eci.append(pos_at_t)
+        velocities_eci.append(vel_at_t)
+
+    return positions_eci, velocities_eci, mjds
+
 def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[List[float]], mjds: List[float]) -> str:
     """
     Fits a Two-Line Element Set (TLE) to the given Earth-Centered Inertial (ECI) positions and velocities.
