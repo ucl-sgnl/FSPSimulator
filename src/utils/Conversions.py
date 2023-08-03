@@ -738,6 +738,12 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     """
 
     a, e, i, pa, raan, ma = car2kep(*positions_eci[0], *velocities_eci[0])
+    print("a:", a)
+    print("e:", e)
+    print("i:", i)
+    print("pa:", pa)
+    print("raan:", raan)
+    print("ma:", ma)
     e = float(e)
     i = float(i)
     pa = float(pa)
@@ -759,7 +765,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     launch_piece = 'A'
     ephemeris_type = 0
     element_number = 999
-    mean_motion =-0.00002182
+    mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
     mean_motion_first_derivative = 0.0
     mean_motion_second_derivative = 0.0
     revolution_number = 100
