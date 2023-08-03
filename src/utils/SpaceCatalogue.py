@@ -84,6 +84,7 @@ class SpaceCatalogue:
         self.repull_catalogues = bool(repull_catalogues)
         if self.sgp4_long_term == True:
             initialize_orekit()
+            print("Orekit initialized")
         else:
             pass
             

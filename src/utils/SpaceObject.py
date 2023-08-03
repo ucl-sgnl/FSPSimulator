@@ -257,7 +257,7 @@ class SpaceObject:
             raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
 
         tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
-
+        print(f"Propagating from {jd_start} to {jd_stop}...")
         # If output_freq is not specified, set it to equal the step_size
         if output_freq is None:
             output_freq = step_size
@@ -267,6 +267,7 @@ class SpaceObject:
         combined_ephemeris = []
 
         if long_term_sp4:
+            print("Propagating using SGP4 for 120-minute segments...")
             segment_time_minutes = 120 # 2 hours of higher fidelity numerical propagation to fit the TLE to
             segment_time_seconds = segment_time_minutes * 60
 
@@ -281,13 +282,14 @@ class SpaceObject:
                 current_jd = jd_start
 
             while current_jd < jd_stop:
-                # Propagate numerically for 100 minutes
+                # Propagate numerically for 120 minutes
                 next_jd = min(current_jd + segment_time_seconds / 86400, jd_stop)
+                print(f"numerical prop")
                 ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
-                
+                print("fitting TLE")
                 # Fit TLE from numerical ephemeris
                 TLE = fit_TLE_to_ephemeris(ephemeris_numerical)
-
+                print("propagating using SGP4")
                 # Propagate using SGP4 for the rest of the orbit
                 ephemeris_sgp4 = sgp4_prop_TLE(TLE, next_jd, jd_stop, step_size)
 
