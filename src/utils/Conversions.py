@@ -610,7 +610,9 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         # # Convert datetime to AbsoluteDate
         # date_orekit = datetime_to_absolutedate(date_datetime)
         print("date_orekit:", date_orekit)
-        pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
+        pos_x, pos_y, pos_z = position
+        vel_x, vel_y, vel_z = velocity
+        pv_coordinates = PVCoordinates(Vector3D(pos_x, pos_y, pos_z), Vector3D(vel_x, vel_y, vel_z))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
         print("state:", state)
