@@ -579,6 +579,11 @@ def initialize_orekit():
     orekit.initVM()
     setup_orekit_curdir()
 
+# Convert MJD to datetime
+def mjd_to_datetime(mjd):
+    jd = mjd + 2400000.5
+    return datetime(1858, 11, 17) + timedelta(days=jd - 2400000.5)
+
 def create_spacecraft_states(positions: List[List[float]], velocities: List[List[float]], dates_mjd: List[float]) -> ArrayList:
     """Creates a list of SpacecraftState objects based on positions, velocities, and dates.
 
@@ -593,16 +598,17 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     frame = FramesFactory.getICRF()
     print("making spacecraft states:")
     spacecraft_states = ArrayList()
-    for position, velocity, date_mjd in zip(positions, velocities, dates_mjd):
+    dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
+    for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
         print("position:", position)
         print("velocity:", velocity)
-        print("date_mjd:", date_mjd)
-        # Get the Modified Julian Time Scale
-        # Create the AbsoluteDate object
-        date = TimeScalesFactory.getUTC().offsetFromTAI(AbsoluteDate(date_mjd, TimeScalesFactory.getTT()))
-        date_datetime = absolutedate_to_datetime(date)
-        # Convert datetime to AbsoluteDate
-        date_orekit = datetime_to_absolutedate(date_datetime)
+        print("dates_orekit:", date_orekit)
+        # # Get the Modified Julian Time Scale
+        # # Create the AbsoluteDate object
+        # date = TimeScalesFactory.getUTC().offsetFromTAI(AbsoluteDate(date_mjd, TimeScalesFactory.getTT()))
+        # date_datetime = absolutedate_to_datetime(date)
+        # # Convert datetime to AbsoluteDate
+        # date_orekit = datetime_to_absolutedate(date_datetime)
         print("date_orekit:", date_orekit)
         pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
