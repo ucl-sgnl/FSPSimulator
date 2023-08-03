@@ -18,10 +18,12 @@ dependencies:
   - matplotlib
   - python
   - pyshtools
+  - openjdk==8.0.321 --no-deps
   - orekit
   - scipy
   - pillow 
   - fftw
+  - sp3
   - pip:
     - datetime
     - seaborn
