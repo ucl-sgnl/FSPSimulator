@@ -614,14 +614,10 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         vel_x, vel_y, vel_z = velocity
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
-        print("position_vector:", position_vector)
-        print("velocity_vector:", velocity_vector)
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
-        print("state:", state)
         spacecraft_states.add(state)
-    print("spacecraft states made")
     return spacecraft_states
 
 def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
@@ -747,21 +743,12 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     pa = float(np.deg2rad(pa))
     raan = float(np.deg2rad(raan))
     ma = float(np.deg2rad(ma))
-    print("generated keplerian elements from initial state")
-    print("a,e,i,pa,raan,ma", a, e, i, pa, raan, ma)
     dates = generate_dates(mjds)
-    print("dates:", dates)
     obstimes = Time(dates)
-    print("obstimes:", obstimes)
     mjds = obstimes.mjd
-    print("mjds:", mjds)
     # Create spacecraft states
-    print("creating spacecraft states")
-    print("positions_eci:", positions_eci)
-    print("velocities_eci:", velocities_eci)
-    print("mjds:", mjds)
     spacecraft_states = create_spacecraft_states(positions_eci, velocities_eci, mjds)
-    print("spacecraft states created")
+    print("spacecraft states:", spacecraft_states)
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
     ## TODO: we must double check that none of these are used in the propagation itself.
@@ -772,7 +759,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     launch_piece = 'A'
     ephemeris_type = 0
     element_number = 999
-    mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a, 3)))
+    mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
     mean_motion_first_derivative = 0.0
     mean_motion_second_derivative = 0.0
     revolution_number = 100
