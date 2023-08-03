@@ -659,6 +659,21 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     print("satellite_number:", satellite_number)
     print("classification:", classification)
     print("launch_year:", launch_year)
+    print("launch_number:", launch_number)
+    print("launch_piece:", launch_piece)
+    print("ephemeris_type:", ephemeris_type)
+    print("element_number:", element_number)
+    print("date_start_orekit:", date_start_orekit)
+    print("mean_motion:", mean_motion)
+    print("mean_motion_first_derivative:", mean_motion_first_derivative)
+    print("mean_motion_second_derivative:", mean_motion_second_derivative)
+    print("e:", e)
+    print("i:", i)
+    print("pa:", pa)
+    print("raan:", raan)
+    print("ma:", ma)
+    print("revolution_number:", revolution_number)
+    print("b_star_first_guess:", b_star_first_guess)
 
     tle_first_guess = TLE(satellite_number,
                           classification,
