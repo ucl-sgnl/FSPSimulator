@@ -7,7 +7,9 @@ from utils.Propagators import kepler_prop
 
 class PropagatorTest(unittest.TestCase):
     # Class level tolerance
-    tolerance = 1
+    tolerance = 1 #I have set this tolerance to 1 because of the mismatch between the time stamps of the numerical and analytical propagator. 
+    #TODO: the alignment between the two ephemerides needs to be fixed.
+    #TODO: if all other variables are the same the tolerance can be set to 1e-6.
     
     # Function to calculate 3D position difference
     @staticmethod

@@ -6,7 +6,7 @@ import pickle
 import pandas as pd
 import datetime
 from utils.SpaceObject import SpaceObject
-from utils.Conversions import tle_parse
+from utils.Conversions import tle_parse, initialize_orekit
 from utils.LaunchModel import Prediction2SpaceObjects
 
 import json
@@ -27,7 +27,8 @@ def check_json_file(json):
         "sim_object_catalogue": str,
         "environment": str,
         "repull_catalogues": bool,
-        "satellite_predictions_csv": str
+        "satellite_predictions_csv": str,
+        "sgp4_long_term":bool
     }
 
     # Define the valid values for keys with a limited set of valid options
@@ -69,6 +70,7 @@ class SpaceCatalogue:
         sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
         sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
+        self.sgp4_long_term = settings["sgp4_long_term"]
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
@@ -80,7 +82,11 @@ class SpaceCatalogue:
         if self.sim_object_catalogue not in ["jsr", "spacetrack", "both"]:
             raise Exception("Invalid sim_object_catalogue specified, must be 'jsr', 'spacetrack', or 'both'")
         self.repull_catalogues = bool(repull_catalogues)
-
+        if self.sgp4_long_term == True:
+            initialize_orekit()
+        else:
+            pass
+            
         # If we are repulling the catalogues call the appropriate function depending on the sim_object_catalogue
         if self.repull_catalogues == True:
             if self.sim_object_catalogue == "jsr":
