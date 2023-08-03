@@ -8,7 +8,10 @@ __pycache__/
 # C extensions
 *.so
 
-# pickle files
+# Exception for base catalog pickle file
+!SATCAT_before_prop.pickle
+
+# Ignore all other .pickle files
 *.pickle
 
 # Distribution / packaging
