@@ -6,7 +6,7 @@ import pickle
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
-from utils.Conversions import utc_to_jd
+from utils.Conversions import utc_to_jd, initialize_orekit
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -31,6 +31,9 @@ def propagate_space_object(args):
         traceback.print_exc()
 
     return space_object
+
+def initialize_worker():
+    initialize_orekit()
 
 def run_parallel_sim(settings):
     # This function will define the simulation settings and run the simulation based on the SpaceCatalogue class instantiation.
@@ -64,7 +67,7 @@ def run_parallel_sim(settings):
     print("Propagating space objects in parallel...")
 
     iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
-    with Pool(processes=cpu_count()) as pool:
+    with Pool(initializer=initialize_worker, processes=cpu_count()) as pool:
         with tqdm(total=len(iterable)) as pbar:
             results = []
             for result in pool.imap_unordered(propagate_space_object, iterable):
