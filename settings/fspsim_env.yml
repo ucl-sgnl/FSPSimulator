@@ -15,14 +15,17 @@ dependencies:
   - python-dotenv
   - xlsxwriter
   - pandas
-  - matplotlib==3.6.3
-  - python=3.8
+  - matplotlib
+  - python
+  - pyshtools
+  - orekit
   - scipy
   - pillow 
+  - fftw
   - pip:
     - datetime
     - seaborn
-    - astropy==5.1.1
+    - astropy
     - poliastro
     - spacetrack
     - requests
@@ -30,6 +33,7 @@ dependencies:
     - sgp4
     - matplotlib
     - python-dotenv
-    - pandas==1.4.4
+    - pandas
     - numba
-    - numpy==1.24.4
+    - numpy
+    - pyatmos

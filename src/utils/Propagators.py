@@ -204,7 +204,7 @@ def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
 
     a_tot = np.zeros(3)
 
-    print('t: ', t)
+    # print('t: ', t)
 
     #--------------- MONOPOLE ACCELERATION -----------------#
     if "all" in force_model or "grav_mono" in force_model:
