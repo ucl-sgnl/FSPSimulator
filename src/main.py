@@ -24,6 +24,7 @@ def propagate_space_object(args):
 
     space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, long_term_sgp4 = args
     # Execute the prop_catobject method on the space object
+    print(f"Propagating {space_object.rso_name}...")
     space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq= output_freq, integrator_type=integrator_type, long_term_sgp4=long_term_sgp4)
 
     return space_object
