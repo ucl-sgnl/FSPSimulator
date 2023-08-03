@@ -17,6 +17,7 @@ from org.orekit.time import AbsoluteDate
 from org.orekit.propagation.analytical.tle import TLE
 from org.orekit.utils import Constants, PVCoordinates
 from org.hipparchus.geometry.euclidean.threed import Vector3D
+from org.orekit.time import TimeScalesFactory
 from org.orekit.frames import FramesFactory
 from org.orekit.propagation.conversion import TLEPropagatorBuilder, FiniteDifferencePropagatorConverter
 from org.orekit.propagation.analytical.tle import TLEPropagator
@@ -596,7 +597,13 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         print("position:", position)
         print("velocity:", velocity)
         print("date_mjd:", date_mjd)
-        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd * 86400.0)
+        # Get the Modified Julian Time Scale
+        time_scale = TimeScalesFactory.getUTC() # or use another appropriate time scale
+        # Convert MJD to seconds since the epoch of the time scale
+        offset_seconds = (date_mjd - AbsoluteDate.MODIFIED_JULIAN_EPOCH) * 86400.0
+        # Create the AbsoluteDate object
+        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, offset_seconds, time_scale)
+        print("date_orekit:", date_orekit)
         pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
