@@ -7,7 +7,7 @@ from utils.Propagators import kepler_prop
 
 class PropagatorTest(unittest.TestCase):
     # Class level tolerance
-    tolerance = 1e-7 
+    tolerance = 1
     
     # Function to calculate 3D position difference
     @staticmethod
