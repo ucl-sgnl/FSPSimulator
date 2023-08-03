@@ -721,8 +721,8 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     print("dates:", dates)
     obstimes = Time(dates)
     print("obstimes:", obstimes)
-    mjds = obstimes.mjd - 2400000.5
-
+    mjds = obstimes.mjd
+    print("mjds:", mjds)
     # Create spacecraft states
     print("creating spacecraft states")
     print("positions_eci:", positions_eci)
