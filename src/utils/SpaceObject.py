@@ -4,7 +4,6 @@ import warnings
 from enum import Enum
 import numpy as np
 from astropy.time import Time
-
 from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day, fit_TLE_to_ephemeris
 from utils.Propagators import numerical_prop, kepler_prop, sgp4_prop_TLE
 
@@ -56,7 +55,6 @@ def verify_eccentricity(value):
         raise ValueError('Object eccentricity is negative or more than 1. Please check the input data')
     except (TypeError, ValueError):
         raise ValueError('Object eccentricity is None or not a float. Please check the input data')
-
 
 class SpaceObject:
     def __init__(self, rso_name=None, rso_type=None, payload_operational_status=None, application=None, source=None, 
@@ -237,7 +235,7 @@ class SpaceObject:
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sp4):
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4):
         """
         Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
 
@@ -252,6 +250,8 @@ class SpaceObject:
         Returns:
         None: The function does not return anything but updates the `ephemeris` attribute of the object.
         """
+        print("Propagating space object...")
+        print("variables: ", jd_start, jd_stop, step_size, output_freq, integrator_type, long_term_sgp4)
         valid_integrator_types = ["RK45"]
         if integrator_type not in valid_integrator_types:
             raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
@@ -266,7 +266,7 @@ class SpaceObject:
 
         combined_ephemeris = []
 
-        if long_term_sp4:
+        if long_term_sgp4:
             print("Propagating using SGP4 for 120-minute segments...")
             segment_time_minutes = 3 # 2 hours of higher fidelity numerical propagation to fit the TLE to
             segment_time_seconds = segment_time_minutes * 60
