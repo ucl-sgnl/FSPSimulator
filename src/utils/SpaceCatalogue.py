@@ -71,11 +71,6 @@ class SpaceCatalogue:
         if self.sim_object_catalogue not in ["jsr", "spacetrack", "both"]:
             raise Exception("Invalid sim_object_catalogue specified, must be 'jsr', 'spacetrack', or 'both'")
         self.repull_catalogues = bool(repull_catalogues)
-        if self.sgp4_long_term == True:
-            initialize_orekit()
-            print("Orekit initialized")
-        else:
-            pass
             
         # If we are repulling the catalogues call the appropriate function depending on the sim_object_catalogue
         if self.repull_catalogues == True:

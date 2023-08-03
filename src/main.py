@@ -33,9 +33,6 @@ def propagate_space_object(args):
 
     return space_object
 
-def initialize_worker():
-    initialize_orekit()
-
 ###### MULTIPROCESSING ######
 # def run_parallel_sim(settings):
 #     # This function will define the simulation settings and run the simulation based on the SpaceCatalogue class instantiation.
@@ -69,7 +66,7 @@ def initialize_worker():
 #     print("Propagating space objects in parallel...")
 
 #     iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
-#     with Pool(initializer=initialize_worker, processes=cpu_count()) as pool:
+#     with Pool(initializer=initialize_orekit, processes=cpu_count()) as pool:
 #         with tqdm(total=len(iterable)) as pbar:
 #             results = []
 #             for result in pool.imap_unordered(propagate_space_object, iterable):
