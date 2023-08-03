@@ -754,13 +754,12 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     mjds = obstimes.mjd
     # Create spacecraft states
     spacecraft_states = create_spacecraft_states(positions_eci, velocities_eci, mjds)
-    print("spacecraft states:", spacecraft_states)
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
     ## TODO: we must double check that none of these are used in the propagation itself.
     satellite_number = 99999 #TODO: this is going to have to be changed to self.norad id
     classification = 'U' #
-    launch_year = 2021
+    launch_year = 2019
     launch_number = 42
     launch_piece = 'A'
     ephemeris_type = 0
