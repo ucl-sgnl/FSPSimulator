@@ -655,6 +655,11 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     Returns:
         TLE: Fitted TLE.
     """
+    print("all parameters passed to the TLE fitting function")
+    print("satellite_number:", satellite_number)
+    print("classification:", classification)
+    print("launch_year:", launch_year)
+
     tle_first_guess = TLE(satellite_number,
                           classification,
                           launch_year,
@@ -756,6 +761,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     mean_motion_second_derivative = 0.0
     revolution_number = 12345
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
+    print("date_start_orekit:", date_start_orekit)
     b_star_first_guess = 1e-5 # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
