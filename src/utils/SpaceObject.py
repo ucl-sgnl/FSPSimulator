@@ -264,7 +264,7 @@ class SpaceObject:
         combined_ephemeris = []
 
         if long_term_sgp4:
-            numerical_segment_minutes = 270 # 30 mins of higher fidelity numerical propagation to fit the TLE to
+            numerical_segment_minutes = 10 # 30 mins of higher fidelity numerical propagation to fit the TLE to
             numerical_segment_seconds = numerical_segment_minutes * 60
 
             # Check if station keeping is specified
@@ -279,7 +279,7 @@ class SpaceObject:
             # Propagate numerically for the segment time
             next_jd = min(current_jd + numerical_segment_seconds / 86400, jd_stop)
             ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
-            print("num ephem:", ephemeris_numerical[:5])
+            print("num ephem:", ephemeris_numerical)
             positions_eci, velocities_eci, mjds =  prep_ephemeris_for_tle_fitting(ephemeris_numerical)
             # Fit TLE from numerical ephemeris
             TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
