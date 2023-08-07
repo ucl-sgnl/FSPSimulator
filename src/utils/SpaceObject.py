@@ -264,7 +264,7 @@ class SpaceObject:
         combined_ephemeris = []
 
         if long_term_sgp4:
-            numerical_segment_minutes = 5 # 30 mins of higher fidelity numerical propagation to fit the TLE to
+            numerical_segment_minutes = 270 # 30 mins of higher fidelity numerical propagation to fit the TLE to
             numerical_segment_seconds = numerical_segment_minutes * 60
 
             # Check if station keeping is specified
