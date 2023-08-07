@@ -657,12 +657,6 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     print("date_start_orekit:", date_start_orekit)
     print("mean_motion:", mean_motion)
 
-    print("e:", e)
-    print("i:", i)
-    print("pa:", pa)
-    print("raan:", raan)
-    print("ma:", ma)
-
     tle_first_guess = TLE(satellite_number,
                           classification,
                           launch_year,
@@ -683,9 +677,9 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           b_star_first_guess)
     threshold = 1e-3 #distnace threshold in meters between the propagator and the TLE
     print("tle_first_guess:", tle_first_guess)
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 100.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
     print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000) # the 1000 here is the max number of iterations to reach threshold
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000) # the 1000 here is the max number of iterations to reach threshold
     print("fitter:", fitter)
     fitter.convert(spacecraft_states, True, 'BSTAR')
     print("spacecraft states converted")
@@ -732,10 +726,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     """
 
     a, e, i, pa, raan, ma = car2kep(*positions_eci[-1], *velocities_eci[-1])
-    ecc_test = calculate_eccentricity(float(positions_eci[-1])*1000, float(velocities_eci[-1])*1000, orekit_constants.EIGEN5C_EARTH_MU)
-    print("ecc_test:", ecc_test)
     e = float(e)
-    print("e:", e)
     i = float(i)
     pa = float(pa)
     raan = float(raan)
