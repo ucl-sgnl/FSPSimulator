@@ -679,13 +679,12 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1.0 #distance threshold in meters between the propagator and the TLE
-    print("tle_first_guess:", tle_first_guess)
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
+    threshold = 1000.0 #TODO: what is the physical meaning of this threshold?
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0)
     print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000) # the 1000 here is the max number of iterations to reach threshold
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000)
     print("fitter:", fitter)
-    fitter.convert(spacecraft_states, False, 'BSTAR') #False refers to whether to use both position and velcity (True does)
+    fitter.convert(spacecraft_states, False, 'BSTAR')
     print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
     print("tle_propagator:", tle_propagator)
