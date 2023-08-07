@@ -1,4 +1,4 @@
-name: fspsim
+name: fspsim_orekit
 
 channels:
   - conda-forge
@@ -18,13 +18,13 @@ dependencies:
   - matplotlib
   - python
   - pyshtools
-  - openjdk==8.0.321 --no-deps
   - orekit
+  - openjdk=8.0.321
   - scipy
   - pillow 
   - fftw
-  - sp3
   - pip:
+    - sp3
     - datetime
     - seaborn
     - astropy
