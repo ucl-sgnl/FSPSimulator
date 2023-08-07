@@ -11,7 +11,7 @@ from jplephem.spk import SPK
 from astropy.coordinates import CartesianRepresentation, CartesianDifferential, GCRS, ITRS
 from typing import Tuple, List
 import orekit
-from org.orekit.orbits import CartesianOrbit, PositionAngle, OrbitType
+from org.orekit.orbits import CartesianOrbit, PositionAngle, EquinoctialOrbit
 from org.orekit.propagation import SpacecraftState
 from org.orekit.time import AbsoluteDate
 from org.orekit.propagation.analytical.tle import TLE
@@ -605,7 +605,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     Returns:
         ArrayList: List of SpacecraftState objects.
     """
-    frame = FramesFactory.getICRF()
+    frame = FramesFactory.getTEME()
     spacecraft_states = ArrayList()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
@@ -613,7 +613,6 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         vel_x, vel_y, vel_z = velocity
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
-        a,e,i,w,W,V = car2kep(pos_x/1000, pos_y/1000, pos_z/1000, vel_x/1000, vel_y/1000, vel_z/1000)
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
