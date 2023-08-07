@@ -287,6 +287,7 @@ class SpaceObject:
             tle_string = line1 + '\n' + line2
             # Propagate using SGP4 for the rest of the orbit
             print(f"Propagating {self.rso_name} from {next_jd} to {jd_stop} using SGP4")
+            print("TLE:", tle_string)
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
 
             print("num ephem:", ephemeris_numerical[:5])

@@ -64,62 +64,15 @@ def calculate_form_factor(form_factor_str):
     #####======= THIS NEEDS TO BE ITS OWN FUNCTION =========#####
 
 def satellite_metadata(file_path):
-    """Reads in the excel file predictions and generates a dicitonary of metadate for each subconsetllation
-
-    Args:
-        file_path (str): path to the csv file with all the satellite data
-
-    Returns:
-        _type_: _description_
-    """
-    #TODO: Outline exact units for each of the parameters 
-    #function that reads in the excel file predictions and generates a dicitonary of metadate for each subconsetllation
-    # this subconstellation metadata will then be used to generate the correct SpaceObject instances later on
-
-    sat_df = pd.read_csv(file_path, sep=',') # this is the csv file with all the satellite data
-
-    # slice the dataframe to remove all the rows that have missing values or nan values in the 'Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor' columns
+    sat_df = pd.read_csv(file_path, sep=',') 
     sat_df = sat_df.dropna(subset=['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion'])
-    #print the number of rows remaining
-    print('number of rows with all data required in prediction CSV:',sat_df.shape[0])
-
-    metadata_dicts = [] # this is a list of dictionaries that will contain the metadata for each row (sub-constellation)
-    for index, row in sat_df.iterrows():
-        subconstellation_dict = {} # this is a dictionary that will contain the metadata for each sub-constellation
-        N = row['Number of sats']
-        i = row['Inclination']
-        h = row['Altitude']
-        _maneuverable = row['Maneuverable']
-        _propulsion = row['Propulsion']
-        operator_sc_name = row['Sub-Constellation']
-        #strip the white spaces from the operator_sc_name and replace the spaces with underscores
-        _soname = operator_sc_name.replace(' ','_')
-        _application = row['Mission type/application']
-        _mass = row['Mass(kg)']
-        form_factor = row['Form Factor']
-        _owner = row['Mega-Constellation']
-        # in the form factor row, extract the number before the letter u and multiply it by 10 for the length and 100 for the area
-        # the length and area are the number before the letter u times 10 and 100 respectively for a cubesat
-        _length, _area = calculate_form_factor(form_factor)
-        
-        # populate the subconstellation_dict with the metadata
-        subconstellation_dict['N'] = N
-        subconstellation_dict['i'] = i
-        subconstellation_dict['h'] = h
-        subconstellation_dict['_soname'] = _soname
-        subconstellation_dict['_owner'] = _owner
-        subconstellation_dict['_application'] = _application
-        subconstellation_dict['_mass'] = _mass
-        subconstellation_dict['_maneuverable'] = _maneuverable
-        subconstellation_dict['_propulsion'] = _propulsion
-        # convert from cm to m
-        subconstellation_dict['_length'] = _length
-        # convert from cm^2 to m^2
-        subconstellation_dict['_area'] = _area
-        # append the subconstellation_dict to the metadata_dicts list
-        metadata_dicts.append(subconstellation_dict)
-
+    sat_df['_soname'] = sat_df['Sub-Constellation'].str.replace(' ','_')
+    sat_df['_length'], sat_df['_area'] = zip(*sat_df['Form Factor'].apply(calculate_form_factor))
+    sat_df['_area'] /= 10000  # convert from cm^2 to m^2
+    sat_df['_length'] /= 100  # convert from cm to m
+    metadata_dicts = sat_df.to_dict('records')
     return metadata_dicts
+
 
 LEO_launchers = {
     'Falcon 9': {
