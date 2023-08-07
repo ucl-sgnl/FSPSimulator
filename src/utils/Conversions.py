@@ -677,7 +677,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     print("tle_builder:", tle_builder)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 100000) # the 1000 here is the max number of iterations to reach threshold
     print("fitter:", fitter)
-    fitter.convert(spacecraft_states, True, 'BStar')
+    fitter.convert(spacecraft_states, True, 'BSTAR')
     print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
     print("tle_propagator:", tle_propagator)
