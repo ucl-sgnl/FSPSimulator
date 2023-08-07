@@ -680,11 +680,12 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           revolution_number,
                           b_star_first_guess)
     threshold = 1000.0 #TODO: what is the physical meaning of this threshold?
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0)
+    max_iterations = 10000
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
     print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
     print("fitter:", fitter)
-    fitter.convert(spacecraft_states, False, 'BSTAR')
+    fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
     print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
     print("tle_propagator:", tle_propagator)
