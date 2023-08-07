@@ -672,13 +672,9 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           b_star_first_guess)
     threshold = 100.0 #distnace threshold in meters between the spacecraft state and the TLE
     tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0) #the 1000 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
-    print("tle_builder:", tle_builder)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000) # the 1000 here is the max number of iterations to reach threshold
-    print("fitter:", fitter)
     fitter.convert(spacecraft_states, False, 'BSTAR')
-    print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
-    print("tle_propagator:", tle_propagator)
     return tle_propagator.getTLE()
 
 def generate_dates(mjds: list) -> pd.DatetimeIndex:
