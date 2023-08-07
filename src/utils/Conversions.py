@@ -604,11 +604,22 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         vel_x, vel_y, vel_z = velocity
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
+        print("eccectricity calculated from position and velocity vectors:", calculate_eccentricity(position, velocity, Constants.EIGEN5C_EARTH_MU))
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
         spacecraft_states.add(state)
     return spacecraft_states
+
+def calculate_eccentricity(position: List[float], velocity: List[float], mu: float):
+    r = np.linalg.norm(position)
+    v = np.linalg.norm(velocity)
+    theta = np.arccos(np.dot(position, velocity) / (r * v))
+    E = v**2 / 2 - mu / r
+    h = r * v * np.cos(theta)
+    e = np.sqrt(1 + 2 * E * h**2 / mu**2)
+    return e
+
 
 def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
                                  launch_year: int, launch_number: int, launch_piece: str, ephemeris_type: int,
