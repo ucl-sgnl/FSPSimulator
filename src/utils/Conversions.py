@@ -614,7 +614,6 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
         a,e,i,w,W,V = car2kep(pos_x/1000, pos_y/1000, pos_z/1000, vel_x/1000, vel_y/1000, vel_z/1000)
-        print("kepels before conversion: ", a,e,i,w,W,V)
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
@@ -682,11 +681,11 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1.0 #distance threshold in meters between the propagator and the TLE
+    threshold = 10000.0 #distance threshold in meters between the propagator and the TLE
     print("tle_first_guess:", tle_first_guess)
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
     print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000) # the 1000 here is the max number of iterations to reach threshold
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000000) # the 1000 here is the max number of iterations to reach threshold
     print("fitter:", fitter)
     fitter.convert(spacecraft_states, True, 'BSTAR')
     print("spacecraft states converted")
