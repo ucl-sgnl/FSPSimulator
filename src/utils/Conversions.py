@@ -681,10 +681,10 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1000.0 #TODO: what is the physical meaning of this threshold?
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0)
+    threshold = 10000.0 #distnace threshold in meters between the spacecraft state and the TLE
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 100.0)
     print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000) # the 1000 here is the max number of iterations to reach threshold
     print("fitter:", fitter)
     fitter.convert(spacecraft_states, False, 'BSTAR')
     print("spacecraft states converted")
@@ -743,6 +743,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     positions_eci_meters = [[coord * 1000 for coord in position] for position in positions_eci]
     velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
+    mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
     ## TODO: we must double check that none of these are used in the propagation itself.
@@ -753,12 +754,11 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     launch_piece = 'A'
     ephemeris_type = 0
     element_number = 999
-    mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
     mean_motion_first_derivative = 0.0
     mean_motion_second_derivative = 0.0
     revolution_number = 100
+
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
-    print("date_start_orekit:", date_start_orekit)
     b_star_first_guess = 1e-5 # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
