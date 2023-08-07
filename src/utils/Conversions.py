@@ -613,7 +613,8 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         vel_x, vel_y, vel_z = velocity
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
-        print("eccectricity calculated from position and velocity vectors:", calculate_eccentricity(position, velocity, Constants.EIGEN5C_EARTH_MU))
+        a,e,i,w,W,V = car2kep(pos_x/1000, pos_y/1000, pos_z/1000, vel_x/1000, vel_y/1000, vel_z/1000)
+        print("kepels before conversion: ", a,e,i,w,W,V)
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
