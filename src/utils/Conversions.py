@@ -720,7 +720,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
         str: The fitted TLE represented as a string.
     """
 
-    a, e, i, pa, raan, ma = car2kep(*positions_eci[0], *velocities_eci[0])
+    a, e, i, pa, raan, ma = car2kep(*positions_eci[-1], *velocities_eci[-1])
     e = float(e)
     i = float(i)
     pa = float(pa)
