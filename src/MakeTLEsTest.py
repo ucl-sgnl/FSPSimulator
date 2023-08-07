@@ -4,6 +4,7 @@ import astropy.time
 from utils.Conversions import car2kep
 from astropy.time import Time
 import orekit
+from utils.Propagators import sgp4_prop_TLE
 
 from org.orekit.orbits import CartesianOrbit, PositionAngle
 from org.orekit.propagation import SpacecraftState
@@ -165,12 +166,13 @@ if __name__ == "__main__":
     mjds = [60066.6128, 60067.3451]
     positions_eci = [[-2537.205, 6342.796, 0.0], [-2437.205, 6542.796, 123.0]]
     velocities_eci = [[-1.937, -0.72, 7.361], [-2.937, -5.72, 0.361]]
-    fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
-    # x = 3.759056926449344e7/1000
-    # y = 1824647.285968774/1000
-    # z = 6562405.524693076/1000
-    # u = -632.0474359801445/1000
-    # v = 2828.0519371863306/1000
-    # w = -1422.5243099775166/1000
-    # a,e,i,w,W,V  = car2kep(x,y,z,u,v,w)
-    # print(a,e,i,w,W,V)
+    TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
+    line1 = TLE.getLine1()
+    line2 = TLE.getLine2()
+    tle_string = line1 + '\n' + line2
+    # Propagate using SGP4 for the rest of the orbit
+    print("TLE:", tle_string)
+    jd_stop = mjds[-1]+10
+    step_size = 60
+    ephemeris_sgp4 = sgp4_prop_TLE(tle_string, mjds[-1], jd_stop, step_size)
+    
