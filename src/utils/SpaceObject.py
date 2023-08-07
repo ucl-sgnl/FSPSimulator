@@ -235,76 +235,76 @@ class SpaceObject:
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4):
-    """
-    Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4):
+        """
+        Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
 
-    Parameters:
-    jd_start (float): Julian start date for propagation
-    jd_stop (float): Julian stop date for propagation
-    step_size (float): Step size for propagation
-    output_freq (float): Frequency at which to output the ephemeris (in seconds)
-    integrator_type (str): String indicating which numerical integrator to use, default is "RK45"
-    use_sgp4_propagation (bool): Propagate using SGP4 for 100-minute segments. Default is False.
+        Parameters:
+        jd_start (float): Julian start date for propagation
+        jd_stop (float): Julian stop date for propagation
+        step_size (float): Step size for propagation
+        output_freq (float): Frequency at which to output the ephemeris (in seconds)
+        integrator_type (str): String indicating which numerical integrator to use, default is "RK45"
+        use_sgp4_propagation (bool): Propagate using SGP4 for 100-minute segments. Default is False.
 
-    Returns:
-    None: The function does not return anything but updates the `ephemeris` attribute of the object.
-    """
-    valid_integrator_types = ["RK45"]
-    if integrator_type not in valid_integrator_types:
-        raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
+        Returns:
+        None: The function does not return anything but updates the `ephemeris` attribute of the object.
+        """
+        valid_integrator_types = ["RK45"]
+        if integrator_type not in valid_integrator_types:
+            raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
 
-    tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
-    # If output_freq is not specified, set it to equal the step_size
-    if output_freq is None:
-        output_freq = step_size
-    else:
-        output_freq_steps = max(1, round(output_freq / step_size))  # Calculate the output frequency in steps
-
-    combined_ephemeris = []
-
-    if long_term_sgp4:
-        numerical_segment_minutes = 30 # 30 mins of higher fidelity numerical propagation to fit the TLE to
-        numerical_segment_seconds = numerical_segment_minutes * 60
-
-        # Check if station keeping is specified
-        if isinstance(self.station_keeping, list):
-            # Propagate using Kepler from the start date to the end of the station keeping date
-            ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
-            combined_ephemeris += ephemeris_station_keep
-            current_jd = self.station_keeping[1]
+        tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
+        # If output_freq is not specified, set it to equal the step_size
+        if output_freq is None:
+            output_freq = step_size
         else:
-            current_jd = jd_start
+            output_freq_steps = max(1, round(output_freq / step_size))  # Calculate the output frequency in steps
 
-        # Propagate numerically for the segment time
-        next_jd = min(current_jd + numerical_segment_seconds / 86400, jd_stop)
-        ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
-        positions_eci, velocities_eci, mjds =  prep_ephemeris_for_tle_fitting(ephemeris_numerical)
-        # Fit TLE from numerical ephemeris
-        TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
-        line1 = TLE.getLine1()
-        line2 = TLE.getLine2()
-        tle_string = line1 + '\n' + line2
-        # Propagate using SGP4 for the rest of the orbit
-        print(f"Propagating {self.rso_name} from {next_jd} to {jd_stop} using SGP4")
-        ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
+        combined_ephemeris = []
 
-        # Concatenate results
-        combined_ephemeris += ephemeris_numerical + ephemeris_sgp4
-        print(f"Combined ephemeris length: {len(combined_ephemeris)}")
+        if long_term_sgp4:
+            numerical_segment_minutes = 30 # 30 mins of higher fidelity numerical propagation to fit the TLE to
+            numerical_segment_seconds = numerical_segment_minutes * 60
 
-        # Update ephemeris attribute
-        self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps]
+            # Check if station keeping is specified
+            if isinstance(self.station_keeping, list):
+                # Propagate using Kepler from the start date to the end of the station keeping date
+                ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+                combined_ephemeris += ephemeris_station_keep
+                current_jd = self.station_keeping[1]
+            else:
+                current_jd = jd_start
 
-    elif self.station_keeping == True:
-        # Object will station keep from launch to decay
-        self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
-        self.ephemeris = self.ephemeris[::output_freq_steps]
+            # Propagate numerically for the segment time
+            next_jd = min(current_jd + numerical_segment_seconds / 86400, jd_stop)
+            ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
+            positions_eci, velocities_eci, mjds =  prep_ephemeris_for_tle_fitting(ephemeris_numerical)
+            # Fit TLE from numerical ephemeris
+            TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
+            line1 = TLE.getLine1()
+            line2 = TLE.getLine2()
+            tle_string = line1 + '\n' + line2
+            # Propagate using SGP4 for the rest of the orbit
+            print(f"Propagating {self.rso_name} from {next_jd} to {jd_stop} using SGP4")
+            ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
 
-    elif not self.station_keeping:
-        # Object will not station keep, propagate using the numerical integrator
-        self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=jd_start, integrator_type=integrator_type, force_model=force_model)
-        self.ephemeris = self.ephemeris[::output_freq_steps]
+            # Concatenate results
+            combined_ephemeris += ephemeris_numerical + ephemeris_sgp4
+            print(f"Combined ephemeris length: {len(combined_ephemeris)}")
+
+            # Update ephemeris attribute
+            self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps]
+
+        elif self.station_keeping == True:
+            # Object will station keep from launch to decay
+            self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+            self.ephemeris = self.ephemeris[::output_freq_steps]
+
+        elif not self.station_keeping:
+            # Object will not station keep, propagate using the numerical integrator
+            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=jd_start, integrator_type=integrator_type, force_model=force_model)
+            self.ephemeris = self.ephemeris[::output_freq_steps]
 
 if __name__ == "__main__":
     pass
