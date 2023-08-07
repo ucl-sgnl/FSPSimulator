@@ -18,10 +18,11 @@ from org.orekit.propagation.analytical.tle import TLE
 from org.orekit.utils import Constants, PVCoordinates
 from org.hipparchus.geometry.euclidean.threed import Vector3D
 from org.orekit.time import AbsoluteDate, TimeScalesFactory
-from org.orekit.frames import FramesFactory
+from org.orekit.frames import FramesFactory, ITRFVersion
 from org.orekit.propagation.conversion import TLEPropagatorBuilder, FiniteDifferencePropagatorConverter
 from org.orekit.propagation.analytical.tle import TLEPropagator
 from org.orekit.utils import Constants as orekit_constants
+from org.orekit.utils import IERSConventions
 from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir, absolutedate_to_datetime, datetime_to_absolutedate
 from java.util import ArrayList
 
@@ -605,7 +606,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     Returns:
         ArrayList: List of SpacecraftState objects.
     """
-    frame = FramesFactory.getITRF()
+    frame = FramesFactory.getITRF(IERSConventions.IERS_2010, False)
     spacecraft_states = ArrayList()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
@@ -755,7 +756,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     revolution_number = 100
 
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
-    b_star_first_guess = 1e-5 # doesn't matter what this is set to, it will be fit to the spacecraft states
+    b_star_first_guess = float(1e-5) # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
     fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
