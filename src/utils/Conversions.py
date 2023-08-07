@@ -677,7 +677,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           b_star_first_guess)
     threshold = 10.0 #distance threshold in meters between the propagator and the TLE
     print("tle_first_guess:", tle_first_guess)
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.ECCENTRIC, 1000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
     print("tle_builder:", tle_builder)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 100000) # the 1000 here is the max number of iterations to reach threshold
     print("fitter:", fitter)
