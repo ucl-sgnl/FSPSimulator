@@ -605,7 +605,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     Returns:
         ArrayList: List of SpacecraftState objects.
     """
-    frame = FramesFactory.getEME2000()
+    frame = FramesFactory.getTEME()
     spacecraft_states = ArrayList()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
