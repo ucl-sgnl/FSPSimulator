@@ -675,7 +675,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1e-3 #distnace threshold in meters between the propagator and the TLE
+    threshold = float(1e-3) #distnace threshold in meters between the propagator and the TLE
     print("tle_first_guess:", tle_first_guess)
     tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
     print("tle_builder:", tle_builder)
@@ -733,16 +733,10 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     ma = float(ma)
     dates = generate_dates(mjds)
     obstimes = Time(dates)
-    print("obstimes:", obstimes)
     mjds = obstimes.mjd
-    print("mjds:", mjds)
     # Create spacecraft states
-    print("positions_eci fit TLE ephemeris:", positions_eci)
-    print("velocities_eci fit TLE ephemeris:", velocities_eci)
     positions_eci_meters = [[coord *1000 for coord in position] for position in positions_eci]
     velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
-    print("positions_eci_meters fit TLE ephemeris:", positions_eci_meters)
-    print("velocities_eci_meters fit TLE ephemeris:", velocities_eci_meters)
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
     mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
     ## Placeholder parameters.
