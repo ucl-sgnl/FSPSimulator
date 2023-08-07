@@ -64,13 +64,29 @@ def calculate_form_factor(form_factor_str):
     #####======= THIS NEEDS TO BE ITS OWN FUNCTION =========#####
 
 def satellite_metadata(file_path):
-    sat_df = pd.read_csv(file_path, sep=',') 
+    sat_df = pd.read_csv(file_path, sep=',')
     sat_df = sat_df.dropna(subset=['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion'])
-    sat_df['_soname'] = sat_df['Sub-Constellation'].str.replace(' ','_')
-    sat_df['_length'], sat_df['_area'] = zip(*sat_df['Form Factor'].apply(calculate_form_factor))
-    sat_df['_area'] /= 10000  # convert from cm^2 to m^2
-    sat_df['_length'] /= 100  # convert from cm to m
+    print('number of rows with all data required in prediction CSV:', sat_df.shape[0])
+
+    # Apply functions to entire columns
+    sat_df['Sub-Constellation'] = sat_df['Sub-Constellation'].str.replace(' ', '_')
+    sat_df[['_length', '_area']] = sat_df['Form Factor'].apply(calculate_form_factor).to_list()
+
+    sat_df = sat_df.rename(columns={
+        'Mega-Constellation': '_owner',
+        'Number of sats': 'N',
+        'Inclination': 'i',
+        'Altitude': 'h',
+        'Sub-Constellation': '_soname',
+        'Mission type/application': '_application',
+        'Mass(kg)': '_mass',
+        'Maneuverable': '_maneuverable',
+        'Propulsion': '_propulsion'
+    })
+    
+    # Convert DataFrame to list of dictionaries
     metadata_dicts = sat_df.to_dict('records')
+
     return metadata_dicts
 
 
