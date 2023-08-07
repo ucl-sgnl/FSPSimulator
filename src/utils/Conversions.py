@@ -54,10 +54,10 @@ def utc_to_jd(time_stamps):
 def calculate_eccentricity(position: List[float], velocity: List[float], mu: float):
     r = np.linalg.norm(position)
     v = np.linalg.norm(velocity)
-    theta = np.arccos(np.dot(position, velocity) / (r * v))
     E = v**2 / 2 - mu / r
-    h = r * v * np.cos(theta)
-    e = np.sqrt(1 + 2 * E * h**2 / mu**2)
+    h = np.cross(position, velocity)
+    h_magnitude = np.linalg.norm(h)
+    e = np.sqrt(1 + 2 * E * h_magnitude**2 / mu**2)
     return e
 
 def jd_to_utc(jd):
