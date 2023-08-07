@@ -722,10 +722,10 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
 
     a, e, i, pa, raan, ma = car2kep(*positions_eci[-1], *velocities_eci[-1])
     e = float(e)
-    i = float(i)
-    pa = float(pa)
-    raan = float(raan)
-    ma = float(ma)
+    i = float(np.rad2deg(i))
+    pa = float(np.rad2deg(pa))
+    raan = float(np.rad2deg(raan))
+    ma = float(np.rad2deg(ma))
     dates = generate_dates(mjds)
     obstimes = Time(dates)
     mjds = obstimes.mjd
