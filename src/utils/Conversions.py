@@ -597,7 +597,6 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         ArrayList: List of SpacecraftState objects.
     """
     frame = FramesFactory.getICRF()
-    print("making spacecraft states:")
     spacecraft_states = ArrayList()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
@@ -731,8 +730,8 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     obstimes = Time(dates)
     mjds = obstimes.mjd
     # Create spacecraft states
-    positions_eci_meters = [[coord for coord in position] for position in positions_eci]
-    velocities_eci_meters = [[velocity for velocity in velocities] for velocities in velocities_eci]
+    positions_eci_meters = [[coord *1000 for coord in position] for position in positions_eci]
+    velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
     mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
     ## Placeholder parameters.
