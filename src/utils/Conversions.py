@@ -51,6 +51,15 @@ def utc_to_jd(time_stamps):
     
     return jd_vals
 
+def calculate_eccentricity(position: List[float], velocity: List[float], mu: float):
+    r = np.linalg.norm(position)
+    v = np.linalg.norm(velocity)
+    theta = np.arccos(np.dot(position, velocity) / (r * v))
+    E = v**2 / 2 - mu / r
+    h = r * v * np.cos(theta)
+    e = np.sqrt(1 + 2 * E * h**2 / mu**2)
+    return e
+
 def jd_to_utc(jd):
     """Converts Julian Date to UTC time tag(datetime object) using Astropy"""
     #convert jd to astropy time object
@@ -611,16 +620,6 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         spacecraft_states.add(state)
     return spacecraft_states
 
-def calculate_eccentricity(position: List[float], velocity: List[float], mu: float):
-    r = np.linalg.norm(position)
-    v = np.linalg.norm(velocity)
-    theta = np.arccos(np.dot(position, velocity) / (r * v))
-    E = v**2 / 2 - mu / r
-    h = r * v * np.cos(theta)
-    e = np.sqrt(1 + 2 * E * h**2 / mu**2)
-    return e
-
-
 def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
                                  launch_year: int, launch_number: int, launch_piece: str, ephemeris_type: int,
                                  element_number: int, date_start_orekit: AbsoluteDate, mean_motion: float,
@@ -732,17 +731,26 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     """
 
     a, e, i, pa, raan, ma = car2kep(*positions_eci[-1], *velocities_eci[-1])
+    ecc_test = calculate_eccentricity(float(positions_eci[-1])*1000, float(velocities_eci[-1])*1000, orekit_constants.EIGEN5C_EARTH_MU)
+    print("ecc_test:", ecc_test)
     e = float(e)
+    print("e:", e)
     i = float(i)
     pa = float(pa)
     raan = float(raan)
     ma = float(ma)
     dates = generate_dates(mjds)
     obstimes = Time(dates)
+    print("obstimes:", obstimes)
     mjds = obstimes.mjd
+    print("mjds:", mjds)
     # Create spacecraft states
+    print("positions_eci fit TLE ephemeris:", positions_eci)
+    print("velocities_eci fit TLE ephemeris:", velocities_eci)
     positions_eci_meters = [[coord *1000 for coord in position] for position in positions_eci]
     velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
+    print("positions_eci_meters fit TLE ephemeris:", positions_eci_meters)
+    print("velocities_eci_meters fit TLE ephemeris:", velocities_eci_meters)
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
     mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
     ## Placeholder parameters.
