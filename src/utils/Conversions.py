@@ -653,13 +653,16 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     Returns:
         TLE: Fitted TLE.
     """
-    print("all parameters passed to the TLE fitting function: ")
-    print("date_start_orekit:", date_start_orekit)
-    print("mean_motion:", mean_motion)
+
     # Check for hyperbolic orbits before proceeding
+    # for state in spacecraft_states:
+    #     if state.getOrbit().getType() == OrbitType.HYPERBOLIC:
+    #         raise ValueError("Hyperbolic orbits cannot be handled as EquinoctialOrbit instances")
+
     for state in spacecraft_states:
-        if state.getOrbit().getType() == OrbitType.HYPERBOLIC:
-            raise ValueError("Hyperbolic orbits cannot be handled as EquinoctialOrbit instances")
+        print("state tyoe:", type(state))
+        print("state:", state)
+
 
     tle_first_guess = TLE(satellite_number,
                           classification,
@@ -679,9 +682,9 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = float(1e-3) #distnace threshold in meters between the propagator and the TLE
+    threshold = 1.0 #distance threshold in meters between the propagator and the TLE
     print("tle_first_guess:", tle_first_guess)
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
     print("tle_builder:", tle_builder)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000) # the 1000 here is the max number of iterations to reach threshold
     print("fitter:", fitter)
