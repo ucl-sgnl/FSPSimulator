@@ -127,8 +127,10 @@ def kep2car(a, e, i, w, W, V, epoch):
 
     return x, y, z, vx, vy, vz
 
-def car2kep(x, y, z, vx, vy, vz, deg=False, arg_l=False):
+def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
     #TODO: add the option to return the argument of latitude
+    #return the keplerian elements from the cartesian coordinates 
+    # IN RADIANS
 
     r = u.Quantity([x, y, z], unit=u.km)
     v = u.Quantity([vx, vy, vz], unit=u.km/u.s)
@@ -141,16 +143,17 @@ def car2kep(x, y, z, vx, vy, vz, deg=False, arg_l=False):
     w = orb.raan.value
     W = orb.argp.value
     V = orb.nu.value
+    mean_motion = orb.n.value
 
     # Check if the true anomaly is negative, if so add 2pi (or 360 degrees)
     if V < 0:
-        V += 2*np.pi if not deg else 360
-
-    if deg:
+        V += 2*np.pi
         i = np.rad2deg(i)
         w = np.rad2deg(w)
         W = np.rad2deg(W)
         V = np.rad2deg(V)
+        if mean_motion:
+            mean_motion = np.rad2deg(mean_motion)
 
     return a, e, i, w, W, V
                 
@@ -676,13 +679,13 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 10.0 #distance threshold in meters between the propagator and the TLE
+    threshold = 1.0 #distance threshold in meters between the propagator and the TLE
     print("tle_first_guess:", tle_first_guess)
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.ECCENTRIC, 1000.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0) #the 1.0 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
     print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 100000) # the 1000 here is the max number of iterations to reach threshold
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 1000) # the 1000 here is the max number of iterations to reach threshold
     print("fitter:", fitter)
-    fitter.convert(spacecraft_states, True, 'BSTAR')
+    fitter.convert(spacecraft_states, False, 'BSTAR') #False refers to whether to use both position and velcity (True does)
     print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
     print("tle_propagator:", tle_propagator)
@@ -739,7 +742,9 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     positions_eci_meters = [[coord *1000 for coord in position] for position in positions_eci]
     velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
-    mean_motion = float(np.sqrt(orekit_constants.EIGEN5C_EARTH_MU / np.power(a*1000, 3)))
+    sma_meters = a * 1000
+    mean_motion = np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3)
+    print("mean motion:", mean_motion)
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
     ## TODO: we must double check that none of these are used in the propagation itself.
