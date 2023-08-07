@@ -658,11 +658,6 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     #     if state.getOrbit().getType() == OrbitType.HYPERBOLIC:
     #         raise ValueError("Hyperbolic orbits cannot be handled as EquinoctialOrbit instances")
 
-    for state in spacecraft_states:
-        print("state tyoe:", type(state))
-        print("state:", state)
-
-
     tle_first_guess = TLE(satellite_number,
                           classification,
                           launch_year,
@@ -730,8 +725,8 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     Returns:
         str: The fitted TLE represented as a string.
     """
-
-    a, e, i, pa, raan, ma = car2kep(*positions_eci[-1], *velocities_eci[-1])
+    #use the position and velocity halfway into the ephemeris as the initial guess for the TLE
+    a, e, i, pa, raan, ma = car2kep(*positions_eci[int(len(positions_eci)/2)], *velocities_eci[int(len(velocities_eci)/2)])
     e = float(e)
     i = float(i)
     pa = float(pa)
