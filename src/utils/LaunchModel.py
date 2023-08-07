@@ -89,7 +89,6 @@ def satellite_metadata(file_path):
 
     return metadata_dicts
 
-
 LEO_launchers = {
     'Falcon 9': {
         'capacity': 22.8,

@@ -280,6 +280,7 @@ class SpaceObject:
             next_jd = min(current_jd + numerical_segment_seconds / 86400, jd_stop)
             ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
             positions_eci, velocities_eci, mjds =  prep_ephemeris_for_tle_fitting(ephemeris_numerical)
+            print("positions_eci: before TLE make:", positions_eci)
             # Fit TLE from numerical ephemeris
             TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
             line1 = TLE.getLine1()
