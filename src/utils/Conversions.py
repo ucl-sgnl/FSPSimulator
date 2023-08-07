@@ -11,7 +11,7 @@ from jplephem.spk import SPK
 from astropy.coordinates import CartesianRepresentation, CartesianDifferential, GCRS, ITRS
 from typing import Tuple, List
 import orekit
-from org.orekit.orbits import CartesianOrbit, PositionAngle
+from org.orekit.orbits import CartesianOrbit, PositionAngle, OrbitType
 from org.orekit.propagation import SpacecraftState
 from org.orekit.time import AbsoluteDate
 from org.orekit.propagation.analytical.tle import TLE
@@ -656,6 +656,10 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     print("all parameters passed to the TLE fitting function: ")
     print("date_start_orekit:", date_start_orekit)
     print("mean_motion:", mean_motion)
+    # Check for hyperbolic orbits before proceeding
+    for state in spacecraft_states:
+        if state.getOrbit().getType() == OrbitType.HYPERBOLIC:
+            raise ValueError("Hyperbolic orbits cannot be handled as EquinoctialOrbit instances")
 
     tle_first_guess = TLE(satellite_number,
                           classification,
