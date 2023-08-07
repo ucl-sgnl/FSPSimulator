@@ -57,10 +57,6 @@ def SP3_file_validate():
     # Extract positions and velocities in the ECI frame
     positions_eci = np.squeeze(np.array([coord[0] for coord in eci_coords]))  # in km
     velocities_eci = np.squeeze(np.array([coord[1] for coord in eci_coords]))  # in km/s
-
-    print("positions_eci: ", positions_eci)
-    print("velocities_eci: ", velocities_eci)
-
     # Compute velocity magnitudes
     velocity_magnitudes = np.linalg.norm(velocities_eci, axis=1)
     #compute altitude
