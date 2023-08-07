@@ -646,6 +646,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     print("all parameters passed to the TLE fitting function: ")
     print("date_start_orekit:", date_start_orekit)
     print("mean_motion:", mean_motion)
+
     print("e:", e)
     print("i:", i)
     print("pa:", pa)
@@ -670,12 +671,16 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1000.0 #distnace threshold in meters between the spacecraft state and the TLE
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 7000 * 10^3) #the 1000 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
-    # The propagatorBuilder provides the initial guess for the propagator that the converter will optimize
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 100) # the 100 here is the max number of iterations to reach threshold
+    threshold = 100.0 #distnace threshold in meters between the spacecraft state and the TLE
+    print("tle_first_guess:", tle_first_guess)
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0) #the 1000 here is the position scale. i.e. the factor by which the "real" orbital parameters are scaled down to produce normalized parameters.
+    print("tle_builder:", tle_builder)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, 10000) # the 1000 here is the max number of iterations to reach threshold
+    print("fitter:", fitter)
     fitter.convert(spacecraft_states, False, 'BSTAR')
+    print("spacecraft states converted")
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+    print("tle_propagator:", tle_propagator)
     return tle_propagator.getTLE()
 
 def generate_dates(mjds: list) -> pd.DatetimeIndex:
@@ -715,8 +720,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     Returns:
         str: The fitted TLE represented as a string.
     """
-    print("positions_eci:", *positions_eci[0])
-    print("velocities_eci:", *velocities_eci[0])
+
     a, e, i, pa, raan, ma = car2kep(*positions_eci[0], *velocities_eci[0])
     e = float(e)
     i = float(i)
