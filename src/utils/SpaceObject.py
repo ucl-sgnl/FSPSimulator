@@ -298,6 +298,9 @@ class SpaceObject:
                 # Update current JD to continue propagation
                 current_jd = next_jd
 
+                # Update jd_stop to start the next segment
+                jd_stop = next_jd + segment_time_seconds / 86400
+
             # Update ephemeris attribute
             self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps]
 
