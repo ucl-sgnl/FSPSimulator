@@ -742,7 +742,8 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
     sma_meters = a * 1000
-    mean_motion = np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3)
+    mean_motion_rad_per_sec = np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3) #this is radians per second
+    mean_motion = mean_motion_rad_per_sec * 86400 / (2 * np.pi) #convert to revolutions per day
     print("mean motion:", mean_motion)
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
