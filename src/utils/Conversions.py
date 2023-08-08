@@ -635,7 +635,8 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         print("vel_x:", vel_x, "vel_y:", vel_y, "vel_z:", vel_z)
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
-        pv_coordinates = PVCoordinates(position_vector, velocity_vector)
+        acceleration_vector = Vector3D(0, 0, 0)
+        pv_coordinates = PVCoordinates(position_vector, velocity_vector, acceleration_vector)
 
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
@@ -657,7 +658,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         a,e,i,w,W,V = car2kep(x/1000,y/1000,z/1000,u/1000,v/1000,w/1000)
         print("my car2kep a:", a, "e:", e, "i:", i, "w:", w, "W:", W, "V:", V)
 
-        print("their car2kep a:", orbit.getA(), "e:", orbit.getE(), "i:", orbit.getI(), "w:")
+        print("their car2kep a:", orbit.getA(), "e:", orbit.getE(), "i:", orbit.getI(), "frame:", orbit.getFrame(), "mu:", orbit.getMu(), "date:", orbit.getDate, "keplerian period:", orbit.getKeplerianPeriod())
 
         spacecraft_states.add(state)
         
