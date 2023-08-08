@@ -331,7 +331,7 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
         error, position, velocity = satellite.sgp4(time, fr)
         if error != 0:
             warnings.warn(SGP4_ERRORS[error])
-            return
+            return ephemeris
         else:
             ephemeris.append([time,position, velocity]) #jd time, pos, vel
             time += dt_jd
