@@ -166,30 +166,9 @@ def run_sim(settings):
 
     results = []
     
-    exception_count = 0  # Counter to track the number of exceptions
-
-    for space_object in SATCAT.Catalogue:  # Assuming you have a list of space objects to propagate
-        try:
-            result = space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, 
-                                        output_freq=output_freq, integrator_type=integrator_type, 
-                                        force_model=force_model, long_term_sgp4=sgp4_long_term)
-            results.append(result)
-        except ValueError as ve:
-            if "setting an array element with a sequence" in str(ve):  # Handling specific ValueError
-                exception_count += 1
-                print(f"Encountered ValueError for {space_object.rso_name}: {ve}")
-            else:
-                raise  # Re-raise the exception if it's not the one you're expecting to handle
-
-        except Exception as e:  # To catch OrekitException or any other exceptions
-            exception_count += 1
-            print(f"Encountered an error for {space_object.rso_name}: {e}")
-
-    print(f"Total number of exceptions encountered: {exception_count}")
-
-    # for space_object in tqdm(SATCAT.Catalogue):
-    #     result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
-    #     results.append(result)
+    for space_object in tqdm(SATCAT.Catalogue):
+        result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
+        results.append(result)
 
     SATCAT.Catalogue = results
     print("Exporting results...")
