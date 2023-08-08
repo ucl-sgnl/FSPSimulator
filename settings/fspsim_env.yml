@@ -1,4 +1,4 @@
-name: fspsim_orekit
+name: fspsim
 
 channels:
   - conda-forge
@@ -35,7 +35,7 @@ dependencies:
     - sgp4
     - matplotlib
     - python-dotenv
-    - pandas
+    - pandas=1.4.4
     - numba
     - numpy
     - pyatmos
