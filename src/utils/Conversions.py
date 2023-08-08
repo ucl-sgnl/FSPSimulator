@@ -610,7 +610,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         ArrayList: List of SpacecraftState objects.
     """
     frame = FramesFactory.getICRF()
-    spacecraft_states = ArrayList[SpacecraftState]()
+    spacecraft_states = ArrayList()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
         pos_x, pos_y, pos_z = position
@@ -698,22 +698,6 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     try:
         # threshold = 1000.0 
         # max_iterations = 10000
-        for i in range(spacecraft_states.size()):
-            state = spacecraft_states.get(i)
-            pv_coordinates = state.getPVCoordinates()
-            position = pv_coordinates.getPosition()
-            velocity = pv_coordinates.getVelocity()
-            print("position:", position)
-            print("velocity:", velocity)
-            x= position.getX()
-            y= position.getY()
-            z= position.getZ()
-
-            vx= velocity.getX()
-            vy= velocity.getY()
-            vz= velocity.getZ()
-
-
         
         tle_from_state =  TLE.stateToTLE(spacecraft_states.get(0), tle_first_guess)
         print("tle_from_state:", tle_from_state)
