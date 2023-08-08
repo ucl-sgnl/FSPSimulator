@@ -639,10 +639,9 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         pv_coordinates = PVCoordinates(position_vector, velocity_vector, acceleration_vector)
         print("pv_coordinates:", pv_coordinates)
         #make the spacecraft state from the pv coordinates
-        state = SpacecraftState(pv_coordinates, date_orekit, Constants.EIGEN5C_EARTH_MU)
 
-        # orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
-        # state = SpacecraftState(orbit)
+        orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
+        state = SpacecraftState(orbit)
 
         #check the keplerian elements of the spacecraft state
         pv_coordinates2 = state.getPVCoordinates()
