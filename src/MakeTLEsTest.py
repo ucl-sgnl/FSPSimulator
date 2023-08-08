@@ -147,7 +147,7 @@ def fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds):
     mean_motion_second_derivative = 0.0
     revolution_number = 12345
 
-    date_start_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, mjds[0]*86400.0)  # set the start date of the TLE
+    date_start_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, mjds[0])  # set the start date of the TLE
     b_star_first_guess = 1e-5 # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
