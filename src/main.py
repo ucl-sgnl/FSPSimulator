@@ -76,7 +76,7 @@ def run_parallel_sim(settings):
             pbar.update()
 
         # Use ProcessPoolExecutor for multiprocessing
-        with ProcessPoolExecutor(max_workers=1) as executor:
+        with ProcessPoolExecutor(max_workers=os.cpu_count) as executor:
             # Since the map function blocks until all results are available, we can simply use it here.
             for result in executor.map(propagate_space_object, iterable):
                 callback(result)
