@@ -656,11 +656,6 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
         TLE: Fitted TLE.
     """
 
-    # Check for hyperbolic orbits before proceeding
-    # for state in spacecraft_states:
-    #     if state.getOrbit().getType() == OrbitType.HYPERBOLIC:
-    #         raise ValueError("Hyperbolic orbits cannot be handled as EquinoctialOrbit instances")
-
     tle_first_guess = TLE(satellite_number,
                           classification,
                           launch_year,
@@ -679,17 +674,21 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
-    threshold = 1000.0 #TODO: what is the physical meaning of this threshold?
-    max_iterations = 10000
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
-    print("tle_builder:", tle_builder)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
-    print("fitter:", fitter)
-    fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
-    print("spacecraft states converted")
-    tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
-    print("tle_propagator:", tle_propagator)
-    return tle_propagator.getTLE()
+    try:
+        threshold = 1000.0 
+        max_iterations = 10000
+        tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
+        print("tle_builder:", tle_builder)
+        fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
+        print("fitter:", fitter)
+        fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
+        print("spacecraft states converted")
+        tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+        print("tle_propagator:", tle_propagator)
+        return tle_propagator.getTLE()
+    except Exception as e:
+        print("Exception:", e)
+        raise
  
 def generate_dates(mjds: list) -> pd.DatetimeIndex:
     """Generates dates from a given list of Modified Julian Dates (MJDs).
