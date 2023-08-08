@@ -299,6 +299,23 @@ class SpaceObject:
             print(f"Combined ephemeris length: {len(combined_ephemeris)}")
             print("Last 5 combined:", combined_ephemeris[-5:])
 
+            # Check the structure of each entry in combined_ephemeris
+            for index, entry in enumerate(combined_ephemeris):
+                print(f"Entry {index}: Type - {type(entry)}, Length - {len(entry)}")
+                print(f"  1st element: Type - {type(entry[0])}, Value - {entry[0]}")
+                print(f"  2nd element: Type - {type(entry[1])}, Shape - {entry[1].shape}")
+                print(f"  3rd element: Type - {type(entry[2])}, Shape - {entry[2].shape}")
+                print("-" * 50)
+                if index > 10:  # Limiting the output to the first 10 entries for brevity
+                    break
+
+            # Attempting to cast combined_ephemeris into a numpy array
+            try:
+                array_combined_ephemeris = np.array(combined_ephemeris)
+                print("Successfully converted combined_ephemeris to numpy array!")
+            except Exception as e:
+                print(f"Error while converting to numpy array: {e}")
+
             self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps]
 
         elif self.station_keeping == True:
