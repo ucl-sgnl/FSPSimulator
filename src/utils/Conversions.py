@@ -661,73 +661,80 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                                  mean_motion_first_derivative: float, mean_motion_second_derivative: float, e: float,
                                  i: float, pa: float, raan: float, ma: float, revolution_number: int,
                                  b_star_first_guess: float) -> TLE:
-    """Fits a TLE to a given list of SpacecraftState objects.
-
-    Args:
-        spacecraft_states (ArrayList): Spacecraft states.
-        satellite_number (int): Satellite number.
-        classification (str): Classification.
-        launch_year (int): Launch year.
-        launch_number (int): Launch number.
-        launch_piece (str): Launch piece.
-        ephemeris_type (int): Ephemeris type.
-        element_number (int): Element number.
-        date_start_orekit (AbsoluteDate): Start date in Orekit format.
-        mean_motion (float): Mean motion.
-        mean_motion_first_derivative (float): Mean motion first derivative.
-        mean_motion_second_derivative (float): Mean motion second derivative.
-        e (float): Eccentricity.
-        i (float): Inclination.
-        pa (float): Argument of perigee.
-        raan (float): Right ascension of the ascending node.
-        ma (float): Mean anomaly.
-        revolution_number (int): Revolution number.
-        b_star_first_guess (float): B* drag term first guess.
-
-    Returns:
-        TLE: Fitted TLE.
     """
+    Fits a TLE to a given list of SpacecraftState objects.
+    
+    First try to fit a TLE to the numerically integrated positions. If that fails, modify the eccentricity of the TLE first guess and try again as it may be due to numerical instability issue that this method in Orekit has.
+    If this fails again then statically impute a value of BStar and make a TLE using the TLE.stateToTLE() method.
+    """
+    
+    # Create the TLE first guess
+    tle_first_guess = TLE(satellite_number, classification, launch_year, launch_number, launch_piece, 
+                          ephemeris_type, element_number, date_start_orekit, mean_motion, 
+                          mean_motion_first_derivative, mean_motion_second_derivative, e, i, pa, raan, ma, 
+                          revolution_number, b_star_first_guess)
+
     try:
         # First, attempt to fit using the finite difference method
-        tle_first_guess = TLE(satellite_number,
-                            classification,
-                            launch_year,
-                            launch_number,
-                            launch_piece,
-                            ephemeris_type,
-                            element_number,
-                            date_start_orekit,
-                            mean_motion,
-                            mean_motion_first_derivative,
-                            mean_motion_second_derivative,
-                            e,
-                            i,
-                            pa,
-                            raan,
-                            ma,
-                            revolution_number,
-                            b_star_first_guess)
-        print("tle_first_guess:", tle_first_guess)
-
-        threshold = 10.0 
-        max_iterations = 10000        
-        tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10.0)
-        fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
-        fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
-        tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
-        return tle_propagator.getTLE()    
-
-    except Exception as error:
-        if "unable to compute TLE" in str(error):
-            print("TLE fitting to numerical propagation failed.\n Falling back to TLE.stateToTLE() method.")
-
-            # If the finite difference method fails, fall back to the TLE.stateToTLE() method
-            first_state = spacecraft_states.get(0)
-            fitted_tle = TLE.stateToTLE(first_state, tle_first_guess)
-            return fitted_tle
-
+        return fit_TLE_to_cart(spacecraft_states, tle_first_guess)
+    except Exception as error1:
+        if "unable to compute TLE" in str(error1):
+            print("TLE fitting to numerical propagation failed. Modifying eccentricity and trying again.")
+            
+            # Modify the eccentricity of the TLE first guess
+            tle_new_guess = modify_eccentricity(tle_first_guess)
+            
+            try:
+                return fit_TLE_to_cart(spacecraft_states, tle_new_guess)
+            except Exception as error2:
+                if "unable to compute TLE" in str(error2):
+                    print("Modified TLE fitting also failed. Falling back to TLE.stateToTLE() method.")
+                    # If the finite difference method fails again, fall back to the TLE.stateToTLE() method
+                    return create_static_TLE(spacecraft_states, tle_first_guess)
+                else:
+                    raise error2  # If the error is different from the TLE fitting error, raise it again.
         else:
-            raise error  # If the error is different from what the TLE fitting error, raise it again.
+            raise error1  # If the initial error is different from the TLE fitting error, raise it again.
+
+def modify_eccentricity(tle: TLE, delta_e: float = 0.0001) -> TLE:
+    """Modifies the eccentricity of the provided TLE.
+    This is a helper function for the TLE fitting process which struggles with near circular orbits."""
+    e_new = tle.getE() + delta_e
+    return TLE(tle.getSatelliteNumber(),
+               tle.getClassification(),
+               tle.getLaunchYear(),
+               tle.getLaunchNumber(),
+               tle.getLaunchPiece(),
+               tle.getEphemerisType(),
+               tle.getElementNumber(),
+               tle.getDate(),
+               tle.getMeanMotion(),
+               tle.getMeanMotionFirstDerivative(),
+               tle.getMeanMotionSecondDerivative(),
+               e_new,
+               tle.getI(),
+               tle.getPerigeeArgument(),
+               tle.getRaan(),
+               tle.getMeanAnomaly(),
+               tle.getRevolutionNumberAtEpoch(),
+               tle.getBStar())
+
+def fit_TLE_to_cart(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
+    """Fits a TLE to a given list of SpacecraftState objects using the finite difference method in Orekit"""
+
+    threshold = 10.0 
+    max_iterations = 10000        
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10.0)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
+    fitter.convert(spacecraft_states, False, 'BSTAR')
+    tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+    return tle_propagator.getTLE()
+
+def create_static_TLE(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
+    """ Create a TLE from a cartesian state- imputes placeholder values for BSTAR and mean motion derivatives.
+    It is highly preferrable to avoid the use of this as it's propagation will be much less accurate than a TLE fit to the same state."""
+    first_state = spacecraft_states.get(0)
+    return TLE.stateToTLE(first_state, tle_first_guess)
 
 def generate_dates(mjds: list) -> pd.DatetimeIndex:
     """Generates dates from a given list of Modified Julian Dates (MJDs).

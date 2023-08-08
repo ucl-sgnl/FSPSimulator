@@ -305,8 +305,6 @@ class SpaceObject:
 
             self.ephemeris = np.array(combined_ephemeris_array)
 
-            # self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps] #TODO: this is not working for some reason
-
         elif self.station_keeping == True:
             # Object will station keep from launch to decay
             self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
