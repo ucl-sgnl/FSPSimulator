@@ -709,15 +709,15 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                             b_star_first_guess)
         print("tle_first_guess:", tle_first_guess)
 
-        threshold = 1.0 
+        threshold = 10.0 
         max_iterations = 10000        
-        tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
+        tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10.0)
         fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
         fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
         tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
         return tle_propagator.getTLE()    
 
-    except OrekitException as error:
+    except e as error:
         if "unable to compute TLE" in str(error):
             # If the finite difference method fails, fall back to the TLE.stateToTLE() method
             representative_state = spacecraft_states[0]  # or some other representative state
