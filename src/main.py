@@ -152,7 +152,6 @@ def run_sim(settings):
     initialize_orekit()
 
     print("Number of space objects in catalogue specified:", len(SATCAT.Catalogue))
-    print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
 
     # Filter out space objects that decayed before the simulation start date
     SATCAT.Catalogue = [space_object for space_object in SATCAT.Catalogue if space_object.decay_date >= datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d')]
@@ -186,5 +185,5 @@ if __name__ == '__main__':
             print(f"Running simulation: {sim}")
             settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
             check_json_file(settings)#check if the json file is filled out correctly
-            run_sim(settings)
+            run_parallel_sim(settings)
             print(f"Simulation {sim} complete")
