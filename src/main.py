@@ -76,7 +76,7 @@ def run_parallel_sim(settings):
             pbar.update()
 
         # Use ProcessPoolExecutor for multiprocessing
-        with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+        with ProcessPoolExecutor(max_workers=1) as executor:
             # Since the map function blocks until all results are available, we can simply use it here.
             for result in executor.map(propagate_space_object, iterable):
                 callback(result)
@@ -88,7 +88,7 @@ def run_parallel_sim(settings):
     dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
 
     print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
-
+    return
 
 def run_sim(settings):
     SATCAT = SpaceCatalogue(settings=settings)
