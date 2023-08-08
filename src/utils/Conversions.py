@@ -719,6 +719,8 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
 
     except e as error:
         if "unable to compute TLE" in str(error):
+            print("TLE fitting to numerical propagation failed.\n Falling back to TLE.stateToTLE() method.")
+            
             # If the finite difference method fails, fall back to the TLE.stateToTLE() method
             representative_state = spacecraft_states[0]  # or some other representative state
             fitted_tle = TLE.stateToTLE(representative_state, tle_first_guess)
