@@ -610,7 +610,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         ArrayList: List of SpacecraftState objects.
     """
     frame = FramesFactory.getICRF()
-    spacecraft_states = ArrayList()
+    spacecraft_states = ArrayList[SpacecraftState]()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
         pos_x, pos_y, pos_z = position
@@ -620,7 +620,27 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
+        #check the keplerian elements of the spacecraft state
+        pv_coordinates2 = state.getPVCoordinates()
+        print("pv_coordinates2:", pv_coordinates2)
+        position_vector2 = pv_coordinates2.getPosition()
+        velocity_vector2 = pv_coordinates2.getVelocity()
+    
+    # Extract individual coordinates
+        x = position_vector2.getX()
+        y = position_vector2.getY()
+        z = position_vector2.getZ()
+        u = velocity_vector2.getX()
+        v = velocity_vector2.getY()
+        w = velocity_vector2.getZ()
+        print("x:", x, "y:", y, "z:", z, "u:", u, "v:", v, "w:", w)
+        a,e,i,w,W,V = car2kep(x,y,z,u,v,w)
+        print("my car2kep a:", a, "e:", e, "i:", i, "w:", w, "W:", W, "V:", V)
+
+        print("their car2kep a:", orbit.getA(), "e:", orbit.getE(), "i:", orbit.getI(), "w:")
+
         spacecraft_states.add(state)
+        
     return spacecraft_states
 
 def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
@@ -678,7 +698,8 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     try:
         # threshold = 1000.0 
         # max_iterations = 10000
-        for state in spacecraft_states:
+        for i in range(spacecraft_states.size()):
+            state = spacecraft_states.get(i)
             pv_coordinates = state.getPVCoordinates()
             position = pv_coordinates.getPosition()
             velocity = pv_coordinates.getVelocity()
@@ -692,8 +713,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
             vy= velocity.getY()
             vz= velocity.getZ()
 
-            a,e,i,w,W,V = car2kep()
-            print("a:", a, "e:", e, "i:", i, "w:", w, "W:", W, "V:", V)
+
         
         tle_from_state =  TLE.stateToTLE(spacecraft_states.get(0), tle_first_guess)
         print("tle_from_state:", tle_from_state)
