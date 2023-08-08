@@ -299,6 +299,10 @@ class SpaceObject:
             print(f"Combined ephemeris length: {len(combined_ephemeris)}")
 
             # Update ephemeris attribute
+            for entry in combined_ephemeris:
+                if not isinstance(entry[1], np.ndarray) or not isinstance(entry[2], np.ndarray):
+                    print("Inconsistent entry:", entry)
+
             self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps]
 
         elif self.station_keeping == True:
