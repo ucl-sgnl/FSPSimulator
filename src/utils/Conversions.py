@@ -128,10 +128,21 @@ def kep2car(a, e, i, w, W, V, epoch):
     return x, y, z, vx, vy, vz
 
 def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
-    #TODO: add the option to return the argument of latitude
-    #return the keplerian elements from the cartesian coordinates 
-    # IN degrees
+    """
+    Convert Cartesian coordinates to Keplerian elements in radians.
 
+    Args:
+        x, y, z: Position coordinates in km.
+        vx, vy, vz: Velocity components in km/s.
+        mean_motion (bool): If True, return mean motion.
+        arg_l (bool): If True, return the argument of latitude.
+
+    Returns:
+        Tuple containing semi-major axis, eccentricity, inclination, 
+        RAAN, argument of perigee, and true anomaly. Optionally returns
+        mean motion and argument of latitude.
+    """
+    
     r = u.Quantity([x, y, z], unit=u.km)
     v = u.Quantity([vx, vy, vz], unit=u.km/u.s)
 
@@ -143,19 +154,24 @@ def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
     w = orb.raan.value
     W = orb.argp.value
     V = orb.nu.value
-    mean_motion = orb.n.value
+    n = orb.n.value if mean_motion else None
 
-    # Check if the true anomaly is negative, if so add 2pi (or 360 degrees)
+    # If true anomaly is negative, adjust by adding 2*pi
     if V < 0:
-        V += 360
-        i = np.rad2deg(i)
-        w = np.rad2deg(w)
-        W = np.rad2deg(W)
-        V = np.rad2deg(V)
-        if mean_motion:
-            mean_motion = np.rad2deg(mean_motion)
+        V += 2 * np.pi
 
-    return a, e, i, w, W, V
+    # Calculate argument of latitude if requested
+    U = None
+    if arg_l:
+        U = W + V
+
+    results = (a, e, i, w, W, V)
+    if mean_motion:
+        results += (n,)
+    if arg_l:
+        results += (U,)
+
+    return results
                 
 
 def true_to_eccentric_anomaly(true_anomaly, eccentricity):
@@ -614,12 +630,16 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
         pos_x, pos_y, pos_z = position
+        print("pos_x:", pos_x, "pos_y:", pos_y, "pos_z:", pos_z)
         vel_x, vel_y, vel_z = velocity
+        print("vel_x:", vel_x, "vel_y:", vel_y, "vel_z:", vel_z)
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
         pv_coordinates = PVCoordinates(position_vector, velocity_vector)
+
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
+
         #check the keplerian elements of the spacecraft state
         pv_coordinates2 = state.getPVCoordinates()
         print("pv_coordinates2:", pv_coordinates2)
@@ -634,7 +654,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         v = velocity_vector2.getY()
         w = velocity_vector2.getZ()
         print("x:", x, "y:", y, "z:", z, "u:", u, "v:", v, "w:", w)
-        a,e,i,w,W,V = car2kep(x,y,z,u,v,w)
+        a,e,i,w,W,V = car2kep(x/1000,y/1000,z/1000,u/1000,v/1000,w/1000)
         print("my car2kep a:", a, "e:", e, "i:", i, "w:", w, "W:", W, "V:", V)
 
         print("their car2kep a:", orbit.getA(), "e:", orbit.getE(), "i:", orbit.getI(), "w:")
