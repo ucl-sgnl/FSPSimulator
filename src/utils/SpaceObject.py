@@ -295,12 +295,16 @@ class SpaceObject:
             print("first 5 sgp4:", ephemeris_sgp4_converted[:5])
             print("first five numerical:", ephemeris_numerical[:5])
 
-            combined_ephemeris += ephemeris_numerical + ephemeris_sgp4_converted
-            print(f"Combined ephemeris length: {len(combined_ephemeris)}")
-            print("Last 5 combined:", combined_ephemeris[-5:])
+            ephemeris_numerical_converted = [(entry[0], (entry[1], entry[2])) for entry in ephemeris_numerical]
+            ephemeris_sgp4_converted_new = [(entry[0], (entry[1], entry[2])) for entry in ephemeris_sgp4_converted]
 
-            self.ephemeris = np.array(combined_ephemeris)
-            
+            combined_ephemeris = ephemeris_numerical_converted + ephemeris_sgp4_converted_new
+
+            combined_ephemeris_array = np.array(combined_ephemeris, dtype=object)
+            print("length of combined ephemeris:", len(combined_ephemeris_array))
+
+            self.ephemeris = np.array(combined_ephemeris_array)
+
             # self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps] #TODO: this is not working for some reason
 
         elif self.station_keeping == True:
