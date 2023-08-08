@@ -24,6 +24,7 @@ from org.orekit.propagation.analytical.tle import TLEPropagator
 from org.orekit.utils import Constants as orekit_constants
 from org.orekit.utils import IERSConventions
 from org.orekit.models.earth import ReferenceEllipsoid
+from org.orekit.errors import OrekitException
 from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir, absolutedate_to_datetime, datetime_to_absolutedate
 from java.util import ArrayList
 
@@ -686,34 +687,45 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     Returns:
         TLE: Fitted TLE.
     """
+    try:
+        # First, attempt to fit using the finite difference method
+        tle_first_guess = TLE(satellite_number,
+                            classification,
+                            launch_year,
+                            launch_number,
+                            launch_piece,
+                            ephemeris_type,
+                            element_number,
+                            date_start_orekit,
+                            mean_motion,
+                            mean_motion_first_derivative,
+                            mean_motion_second_derivative,
+                            e,
+                            i,
+                            pa,
+                            raan,
+                            ma,
+                            revolution_number,
+                            b_star_first_guess)
+        print("tle_first_guess:", tle_first_guess)
 
-    tle_first_guess = TLE(satellite_number,
-                          classification,
-                          launch_year,
-                          launch_number,
-                          launch_piece,
-                          ephemeris_type,
-                          element_number,
-                          date_start_orekit,
-                          mean_motion,
-                          mean_motion_first_derivative,
-                          mean_motion_second_derivative,
-                          e,
-                          i,
-                          pa,
-                          raan,
-                          ma,
-                          revolution_number,
-                          b_star_first_guess)
-    print("tle_first_guess:", tle_first_guess)
-    threshold = 1.0 
-    max_iterations = 10000        
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
-    fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
-    tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
-    return tle_propagator.getTLE()
-    
+        threshold = 1.0 
+        max_iterations = 10000        
+        tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
+        fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
+        fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
+        tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+        return tle_propagator.getTLE()    
+
+    except OrekitException as error:
+        if "unable to compute TLE" in str(error):
+            # If the finite difference method fails, fall back to the TLE.stateToTLE() method
+            representative_state = spacecraft_states[0]  # or some other representative state
+            fitted_tle = TLE.stateToTLE(representative_state, tle_first_guess)
+            return fitted_tle
+
+        else:
+            raise error  # If the error is different from what the TLE fitting error, raise it again.
 
 def generate_dates(mjds: list) -> pd.DatetimeIndex:
     """Generates dates from a given list of Modified Julian Dates (MJDs).
