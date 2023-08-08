@@ -40,7 +40,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     frame = FramesFactory.getICRF()
     spacecraft_states = ArrayList()
     for position, velocity, date_mjd in zip(positions, velocities, dates_mjd):
-        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd * 86400.0)
+        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd)
         pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
