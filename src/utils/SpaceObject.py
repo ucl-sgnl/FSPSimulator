@@ -290,7 +290,7 @@ class SpaceObject:
             print("Estimated TLE:", tle_string)
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
             print("length of ephemeris_sgp4:", len(ephemeris_sgp4))
-            print("length of ephemeris_numerical:", len(ephemeris_numerical)
+            print("length of ephemeris_numerical:", len(ephemeris_numerical))
             # Concatenate results
             combined_ephemeris += ephemeris_numerical + ephemeris_sgp4
             print(f"Combined ephemeris length: {len(combined_ephemeris)}")
