@@ -674,6 +674,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ma,
                           revolution_number,
                           b_star_first_guess)
+    print("tle_first_guess:", tle_first_guess)
     try:
         threshold = 1000.0 
         max_iterations = 10000
@@ -742,8 +743,7 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
     sma_meters = a * 1000
-    mean_motion_rad_per_sec = np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3) #this is radians per second
-    mean_motion = mean_motion_rad_per_sec * 86400 / (2 * np.pi) #convert to revolutions per day
+    mean_motion = float(np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3)) #this is radians per second
     print("mean motion:", mean_motion)
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
@@ -761,6 +761,24 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
 
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
     b_star_first_guess = float(1e-5) # doesn't matter what this is set to, it will be fit to the spacecraft states
+    print("b_star_first_guess:", b_star_first_guess)
+    print("date_start_orekit:", date_start_orekit)
+    print("satellite_number:", satellite_number)
+    print("classification:", classification)
+    print("launch_year:", launch_year)
+    print("launch_number:", launch_number)
+    print("launch_piece:", launch_piece)
+    print("ephemeris_type:", ephemeris_type)
+    print("element_number:", element_number)
+    print("mean_motion:", mean_motion)
+    print("mean_motion_first_derivative:", mean_motion_first_derivative)
+    print("mean_motion_second_derivative:", mean_motion_second_derivative)
+    print("e:", e)
+    print("i:", i)
+    print("pa:", pa)
+    print("raan:", raan)
+    print("ma:", ma)
+    print("revolution_number:", revolution_number)    
 
     # Call the function to fit TLE
     fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
