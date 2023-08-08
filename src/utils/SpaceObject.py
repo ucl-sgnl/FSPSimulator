@@ -289,8 +289,8 @@ class SpaceObject:
             print(f"Propagating {self.rso_name} from {next_jd} to {jd_stop} using SGP4")
             print("Estimated TLE:", tle_string)
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
-            print("length of ephemeris_sgp4:", len(ephemeris_sgp4))
-            print("length of ephemeris_numerical:", len(ephemeris_numerical))
+            print("shape of ephemeris_sgp4:", np.shape(ephemeris_sgp4))
+            print("shape of ephemeris_numerical:", np.shape(ephemeris_numerical))
             # Concatenate results
             combined_ephemeris += ephemeris_numerical + ephemeris_sgp4
             print(f"Combined ephemeris length: {len(combined_ephemeris)}")
