@@ -2,6 +2,7 @@ import numpy as np
 import warnings
 from scipy.integrate import solve_ivp
 from sgp4.api import Satrec
+from sgp4.api import SGP4_ERRORS
 import math
 
 #Local imports
@@ -297,7 +298,7 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     """
 
     if jd_start > jd_end:
-        print('jd_start must be less than jd_end')
+        warnings.warn("jd_start is greater than jd_end. SGP4 Propagation will not be performed.")
         return
 
     ephemeris = []
@@ -307,7 +308,6 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
     #split at the new line
     split_tle = TLE.split('\n')
-    print("split_tle: ", split_tle)
 
     if len(split_tle) == 3:
         # three line TLE
@@ -324,14 +324,12 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     time = jd_start
     # for i in range (jd_start, jd_end, dt):
     while time < jd_end:
-        print("time: ", time)
         # propagate the satellite to the next time step
         # Position is in idiosyncratic True Equator Mean Equinox coordinate frame used by SGP4
-        # Velocity is the rate at which the position is changing, expressed in kilometers per second
         error, position, velocity = satellite.sgp4(time, fr)
         if error != 0:
-            print('error: ', error)
-            break
+            warnings.warn(SGP4_ERRORS[error])
+            continue
         else:
             ephemeris.append([time,position, velocity]) #jd time, pos, vel
             time += dt_jd

@@ -23,6 +23,7 @@ from org.orekit.propagation.conversion import TLEPropagatorBuilder, FiniteDiffer
 from org.orekit.propagation.analytical.tle import TLEPropagator
 from org.orekit.utils import Constants as orekit_constants
 from org.orekit.utils import IERSConventions
+from org.orekit.models.earth import ReferenceEllipsoid
 from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir, absolutedate_to_datetime, datetime_to_absolutedate
 from java.util import ArrayList
 
@@ -626,9 +627,6 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         ArrayList: List of SpacecraftState objects.
     """
 
-    from org.orekit.frames import FramesFactory, ITRFVersion
-    from org.orekit.utils import IERSConventions
-    from org.orekit.models.earth import ReferenceEllipsoid
     gcrf = FramesFactory.getGCRF()
     itrf = FramesFactory.getITRF(IERSConventions.IERS_2010, False)
     #itrf = FramesFactory.getITRF(ITRFVersion.ITRF_2014, IERSConventions.IERS_2010, False)
@@ -642,35 +640,15 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
     for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
         pos_x, pos_y, pos_z = position
-        print("pos_x:", pos_x, "pos_y:", pos_y, "pos_z:", pos_z)
         vel_x, vel_y, vel_z = velocity
-        print("vel_x:", vel_x, "vel_y:", vel_y, "vel_z:", vel_z)
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
         acceleration_vector = Vector3D(float(0.0), float(0.0), float(0.0))
         pv_coordinates = PVCoordinates(position_vector, velocity_vector, acceleration_vector)
-        print("pv_coordinates:", pv_coordinates)
 
         #make the spacecraft state from the pv coordinates
         orbit = CartesianOrbit(pv_coordinates, eci_frame, date_orekit, wgs84Ellipsoid.getGM())
         state = SpacecraftState(orbit)
-
-        #check the keplerian elements of the spacecraft state
-        pv_coordinates2 = state.getPVCoordinates()
-        print("pv_coordinates2:", pv_coordinates2)
-        position_vector2 = pv_coordinates2.getPosition()
-        velocity_vector2 = pv_coordinates2.getVelocity()
-    
-    # Extract individual coordinates
-        x = position_vector2.getX()
-        y = position_vector2.getY()
-        z = position_vector2.getZ()
-        u = velocity_vector2.getX()
-        v = velocity_vector2.getY()
-        w = velocity_vector2.getZ()
-        print("x:", x, "y:", y, "z:", z, "u:", u, "v:", v, "w:", w)
-        a,e,i,w,W,V = car2kep(x/1000,y/1000,z/1000,u/1000,v/1000,w/1000)
-        print("my car2kep a:", a, "e:", e, "i:", i, "w:", w, "W:", W, "V:", V)
 
         spacecraft_states.add(state)
         
@@ -728,24 +706,14 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           revolution_number,
                           b_star_first_guess)
     print("tle_first_guess:", tle_first_guess)
-    try:
-        threshold = 10.0 
-        max_iterations = 10000        
-        # tle_from_state =  TLE.stateToTLE(spacecraft_states.get(0), tle_first_guess)
-        # print("tle_from_state:", tle_from_state)
-        tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
-        print("tle_builder:", tle_builder)
-        fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
-        print("fitter:", fitter)
-        fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
-        print("spacecraft states converted")
-        tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
-        print("tle_propagator:", tle_propagator)
-        return tle_propagator.getTLE()
+    threshold = 1.0 
+    max_iterations = 10000        
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
+    fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
+    tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+    return tle_propagator.getTLE()
     
-    except Exception as e:
-        print("Exception:", e)
-        raise
 
 def generate_dates(mjds: list) -> pd.DatetimeIndex:
     """Generates dates from a given list of Modified Julian Dates (MJDs).
@@ -800,7 +768,6 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
     sma_meters = a * 1000
     mean_motion = float(np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3)) #this is radians per second
-    print("mean motion:", mean_motion)
     ## Placeholder parameters.
     ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
     ## TODO: we must double check that none of these are used in the propagation itself.
@@ -817,24 +784,6 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
 
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
     b_star_first_guess = float(1e-5) # doesn't matter what this is set to, it will be fit to the spacecraft states
-    print("b_star_first_guess:", b_star_first_guess)
-    print("date_start_orekit:", date_start_orekit)
-    print("satellite_number:", satellite_number)
-    print("classification:", classification)
-    print("launch_year:", launch_year)
-    print("launch_number:", launch_number)
-    print("launch_piece:", launch_piece)
-    print("ephemeris_type:", ephemeris_type)
-    print("element_number:", element_number)
-    print("mean_motion:", mean_motion)
-    print("mean_motion_first_derivative:", mean_motion_first_derivative)
-    print("mean_motion_second_derivative:", mean_motion_second_derivative)
-    print("e:", e)
-    print("i:", i)
-    print("pa:", pa)
-    print("raan:", raan)
-    print("ma:", ma)
-    print("revolution_number:", revolution_number)    
 
     # Call the function to fit TLE
     fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
