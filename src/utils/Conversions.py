@@ -130,7 +130,7 @@ def kep2car(a, e, i, w, W, V, epoch):
 def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
     #TODO: add the option to return the argument of latitude
     #return the keplerian elements from the cartesian coordinates 
-    # IN RADIANS
+    # IN degrees
 
     r = u.Quantity([x, y, z], unit=u.km)
     v = u.Quantity([vx, vy, vz], unit=u.km/u.s)
@@ -147,7 +147,7 @@ def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
 
     # Check if the true anomaly is negative, if so add 2pi (or 360 degrees)
     if V < 0:
-        V += 2*np.pi
+        V += 360
         i = np.rad2deg(i)
         w = np.rad2deg(w)
         W = np.rad2deg(W)
@@ -748,10 +748,10 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     #use the position and velocity halfway into the ephemeris as the initial guess for the TLE
     a, e, i, pa, raan, ma = car2kep(*positions_eci[int(len(positions_eci)/2)], *velocities_eci[int(len(velocities_eci)/2)])
     e = float(e)
-    i = float(i)
-    pa = float(pa)
-    raan = float(raan)
-    ma = float(ma)
+    i = float(np.deg2rad(i))
+    pa = float(np.deg2rad(pa))
+    raan = float(np.deg2rad(raan))
+    ma = float(np.deg2rad(ma))
     dates = generate_dates(mjds)
     obstimes = Time(dates)
     mjds = obstimes.mjd
