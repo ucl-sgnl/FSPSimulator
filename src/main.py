@@ -63,9 +63,8 @@ def run_sim(settings):
     results = []
     
     for space_object in tqdm(SATCAT.Catalogue):
-        with lock:
-            result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
-            results.append(result)
+        result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
+        results.append(result)
 
     SATCAT.Catalogue = results
     print("Exporting results...")
