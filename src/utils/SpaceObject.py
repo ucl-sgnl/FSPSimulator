@@ -285,24 +285,16 @@ class SpaceObject:
             line1 = TLE.getLine1()
             line2 = TLE.getLine2()
             tle_string = line1 + '\n' + line2
+
             # Propagate using SGP4 for the rest of the orbit
-            print(f"Propagating {self.rso_name} from {next_jd} to {jd_stop} using SGP4")
-            print("Estimated TLE:", tle_string)
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
             # Convert tuples in ephemeris_sgp4 to numpy arrays so they are consistent with the numerical ephemeris
             ephemeris_sgp4_converted = [[entry[0], np.array(entry[1]), np.array(entry[2])] for entry in ephemeris_sgp4]
 
-            print("first 5 sgp4:", ephemeris_sgp4_converted[:5])
-            print("first five numerical:", ephemeris_numerical[:5])
-
             ephemeris_numerical_converted = [(entry[0], (entry[1], entry[2])) for entry in ephemeris_numerical]
             ephemeris_sgp4_converted_new = [(entry[0], (entry[1], entry[2])) for entry in ephemeris_sgp4_converted]
-
             combined_ephemeris = ephemeris_numerical_converted + ephemeris_sgp4_converted_new
-
             combined_ephemeris_array = np.array(combined_ephemeris, dtype=object)
-            print("length of combined ephemeris:", len(combined_ephemeris_array))
-
             self.ephemeris = np.array(combined_ephemeris_array)
 
         elif self.station_keeping == True:
