@@ -625,6 +625,18 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     Returns:
         ArrayList: List of SpacecraftState objects.
     """
+
+    from org.orekit.frames import FramesFactory, ITRFVersion
+    from org.orekit.utils import IERSConventions
+    from org.orekit.models.earth import ReferenceEllipsoid
+    gcrf = FramesFactory.getGCRF()
+    itrf = FramesFactory.getITRF(IERSConventions.IERS_2010, False)
+    #itrf = FramesFactory.getITRF(ITRFVersion.ITRF_2014, IERSConventions.IERS_2010, False)
+    # Selecting frames to use for OD
+    eci_frame = gcrf
+    ecef_frame = itrf
+    wgs84Ellipsoid = ReferenceEllipsoid.getWgs84(ecef_frame)
+
     frame = FramesFactory.getGCRF()
     spacecraft_states = ArrayList()
     dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
@@ -638,9 +650,9 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         acceleration_vector = Vector3D(float(0.0), float(0.0), float(0.0))
         pv_coordinates = PVCoordinates(position_vector, velocity_vector, acceleration_vector)
         print("pv_coordinates:", pv_coordinates)
-        #make the spacecraft state from the pv coordinates
 
-        orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
+        #make the spacecraft state from the pv coordinates
+        orbit = CartesianOrbit(pv_coordinates, eci_frame, date_orekit, wgs84Ellipsoid.getGM())
         state = SpacecraftState(orbit)
 
         #check the keplerian elements of the spacecraft state
