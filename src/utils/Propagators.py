@@ -322,7 +322,6 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     satellite = Satrec.twoline2rv(s, r)
     
     time = jd_start
-    print("time", time)
     # for i in range (jd_start, jd_end, dt):
     while time < jd_end:
         print("time", time)
