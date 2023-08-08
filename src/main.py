@@ -4,6 +4,7 @@ import os
 import json
 import pickle
 from tqdm import tqdm
+import multiprocessing as mp
 from multiprocessing import Pool, cpu_count, Lock
 from concurrent.futures import ThreadPoolExecutor
 from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
@@ -70,6 +71,7 @@ def run_parallel_sim(settings):
     iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
 
     results = []
+    mp.set_start_method('spawn') #This ensures a clean start of each new process
     with tqdm(total=len(iterable)) as pbar:
         def callback(result):
             results.append(result)
