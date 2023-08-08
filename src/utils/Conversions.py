@@ -679,6 +679,19 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
         threshold = 1000.0 
         max_iterations = 10000
         print("first spacecraft state:", spacecraft_states.get(0))
+        print("first spacecraft state orbit:", spacecraft_states.get(0).getOrbit())
+        print("first spacecraft state orbit a:", spacecraft_states.get(0).getOrbit().getA())
+        print("first spacecraft state orbit e:", spacecraft_states.get(0).getOrbit().getE())
+        print("first spacecraft state orbit i:", spacecraft_states.get(0).getOrbit().getI())
+        print("first spacecraft state orbit pa:", spacecraft_states.get(0).getOrbit().getPerigeeArgument())
+        print("first spacecraft state orbit raan:", spacecraft_states.get(0).getOrbit().getRightAscensionOfAscendingNode())
+        print("first spacecraft state orbit ma:", spacecraft_states.get(0).getOrbit().getMeanAnomaly())
+        print("first spacecraft state orbit V:", spacecraft_states.get(0).getOrbit().getTrueAnomaly())
+        #position of spacecraft state
+        print("first spacecraft state position:", spacecraft_states.get(0).getOrbit().getPVCoordinates().getPosition())
+        #velocity of spacecraft state
+        print("first spacecraft state velocity:", spacecraft_states.get(0).getOrbit().getPVCoordinates().getVelocity())
+        a,e,i,w,W,V = car2kep(spacecraft_states.get(0).getOrbit().getA(), spacecraft_states.get(0).getOrbit().getE(), spacecraft_states.get(0).getOrbit().getI(), spacecraft_states.get(0).getOrbit().getPerigeeArgument(), spacecraft_states.get(0).getOrbit().getRightAscensionOfAscendingNode(), spacecraft_states.get(0).getOrbit().getTrueAnomaly())
         tle_from_state =  TLE.stateToTLE(spacecraft_states.get(0), tle_first_guess)
         print("tle_from_state:", tle_from_state)
         # tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
