@@ -293,10 +293,7 @@ class SpaceObject:
             ephemeris_sgp4_converted = [[entry[0], np.array(entry[1]), np.array(entry[2])] for entry in ephemeris_sgp4]
 
             print("first 5 sgp4:", ephemeris_sgp4_converted[:5])
-            print("first five numerical:", ephemeris_sgp4_converted[:5])
-
-            print("shape of ephemeris_sgp4:", np.shape(ephemeris_sgp4_converted))
-            print("shape of ephemeris_numerical:", np.shape(ephemeris_numerical))
+            print("first five numerical:", ephemeris_numerical[:5])
 
             combined_ephemeris += ephemeris_numerical + ephemeris_sgp4_converted
             print(f"Combined ephemeris length: {len(combined_ephemeris)}")
