@@ -298,10 +298,9 @@ class SpaceObject:
             combined_ephemeris += ephemeris_numerical + ephemeris_sgp4_converted
             print(f"Combined ephemeris length: {len(combined_ephemeris)}")
 
-            # Update ephemeris attribute
             for entry in combined_ephemeris:
-                if not isinstance(entry[1], np.ndarray) or not isinstance(entry[2], np.ndarray):
-                    print("Inconsistent entry:", entry)
+                if len(entry[1]) != 3 or len(entry[2]) != 3:
+                    print("Inconsistent array lengths in entry:", entry)
 
             self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps]
 
