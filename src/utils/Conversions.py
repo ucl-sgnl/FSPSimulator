@@ -680,15 +680,16 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
         max_iterations = 10000
         tle_from_state = TLE.stateToTLE(spacecraft_states.get(0))
         print("tle_from_state:", tle_from_state)
-        tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
-        print("tle_builder:", tle_builder)
-        fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
-        print("fitter:", fitter)
-        fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
-        print("spacecraft states converted")
-        tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
-        print("tle_propagator:", tle_propagator)
-        return tle_propagator.getTLE()
+        # tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
+        # print("tle_builder:", tle_builder)
+        # fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
+        # print("fitter:", fitter)
+        # fitter.convert(spacecraft_states, False, 'BSTAR') #False referring to whether to fit using both position and velocity
+        # print("spacecraft states converted")
+        # tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+        # print("tle_propagator:", tle_propagator)
+        # return tle_propagator.getTLE()
+    
     except Exception as e:
         print("Exception:", e)
         raise
