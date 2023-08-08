@@ -635,7 +635,7 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
         print("vel_x:", vel_x, "vel_y:", vel_y, "vel_z:", vel_z)
         position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
         velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
-        acceleration_vector = Vector3D(0, 0, 0)
+        acceleration_vector = Vector3D(0.0, 0.0, 0.0)
         pv_coordinates = PVCoordinates(position_vector, velocity_vector, acceleration_vector)
 
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
