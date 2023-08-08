@@ -299,14 +299,9 @@ class SpaceObject:
             print(f"Combined ephemeris length: {len(combined_ephemeris)}")
             print("Last 5 combined:", combined_ephemeris[-5:])
 
-            # Check for inconsistencies in combined_ephemeris
-            for index, entry in enumerate(combined_ephemeris):
-                if not isinstance(entry[1], np.ndarray) or entry[1].shape != (3,):
-                    print(f"Inconsistency found in 2nd element of entry {index}: Type - {type(entry[1])}, Shape - {entry[1].shape}")
-                if not isinstance(entry[2], np.ndarray) or entry[2].shape != (3,):
-                    print(f"Inconsistency found in 3rd element of entry {index}: Type - {type(entry[2])}, Shape - {entry[2].shape}")
-
-            self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps]
+            self.ephemeris = np.array(combined_ephemeris)
+            
+            # self.ephemeris = np.array(combined_ephemeris)[::output_freq_steps] #TODO: this is not working for some reason
 
         elif self.station_keeping == True:
             # Object will station keep from launch to decay
