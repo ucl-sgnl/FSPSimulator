@@ -1,11 +1,8 @@
 import numpy as np
 import pandas as pd
 import astropy.time
-from utils.Conversions import car2kep
-from astropy.time import Time
 import orekit
-from utils.Propagators import sgp4_prop_TLE
-
+from astropy.time import Time
 from org.orekit.orbits import CartesianOrbit, PositionAngle
 from org.orekit.propagation import SpacecraftState
 from org.orekit.time import AbsoluteDate
@@ -18,7 +15,7 @@ from org.orekit.propagation.analytical.tle import TLEPropagator
 from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir
 from java.util import ArrayList
 from typing import List
-
+from utils.Conversions import car2kep
 
 def initialize_orekit():
     """Initializes Orekit."""
@@ -40,12 +37,11 @@ def create_spacecraft_states(positions: List[List[float]], velocities: List[List
     frame = FramesFactory.getICRF()
     spacecraft_states = ArrayList()
     for position, velocity, date_mjd in zip(positions, velocities, dates_mjd):
-        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd)
+        date_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, date_mjd * 86400.0)
         pv_coordinates = PVCoordinates(Vector3D(*position), Vector3D(*velocity))
         orbit = CartesianOrbit(pv_coordinates, frame, date_orekit, Constants.EIGEN5C_EARTH_MU)
         state = SpacecraftState(orbit)
         spacecraft_states.add(state)
-    print("Spacecraft states:", spacecraft_states)
     return spacecraft_states
 
 def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
@@ -147,7 +143,7 @@ def fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds):
     mean_motion_second_derivative = 0.0
     revolution_number = 12345
 
-    date_start_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, mjds[0])  # set the start date of the TLE
+    date_start_orekit = AbsoluteDate(AbsoluteDate.MODIFIED_JULIAN_EPOCH, mjds[0]*86400.0)  # set the start date of the TLE
     b_star_first_guess = 1e-5 # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
@@ -166,13 +162,5 @@ if __name__ == "__main__":
     mjds = [60066.6128, 60067.3451]
     positions_eci = [[-2537.205, 6342.796, 0.0], [-2437.205, 6542.796, 123.0]]
     velocities_eci = [[-1.937, -0.72, 7.361], [-2.937, -5.72, 0.361]]
-    TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
-    line1 = TLE.getLine1()
-    line2 = TLE.getLine2()
-    tle_string = line1 + '\n' + line2
-    # Propagate using SGP4 for the rest of the orbit
-    print("TLE:", tle_string)
-    jd_stop = mjds[-1]+10
-    step_size = 60
-    ephemeris_sgp4 = sgp4_prop_TLE(tle_string, mjds[-1], jd_stop, step_size)
+    fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
     
