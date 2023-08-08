@@ -322,8 +322,10 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     satellite = Satrec.twoline2rv(s, r)
     
     time = jd_start
+    print("time", time)
     # for i in range (jd_start, jd_end, dt):
     while time < jd_end:
+        print("time", time)
         # propagate the satellite to the next time step
         # Position is in idiosyncratic True Equator Mean Equinox coordinate frame used by SGP4
         error, position, velocity = satellite.sgp4(time, fr)
