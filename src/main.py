@@ -4,7 +4,7 @@ import os
 import json
 import pickle
 from tqdm import tqdm
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool, cpu_count, Lock
 from concurrent.futures import ThreadPoolExecutor
 from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from utils.Conversions import utc_to_jd, initialize_orekit
@@ -117,8 +117,10 @@ def run_sim(settings):
     results = []
     
     for space_object in tqdm(SATCAT.Catalogue):
-        result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
-        results.append(result)
+        lock = Lock() # Create a lock object
+        with lock:
+            result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
+            results.append(result)
 
     SATCAT.Catalogue = results
     print("Exporting results...")
