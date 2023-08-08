@@ -38,59 +38,60 @@ def propagate_space_object(args):
 
 from concurrent.futures import ProcessPoolExecutor
 
-def run_parallel_sim(settings):
-    SATCAT = SpaceCatalogue(settings=settings)
-    jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
-    jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
-    step_size = int(settings["integrator_step_size"])
-    output_freq = int(settings["output_frequency"])
-    scenario_name = str(settings["scenario_name"])
-    integrator_type = str(settings["integrator_type"])
-    sgp4_long_term = bool(settings["sgp4_long_term"])
-    force_model = settings["force_model"]
+# TODO: PARALLEL DOES NOT WORK
+# def run_parallel_sim(settings):
+#     SATCAT = SpaceCatalogue(settings=settings)
+#     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
+#     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
+#     step_size = int(settings["integrator_step_size"])
+#     output_freq = int(settings["output_frequency"])
+#     scenario_name = str(settings["scenario_name"])
+#     integrator_type = str(settings["integrator_type"])
+#     sgp4_long_term = bool(settings["sgp4_long_term"])
+#     force_model = settings["force_model"]
 
-    # Initialize for the main process, but also will be initialized within each child process.
-    initialize_orekit()
+#     # Initialize for the main process, but also will be initialized within each child process.
+#     initialize_orekit()
 
-    print("Number of space_object in catalogue specified:", len(SATCAT.Catalogue))
-    print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
+#     print("Number of space_object in catalogue specified:", len(SATCAT.Catalogue))
+#     print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
 
-    decayed_before_start = 0
-    for space_object in SATCAT.Catalogue:
-        if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
-            SATCAT.Catalogue.remove(space_object)
-            decayed_before_start += 1
-    print("# sats decayed before sim start date:", decayed_before_start)
+#     decayed_before_start = 0
+#     for space_object in SATCAT.Catalogue:
+#         if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
+#             SATCAT.Catalogue.remove(space_object)
+#             decayed_before_start += 1
+#     print("# sats decayed before sim start date:", decayed_before_start)
 
-    # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000]
+#     # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
+#     SATCAT.Catalogue = SATCAT.Catalogue[::1000]
 
-    print("Propagating space objects in parallel...")
+#     print("Propagating space objects in parallel...")
 
-    # Create iterable
-    iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
+#     # Create iterable
+#     iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
 
-    results = []
-    mp.set_start_method('spawn') #This ensures a clean start of each new process
-    with tqdm(total=len(iterable)) as pbar:
-        def callback(result):
-            results.append(result)
-            pbar.update()
+#     results = []
+#     mp.set_start_method('spawn') #This ensures a clean start of each new process
+#     with tqdm(total=len(iterable)) as pbar:
+#         def callback(result):
+#             results.append(result)
+#             pbar.update()
 
-        # Use ProcessPoolExecutor for multiprocessing
-        with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
-            # Since the map function blocks until all results are available, we can simply use it here.
-            for result in executor.map(propagate_space_object, iterable):
-                callback(result)
+#         # Use ProcessPoolExecutor for multiprocessing
+#         with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+#             # Since the map function blocks until all results are available, we can simply use it here.
+#             for result in executor.map(propagate_space_object, iterable):
+#                 callback(result)
 
-    SATCAT.Catalogue = results
-    print("Exporting results...")
-    save_path = os.path.dirname(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')
-    os.makedirs(save_path, exist_ok=True)
-    dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
+#     SATCAT.Catalogue = results
+#     print("Exporting results...")
+#     save_path = os.path.dirname(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')
+#     os.makedirs(save_path, exist_ok=True)
+#     dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
 
-    print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
-    return
+#     print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
+#     return
 
 def run_sim(settings):
     SATCAT = SpaceCatalogue(settings=settings)
