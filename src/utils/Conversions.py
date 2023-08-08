@@ -678,6 +678,8 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
     try:
         threshold = 1000.0 
         max_iterations = 10000
+        tle_from_state = TLE.stateToTLE(spacecraft_states.get(0))
+        print("tle_from_state:", tle_from_state)
         tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1000.0)
         print("tle_builder:", tle_builder)
         fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
