@@ -25,6 +25,8 @@ def propagate_space_object(args):
     # Execute the prop_catobject method on the space object
     print(f"Propagating {space_object.rso_name}...")
     try:
+        if long_term_sgp4:
+            initialize_orekit()
         space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type, force_model=force_model, long_term_sgp4=long_term_sgp4)
     except Exception as e:
         print(f"An error occurred while propagating {space_object.rso_name}: {e}")
