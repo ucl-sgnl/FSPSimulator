@@ -671,7 +671,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
         return fit_TLE_to_cart(spacecraft_states, tle_first_guess)
     except Exception as error1:
         if "unable to compute TLE" in str(error1) or "hyperbolic orbits cannot be handled" in str(error1):
-            print("TLE fitting to numerical propagation failed. Modifying eccentricity and trying again.")
+            print("TLE fitting to numerically propagated ephemeris failed. Modifying eccentricity and trying again.")
             
             tle_new_guess = modify_eccentricity(tle_first_guess)
             
