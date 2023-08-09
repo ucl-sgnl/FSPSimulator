@@ -288,13 +288,12 @@ class SpaceObject:
 
             # Propagate using SGP4 for the rest of the orbit
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
-            # Convert tuples in ephemeris_sgp4 to numpy arrays so they are consistent with the numerical ephemeris
-            # Convert to NumPy arrays
+            
             ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
             ephemeris_sgp4_array = np.array(ephemeris_sgp4, dtype=object)
 
             # Combine arrays
-            combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array))
+            combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array)) # Stack arrays vertically. i.e. numerical ephemeris on top of SGP4 ephemeris
 
             # Convert inner tuples to lists
             combined_ephemeris = [ [entry[0], list(entry[1]), list(entry[2])] for entry in combined_ephemeris_array]
