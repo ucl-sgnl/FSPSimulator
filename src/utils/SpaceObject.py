@@ -289,13 +289,17 @@ class SpaceObject:
             # Propagate using SGP4 for the rest of the orbit
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
             # Convert tuples in ephemeris_sgp4 to numpy arrays so they are consistent with the numerical ephemeris
-            ephemeris_sgp4_converted = [[entry[0], np.array(entry[1]), np.array(entry[2])] for entry in ephemeris_sgp4]
+            # Convert to NumPy arrays
+            ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
+            ephemeris_sgp4_array = np.array(ephemeris_sgp4, dtype=object)
 
-            ephemeris_numerical_converted = [(entry[0], (entry[1], entry[2])) for entry in ephemeris_numerical]
-            ephemeris_sgp4_converted_new = [(entry[0], (entry[1], entry[2])) for entry in ephemeris_sgp4_converted]
-            combined_ephemeris = ephemeris_numerical_converted + ephemeris_sgp4_converted_new
-            combined_ephemeris_array = np.array(combined_ephemeris, dtype=object)
-            self.ephemeris = np.array(combined_ephemeris_array)
+            # Combine arrays
+            combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array))
+
+            # Convert inner tuples to lists
+            combined_ephemeris = [ [entry[0], list(entry[1]), list(entry[2])] for entry in combined_ephemeris_array]
+
+            self.ephemeris = combined_ephemeris
 
         elif self.station_keeping == True:
             # Object will station keep from launch to decay

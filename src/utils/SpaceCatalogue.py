@@ -6,7 +6,7 @@ import pickle
 import pandas as pd
 import datetime
 from utils.SpaceObject import SpaceObject
-from utils.Conversions import tle_parse, initialize_orekit
+from utils.Conversions import tle_parse
 from utils.LaunchModel import Prediction2SpaceObjects
 
 import json

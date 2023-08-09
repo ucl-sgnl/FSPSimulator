@@ -262,7 +262,7 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_start, integrato
         JD_time_start (float): Julian Date of the start time
 
     Returns:
-        array: nested array containing the time (MJD), cartesian state vectors for the propagated orbit at each time step.
+        array: nested array containing the time (JD), cartesian state vectors for the propagated orbit at each time step.
     """
     
     x0 = np.concatenate((pos, vel))
@@ -274,10 +274,10 @@ def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_start, integrato
     ephemeris = []
     for t in sol.t:
         state_at_t = sol.sol(t)
-        time_mjd = JD_time_start - 2400000.5 + t / 86400.0  # Convert seconds to MJD
+        time_jd = JD_time_start + t / 86400.0  # Convert seconds to JD
         pos_at_t = state_at_t[:3]
         vel_at_t = state_at_t[3:6]
-        ephemeris.append([time_mjd, pos_at_t, vel_at_t])
+        ephemeris.append([time_jd, pos_at_t, vel_at_t])
 
     return ephemeris
 
