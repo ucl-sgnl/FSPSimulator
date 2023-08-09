@@ -1,4 +1,5 @@
 import os
+import gc
 import json
 import pickle
 import datetime
@@ -84,15 +85,16 @@ def run_sim(settings):
         results_buffer.append(result)
 
         if len(results_buffer) >= BUFFER_SIZE:
+            print(f"Appending last{BUFFER_SIZE} results to: {get_path(save_path)}")
             append_pickle(save_path, results_buffer)
             results_buffer.clear()
+            gc.collect()
 
     # Save remaining results in the buffer
     if results_buffer:
         append_pickle(save_path, results_buffer)
 
     print(f"Simulation complete. Results saved to: {get_path(save_path)}")
-
 
 if __name__ == '__main__':
 
