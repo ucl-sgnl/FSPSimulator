@@ -781,7 +781,7 @@ def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], vel
     pa = float(np.deg2rad(pa))
     raan = float(np.deg2rad(raan))
     ma = float(np.deg2rad(ma))
-    mjds = jds - 2400000.5
+    mjds = [jd - 2400000.5 for jd in jds]
     dates = datetime_from_mjd(mjds)
     obstimes = Time(dates)
     mjds = obstimes.mjd
