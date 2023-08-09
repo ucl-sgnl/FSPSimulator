@@ -751,17 +751,17 @@ def datetime_from_mjd(mjds: list) -> pd.DatetimeIndex:
 
 def split_ephemeris_tuple(ephemeris):
     # split the ephemeris into the three component lists
-    mjds = []
+    jds = []
     positions_eci = []
     velocities_eci = []
 
     for item in ephemeris:
         time_mjd, pos_at_t, vel_at_t = item
-        mjds.append(time_mjd)
+        jds.append(time_mjd)
         positions_eci.append(pos_at_t)
         velocities_eci.append(vel_at_t)
 
-    return positions_eci, velocities_eci, mjds
+    return positions_eci, velocities_eci, jds
 
 def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], velocities_eci: List[List[float]]) -> str:
     """
