@@ -745,6 +745,7 @@ def datetime_from_mjd(mjds: list) -> pd.DatetimeIndex:
     Returns:
         pd.DatetimeIndex: Generated dates.
     """
+    print("mjds[0:5] inside datetime_from_mjd: ", mjds[0:5])
     utc_times = [Time(mjd, format="mjd", scale="utc").datetime for mjd in mjds]
     return pd.DatetimeIndex(utc_times)
 
@@ -781,7 +782,9 @@ def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], vel
     pa = float(np.deg2rad(pa))
     raan = float(np.deg2rad(raan))
     ma = float(np.deg2rad(ma))
+    print("jds[0:5] before convert inside fit_TLE_to_ephemeris: ", jds[0:5])
     mjds = [jd - 2400000.5 for jd in jds]
+    print("mjds[0:5] inside fit_TLE_to_ephemeris: ", mjds[0:5])
     dates = datetime_from_mjd(mjds)
     obstimes = Time(dates)
     mjds = obstimes.mjd

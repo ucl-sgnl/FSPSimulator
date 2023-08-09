@@ -281,11 +281,10 @@ class SpaceObject:
             ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
             positions_eci, velocities_eci, mjds =  split_ephemeris_tuple(ephemeris_numerical) # Split the ephemeris tuple into three lists
             # Fit TLE from numerical ephemeris
-            print("mjds[0:5]", mjds[0:5])
-            print("shape of mjds", np.shape(mjds))
+
             #convert mjds to jds
             jds = [mjd + 2400000.5 for mjd in mjds]
-
+            print("jds before fitting TLE:", jds)
             TLE = fit_TLE_to_ephemeris(jds, positions_eci, velocities_eci)
             line1 = TLE.getLine1()
             line2 = TLE.getLine2()
