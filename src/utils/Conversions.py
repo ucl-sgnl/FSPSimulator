@@ -736,7 +736,7 @@ def create_static_TLE(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE
     first_state = spacecraft_states.get(0)
     return TLE.stateToTLE(first_state, tle_first_guess)
 
-def generate_dates(mjds: list) -> pd.DatetimeIndex:
+def datetime_from_mjd(mjds: list) -> pd.DatetimeIndex:
     """Generates dates from a given list of Modified Julian Dates (MJDs).
 
     Args:
@@ -748,7 +748,8 @@ def generate_dates(mjds: list) -> pd.DatetimeIndex:
     utc_times = [Time(mjd, format="mjd", scale="utc").datetime for mjd in mjds]
     return pd.DatetimeIndex(utc_times)
 
-def prep_ephemeris_for_tle_fitting(ephemeris):
+def split_ephemeris_tuple(ephemeris):
+    # split the ephemeris into the three component lists
     mjds = []
     positions_eci = []
     velocities_eci = []
@@ -761,7 +762,7 @@ def prep_ephemeris_for_tle_fitting(ephemeris):
 
     return positions_eci, velocities_eci, mjds
 
-def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[List[float]], mjds: List[float]) -> str:
+def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], velocities_eci: List[List[float]]) -> str:
     """
     Fits a Two-Line Element Set (TLE) to the given Earth-Centered Inertial (ECI) positions and velocities.
 
@@ -780,7 +781,8 @@ def fit_TLE_to_ephemeris(positions_eci: List[List[float]], velocities_eci: List[
     pa = float(np.deg2rad(pa))
     raan = float(np.deg2rad(raan))
     ma = float(np.deg2rad(ma))
-    dates = generate_dates(mjds)
+    mjds = jds - 2400000.5
+    dates = datetime_from_mjd(mjds)
     obstimes = Time(dates)
     mjds = obstimes.mjd
     # Create spacecraft states

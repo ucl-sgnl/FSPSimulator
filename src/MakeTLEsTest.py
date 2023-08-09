@@ -113,7 +113,7 @@ def generate_dates(mjds: list) -> pd.DatetimeIndex:
     utc_times = [Time(mjd, format="mjd", scale="utc").datetime for mjd in mjds]
     return pd.DatetimeIndex(utc_times)
 
-def fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds):
+def fit_TLE_to_ephemeris(positions_eci, velocities_eci, jds):
 
     a, e, i, pa, raan, ma = car2kep(*positions_eci[0], *velocities_eci[0])
     e = float(np.deg2rad(e))
@@ -122,6 +122,7 @@ def fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds):
     raan = float(np.deg2rad(raan))
     ma = float(np.deg2rad(ma))
 
+    mjds = jds - 2400000.5
     dates = generate_dates(mjds)
     obstimes = astropy.time.Time(dates)
     mjds = obstimes.jd - 2400000.5

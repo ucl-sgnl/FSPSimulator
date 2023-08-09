@@ -4,7 +4,7 @@ import warnings
 from enum import Enum
 import numpy as np
 from astropy.time import Time
-from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day,prep_ephemeris_for_tle_fitting, fit_TLE_to_ephemeris
+from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day,split_ephemeris_tuple, fit_TLE_to_ephemeris
 from utils.Propagators import numerical_prop, kepler_prop, sgp4_prop_TLE
 
 class OperationalStatus(Enum):
@@ -279,16 +279,17 @@ class SpaceObject:
             # Propagate numerically for the segment time
             next_jd = min(current_jd + numerical_segment_seconds / 86400, jd_stop)
             ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
-            positions_eci, velocities_eci, mjds =  prep_ephemeris_for_tle_fitting(ephemeris_numerical)
+            positions_eci, velocities_eci, mjds =  split_ephemeris_tuple(ephemeris_numerical) # Split the ephemeris tuple into three lists
             # Fit TLE from numerical ephemeris
-            TLE = fit_TLE_to_ephemeris(positions_eci, velocities_eci, mjds)
+            jds = mjds + 2400000.5
+            TLE = fit_TLE_to_ephemeris(jds, positions_eci, velocities_eci)
             line1 = TLE.getLine1()
             line2 = TLE.getLine2()
             tle_string = line1 + '\n' + line2
 
             # Propagate using SGP4 for the rest of the orbit
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
-            
+
             ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
             ephemeris_sgp4_array = np.array(ephemeris_sgp4, dtype=object)
 
