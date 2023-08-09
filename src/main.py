@@ -59,7 +59,6 @@ def run_sim(settings):
 
     SATCAT.Catalogue = [space_object for space_object in SATCAT.Catalogue if space_object.decay_date >= datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d')]
 
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000]
 
     print(f"Propagating {len(SATCAT.Catalogue)} space objects...")
 
@@ -94,6 +93,7 @@ def run_sim(settings):
 
 
 if __name__ == '__main__':
+    initialize_orekit()
     simulation_files = [sim for sim in os.listdir(get_path('src/data/specify_simulations/')) if sim.endswith('.json')]
     
     for sim in simulation_files:
