@@ -1,4 +1,3 @@
-from memory_profiler import profile
 import os
 import json
 import pickle
@@ -50,7 +49,6 @@ def propagate_space_object(args):
 
     return space_object
 
-@profile
 def run_sim(settings):
     if settings["sgp4_long_term"]:
         initialize_orekit()
