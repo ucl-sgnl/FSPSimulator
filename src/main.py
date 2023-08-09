@@ -53,6 +53,8 @@ def propagate_space_object(args):
 
 
 def run_sim(settings):
+    if settings["sgp4_long_term"]:
+        initialize_orekit()
     SATCAT = SpaceCatalogue(settings=settings)
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
@@ -93,7 +95,7 @@ def run_sim(settings):
 
 
 if __name__ == '__main__':
-    initialize_orekit()
+
     simulation_files = [sim for sim in os.listdir(get_path('src/data/specify_simulations/')) if sim.endswith('.json')]
     
     for sim in simulation_files:
