@@ -1,89 +1,109 @@
-import datetime
-import sys
 import os
 import json
 import pickle
+import datetime
 from tqdm import tqdm
-import multiprocessing as mp
-from multiprocessing import Pool, cpu_count, Lock
-from concurrent.futures import ThreadPoolExecutor
-from concurrent.futures import ProcessPoolExecutor
-
 from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from utils.Conversions import utc_to_jd, initialize_orekit
+
+
+BUFFER_SIZE = 100
+
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
 
+
 def load_pickle(file_path):
     with open(get_path(file_path), 'rb') as f:
-        return pickle.load(f)
+        data = []
+        while True:
+            try:
+                data.append(pickle.load(f))
+            except EOFError:
+                break
+        return data
 
-def dump_pickle(file_path, data):
-    with open(get_path(file_path), 'wb') as f:
-        pickle.dump(data, f)
+
+def append_pickle(file_path, data_buffer):
+    with open(get_path(file_path), 'ab') as f:
+        for item in data_buffer:
+            pickle.dump(item, f)
+
 
 def propagate_space_object(args):
     space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4 = args
-    # Execute the prop_catobject method on the space object
     print(f"Propagating {space_object.rso_name}...")
     try:
-        space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type, force_model=force_model, long_term_sgp4=long_term_sgp4)
+        space_object.prop_catobject(
+            jd_start=jd_start,
+            jd_stop=jd_stop,
+            step_size=step_size,
+            output_freq=output_freq,
+            integrator_type=integrator_type,
+            force_model=force_model,
+            long_term_sgp4=long_term_sgp4
+        )
     except Exception as e:
-        print(f"An error occurred while propagating {space_object.rso_name}: {e}")
+        print(f"Error propagating {space_object.rso_name}: {e}")
         import traceback
         traceback.print_exc()
 
     return space_object
 
+
 def run_sim(settings):
     SATCAT = SpaceCatalogue(settings=settings)
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
-    step_size = int(settings["integrator_step_size"])
-    output_freq = int(settings["output_frequency"])
-    scenario_name = str(settings["scenario_name"])
-    integrator_type = str(settings["integrator_type"])
-    sgp4_long_term = bool(settings["sgp4_long_term"])
-    force_model = settings["force_model"]
-    initialize_orekit()
 
-    print("Number of space objects in catalogue specified:", len(SATCAT.Catalogue))
-
-    # Filter out space objects that decayed before the simulation start date
     SATCAT.Catalogue = [space_object for space_object in SATCAT.Catalogue if space_object.decay_date >= datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d')]
 
-    print("# sats decayed before sim start date:", len(SATCAT.Catalogue))
-
-    # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
     SATCAT.Catalogue = SATCAT.Catalogue[::1000]
 
-    print("Propagating space objects...")
+    print(f"Propagating {len(SATCAT.Catalogue)} space objects...")
 
-    results = []
-    
+    results_buffer = []
+    save_path = f'src/data/results/propagated_catalogs/{settings["scenario_name"]}.pickle'
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
     for space_object in tqdm(SATCAT.Catalogue):
-        result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
-        results.append(result)
+        result = propagate_space_object(
+            (
+                space_object,
+                jd_start,
+                jd_stop,
+                settings["integrator_step_size"],
+                settings["output_frequency"],
+                settings["integrator_type"],
+                settings["force_model"],
+                settings["sgp4_long_term"]
+            )
+        )
+        results_buffer.append(result)
 
-    SATCAT.Catalogue = results
-    print("Exporting results...")
-    save_path = os.path.dirname(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')
-    os.makedirs(save_path, exist_ok=True)
-    dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
+        if len(results_buffer) >= BUFFER_SIZE:
+            append_pickle(save_path, results_buffer)
+            results_buffer.clear()
 
-    print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
+    # Save remaining results in the buffer
+    if results_buffer:
+        append_pickle(save_path, results_buffer)
+
+    print(f"Simulation complete. Results saved to: {get_path(save_path)}")
+
 
 if __name__ == '__main__':
-    #list all the json files in src/data/specify_simulations
-    sims = os.listdir(get_path('src/data/specify_simulations/'))
-    for sim in sims:
-        if sim.endswith('.json'):
-            print(f"Running simulation: {sim}")
-            settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
-            check_json_file(settings)#check if the json file is filled out correctly
-            run_sim(settings)
-            print(f"Simulation {sim} complete")
+    simulation_files = [sim for sim in os.listdir(get_path('src/data/specify_simulations/')) if sim.endswith('.json')]
+    
+    for sim in simulation_files:
+        print(f"Running simulation: {sim}")
+        with open(get_path(f'src/data/specify_simulations/{sim}'), 'r') as file:
+            settings = json.load(file)
+
+        check_json_file(settings)
+        run_sim(settings)
+        print(f"Simulation {sim} complete")
 
 
 # TODO: PARALLEL DOES NOT WORK
