@@ -1,15 +1,14 @@
+from memory_profiler import profile
 import os
-import gc
 import json
 import pickle
 import datetime
+import traceback
 from tqdm import tqdm
 from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from utils.Conversions import utc_to_jd, initialize_orekit
 
-
 BUFFER_SIZE = 100
-
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -47,12 +46,11 @@ def propagate_space_object(args):
         )
     except Exception as e:
         print(f"Error propagating {space_object.rso_name}: {e}")
-        import traceback
         traceback.print_exc()
 
     return space_object
 
-
+@profile
 def run_sim(settings):
     if settings["sgp4_long_term"]:
         initialize_orekit()
@@ -62,6 +60,7 @@ def run_sim(settings):
 
     SATCAT.Catalogue = [space_object for space_object in SATCAT.Catalogue if space_object.decay_date >= datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d')]
 
+    SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
 
     print(f"Propagating {len(SATCAT.Catalogue)} space objects...")
 
@@ -88,8 +87,6 @@ def run_sim(settings):
             print(f"Appending last{BUFFER_SIZE} results to: {get_path(save_path)}")
             append_pickle(save_path, results_buffer)
             results_buffer.clear()
-            gc.collect()
-
     # Save remaining results in the buffer
     if results_buffer:
         append_pickle(save_path, results_buffer)
