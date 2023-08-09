@@ -13,6 +13,6 @@
     "environment": "development",
     "repull_catalogues": false,
     "satellite_predictions_csv": "oneweb_starlink.csv",
-    "force_model": ["grav_mono"],
+    "force_model": ["all"],
     "sgp4_long_term":true
   }
