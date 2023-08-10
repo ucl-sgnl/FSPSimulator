@@ -6,7 +6,7 @@
     "sim_start_date":"2019-01-01",
     "sim_end_date":"2025-01-01",
     "output_frequency": 86400,
-    "integrator_step_size": 1000,
+    "integrator_step_size": 86400,
     "integrator_type": "RK45",
     "sim_object_type": "all",
     "sim_object_catalogue" : "both",
