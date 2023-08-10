@@ -58,7 +58,7 @@ def run_sim(settings):
 
     SATCAT.Catalogue = [space_object for space_object in SATCAT.Catalogue if space_object.decay_date >= datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d')]
 
-    SATCAT.Catalogue = SATCAT.Catalogue[::50] # Slice SATCAT.Catalogue for memory purposes
+    SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice SATCAT.Catalogue for memory purposes
 
     print(f"Propagating {len(SATCAT.Catalogue)} space objects...")
 
