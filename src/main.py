@@ -108,7 +108,7 @@ def run_parallel_sim(settings):
     print("# sats decayed before sim start date: ", decayed_before_start)
 
     # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000]
+    SATCAT.Catalogue = SATCAT.Catalogue[::100]
 
     print("Propagating space objects in parallel...")
 
