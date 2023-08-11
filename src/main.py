@@ -35,6 +35,8 @@ def propagate_space_object(args):
 
 def run_sim(settings):
     SATCAT = SpaceCatalogue(settings=settings)
+    total_objects = len(SATCAT.Catalogue)
+    
     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
     step_size = int(settings["integrator_step_size"])
@@ -47,10 +49,10 @@ def run_sim(settings):
 
     batch = 1
     batch_size = 100
-    while SATCAT.Catalogue:
+
+    for _ in tqdm(range(0, total_objects, 1000), desc="Propagating objects"):
         current_batch = []
 
-        # Propagate space objects for the current batch
         for _ in range(batch_size):
             if not SATCAT.Catalogue:
                 break
@@ -68,17 +70,6 @@ def run_sim(settings):
 
     print(f"Simulation complete. Results saved to batches in: {get_path(f'src/data/results/propagated_catalogs/')}")
 
-
-if __name__ == '__main__':
-    #list all the json files in src/data/specify_simulations
-    sims = os.listdir(get_path('src/data/specify_simulations/'))
-    for sim in sims:
-        if sim.endswith('.json'):
-            print(f"Running simulation: {sim}")
-            settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
-            check_json_file(settings)#check if the json file is filled out correctly
-            run_sim(settings)
-            print(f"Simulation {sim} complete")
 
 ###### MULTIPROCESSING ######
 # def run_parallel_sim(settings):
