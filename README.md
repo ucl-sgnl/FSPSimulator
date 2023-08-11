@@ -73,7 +73,7 @@ To run the simulations on a Virtual Machine, you will need Miniconda to activate
 
 ``` bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-chmod +x Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64
 ./Miniconda3-latest-Linux-x86_64.sh
 source ~/.bashrc
 conda --version

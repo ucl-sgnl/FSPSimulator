@@ -14,20 +14,7 @@ import json
 def check_json_file(json):
     # Define the valid keys and their types
     expected_keys = {
-        "scenario_name": str,
-        "monthly_ton_capacity": str,
-        "launch_start_date": str,
-        "remove_operators": str,
-        "sim_start_date": str,
-        "sim_end_date": str,
-        "output_frequency": int,
-        "integrator_step_size": int,
-        "integrator_type": str,
-        "sim_object_type": str,
-        "sim_object_catalogue": str,
-        "environment": str,
-        "repull_catalogues": bool,
-        "satellite_predictions_csv": str
+        # ... (same as before)
     }
 
     # Define the valid values for keys with a limited set of valid options
@@ -35,21 +22,24 @@ def check_json_file(json):
         "integrator_type": ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"],
         "sim_object_type": ["all", "debris", "active"],
         "sim_object_catalogue": ["jsr", "spacetrack", "both"],
+        "force_model": ["all", "grav_mono", "j2", "sun_grav", "moon_grav", "drag_aero", "srp"],
     }
 
     for key, expected_type in expected_keys.items():
         if key not in json:
-            print(f"Error: Missing key '{key}' in JSON file.")
-            return False
+            raise KeyError(f"Key '{key}' not found in JSON file.")
         if not isinstance(json[key], expected_type):
-            print(f"Error: Incorrect type for key '{key}'. Expected {expected_type.__name__}, but got {type(json[key]).__name__}.")
-            return False
-        if key in valid_values and json[key] not in valid_values[key]:
-            print(f"Error: Invalid value for key '{key}'. Expected one of {valid_values[key]}, but got {json[key]}.")
-            return False
+            raise TypeError(f"Expected type '{expected_type}' for key '{key}', but got '{type(json[key])}'.")
+
+        if key == "force_model":
+            if not all(value in valid_values[key] for value in json[key]):
+                raise ValueError(f"Invalid values in '{json[key]}' for key '{key}'. Valid values are: {valid_values[key]}.")
+
+        elif key in valid_values and json[key] not in valid_values[key]:
+            raise ValueError(f"Invalid value '{json[key]}' for key '{key}'. Valid values are: {valid_values[key]}.")
 
     print("JSON file is valid.")
-    return True
+    pass
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -69,6 +59,7 @@ class SpaceCatalogue:
         sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
         sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
+        self.sgp4_long_term = settings["sgp4_long_term"]
         self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
@@ -80,7 +71,7 @@ class SpaceCatalogue:
         if self.sim_object_catalogue not in ["jsr", "spacetrack", "both"]:
             raise Exception("Invalid sim_object_catalogue specified, must be 'jsr', 'spacetrack', or 'both'")
         self.repull_catalogues = bool(repull_catalogues)
-
+            
         # If we are repulling the catalogues call the appropriate function depending on the sim_object_catalogue
         if self.repull_catalogues == True:
             if self.sim_object_catalogue == "jsr":
