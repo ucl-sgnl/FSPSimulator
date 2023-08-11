@@ -50,9 +50,15 @@ def run_sim(settings):
     batch = 1
     batch_size = 100
 
-    for _ in tqdm(range(0, total_objects, 1000), desc="Propagating objects"):
+    SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice for testing   
+
+    # Create a progress bar
+    pbar = tqdm(total=len(SATCAT.Catalogue), desc="Propagating")
+
+    while SATCAT.Catalogue:
         current_batch = []
 
+        # Propagate space objects for the current batch
         for _ in range(batch_size):
             if not SATCAT.Catalogue:
                 break
@@ -60,6 +66,7 @@ def run_sim(settings):
             space_object = SATCAT.Catalogue.pop(0)
             propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
             current_batch.append(space_object)
+            pbar.update(1)  # Update the progress bar
 
         # Save the current batch
         print(f"Saving batch {batch}...")
@@ -68,6 +75,7 @@ def run_sim(settings):
         dump_pickle(save_path, current_batch)
         batch += 1
 
+    pbar.close()  # Close the progress bar
     print(f"Simulation complete. Results saved to batches in: {get_path(f'src/data/results/propagated_catalogs/')}")
 
 if __name__ == '__main__':
