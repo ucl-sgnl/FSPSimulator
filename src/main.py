@@ -178,11 +178,12 @@ def run_sim(settings):
     print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
 
 if __name__ == '__main__':
+    #list all the json files in src/data/specify_simulations
     sims = os.listdir(get_path('src/data/specify_simulations/'))
     for sim in sims:
         if sim.endswith('.json'):
             print(f"Running simulation: {sim}")
             settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
-            check_json_file(settings)
+            check_json_file(settings)#check if the json file is filled out correctly
             run_sim(settings)
             print(f"Simulation {sim} complete")
