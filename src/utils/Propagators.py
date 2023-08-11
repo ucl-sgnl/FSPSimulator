@@ -1,8 +1,8 @@
 import numpy as np
 import warnings
-from pyatmos import coesa76
 from scipy.integrate import solve_ivp
 from sgp4.api import Satrec
+from sgp4.api import SGP4_ERRORS
 import math
 
 #Local imports
@@ -40,17 +40,20 @@ def j2_acc(state):
     Returns:
          (float/int): result of acceleration
     """
-    r = np.linalg.norm(state[0:3])
-    r_norm = np.linalg.norm(r)
+    r_vec = state[0:3]
+    r_norm = np.linalg.norm(r_vec)
 
-    z2 = state[2] ** 2
+    x = r_vec[0] / r_norm
+    y = r_vec[1] / r_norm
+    z = r_vec[2] / r_norm
     r2 = r_norm**2
-    tx = state[0] / r_norm * (5 * z2 / r2 - 1)
-    ty = state[1] / r_norm * (5 * z2 / r2 - 1)
-    tz = state[2] / r_norm * (5 * z2 / r2 - 3)
-    a_j2 = (
-        1.5 * j2 * GM_earth * Re**2 / r2**2 * np.array([tx, ty, tz])
-    )  # calculate the acceleration due to J2
+    z2 = z**2
+
+    tx = x * (1 - 5*z2)
+    ty = y * (1 - 5*z2)
+    tz = z * (3 - 5*z2)
+
+    a_j2 = 1.5 * j2 * GM_earth * Re**2 / r2**2 * np.array([tx, ty, tz])  # calculate the acceleration due to J2
     return a_j2
 
 def monopole_sun_grav_acc(state, jd_time):
@@ -82,7 +85,6 @@ def monopole_moon_grav_acc(state, jd_time):
     return moon_acc
 
 def solar_shadow_function(state, jd_time):
-    #TODO: this needs some proper testing to make sure it works. Seems reasonable but have not rigorously tested it.
     """
     Calculate whether the satellite is in the umbra, penumbra, or full phase of the Earth's shadow.
     Args:
@@ -91,14 +93,29 @@ def solar_shadow_function(state, jd_time):
     Returns:
         (str): "sun", "umbra", or "penumbra"
     """
+    # Ensure input arrays are numpy arrays
+    state = np.array(state)
 
-    probe_sun_vector = probe_sun_vec(state[:3], jd_time, unit=False)
-    s = state[:3] - probe_sun_vector # vector from the satellite to the center of mass of the Sun
+    # Check if the probe_sun_vec function returns expected values
+    try:
+        probe_sun_vector = probe_sun_vec(state[:3], jd_time, unit=False)
+    except Exception as e:
+        print(f"Error in probe_sun_vec function: {e}")
+        return None
 
-    a = np.arcsin(RSun/ np.linalg.norm(probe_sun_vector - state[:3])) # apparent radius of the occulted body (the Sun)
-    b = np.arcsin(Re / np.linalg.norm(state[:3])) # apparent radius of the occulting body (the Earth)
-    c = np.arccos(np.dot(-state[:3], probe_sun_vector) / (np.linalg.norm(state[:3]) * np.linalg.norm(probe_sun_vector))) # Angle between the vectors to the Sun and to the Earth
+    # Ensure probe_sun_vector is a numpy array
+    probe_sun_vector = np.array(probe_sun_vector)
 
+    # Calculate apparent radii and angle
+    try:
+        a = np.arcsin(RSun / np.linalg.norm(probe_sun_vector - state[:3]))  # apparent radius of the Sun
+        b = np.arcsin(Re / np.linalg.norm(state[:3]))  # apparent radius of the Earth
+        c = np.arccos(np.dot(-state[:3], probe_sun_vector) / (np.linalg.norm(state[:3]) * np.linalg.norm(probe_sun_vector)))  # Angle between the vectors to the Sun and to the Earth
+    except Exception as e:
+        print(f"Error in calculation of a, b, c: {e}")
+        return None
+
+    # Determine satellite's location relative to shadow
     if a + b <= c:
         return "sun"  # Satellite is in full sunlight
     elif a + c <= b:
@@ -138,7 +155,7 @@ def aero_drag_acc(state, cd, area, mass, density_model, jd):
 
     #v_rel_atm outputs the relative velocity in km/s. We need to convert it to m/s to use in the drag force model
     acc_drag =  -0.5 * rho * ((cd*area)/mass)*(1000*(v_rel_atm**2)) # Vallado and Finkleman (2014)
-    drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration
+    drag_a_vec = acc_drag * (v_rel_atm / v_norm) # Multiply by unit direction vector to apply drag acceleration and convert it back to km/s^2
 
     return drag_a_vec
 
@@ -164,14 +181,14 @@ def srp_acc(mass, area, state, jd_time, cr=1):
         probe_sun_norm = np.linalg.norm(probe_sun_vec_m)
         a_srp_vec = -Power_Sun*cr*(area/mass)*(probe_sun_vec_m)/(probe_sun_norm**3)*(AU_m**2) #Canonball SRP from Montenbruck and Gill (2000)
         # units
-        a_srp_vec = a_srp_vec/1000 #convert from km/s^2 to m/s^2
+        a_srp_vec = a_srp_vec/1000 #convert from m/s^2 to km/s^2
     elif shadow == "umbra":
         a_srp_vec = np.array([0,0,0])
     elif shadow == "penumbra":
         a_srp_vec = np.array([0,0,0]) #TODO: this is not correct. Need to calculate the SRP acceleration in the penumbra. For now just set to zero.
     return a_srp_vec
 
-def accelerations (t, state, cd, area, mass, jd_time):
+def accelerations (t, state, cd, area, mass, jd_time, force_model=["all"]):
     """For a single time step, calculates the accelerations for a given state vector at a given time.
 
     Args:
@@ -180,42 +197,53 @@ def accelerations (t, state, cd, area, mass, jd_time):
         cd (float): drag coefficient
         area (float): cross-sectional area of the satellite (m^2)
         mass (float): mass of the satellite (kg)
- 
+        force_models (list of str): list of force models to be included in the calculation. Possible values include "grav_mono", "a_j2", "drag_aero", "a_srp", "all". Default is ["all"].
+
     Returns:
         array: cartesian velocity and the new accelerations in the x,y,z dimensions
     """
 
+    a_tot = np.zeros(3)
+
+    # print('t: ', t)
+
     #--------------- MONOPOLE ACCELERATION -----------------#
-    
-    grav_mono=monopole_earth_grav_acc(state)
-    
+    if "all" in force_model or "grav_mono" in force_model:
+        grav_mono=monopole_earth_grav_acc(state)
+        # print('grav_mono norm: ', np.linalg.norm(grav_mono))
+        a_tot += grav_mono
+
     #--------------- J2 PERT ACCELERATION ------------------#
-   
-    a_j2 = j2_acc(state)
-    
-    #--------------- MOON AND SUN PERTURBATIONS ------------#
+    if "all" in force_model or "j2" in force_model:
+        a_j2 = j2_acc(state)
+        # print('a_j2 norm: ', np.linalg.norm(a_j2))
+        a_tot += a_j2
 
-    # sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
-    # print("sun_grav_mono: ", sun_grav_mono)
-    # moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
-    # print("moon_grav_mono: ", moon_grav_mono)
+    #--------------- SUN GRAVITY ------------------------#
+    if "all" in force_model or "sun_grav" in force_model:
+        sun_grav_mono = monopole_sun_grav_acc(state, jd_time)
+        # print('sun_grav_mono norm: ', np.linalg.norm(sun_grav_mono))
+        a_tot += sun_grav_mono
 
-    #--------------- TOTAL GRAVITATIONAL ACCELERATION ------#
-    
-    grav_a = grav_mono + a_j2 #+ sun_grav_mono + moon_grav_mono #sum of all gravitational accelerations
-    
+    #--------------- MOON GRAVITY -----------------------#
+    if "all" in force_model or "moon_grav" in force_model:
+        moon_grav_mono = monopole_moon_grav_acc(state, jd_time)
+        # print('moon_grav_mono norm: ', np.linalg.norm(moon_grav_mono))
+        a_tot += moon_grav_mono
+
     #--------------- AERO DRAG ACCELERATION --------------#
-    drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) #TODO: make the density model type an input of the sim settings file
+    if "all" in force_model or "drag_aero" in force_model:
+        drag_aero_vec = aero_drag_acc(state, cd, area, mass, density_model="ussa76", jd=jd_time) 
+        # print('drag_aero_vec norm: ', np.linalg.norm(drag_aero_vec))
+        a_tot += drag_aero_vec
 
-    #combine all the above print statemtnts into one print statement
     #--------------- SOLAR RADIATION PRESSURE ACCELERATION --------------#
-    a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
-    
-    
-    a_tot = grav_a + drag_aero_vec + a_srp_vec 
-    
-    # print("aerodrag: ", drag_aero_vec, "a_srp_vec: ", a_srp_vec, "altitude: ", np.linalg.norm(state[:3]) - Re)
-    return np.array([state[3],state[4],state[5],a_tot[0],a_tot[1],a_tot[2]])
+    if "all" in force_model or "srp" in force_model:
+        a_srp_vec = srp_acc(mass, area, state, jd_time, cr=1)
+        # print('a_srp_vec norm: ', np.linalg.norm(a_srp_vec))
+        a_tot += a_srp_vec
+
+    return np.array([state[3], state[4], state[5], a_tot[0], a_tot[1], a_tot[2]])
 
 def stop_propagation(t, y, *args):
     """Event function for solve_ivp to stop integration when altitude is less than 105 km."""
@@ -225,40 +253,33 @@ def stop_propagation(t, y, *args):
 
 stop_propagation.terminal = True  # Stop the integration when this event occurs
 
-def numerical_prop(tot_time, pos, vel, C_d, area, mass,JD_time_stamps, h, integrator_type):
+def numerical_prop(tot_time, pos, vel, C_d, area, mass, JD_time_start, integrator_type, force_model):
     """
     Numerical Propagation of the orbit
 
     Args:
-        tot_time (float): total propagation time (seconds)
-        pos (array): cartesian position vector [x,y,z] (km) at initial conditions
-        vel (array): cartesian velocity vector [u,v,w] (km/s) at initial conditions
-        C_d (float): drag coefficient
-        area (float): cross-sectional area of the satellite (m^2)
-        mass (float): mass of the satellite (kg)
-        JD_time_stamps (array): array of Julian Date time stamps for each of the time steps
-        h (float): time step of the propagation (seconds).
-        integrator_type (str): type of numerical integration to use.
+        # (rest of the parameters description)
+        JD_time_start (float): Julian Date of the start time
 
     Returns:
-        array: nested array containing the cartesian state vectors for the propagated orbit at each time step.
+        array: nested array containing the time (JD), cartesian state vectors for the propagated orbit at each time step.
     """
-
-    if h > 30:
-        warnings.warn(f'The time step of {h} seconds is large. The results may be inaccurate.')
-
-    pos = np.array(pos) #cast to numpy array
-    vel = np.array(vel)
     
-    x0 = np.concatenate((pos, vel))  # Initial state is position and velocity
+    x0 = np.concatenate((pos, vel))
 
     # Call solve_ivp to propagate the orbit
-    # Call solve_ivp to propagate the orbit
-    sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, np.interp(t, np.arange(0, tot_time, h), JD_time_stamps)), [0, tot_time], x0, method=integrator_type, t_eval=np.arange(0, tot_time, h),
-                        events=stop_propagation, rtol=1e-7, atol=1e-7)
+    sol = solve_ivp(lambda t, state: accelerations(t, state, C_d, area, mass, JD_time_start + t / 86400.0, force_model), [0, tot_time], x0, method=integrator_type,
+                        events=stop_propagation, rtol=1e-13, atol=1e-11, dense_output=True)
 
-    #TODO: I have reduced the tolerance to get the code to run faster. Need to decide on what is acceptable/necessary here
-    return sol.y.T  # Returns an array where each row is the state at a time
+    ephemeris = []
+    for t in sol.t:
+        state_at_t = sol.sol(t)
+        time_jd = JD_time_start + t / 86400.0  # Convert seconds to JD
+        pos_at_t = state_at_t[:3]
+        vel_at_t = state_at_t[3:6]
+        ephemeris.append([time_jd, pos_at_t, vel_at_t])
+
+    return ephemeris
 
 def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
@@ -277,7 +298,7 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     """
 
     if jd_start > jd_end:
-        print('jd_start must be less than jd_end')
+        warnings.warn("jd_start is greater than jd_end. SGP4 Propagation will not be performed.")
         return
 
     ephemeris = []
@@ -287,7 +308,6 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
     #split at the new line
     split_tle = TLE.split('\n')
-    print("split_tle: ", split_tle)
 
     if len(split_tle) == 3:
         # three line TLE
@@ -306,11 +326,10 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
     while time < jd_end:
         # propagate the satellite to the next time step
         # Position is in idiosyncratic True Equator Mean Equinox coordinate frame used by SGP4
-        # Velocity is the rate at which the position is changing, expressed in kilometers per second
         error, position, velocity = satellite.sgp4(time, fr)
         if error != 0:
-            #print('error: ', error)
-            break
+            warnings.warn(SGP4_ERRORS[error])
+            return ephemeris
         else:
             ephemeris.append([time,position, velocity]) #jd time, pos, vel
             time += dt_jd
@@ -324,7 +343,7 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     Args:
         jd_start:  starting time in Julian Date
         jd_stop: ending time in Julian Date
-        step (int): sampling time of the orbit in seconds
+        step_size (int): sampling time of the orbit in seconds
         a (float): semi-major axis in Kilometers
         e (float): eccentricity of the orbit
         i (float): inclination of the orbit in degrees
@@ -334,76 +353,72 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     Returns:
         ephemeris (list): list in the form [(time, position, velocity), (time, position, velocity), ...]
     """
+    # Convert angles to radians
+    i, w, W, V = map(np.deg2rad, [i, w, W, V])
 
     # Defining radial distance and semi-latus rectum
     p = a * (1 - (e**2))
     r = p / (1 + e * np.cos(V))
-   
+
     # empty list to store the time step in each iteration
     ephemeris = []
+
     # calculate the number of steps between jd_start and jd_stop if the step size is step_size seconds) 
-    t_diff = jd_stop-jd_start # time difference in Julian Days
+    t_diff = jd_stop-jd_start  # time difference in Julian Days
     t_diff_secs = 86400 * t_diff
     current_jd = jd_start
-    steps = math.ceil(t_diff_secs/step_size) # total number of integer steps
-    for i in range(0, steps, 1):
-        time = 0 #internal timer
+    steps = math.ceil(t_diff_secs/step_size)  # total number of integer steps
+    for step in range(steps):
         # Compute the mean motion
         n = np.sqrt(GM_earth / (a**3))
-        
+
         # Compute the eccentric anomaly at t=t0
         cos_Eo = ((r * np.cos(V)) / a) + e
         sin_Eo = (r * np.sin(V)) / (a * np.sqrt(1 - e**2))
-        # adding 2 pi for for very small values
-        # ensures that Eo stays in the range 0< Eo <2Pi
-        Eo = math.atan2(sin_Eo, cos_Eo)
-        if Eo < 0.0:
-            Eo = Eo + 2 * np.pi
-        else:
-            Eo = Eo
+        Eo = np.arctan2(sin_Eo, cos_Eo)
+        Eo = Eo if Eo >= 0 else Eo + 2*np.pi
+
         # Compute mean anomaly at start point
-        Mo = Eo - e * np.sin(Eo)  # From Kepler's equation
+        Mo = Eo - e * np.sin(Eo)
+
         # Compute the mean anomaly at t+newdt
-        Mi = Mo + n * time
+        Mi = Mo + n * (step * step_size)
+
         # Solve Kepler's equation to compute the eccentric anomaly at t+newdt
         M = Mi
-        
+
         # Initial Guess at Eccentric Anomaly
-        # (taken these conditions from
-        # Fundamentals of Astrodynamics by Roger.E.Bate)
-        r_tol = 1e-7 # relative tolerance
         if M < np.pi:
             E = M + (e / 2)
-        if M > np.pi:
+        if M >= np.pi:
             E = M - (e / 2)
-        # Initial Conditions
+
+        # Iterative solution for E
+        r_tol = 1e-7  # relative tolerance
         f = E - e * np.sin(E) - M
         f_prime = 1 - e * np.cos(E)
         ratio = f / f_prime
-        # Numerical iteration for ratio compared to level of accuracy wanted
         while abs(ratio) > r_tol:
             f = E - e * np.sin(E) - M
             f_prime = 1 - e * np.cos(E)
             ratio = f / f_prime
-            if abs(ratio) > r_tol:
-                E = E - ratio
-            if abs(ratio) < r_tol:
-                break
+            E -= ratio
 
         Ei = E
+
         # Compute the gaussian vector component x,y
         x_new = a * (np.cos(Ei) - e)
-        y_new = a * ((np.sqrt(1 - e**2)) * (np.sin(Ei)))
+        y_new = a * (np.sqrt(1 - e**2) * np.sin(Ei))
         # Compute the in-orbital plane Gaussian Vectors
         # This gives P and Q in ECI components
-        P = np.matrix(
+        P = np.array(
             [
                 [np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)],
                 [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)],
                 [np.sin(i) * np.sin(w)],
             ]
         )
-        Q = np.matrix(
+        Q = np.array(
             [
                 [-np.cos(W) * np.sin(w) - np.sin(W) * np.cos(i) * np.cos(w)],
                 [-np.sin(W) * np.sin(w) + np.cos(W) * np.cos(i) * np.cos(w)],
@@ -416,9 +431,10 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         # Thus we can project the satellite position onto the ECI basis.
         # calcualting the new x coordiante
 
-        cart_pos_x_new = (x_new * P.item(0)) + (y_new * Q.item(0))
-        cart_pos_y_new = (x_new * P.item(1)) + (y_new * Q.item(1))
-        cart_pos_z_new = (x_new * P.item(2)) + (y_new * Q.item(2))
+        cart_pos_x_new = (x_new * P[0, 0]) + (y_new * Q[0, 0])
+        cart_pos_y_new = (x_new * P[1, 0]) + (y_new * Q[1, 0])
+        cart_pos_z_new = (x_new * P[2, 0]) + (y_new * Q[2, 0])
+        
         # Compute the range at t+dt
         r_new = a * (1 - e * (np.cos(Ei)))
         # Compute the gaussian velocity components
@@ -427,18 +443,16 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         f_new = (np.sqrt(a * GM_earth)) / r_new
         g_new = np.sqrt(1 - e**2)
        
-        cart_vel_x_new = (-f_new * sin_Ei * P.item(0)) + (f_new * g_new * cos_Ei * Q.item(0))  # x component of velocity
-        cart_vel_y_new = (-f_new * sin_Ei * P.item(1)) + (f_new * g_new * cos_Ei * Q.item(1))  # y component of velocity
-        cart_vel_z_new = (-f_new * sin_Ei * P.item(2)) + (f_new * g_new * cos_Ei * Q.item(2))
+        cart_vel_x_new = (-f_new * sin_Ei * P[0, 0]) + (f_new * g_new * cos_Ei * Q[0, 0])
+        cart_vel_y_new = (-f_new * sin_Ei * P[1, 0]) + (f_new * g_new * cos_Ei * Q[1, 0])
+        cart_vel_z_new = (-f_new * sin_Ei * P[2, 0]) + (f_new * g_new * cos_Ei * Q[2, 0])
+
         pos = ([cart_pos_x_new, cart_pos_y_new, cart_pos_z_new])
         vel = ([cart_vel_x_new, cart_vel_y_new, cart_vel_z_new])
         
         ephemeris.append([current_jd, pos, vel])
-
         # Update the JD time stamp
-        current_jd = current_jd + step_size
-        # Update the internal timer
-        time = time + step_size
+        current_jd = current_jd + step_size/86400.0  # convert seconds to days
     return ephemeris
 
 if __name__ == "__main__":

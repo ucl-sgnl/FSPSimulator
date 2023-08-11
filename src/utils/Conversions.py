@@ -1,14 +1,32 @@
 import numpy as np
-import warnings
+import pandas as pd
 import math
 import datetime
-import glob
 from astropy import units as u
 from astropy.time import Time
 from poliastro.bodies import Earth
 from poliastro.twobody import Orbit
 from poliastro.frames import Planes
 from jplephem.spk import SPK
+from astropy.coordinates import CartesianRepresentation, CartesianDifferential, GCRS, ITRS
+from typing import Tuple, List
+import orekit
+from org.orekit.orbits import CartesianOrbit, PositionAngle, EquinoctialOrbit
+from org.orekit.propagation import SpacecraftState
+from org.orekit.time import AbsoluteDate
+from org.orekit.propagation.analytical.tle import TLE
+from org.orekit.utils import Constants, PVCoordinates
+from org.hipparchus.geometry.euclidean.threed import Vector3D
+from org.orekit.time import AbsoluteDate, TimeScalesFactory
+from org.orekit.frames import FramesFactory, ITRFVersion
+from org.orekit.propagation.conversion import TLEPropagatorBuilder, FiniteDifferencePropagatorConverter
+from org.orekit.propagation.analytical.tle import TLEPropagator
+from org.orekit.utils import Constants as orekit_constants
+from org.orekit.utils import IERSConventions
+from org.orekit.models.earth import ReferenceEllipsoid
+from org.orekit.errors import OrekitException
+from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir, absolutedate_to_datetime, datetime_to_absolutedate
+from java.util import ArrayList
 
 Re = 6378.137 #km Earth's equatorial radius
 
@@ -36,6 +54,15 @@ def utc_to_jd(time_stamps):
     
     return jd_vals
 
+def calculate_eccentricity(position: List[float], velocity: List[float], mu: float):
+    r = np.linalg.norm(position)
+    v = np.linalg.norm(velocity)
+    E = v**2 / 2 - mu / r
+    h = np.cross(position, velocity)
+    h_magnitude = np.linalg.norm(h)
+    e = np.sqrt(1 + 2 * E * h_magnitude**2 / mu**2)
+    return e
+
 def jd_to_utc(jd):
     """Converts Julian Date to UTC time tag(datetime object) using Astropy"""
     #convert jd to astropy time object
@@ -44,20 +71,53 @@ def jd_to_utc(jd):
     utc = time.datetime
     return utc
 
-def kep2car(a, e, i, w, W, V):
+def ecef2eci_astropy(ecef_pos: np.ndarray, ecef_vel: np.ndarray, mjd: float) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Convert ECEF (Earth-Centered, Earth-Fixed) coordinates to ECI (Earth-Centered Inertial) coordinates using Astropy.
+
+    Parameters
+    ----------
+    ecef_pos : np.ndarray
+        ECEF position vectors.
+    ecef_vel : np.ndarray
+        ECEF velocity vectors.
+    mjd : float
+        Modified Julian Date.
+
+    Returns
+    -------
+    tuple
+        ECI position vectors and ECI velocity vectors.
+    """
+    # Convert MJD to isot format for Astropy
+    time_utc = Time(mjd, format="mjd", scale='utc')
+
+    # Convert ECEF position and velocity to ITRS coordinates using Astropy
+    ecef_cartesian = CartesianRepresentation(ecef_pos.T * u.km)
+    ecef_velocity = CartesianDifferential(ecef_vel.T * u.km / u.s)
+    itrs_coords = ITRS(ecef_cartesian.with_differentials(ecef_velocity), obstime=time_utc)
+    gcrs_coords = itrs_coords.transform_to(GCRS(obstime=time_utc))
+
+    # Get ECI position and velocity from Astropy coordinates
+    eci_pos = np.column_stack((gcrs_coords.cartesian.x.value, gcrs_coords.cartesian.y.value, gcrs_coords.cartesian.z.value))
+    eci_vel = np.column_stack((gcrs_coords.velocity.d_x.value, gcrs_coords.velocity.d_y.value, gcrs_coords.velocity.d_z.value))
+
+    return eci_pos, eci_vel
+
+def kep2car(a, e, i, w, W, V, epoch):
     # Suppress the UserWarning for true anomaly wrapping
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", UserWarning)
+    # with warnings.catch_warnings():
+    #     warnings.simplefilter("ignore", UserWarning)
         
-        # Create an Orbit object from the Keplerian elements
-        orbit = Orbit.from_classical(Earth,
-                                     a * u.km,
-                                     e * u.one,
-                                     i * u.rad,
-                                     w * u.rad,
-                                     W * u.rad,
-                                     V * u.rad,
-                                     epoch=Time.now())
+    # Create an Orbit object from the Keplerian elements
+    orbit = Orbit.from_classical(Earth,
+                                    a * u.km,
+                                    e * u.one,
+                                    i * u.rad,
+                                    w * u.rad,
+                                    W * u.rad,
+                                    V * u.rad,
+                                    epoch=epoch)
 
     # Get the position and velocity vectors in ECI frame
     pos_vec = orbit.r.value
@@ -69,59 +129,52 @@ def kep2car(a, e, i, w, W, V):
 
     return x, y, z, vx, vy, vz
 
-def car2kep(x, y, z, u, v, w, deg=False, arg_l=False):
-    """Convert cartesian to keplerian elements.
+def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
+    """
+    Convert Cartesian coordinates to Keplerian elements in radians.
 
     Args:
-        x (float): x position in km
-        y (float): y position in km
-        z (float): z position in km
-        u (float): x velocity in km/s
-        v (float): y velocity in km/s
-        w (float): z velocity in km/s
-        deg (bool, optional): If True, return angles in degrees. If False, return angles in radians. Defaults to False.
-        arg_l (bool, optional): If True, return argument of latitude in degrees. If False, return argument of latitude in radians. Defaults to False.
+        x, y, z: Position coordinates in km.
+        vx, vy, vz: Velocity components in km/s.
+        mean_motion (bool): If True, return mean motion.
+        arg_l (bool): If True, return the argument of latitude.
 
     Returns:
-        tuple: a, e, i, w, W, V, arg_lat
+        Tuple containing semi-major axis, eccentricity, inclination, 
+        RAAN, argument of perigee, and true anomaly. Optionally returns
+        mean motion and argument of latitude.
     """
-    #TODO: add argument of latitude
-    #make the vectors in as astropy Quantity objects
-    r = [x, y, z] * u.km
-    v = [u, v, w] * u.km / u.s
+    
+    r = u.Quantity([x, y, z], unit=u.km)
+    v = u.Quantity([vx, vy, vz], unit=u.km/u.s)
 
-    #convert to cartesian
     orb = Orbit.from_vectors(Earth, r, v, plane=Planes.EARTH_EQUATOR)
 
-    #convert to keplerian
-    if deg == True:
+    a = orb.a.value
+    e = orb.ecc.value
+    i = orb.inc.value
+    w = orb.raan.value
+    W = orb.argp.value
+    V = orb.nu.value
+    n = orb.n.value if mean_motion else None
 
-        a = orb.a.value
-        e = orb.ecc.value
-        i = np.rad2deg(orb.inc.value)
-        w = np.rad2deg(orb.raan.value)
-        W = np.rad2deg(orb.argp.value)
-        V = np.rad2deg(orb.nu.value)
-        # arg_lat = np.rad2deg(orb.arglat.value)
+    # If true anomaly is negative, adjust by adding 2*pi
+    if V < 0:
+        V += 2 * np.pi
 
-        if arg_l == True:
-            return a, e, i, w, W, V
-        elif arg_l == False:
-            return a, e, i, w, W, V
+    # Calculate argument of latitude if requested
+    U = None
+    if arg_l:
+        U = W + V
 
-    elif deg == False:
-        a = orb.a.value
-        e = orb.ecc.value
-        i = orb.inc.value
-        w = orb.raan.value
-        W = orb.argp.value
-        V = orb.nu.value
-        # arg_lat = orb.arg_lat.value
+    results = (a, e, i, w, W, V)
+    if mean_motion:
+        results += (n,)
+    if arg_l:
+        results += (U,)
 
-        if arg_l == True:
-            return a, e, i, w, W, V
-
-    return a, e, i, w, W, V                
+    return results
+                
 
 def true_to_eccentric_anomaly(true_anomaly, eccentricity):
     cos_E = (eccentricity + math.cos(true_anomaly)) / (1 + eccentricity * math.cos(true_anomaly))
@@ -479,18 +532,19 @@ def earth_sun_vec(jd, unit = True):
     """
     bsp_file = 'src/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
     kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
-    position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
-    position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
-    position -= kernel[3,399].compute(jd) # Earth Barycenter -> Earth vector
-    
+    earth_position = kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
+    sun_position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given jd
+
+    position = sun_position - earth_position # Earth to Sun vector
+
     if unit == False:
         return position #output in Km
-    
+
     if unit == True:
         return position/np.linalg.norm(position)
     print("length of earth-sun vector is: ", np.linalg.norm(position))
 
-def earth_moon_vec(jd, unit = True):
+def earth_moon_vec(jd, unit=True):
     """
     Calculates the Earth-Moon vector in ECI coordinates.
     Args:
@@ -499,17 +553,18 @@ def earth_moon_vec(jd, unit = True):
     Returns:
         earth_moon_vec (array): Earth-Moon vector in ECI coordinates.
     """
-    bsp_file = 'src/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
-    kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
-    position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
-    position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
-    position -= kernel[3,301].compute(jd) # Earth Barycenter -> Moon vector
-    
+    bsp_file = 'src/data/JPL_ephemerides/de421.bsp'  # select the first (and only) one
+    kernel = SPK.open(bsp_file)  # Load the planetary SPK kernel file. This file must be in the working directory.
+
+    earth_position = kernel[3, 399].compute(jd)  # Earth Barycenter -> Earth vector
+    moon_position = kernel[3, 301].compute(jd)  # Earth Barycenter -> Moon vector 
+    position = moon_position - earth_position  # Earth to Moon vector
+
     if unit == False:
-        return position #output in Km
-    
+        return position  # output in Km
+
     if unit == True:
-        return position/np.linalg.norm(position)
+        return position / np.linalg.norm(position)
     print("length of earth-moon vector is: ", np.linalg.norm(position))
 
 def probe_sun_vec(r, jd, unit = False):
@@ -549,3 +604,205 @@ def probe_moon_vec(r, jd, unit = False):
     if unit == True:
         return p/np.linalg.norm(p)
     print("length of probe-moon vector is: ", np.linalg.norm(p))
+
+def initialize_orekit():
+    """Initializes Orekit."""
+    download_orekit_data_curdir()
+    orekit.initVM()
+    setup_orekit_curdir()
+
+# Convert MJD to datetime
+def mjd_to_datetime(mjd):
+    jd = mjd + 2400000.5
+    return datetime.datetime(1858, 11, 17) + datetime.timedelta(days=jd - 2400000.5)
+
+def create_spacecraft_states(positions: List[List[float]], velocities: List[List[float]], dates_mjd: List[float]) -> ArrayList:
+    """Creates a list of SpacecraftState objects based on positions, velocities, and dates.
+
+    Args:
+        positions (List[List[float]]): Positions.
+        velocities (List[List[float]]): Velocities.
+        dates_mjd (List[float]): Dates in Modified Julian Date format.
+
+    Returns:
+        ArrayList: List of SpacecraftState objects.
+    """
+
+    gcrf = FramesFactory.getGCRF()
+    itrf = FramesFactory.getITRF(IERSConventions.IERS_2010, False)
+    #itrf = FramesFactory.getITRF(ITRFVersion.ITRF_2014, IERSConventions.IERS_2010, False)
+    # Selecting frames to use for OD
+    eci_frame = gcrf
+    ecef_frame = itrf
+    wgs84Ellipsoid = ReferenceEllipsoid.getWgs84(ecef_frame)
+
+    frame = FramesFactory.getGCRF()
+    spacecraft_states = ArrayList()
+    dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
+    for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
+        pos_x, pos_y, pos_z = position
+        vel_x, vel_y, vel_z = velocity
+        position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
+        velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
+        acceleration_vector = Vector3D(float(0.0), float(0.0), float(0.0))
+        pv_coordinates = PVCoordinates(position_vector, velocity_vector, acceleration_vector)
+
+        #make the spacecraft state from the pv coordinates
+        orbit = CartesianOrbit(pv_coordinates, eci_frame, date_orekit, wgs84Ellipsoid.getGM())
+        state = SpacecraftState(orbit)
+
+        spacecraft_states.add(state)
+        
+    return spacecraft_states
+
+def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
+                                 launch_year: int, launch_number: int, launch_piece: str, ephemeris_type: int,
+                                 element_number: int, date_start_orekit: AbsoluteDate, mean_motion: float,
+                                 mean_motion_first_derivative: float, mean_motion_second_derivative: float, e: float,
+                                 i: float, pa: float, raan: float, ma: float, revolution_number: int,
+                                 b_star_first_guess: float) -> TLE:
+    
+    tle_first_guess = TLE(satellite_number, classification, launch_year, launch_number, launch_piece, 
+                          ephemeris_type, element_number, date_start_orekit, mean_motion, 
+                          mean_motion_first_derivative, mean_motion_second_derivative, e, i, pa, raan, ma, 
+                          revolution_number, b_star_first_guess)
+
+    try:
+        return fit_TLE_to_cart(spacecraft_states, tle_first_guess)
+    except Exception as error1:
+        if "unable to compute TLE" in str(error1) or "hyperbolic orbits cannot be handled" in str(error1):
+            print("TLE fitting to numerically propagated ephemeris failed. Modifying eccentricity and trying again.")
+            
+            tle_new_guess = modify_eccentricity(tle_first_guess)
+            
+            try:
+                return fit_TLE_to_cart(spacecraft_states, tle_new_guess)
+            except Exception as error2:
+                if "unable to compute TLE" in str(error2) or "hyperbolic orbits cannot be handled" in str(error2):
+                    print("Modified TLE fitting also failed. Falling back to TLE.stateToTLE() method.")
+                    return create_static_TLE(spacecraft_states, tle_first_guess)
+                else:
+                    raise error2  # If the error is different from the TLE fitting error, raise it again.
+        else:
+            raise error1  # If the initial error is different from the TLE fitting error, raise it again.
+
+
+def modify_eccentricity(tle: TLE, delta_e: float = 0.0001) -> TLE:
+    """Modifies the eccentricity of the provided TLE.
+    This is a helper function for the TLE fitting process which struggles with near circular orbits."""
+    e_new = tle.getE() + delta_e
+    return TLE(tle.getSatelliteNumber(),
+               tle.getClassification(),
+               tle.getLaunchYear(),
+               tle.getLaunchNumber(),
+               tle.getLaunchPiece(),
+               tle.getEphemerisType(),
+               tle.getElementNumber(),
+               tle.getDate(),
+               tle.getMeanMotion(),
+               tle.getMeanMotionFirstDerivative(),
+               tle.getMeanMotionSecondDerivative(),
+               e_new,
+               tle.getI(),
+               tle.getPerigeeArgument(),
+               tle.getRaan(),
+               tle.getMeanAnomaly(),
+               tle.getRevolutionNumberAtEpoch(),
+               tle.getBStar())
+
+def fit_TLE_to_cart(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
+    """Fits a TLE to a given list of SpacecraftState objects using the finite difference method in Orekit"""
+
+    threshold = 10.0 
+    max_iterations = 10000        
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10.0)
+    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
+    fitter.convert(spacecraft_states, False, 'BSTAR')
+    tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
+    return tle_propagator.getTLE()
+
+def create_static_TLE(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
+    """ Create a TLE from a cartesian state- imputes placeholder values for BSTAR and mean motion derivatives.
+    It is highly preferrable to avoid the use of this as it's propagation will be much less accurate than a TLE fit to the same state."""
+    first_state = spacecraft_states.get(0)
+    return TLE.stateToTLE(first_state, tle_first_guess)
+
+def datetime_from_mjd(mjds: list) -> pd.DatetimeIndex:
+    """Generates dates from a given list of Modified Julian Dates (MJDs).
+
+    Args:
+        mjds (list): List of Modified Julian Dates.
+
+    Returns:
+        pd.DatetimeIndex: Generated dates.
+    """
+    utc_times = [Time(mjd, format="mjd", scale="utc").datetime for mjd in mjds]
+    return pd.DatetimeIndex(utc_times)
+
+def split_ephemeris_tuple(ephemeris):
+    # split the ephemeris into the three component lists
+    jds = []
+    positions_eci = []
+    velocities_eci = []
+
+    for item in ephemeris:
+        time_mjd, pos_at_t, vel_at_t = item
+        jds.append(time_mjd)
+        positions_eci.append(pos_at_t)
+        velocities_eci.append(vel_at_t)
+
+    return positions_eci, velocities_eci, jds
+
+def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], velocities_eci: List[List[float]]) -> str:
+    """
+    Fits a Two-Line Element Set (TLE) to the given Earth-Centered Inertial (ECI) positions and velocities.
+
+    Args:
+        positions_eci (List[List[float]]): A list of ECI positions, each represented as a list of three coordinates [X, Y, Z].
+        velocities_eci (List[List[float]]): A list of ECI velocities, each represented as a list of three velocity components [Vx, Vy, Vz].
+        mjds (List[float]): A list of Modified Julian Dates corresponding to the positions and velocities.
+
+    Returns:
+        str: The fitted TLE represented as a string.
+    """
+    #use the position and velocity halfway into the ephemeris as the initial guess for the TLE
+    a, e, i, pa, raan, ma = car2kep(*positions_eci[int(len(positions_eci)/2)], *velocities_eci[int(len(velocities_eci)/2)])
+    e = float(e)
+    i = float(np.deg2rad(i))
+    pa = float(np.deg2rad(pa))
+    raan = float(np.deg2rad(raan))
+    ma = float(np.deg2rad(ma))
+    mjds = [jd - 2400000.5 for jd in jds]
+    dates = datetime_from_mjd(mjds)
+    obstimes = Time(dates)
+    mjds = obstimes.mjd
+    # Create spacecraft states
+    positions_eci_meters = [[coord *1000 for coord in position] for position in positions_eci]
+    velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
+    spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
+    sma_meters = a * 1000
+    mean_motion = float(np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3)) #this is radians per second
+    ## Placeholder parameters.
+    ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
+    ## TODO: we must double check that none of these are used in the propagation itself.
+    satellite_number = 99999 #TODO: this is going to have to be changed to self.norad id
+    classification = 'U' #
+    launch_year = 2019
+    launch_number = 42
+    launch_piece = 'A'
+    ephemeris_type = 0
+    element_number = 999
+    mean_motion_first_derivative = 0.0
+    mean_motion_second_derivative = 0.0
+    revolution_number = 100
+
+    date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
+    b_star_first_guess = float(1e-5) # doesn't matter what this is set to, it will be fit to the spacecraft states
+
+    # Call the function to fit TLE
+    fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
+                                            launch_year, launch_number, launch_piece, ephemeris_type,
+                                            element_number, date_start_orekit, mean_motion,
+                                            mean_motion_first_derivative, mean_motion_second_derivative,
+                                            e, i, pa, raan, ma, revolution_number, b_star_first_guess)
+    return fitted_tle
