@@ -31,7 +31,54 @@ def propagate_space_object(args):
         import traceback
         traceback.print_exc()
 
-    return space_object
+    return
+
+def run_sim(settings):
+    SATCAT = SpaceCatalogue(settings=settings)
+    jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
+    jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
+    step_size = int(settings["integrator_step_size"])
+    output_freq = int(settings["output_frequency"])
+    scenario_name = str(settings["scenario_name"])
+    integrator_type = str(settings["integrator_type"])
+    sgp4_long_term = bool(settings["sgp4_long_term"])
+    force_model = settings["force_model"]
+    initialize_orekit()
+
+    batch = 1
+    batch_size = 100
+    while SATCAT.Catalogue:
+        current_batch = []
+
+        # Propagate space objects for the current batch
+        for _ in range(batch_size):
+            if not SATCAT.Catalogue:
+                break
+
+            space_object = SATCAT.Catalogue.pop(0)
+            propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
+            current_batch.append(space_object)
+
+        # Save the current batch
+        print(f"Saving batch {batch}...")
+        save_path = os.path.join(f'src/data/results/propagated_catalogs/', f"{scenario_name}_batch_{batch}.pickle")
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        dump_pickle(save_path, current_batch)
+        batch += 1
+
+    print(f"Simulation complete. Results saved to batches in: {get_path(f'src/data/results/propagated_catalogs/')}")
+
+
+if __name__ == '__main__':
+    #list all the json files in src/data/specify_simulations
+    sims = os.listdir(get_path('src/data/specify_simulations/'))
+    for sim in sims:
+        if sim.endswith('.json'):
+            print(f"Running simulation: {sim}")
+            settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
+            check_json_file(settings)#check if the json file is filled out correctly
+            run_sim(settings)
+            print(f"Simulation {sim} complete")
 
 ###### MULTIPROCESSING ######
 # def run_parallel_sim(settings):
@@ -83,107 +130,57 @@ def propagate_space_object(args):
 
 ###### MULTITHREADING ######
 
-from concurrent.futures import ThreadPoolExecutor
+# from concurrent.futures import ThreadPoolExecutor
 
-def run_parallel_sim(settings):
-    SATCAT = SpaceCatalogue(settings=settings)
-    jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
-    jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
-    step_size = int(settings["integrator_step_size"])
-    output_freq = int(settings["output_frequency"])
-    scenario_name = str(settings["scenario_name"])
-    integrator_type = str(settings["integrator_type"])
-    sgp4_long_term = bool(settings["sgp4_long_term"])
-    force_model = settings["force_model"]
-    initialize_orekit()
+# def run_parallel_sim(settings):
+#     SATCAT = SpaceCatalogue(settings=settings)
+#     jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
+#     jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
+#     step_size = int(settings["integrator_step_size"])
+#     output_freq = int(settings["output_frequency"])
+#     scenario_name = str(settings["scenario_name"])
+#     integrator_type = str(settings["integrator_type"])
+#     sgp4_long_term = bool(settings["sgp4_long_term"])
+#     force_model = settings["force_model"]
+#     initialize_orekit()
 
-    print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
-    print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
+#     print("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
+#     print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
 
-    decayed_before_start = 0
-    for space_object in SATCAT.Catalogue:
-        if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
-            SATCAT.Catalogue.remove(space_object)
-            decayed_before_start += 1
-    print("# sats decayed before sim start date: ", decayed_before_start)
+#     decayed_before_start = 0
+#     for space_object in SATCAT.Catalogue:
+#         if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
+#             SATCAT.Catalogue.remove(space_object)
+#             decayed_before_start += 1
+#     print("# sats decayed before sim start date: ", decayed_before_start)
 
-    # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
-    SATCAT.Catalogue = SATCAT.Catalogue[::100]
+#     # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
+#     SATCAT.Catalogue = SATCAT.Catalogue[::100]
 
-    print("Propagating space objects in parallel...")
+#     print("Propagating space objects in parallel...")
 
-    # Function to update the progress bar
-    def update_result(result):
-        results.append(result)
-        pbar.update()
+#     # Function to update the progress bar
+#     def update_result(result):
+#         results.append(result)
+#         pbar.update()
 
-    # Create iterable
-    iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
+#     # Create iterable
+#     iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term) for space_object in SATCAT.Catalogue]
 
-    with tqdm(total=len(iterable)) as pbar:
-        results = []
-        # Use ThreadPoolExecutor for multithreading
-        with ThreadPoolExecutor(max_workers=cpu_count()) as executor:
-            # Submit tasks
-            futures = [executor.submit(propagate_space_object, args) for args in iterable]
-            # Register callback to update progress bar
-            for future in futures:
-                future.add_done_callback(lambda f: update_result(f.result()))
+#     with tqdm(total=len(iterable)) as pbar:
+#         results = []
+#         # Use ThreadPoolExecutor for multithreading
+#         with ThreadPoolExecutor(max_workers=cpu_count()) as executor:
+#             # Submit tasks
+#             futures = [executor.submit(propagate_space_object, args) for args in iterable]
+#             # Register callback to update progress bar
+#             for future in futures:
+#                 future.add_done_callback(lambda f: update_result(f.result()))
 
-    SATCAT.Catalogue = results
-    print("Exporting results...")
-    save_path = os.path.dirname(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')
-    os.makedirs(save_path, exist_ok=True)
-    dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
+#     SATCAT.Catalogue = results
+#     print("Exporting results...")
+#     save_path = os.path.dirname(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')
+#     os.makedirs(save_path, exist_ok=True)
+#     dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
 
-    print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
-
-
-def run_sim(settings):
-    SATCAT = SpaceCatalogue(settings=settings)
-    jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
-    jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
-    step_size = int(settings["integrator_step_size"])
-    output_freq = int(settings["output_frequency"])
-    scenario_name = str(settings["scenario_name"])
-    integrator_type = str(settings["integrator_type"])
-    sgp4_long_term = bool(settings["sgp4_long_term"])
-    force_model = settings["force_model"]
-    initialize_orekit()
-
-    print("Number of space objects in catalogue specified:", len(SATCAT.Catalogue))
-    print(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
-
-    # Filter out space objects that decayed before the simulation start date
-    SATCAT.Catalogue = [space_object for space_object in SATCAT.Catalogue if space_object.decay_date >= datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d')]
-
-    print("# sats decayed before sim start date:", len(SATCAT.Catalogue))
-
-    # Slice SATCAT.Catalogue to select every 1000th space object (for testing)
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000]
-
-    print("Propagating space objects...")
-
-    results = []
-    for space_object in tqdm(SATCAT.Catalogue):
-        result = propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
-        results.append(result)
-
-    SATCAT.Catalogue = results
-    print("Exporting results...")
-    save_path = os.path.dirname(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')
-    os.makedirs(save_path, exist_ok=True)
-    dump_pickle(f'src/data/results/propagated_catalogs/{scenario_name}.pickle', SATCAT)
-
-    print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")
-
-if __name__ == '__main__':
-    #list all the json files in src/data/specify_simulations
-    sims = os.listdir(get_path('src/data/specify_simulations/'))
-    for sim in sims:
-        if sim.endswith('.json'):
-            print(f"Running simulation: {sim}")
-            settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
-            check_json_file(settings)#check if the json file is filled out correctly
-            run_sim(settings)
-            print(f"Simulation {sim} complete")
+#     print(f"Simulation complete. Results saved to: {get_path(f'src/data/results/propagated_catalogs/{scenario_name}.pickle')}")

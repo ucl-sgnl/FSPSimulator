@@ -60,7 +60,6 @@ class SpaceCatalogue:
         sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
         self.sgp4_long_term = settings["sgp4_long_term"]
-        self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
         self.sim_object_type = sim_object_type # this can be "active", "all", or "debris"
@@ -103,10 +102,13 @@ class SpaceCatalogue:
             raise Exception("Debris not yet implemented")
         
         self.Catalogue2SpaceObjects()
+        print("Total number of SpaceObjects in Catalogue from base catalogs: ", len(self.Catalogue))
         
         # Now add the predictions to the Catalogue attribute of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
         predicted_space_objects = Prediction2SpaceObjects(satellite_predictions_csv = satellite_predictions_csv, simsettings=settings)
         self.Catalogue.extend(predicted_space_objects)
+
+        print("Total number of SpaceObjects in Catalogue (predictions+base catalogs): ", len(self.Catalogue))
         return None
     
     @classmethod

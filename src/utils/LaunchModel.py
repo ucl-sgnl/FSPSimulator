@@ -167,77 +167,64 @@ def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_t
 
 def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner, launch_schedule, _mass, _area, _length, _maneuverable, _propulsion):
     
-    #check that N is always >= 1 
+    # Check that N is always >= 1 
     if N < 1:
         raise ValueError('N (number of satellites in constellation) must be >= 1')
-    #create a list of SpaceObject instances for each satellite in the a subconstellation metadata dictionary
-    subconstellation_Space_Objects = []
-    apogee_alt = h  # assuming circular orbit
-    perigee_alt = h  # assuming circular orbit
-    launch_site = "JSC"
 
-    soname = _soname
-    sotype = "PAY" # As we are only dealing with satellites this is the only option (https://celestrak.org/satcat/satcat-format.php)
-    operationalstatus = "+" # assuming they are all operational on launch this should also be the only option (https://celestrak.org/satcat/status.php)
-    orbit_type = orbit_classify(h) #calculated based on altitude
-    application = _application #this comes directly from the CSV file
-    owner = _owner  #this comes directly from the CSV file
-    orbit_info_status = "EA0" #All Earth orbiting so all "EA0"
-
-    mass = _mass # this comes directly from the CSV file
-    maneuverable = 'y' #this comes directly from the CSV file
-    spin_stabilized = 'n' #setting to always no ->  all LEO so no spin stabilization
-    area = _area  #computed based on form factor
-    length = _length  #computed based on form factor
-    propulsion = _propulsion  #this comes directly from the CSV file
-
+    # Constants and initializations
+    apogee_alt = perigee_alt = h  # assuming circular orbit
     R_earth = 6371  # Earth's mean radius in km
-    a = R_earth + h #semi-major axis in km
-    ###### TODO: the code below assumed a certain orbital geometry. 
-    ###### This needs to be unhardcoded to allow us to specify different constellation geometries that will will result in different keplerian elements
-    ###### This needs to go into a function
-    P = math.ceil(math.sqrt(N)) #number of planes
-    S = math.ceil(N / P) #number of satellites per plane
-    delta_Omega = 360 / P #angle between planes
-    delta_omega = 360 / S #angle between satellites in the same plane -> argument of perigee
-    #now calculate the true anomaly(nu) of each satellite in the plane
-    delta_TRAN = 360 / N #angle between satellites in the same plane -> true anomaly
-    period = orbital_period(a) #orbital period in minutes
-    #if any of the above are nan stop and return an error
-    if math.isnan(a) or math.isnan(P) or math.isnan(S) or math.isnan(delta_Omega) or math.isnan(delta_omega) or math.isnan(delta_TRAN) or math.isnan(period):
-        print("ERROR: NaN value in FSP launch entry")
-        return
+    a = R_earth + h  # semi-major axis in km
 
-    launch_entry = []
-    launch_schedule = launch_schedule * (N // len(launch_schedule)) + launch_schedule[:N % len(launch_schedule)] #This will repeat the launch_schedule list enough times to cover all satellites and then take the remainder if there's still a difference.
-    # TODO: fix this so that it does repeat the launch schedule in this way but instead does it sequentially
-    #take each instance in the launch schedule, make it into a datetime obejct, increment the dates by 5 years and add it to the decay schedule
-    decay_schedule = [(datetime.strptime(date, "%Y-%m-%d") + timedelta(days=365*5)).strftime("%Y-%m-01") for date in launch_schedule]
-    for n in range(1, N+1, 1): # Start iteration at 1, this way, the calculation for Omega_n won't be negative because n-1 will always be positive.
-        a_n = a #semi-major axis in km
-        e_n = 0 #eccentricity
-        i_n = i #inclination in degrees
-        omega_n = (n % S) * delta_omega #argument of perigee in degrees
-        Omega_n = math.floor((n-1) / S) * delta_Omega #longitude/right ascension of ascending node in degrees
-        TRAN_n = (n-1) * delta_TRAN #true anomaly in degrees
-        #if tran is nan then set it to 0
-        if math.isnan(TRAN_n):
-            TRAN_n = 0
-        
-        launch_year = int(launch_schedule[n-1][:4]) # index with n-1 because the launch_schedule list is indexed from 0
-        launch_number = int(n)
-        launch_piece = "A" # TODO: unhardcode this -> decide on a way to determine this
-        object_cospar_id = generate_cospar_id(launch_year, launch_number, launch_piece)
-        subconstellation_Space_Objects.append(SpaceObject(object_type=sotype, payload_operational_status=operationalstatus, 
-                                                          application=application, operator=owner, 
-                                                          apogee=apogee_alt, perigee=perigee_alt,
-                                                          mass=mass, maneuverable=maneuverable, spin_stabilized=spin_stabilized, 
-                                                        characteristic_area=area, characteristic_length=length, 
-                                                          propulsion_type=propulsion, sma=a_n, eccentricity=e_n, inc=np.deg2rad(i_n), argp=np.deg2rad(omega_n), 
-                                                          raan=np.deg2rad(Omega_n), tran=np.deg2rad(TRAN_n), launch_site=launch_site, launch_date=launch_schedule[n-1], 
-                                                          decay_date=decay_schedule[n-1] ,rso_name=soname))
+    P = math.ceil(math.sqrt(N))  # number of planes
+    S = math.ceil(N / P)  # number of satellites per plane
+    delta_Omega = 360 / P
+    delta_omega = 360 / S
+    delta_TRAN = 360 / N
+    period = orbital_period(a)
+
+    if any(math.isnan(val) for val in [a, P, S, delta_Omega, delta_omega, delta_TRAN, period]):
+        print("ERROR: NaN value in FSP launch entry")
+        return []
+
+    # Repeat and truncate launch_schedule 
+    launch_schedule = launch_schedule * (N // len(launch_schedule)) + launch_schedule[:N % len(launch_schedule)]
+
+    # Pre-compute decay_schedule using vectorized operations
+    dates_np = np.array([datetime.strptime(date, "%Y-%m-%d") for date in launch_schedule])
+    decay_schedule = [(date + timedelta(days=365*5)).strftime("%Y-%m-01") for date in dates_np]
+
+    # Create SpaceObjects
+    subconstellation_Space_Objects = [
+        SpaceObject(
+            object_type="PAY",
+            payload_operational_status="+",
+            application=_application,
+            operator=_owner,
+            apogee=apogee_alt,
+            perigee=perigee_alt,
+            mass=_mass,
+            maneuverable='y',
+            spin_stabilized='n',
+            characteristic_area=_area,
+            characteristic_length=_length,
+            propulsion_type=_propulsion,
+            sma=a,
+            eccentricity=0,
+            inc=np.deg2rad(i),
+            argp=np.deg2rad((n % S) * delta_omega),
+            raan=np.deg2rad(math.floor((n-1) / S) * delta_Omega),
+            tran=np.deg2rad((n-1) * delta_TRAN),
+            launch_site="JSC",
+            launch_date=launch_schedule[n-1],
+            decay_date=decay_schedule[n-1],
+            rso_name=f"{_soname}_{n}"
+        ) 
+        for n in range(1, N+1)
+    ]
 
     return subconstellation_Space_Objects
+
 
 def remove_items_from_dict(dict, failure_rate):
     #TODO: this needs work. leaving it for now as just want to run sim
