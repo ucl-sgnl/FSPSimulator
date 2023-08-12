@@ -689,7 +689,7 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
             raise error1  # If the initial error is different from the TLE fitting error, raise it again.
 
 
-def modify_eccentricity(tle: TLE, delta_e: float = 0.0001) -> TLE:
+def modify_eccentricity(tle: TLE, delta_e: float = 0.00001) -> TLE:
     """Modifies the eccentricity of the provided TLE.
     This is a helper function for the TLE fitting process which struggles with near circular orbits."""
     e_new = tle.getE() + delta_e
@@ -789,7 +789,7 @@ def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], vel
     ## TODO: we must double check that none of these are used in the propagation itself.
     satellite_number = 99999 #TODO: this is going to have to be changed to self.norad id
     classification = 'U' #
-    launch_year = 2019
+    launch_year = 2022 #TODO: does this actually change anything in the propagation?
     launch_number = 42
     launch_piece = 'A'
     ephemeris_type = 0
@@ -799,7 +799,7 @@ def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], vel
     revolution_number = 100
 
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
-    b_star_first_guess = float(1e-5) # doesn't matter what this is set to, it will be fit to the spacecraft states
+    b_star_first_guess = float(1e-6) # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
     fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
