@@ -715,9 +715,9 @@ def modify_eccentricity(tle: TLE, delta_e: float = 0.00001) -> TLE:
 def fit_TLE_to_cart(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
     """Fits a TLE to a given list of SpacecraftState objects using the finite difference method in Orekit"""
 
-    threshold = 10.0 
+    threshold = 1.0 
     max_iterations = 10000        
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 10.0)
+    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
     fitter.convert(spacecraft_states, False, 'BSTAR')
     tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
