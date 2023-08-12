@@ -296,12 +296,16 @@ class SpaceObject:
             tle_string = line1 + '\n' + line2
 
             # Propagate using SGP4 for the rest of the orbit
+            print("next jd: ", next_jd)
+            print("jd_stop: ", jd_stop)
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
+            print("length of sgp4 ephemeris: ", len(ephemeris_sgp4))
+            print("first entry of sgp4 ephemeris: ", ephemeris_sgp4[0])
+            print("last entry of sgp4 ephemeris: ", ephemeris_sgp4[-1])
 
             ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
             print("length of numerical ephemeris: ", len(ephemeris_numerical_array))
             ephemeris_sgp4_array = np.array(ephemeris_sgp4, dtype=object)
-            print("length of sgp4 ephemeris: ", len(ephemeris_sgp4_array))
 
             # Combine arrays
             combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array)) # Stack arrays vertically. i.e. numerical ephemeris on top of SGP4 ephemeris
