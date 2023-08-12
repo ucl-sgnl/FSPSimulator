@@ -60,7 +60,7 @@ class SpaceObject:
     def __init__(self, rso_name=None, rso_type=None, payload_operational_status=None, application=None, source=None, 
                  launch_site=None, mass=None, maneuverable=False, spin_stabilized=False,
                  object_type = None, apogee=None, perigee=None, characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None):
+                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None, orbit_source=None):
         
         # launch_date must be datetime.datetime.strptime('%Y-%m-%d') format between 1900-00-00 and 2999-12-31
         self.launch_date = datetime.datetime.strptime(launch_date, '%Y-%m-%d')
@@ -274,6 +274,7 @@ class SpaceObject:
 
             # Check if station keeping is specified
             if isinstance(self.station_keeping, list):
+                print(f"station keeping for {self.rso_name}")
                 # Propagate using Kepler from the start date to the end of the station keeping date
                 ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
                 combined_ephemeris += ephemeris_station_keep
@@ -289,6 +290,7 @@ class SpaceObject:
 
             #convert mjds to jds
             TLE = fit_TLE_to_ephemeris(jds, positions_eci, velocities_eci)
+            print("TLE: ", TLE)
             line1 = TLE.getLine1()
             line2 = TLE.getLine2()
             tle_string = line1 + '\n' + line2
@@ -297,7 +299,9 @@ class SpaceObject:
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
 
             ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
+            print("length of numerical ephemeris: ", len(ephemeris_numerical_array))
             ephemeris_sgp4_array = np.array(ephemeris_sgp4, dtype=object)
+            print("length of sgp4 ephemeris: ", len(ephemeris_sgp4_array))
 
             # Combine arrays
             combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array)) # Stack arrays vertically. i.e. numerical ephemeris on top of SGP4 ephemeris
