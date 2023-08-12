@@ -328,6 +328,8 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
         # Position is in idiosyncratic True Equator Mean Equinox coordinate frame used by SGP4
         error, position, velocity = satellite.sgp4(time, fr)
         if error != 0:
+            print("SGP4 ERROR: " + str(error))
+            print("Error Message: " + SGP4_ERRORS[error])
             warnings.warn(SGP4_ERRORS[error])
             return ephemeris
         else:
