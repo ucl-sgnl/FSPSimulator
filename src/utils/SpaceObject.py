@@ -252,9 +252,6 @@ class SpaceObject:
         """
         
         #check launch date - this is for objects that are launched after the start of the simulation
-        print("launch date: ", self.launch_date)
-        jd_launch = [utc_to_jd(self.launch_date)]
-        print("jd_launch: ", jd_launch)
         if utc_to_jd(self.launch_date) > jd_start:
             jd_start = utc_to_jd(self.launch_date)
 
