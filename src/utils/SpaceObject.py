@@ -4,7 +4,7 @@ import warnings
 from enum import Enum
 import numpy as np
 from astropy.time import Time
-from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day,split_ephemeris_tuple, fit_TLE_to_ephemeris
+from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day,split_ephemeris_tuple, fit_TLE_to_ephemeris, utc_to_jd
 from utils.Propagators import numerical_prop, kepler_prop, sgp4_prop_TLE
 
 class OperationalStatus(Enum):
@@ -240,8 +240,8 @@ class SpaceObject:
         Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
 
         Parameters:
-        jd_start (float): Julian start date for propagation
-        jd_stop (float): Julian stop date for propagation
+        jd_start (float): Julian start date for the simulation. Note that this will also dictate the propagation start date, unless the launch_date is greater than jd_start in which case the propagation (jd_start) will start at the launch date.
+        jd_stop (float): Julian stop date for simulation
         step_size (float): Step size for propagation
         output_freq (float): Frequency at which to output the ephemeris (in seconds)
         integrator_type (str): String indicating which numerical integrator to use, default is "RK45"
@@ -250,6 +250,11 @@ class SpaceObject:
         Returns:
         None: The function does not return anything but updates the `ephemeris` attribute of the object.
         """
+        
+        #check launch date - this is for objects that are launched after the start of the simulation
+        if utc_to_jd(self.launch_date) > jd_start:
+            jd_start = utc_to_jd(self.launch_date)
+
         valid_integrator_types = ["RK45"]
         if integrator_type not in valid_integrator_types:
             raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
