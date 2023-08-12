@@ -37,8 +37,8 @@ def run_sim(settings):
     SATCAT = SpaceCatalogue(settings=settings)
     total_objects = len(SATCAT.Catalogue)
     
-    jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
-    jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
+    jd_start = float(utc_to_jd(settings["sim_start_date"]))
+    jd_stop = float(utc_to_jd(settings["sim_end_date"]))
     step_size = int(settings["integrator_step_size"])
     output_freq = int(settings["output_frequency"])
     scenario_name = str(settings["scenario_name"])
