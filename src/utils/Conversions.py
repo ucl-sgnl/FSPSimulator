@@ -668,26 +668,27 @@ def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number:
                           ephemeris_type, element_number, date_start_orekit, mean_motion, 
                           mean_motion_first_derivative, mean_motion_second_derivative, e, i, pa, raan, ma, 
                           revolution_number, b_star_first_guess)
+    return create_static_TLE(spacecraft_states, tle_first_guess)
 
-    try:
-        return fit_TLE_to_cart(spacecraft_states, tle_first_guess)
-    except Exception as error1:
-        if "unable to compute TLE" in str(error1) or "hyperbolic orbits cannot be handled" in str(error1):
-            print("TLE fitting to numerically propagated ephemeris failed. Modifying eccentricity and trying again.")
+    ####### TODO: this used to fit the numerically propagated ephemeris to a TLE, but it produces crazy TLEs.
+    # try:
+    #     return fit_TLE_to_cart(spacecraft_states, tle_first_guess)
+    # except Exception as error1:
+    #     if "unable to compute TLE" in str(error1) or "hyperbolic orbits cannot be handled" in str(error1):
+    #         print("TLE fitting to numerically propagated ephemeris failed. Modifying eccentricity and trying again.")
             
-            tle_new_guess = modify_eccentricity(tle_first_guess)
+    #         tle_new_guess = modify_eccentricity(tle_first_guess)
             
-            try:
-                return fit_TLE_to_cart(spacecraft_states, tle_new_guess)
-            except Exception as error2:
-                if "unable to compute TLE" in str(error2) or "hyperbolic orbits cannot be handled" in str(error2):
-                    print("Modified TLE fitting also failed. Falling back to TLE.stateToTLE() method.")
-                    return create_static_TLE(spacecraft_states, tle_first_guess)
-                else:
-                    raise error2  # If the error is different from the TLE fitting error, raise it again.
-        else:
-            raise error1  # If the initial error is different from the TLE fitting error, raise it again.
-
+    #         try:
+    #             return fit_TLE_to_cart(spacecraft_states, tle_new_guess)
+    #         except Exception as error2:
+    #             if "unable to compute TLE" in str(error2) or "hyperbolic orbits cannot be handled" in str(error2):
+    #                 print("Modified TLE fitting also failed. Falling back to TLE.stateToTLE() method.")
+    #                 return create_static_TLE(spacecraft_states, tle_first_guess)
+    #             else:
+    #                 raise error2  # If the error is different from the TLE fitting error, raise it again.
+    #     else:
+    #         raise error1  # If the initial error is different from the TLE fitting error, raise it again.
 
 def modify_eccentricity(tle: TLE, delta_e: float = 0.00001) -> TLE:
     """Modifies the eccentricity of the provided TLE.
@@ -715,7 +716,7 @@ def modify_eccentricity(tle: TLE, delta_e: float = 0.00001) -> TLE:
 def fit_TLE_to_cart(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
     """Fits a TLE to a given list of SpacecraftState objects using the finite difference method in Orekit"""
 
-    threshold = 1.0 
+    threshold = 0.1 
     max_iterations = 10000        
     tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
     fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
@@ -799,7 +800,7 @@ def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], vel
     revolution_number = 100
 
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
-    b_star_first_guess = float(1e-6) # doesn't matter what this is set to, it will be fit to the spacecraft states
+    b_star_first_guess = float(1e-7) # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
     fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
