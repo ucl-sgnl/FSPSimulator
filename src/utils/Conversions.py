@@ -33,26 +33,28 @@ Re = 6378.137 #km Earth's equatorial radius
 def utc_to_jd(time_stamps):
     """Converts UTC time to Julian Date.
     Args: 
-        time_stamps(list): list of UTC times datetime.datetime objects that need to be converted to JD.
+        time_stamps(list or datetime.datetime): list of UTC times datetime.datetime objects or a single datetime.datetime object that need to be converted to JD.
     Returns:
-        jd(list): is a list of Julian Date times.
+        jd(list or float): is a list of Julian Date times or a single Julian Date time.
     """
+    if not isinstance(time_stamps, list):
+        time_stamps = [time_stamps]
+
     UTC_string = []
-    for i in range(0,len(time_stamps),1):
+    for ts in time_stamps:
         try:
-            UTC_string.append(time_stamps[i].strftime('%Y-%m-%d %H:%M:%S'))
+            UTC_string.append(ts.strftime('%Y-%m-%d %H:%M:%S'))
         except:
-            time_str = datetime.datetime.strptime(time_stamps, '%Y-%m-%d')
+            time_str = datetime.datetime.strptime(ts, '%Y-%m-%d')
             UTC_string.append(time_str.strftime('%Y-%m-%d %H:%M:%S'))
 
-    t = Time(UTC_string, format='iso', scale='utc') #astropy time object
-    jd = t.to_value('jd', 'long') #convert to jd
+    t = Time(UTC_string, format='iso', scale='utc')  # astropy time object
+    jd = t.to_value('jd', 'long')  # convert to jd
 
-    jd_vals = []
-    for i in range (0, len(jd),1):
-        jd_vals.append(float(jd[i]))
+    jd_vals = [float(j) for j in jd]
     
-    return jd_vals
+    # If the input was a single datetime, then return a single value. Otherwise, return the list.
+    return jd_vals[0] if len(jd_vals) == 1 else jd_vals
 
 def calculate_eccentricity(position: List[float], velocity: List[float], mu: float):
     r = np.linalg.norm(position)
