@@ -1,5 +1,5 @@
 #JCAT	Piece	Name	LDate	TLast	TOp	TDate	TF	Program	Plane	Att	Mvr	Class	Category	UNState	UNReg	UNPeriod	UNPerigee	UNApogee	UNInc	Result	Control	Discipline	Comment
-# Updated 2023 Aug 12 02:20:19
+# Updated 2023 Aug 17 14:32:05
 S00002	1957 ALP 2	First Sputnik	1957 Oct  4 	1957 Oct 27	1957 Oct 27	1957 Oct 27	-	Sputnik	-	-	-	C	TECH	SU	A/AC.105/INF.002	-	     227	     947	 65.1 	S	-	ENV*	First Earth satellite
 S00003	1957 BET 1	Second Sputnik	1957 Nov  3 	1957 Nov  9	1957 Nov  9	1957 Nov  9	-	Sputnik	-	-	-	C	BIO	SU	A/AC.105/INF.002	-	     225	    1671	 65.3 	S	-	BIO	First animal payload
 S00004	1958 ALP	Explorer 1	1958 Feb  1 	1958 Apr  1	1958 Apr  1	1958 Apr  1	-	Explorer ABMA	-	-	-	C	SCI	US	A/AC.105/INF.001	-	-	-	-	S	JPL	P*	Discovered trapped radiation
@@ -12110,7 +12110,7 @@ S48955	2021-059CE	Astrocast-010x	2021 Jun 30 	2023 Feb	*	*	-	Astrocast	-	-	-	B	C
 S48956	2021-059CF	Astro Dig. Demo 9 (Aurora)	2021 Jun 30 	2021 Jul	*	*	-	ADIG Tech	-	P	-	B	TECH	US	ST/SG/SER.E/1024	   95.1 	     513	     535	 97.5 	S	-	-	-
 S48957	2021-059CG	Hawk-3A	2021 Jun 30 	2023 Feb	*	*	-	H360	1	P	M	B	SIG	US	ST/SG/SER.E/1024	   95.1 	     513	     535	 97.5 	S	-	-	-
 S48958	2021-059CH	Sherpa-FX2	2021 Jun 30 	2021 Jul  1	2021 Jul  1	2021 Jul  1	-	SFLIN	-	P	-	B	TECH	US	ST/SG/SER.E/1024	   95.1 	     513	     535	 97.5 	S	-	-	-
-S48959	2021-059CJ	FM150, LEMUR-2 CarlSantaMari	2021 Jun 30 	2021 Jul	*	*	-	Spire	2	-	-	B	COM/MET-RO	L	ST/SG/SER.E/1043	   95.1 	     519	     543	 97.5 	S	-	-	-
+S48959	2021-059CJ	FM150, LEMUR-2 CarlSantaMari	2021 Jun 30 	2021 Jul	2023 Jul?	2023 Jul?	-	Spire	2	-	-	B	COM/MET-RO	L	ST/SG/SER.E/1043	   95.1 	     519	     543	 97.5 	S	-	-	-
 S48960	2021-059CK	Astrocast-010x	2021 Jun 30 	2023 Feb	*	*	-	Astrocast	-	-	-	B	COM	[CH]	-	-	-	-	-	S	-	-	-
 S48961	2021-059CL	Astrocast-0202	2021 Jun 30 	2021 Jul	*	*	-	Astrocast	-	-	-	B	COM	[CH]	-	-	-	-	-	S	-	-	-
 S48962	2021-059CM	Ghalib	2021 Jun 30 	2023 Feb	*	*	-	Marshall Intech	-	-	-	B	TECH	UAE	ST/SG/SER.E/1048	   95.0 	     520	     531	 97.5 	S	-	-	-
@@ -12260,7 +12260,7 @@ S49154	2021-082AA	Starlink-3068	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2
 S49155	2021-082AB	Starlink-3060	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
 S49156	2021-082AC	Starlink-3085	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
 S49157	2021-082AD	Starlink-3051	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
-S49158	2021-082AE	Starlink-3083	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
+S49158	2021-082AE	Starlink-3083	2021 Sep 14 	2023 May 13	2023 May 13	2023 May 13	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
 S49159	2021-082AF	Starlink-3056	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
 S49160	2021-082AG	Starlink-3095	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
 S49161	2021-082AH	Starlink-3080	2021 Sep 14 	2023 Mar  1	*	*	-	Starlink 1.5 G2	2 1	P	M	B	COM	US	ST/SG/SER.E/1031	   91.7 	     357	     362	 70.0 	S	-	-	-
@@ -13989,7 +13989,7 @@ S53198	2022-084K	Starlink-4385	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 
 S53199	2022-084L	Starlink-4395	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	US	ST/SG/SER.E/1079	   92.9 	     417	     419	 97.7 	S	-	-	-
 S53200	2022-084M	Starlink-4417	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	US	ST/SG/SER.E/1079	   93.0 	     418	     421	 97.7 	S	-	-	-
 S53201	2022-084N	Starlink-4405	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	US	ST/SG/SER.E/1079	   92.9 	     416	     419	 97.7 	S	-	-	-
-S53202	2022-084P	Starlink-4411	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 1	P	M	B	COM	US	ST/SG/SER.E/1079	   93.0 	     418	     420	 97.7 	S	-	-	-
+S53202	2022-084P	Starlink-4411	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	US	ST/SG/SER.E/1079	   93.0 	     418	     420	 97.7 	S	-	-	-
 S53203	2022-084Q	Starlink-4409	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	US	ST/SG/SER.E/1079	   92.9 	     416	     418	 97.7 	S	-	-	-
 S53204	2022-084R	Starlink-4410	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	US	ST/SG/SER.E/1079	   92.9 	     417	     420	 97.7 	S	-	-	-
 S53205	2022-084S	Starlink-4397	2022 Jul 22 	2023 Mar  1	*	*	-	Starlink 1.5 G3	3 2	P	M	B	COM	US	ST/SG/SER.E/1079	   92.9 	     415	     418	 97.7 	S	-	-	-
@@ -14692,8 +14692,8 @@ S54033	2022-131A	Angosat 2	2022 Oct 12 	2023 Mar  7	*	*	-	Angosat	-	-	M	C	COM	[A
 S54035	2022-132A	Huanjing Jianzai 02-05	2022 Oct 12 	2023 Mar	*	*	-	HJ-2	-	-	-	C	SCI	[CN]	-	-	-	-	-	S	-	-	-
 S54042	2022-133A	Yaogan 36 02 zu 01 xing	2022 Oct 14 	2023 Mar	*	*	-	YG-36	-	-	-	D	SIG	[CN]	-	-	-	-	-	S	-	-	-
 S54043	2022-133B	Yaogan 36 02 zu 02 xing	2022 Oct 14 	2023 Mar	*	*	-	YG-36	-	-	-	D	SIG	[CN]	-	-	-	-	-	S	-	-	-
+S54044	2022-133C	CZ-2D Deorbit Sail 6	2022 Oct 14 	2023 Jan 22	2023 Feb?	2023 Feb?	-	SAST LV	-	-	-	C	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S54045	2022-133D	Yaogan 36 02 zu 03 xing	2022 Oct 14 	2023 Mar	*	*	-	YG-36	-	-	-	D	SIG	[CN]	-	-	-	-	-	S	-	-	-
-S54046	2022-133E	CZ-2D Deorbit Sail 6	2022 Oct 14 	2023 Jan 22	2023 Feb?	2023 Feb?	-	SAST LV	-	-	-	C	TECH	[CN]	-	-	-	-	-	S	-	-	-
 S54048	2022-134A	EUTELSAT HOT BIRD 13F	2022 Oct 15 	2023 Mar  7	*	*	-	Eutelsat HB	-	-	M	B	COM	[F]	-	-	-	-	-	S	-	-	-
 S54050	2022-135A	Kosmos-2560	2022 Oct 15 	2022 Oct 15	2022 Dec 10?	2022 Dec 10?	-	EMKA	-	-	M	D	IMG	RU	ST/SG/SER.E/1081	   91.0 	     317	     345	 96.2 	S	-	-	-
 S54051	2022-136A	Starlink-5195	2022 Oct 20 	2023 Mar  1	*	*	-	Starlink 1.5 G4	4	P	M	B	COM	US	ST/SG/SER.E/1086	   93.2 	     432	     434	 53.2 	S	-	-	-
@@ -15223,7 +15223,7 @@ S55168	2023-004AE	OWLID 00533	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	U
 S55169	2023-004AF	OWLID 00534	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
 S55170	2023-004AG	OWLID 00535	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
 S55171	2023-004AH	OWLID 00536	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
-S55172	2023-004AJ	OWLID 00537	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 9	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
+S55172	2023-004AJ	OWLID 00537	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 2	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
 S55173	2023-004AK	OWLID 00538	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
 S55174	2023-004AL	OWLID 00539	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 2	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
 S55175	2023-004AM	OWLID 00540	2023 Jan 10 	2023 Mar	*	*	-	OneWeb	1 2	P	M	B	COM	UK	ST/SG/SER.E/1093	  109.4 	    1185	    1217	 87.9 	S	-	-	-
@@ -15829,42 +15829,42 @@ S56038	2023-042BE	Starlink-5793	2023 Mar 24 	2023 Mar 24	*	*	-	Starlink 2F91G5	5
 S56039	2023-042BF	Starlink-5795	2023 Mar 24 	2023 Mar 24	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	US	ST/SG/SER.E/1117	   91.6 	     351	     353	 43.0 	S	-	-	-
 S56040	2023-042BG	Starlink-5798	2023 Mar 24 	2023 Mar 24	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	US	ST/SG/SER.E/1117	   91.6 	     351	     353	 43.0 	S	-	-	-
 S56041	2023-042BH	Starlink-5800	2023 Mar 24 	2023 Mar 24	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	US	ST/SG/SER.E/1117	   91.6 	     351	     353	 43.0 	S	-	-	-
-S56046	2023-043A	OWLID 00585	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56047	2023-043B	OWLID 00586	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56048	2023-043C	OWLID 00587	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56049	2023-043D	OWLID 00588	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56050	2023-043E	OWLID 00589	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56051	2023-043F	OWLID 00590	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56052	2023-043G	OWLID 00591	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56053	2023-043H	OWLID 00592	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56054	2023-043J	OWLID 00593	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56055	2023-043K	OWLID 00594	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56056	2023-043L	OWLID 00595	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56057	2023-043M	OWLID 00596	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56058	2023-043N	OWLID 00597	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56059	2023-043P	OWLID 00598	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56060	2023-043Q	OWLID 00599	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56061	2023-043R	OWLID 00600	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56062	2023-043S	OWLID 00601	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56063	2023-043T	OWLID 00602	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56064	2023-043U	OWLID 00603	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56065	2023-043V	OWLID 00604	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56066	2023-043W	OWLID 00605	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56067	2023-043X	OWLID 00606	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56068	2023-043Y	OWLID 00607	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56069	2023-043Z	OWLID 00608	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56046	2023-043A	OWLID 00585	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56047	2023-043B	OWLID 00586	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56048	2023-043C	OWLID 00587	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56049	2023-043D	OWLID 00588	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56050	2023-043E	OWLID 00589	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56051	2023-043F	OWLID 00590	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56052	2023-043G	OWLID 00591	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56053	2023-043H	OWLID 00592	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56054	2023-043J	OWLID 00593	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56055	2023-043K	OWLID 00594	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56056	2023-043L	OWLID 00595	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56057	2023-043M	OWLID 00596	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56058	2023-043N	OWLID 00597	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56059	2023-043P	OWLID 00598	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56060	2023-043Q	OWLID 00599	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56061	2023-043R	OWLID 00600	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56062	2023-043S	OWLID 00601	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56063	2023-043T	OWLID 00602	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56064	2023-043U	OWLID 00603	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56065	2023-043V	OWLID 00604	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56066	2023-043W	OWLID 00605	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56067	2023-043X	OWLID 00606	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56068	2023-043Y	OWLID 00607	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56069	2023-043Z	OWLID 00608	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
 S56070	2023-043AA	OWLID 00609	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56071	2023-043AB	OWLID 00610	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56071	2023-043AB	OWLID 00610	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
 S56072	2023-043AC	OWLID 00611	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56073	2023-043AD	OWLID 00612	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56073	2023-043AD	OWLID 00612	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
 S56074	2023-043AE	OWLID 00613	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56075	2023-043AF	OWLID 00614	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56076	2023-043AG	OWLID 00615	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56077	2023-043AH	OWLID 00616	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56078	2023-043AJ	OWLID 00617	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56075	2023-043AF	OWLID 00614	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56076	2023-043AG	OWLID 00615	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56077	2023-043AH	OWLID 00616	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56078	2023-043AJ	OWLID 00617	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
 S56079	2023-043AK	OWLID 00618	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56080	2023-043AL	OWLID 00619	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 10	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
-S56081	2023-043AM	OWLID 00620	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56080	2023-043AL	OWLID 00619	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56081	2023-043AM	OWLID 00620	2023 Mar 26 	2023 Mar 26	*	*	-	OneWeb	1 6	P	M	B	COM	UK	ST/SG/SER.E/1111	  109.4 	    1173	    1201	 87.9 	S	-	-	-
 S56083	2023-044A	'Ofeq-13	2023 Mar 28 	2023 Mar 28	*	*	-	Ofeq	-	-	M	D	IMG-R	[IL]	-	-	-	-	-	S	IAI/MBT	-	-
 S56091	2023-045A	Kosmos-2568	2023 Mar 29 	2023 Mar 29	*	*	-	EMKA	-	-	M	D	IMG	RU	ST/SG/SER.E/1109	   91.0 	     322	     343	 96.5 	S	-	-	-
 S56093	2023-046A	Starlink-6102	2023 Mar 29 	2023 Mar 29	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	US	ST/SG/SER.E/1117	   91.5 	     349	     351	 43.0 	S	-	-	-
@@ -16222,11 +16222,11 @@ S56532	2023-065AF	Starlink-6319	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5
 S56533	2023-065AG	Starlink-6310	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56534	2023-065AH	Starlink-6308	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56535	2023-065AJ	Starlink-6309	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56536	2023-065AK	Starlink-6312	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56537	2023-065AL	Starlink-6311	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56536	2023-065AK	Starlink-6312	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56537	2023-065AL	Starlink-6311	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56538	2023-065AM	Starlink-6314	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 3	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56539	2023-065AN	Starlink-6135	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56540	2023-065AP	Starlink-6136	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56539	2023-065AN	Starlink-6135	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56540	2023-065AP	Starlink-6136	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56541	2023-065AQ	Starlink-6249	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56542	2023-065AR	Starlink-6266	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56543	2023-065AS	Starlink-6228	2023 May 14 	2023 May 14	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -16268,22 +16268,22 @@ S56706	2023-067U	Starlink-30079	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6
 S56707	2023-067V	Starlink-30070	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56708	2023-067W	Starlink-30071	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56709	2023-067X	Starlink-30085	2023 May 19 	2023 May 19	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56710	2023-068A	OneWeb SL0561	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56711	2023-068B	OneWeb SL0668	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56712	2023-068C	OneWeb SL0676	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56713	2023-068D	OneWeb SL0677	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56714	2023-068E	OneWeb SL0678	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56715	2023-068F	OneWeb SL0679	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56716	2023-068G	OneWeb SL0680	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56717	2023-068H	OneWeb SL0681	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56718	2023-068J	OneWeb SL0682	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56719	2023-068K	OneWeb SL0683	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56720	2023-068L	OneWeb SL0684	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56721	2023-068M	OneWeb SL0686	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56722	2023-068N	OneWeb SL0694	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56723	2023-068P	OneWeb SL0696	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56724	2023-068Q	OneWeb SL0703	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
-S56725	2023-068R	OneWeb SL0721 Joey	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	[UK]	-	-	-	-	-	S	-	-	-
+S56710	2023-068A	OWLID 00621	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56711	2023-068B	OWLID 00622	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56712	2023-068C	OWLID 00623	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56713	2023-068D	OWLID 00624	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56714	2023-068E	OWLID 00625	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56715	2023-068F	OWLID 00626	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56716	2023-068G	OWLID 00627	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56717	2023-068H	OWLID 00628	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56718	2023-068J	OWLID 00629	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56719	2023-068K	OWLID 00630	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56720	2023-068L	OWLID 00631	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56721	2023-068M	OWLID 00632	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56722	2023-068N	OWLID 00633	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56723	2023-068P	OWLID 00634	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56724	2023-068Q	OWLID 00635	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
+S56725	2023-068R	JoeySat	2023 May 20 	2023 May 20	*	*	-	OneWeb	1 X	P	M	B	COM	UK	ST/SG/SER.E/1122	  109.4 	    1173	    1201	 87.9 	S	-	-	-
 S56726	2023-068S	Iridium Next SV181	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56727	2023-068T	Iridium Next SV174	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56728	2023-068U	Iridium Next SV177	2023 May 20 	2023 May 20	*	*	-	Iridium Next	-	-	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -16417,17 +16417,17 @@ S56880	2023-083E	Starlink-6177	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	
 S56881	2023-083F	Starlink-5853	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56882	2023-083G	Starlink-6175	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56883	2023-083H	Starlink-6171	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56884	2023-083J	Starlink-5515	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56885	2023-083K	Starlink-5095	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56886	2023-083L	Starlink-5496	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56887	2023-083M	Starlink-6180	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56888	2023-083N	Starlink-6181	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56889	2023-083P	Starlink-6169	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56890	2023-083Q	Starlink-5528	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56891	2023-083R	Starlink-6213	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56892	2023-083S	Starlink-6219	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56893	2023-083T	Starlink-6216	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S56894	2023-083U	Starlink-6144	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56884	2023-083J	Starlink-5515	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56885	2023-083K	Starlink-5095	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56886	2023-083L	Starlink-5496	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56887	2023-083M	Starlink-6180	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56888	2023-083N	Starlink-6181	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56889	2023-083P	Starlink-6169	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56890	2023-083Q	Starlink-5528	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56891	2023-083R	Starlink-6213	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56892	2023-083S	Starlink-6219	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56893	2023-083T	Starlink-6216	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S56894	2023-083U	Starlink-6144	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56895	2023-083V	Starlink-6208	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56896	2023-083W	Starlink-6202	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S56897	2023-083X	Starlink-6200	2023 Jun 12 	2023 Jun 12	*	*	-	Starlink 2F91G5	5 2	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
@@ -16768,28 +16768,28 @@ S57264	2023-094AY	Starlink-5858	2023 Jul  7 	2023 Jul  7	*	*	-	Starlink 2F91G5	5
 S57265	2023-094AZ	Starlink-5890	2023 Jul  7 	2023 Jul  7	*	*	-	Starlink 2F91G5	5	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S57288	2023-095A	Hulianwang Jishu Sh	2023 Jul  9 	2023 Jul  9	*	*	-	RSW	-	P	-	C	COM	[CN]	-	-	-	-	-	S	-	-	-
 S57289	2023-095B	Hulianwang Jishu Sh	2023 Jul  9 	2023 Jul  9	*	*	-	RSW	-	P	-	C	COM	[CN]	-	-	-	-	-	S	-	-	-
-S57290	2023-096A	Starlink-30198	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57291	2023-096B	Starlink-30239	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57292	2023-096C	Starlink-30210	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57293	2023-096D	Starlink-30202	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57294	2023-096E	Starlink-30235	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57295	2023-096F	Starlink-30206	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57296	2023-096G	Starlink-30238	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57297	2023-096H	Starlink-30234	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57298	2023-096J	Starlink-30241	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57299	2023-096K	Starlink-30199	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57300	2023-096L	Starlink-30236	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57301	2023-096M	Starlink-30201	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57302	2023-096N	Starlink-30233	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57303	2023-096P	Starlink-30232	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57304	2023-096Q	Starlink-30211	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57305	2023-096R	Starlink-30177	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57306	2023-096S	Starlink-30200	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57307	2023-096T	Starlink-30209	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57308	2023-096U	Starlink-30194	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57309	2023-096V	Starlink-30163	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57310	2023-096W	Starlink-30184	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
-S57311	2023-096X	Starlink-30175	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57290	2023-096A	Starlink-30198	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57291	2023-096B	Starlink-30239	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57292	2023-096C	Starlink-30210	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57293	2023-096D	Starlink-30202	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57294	2023-096E	Starlink-30235	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57295	2023-096F	Starlink-30206	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57296	2023-096G	Starlink-30238	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57297	2023-096H	Starlink-30234	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57298	2023-096J	Starlink-30241	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57299	2023-096K	Starlink-30199	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57300	2023-096L	Starlink-30236	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57301	2023-096M	Starlink-30201	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57302	2023-096N	Starlink-30233	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57303	2023-096P	Starlink-30232	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57304	2023-096Q	Starlink-30211	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57305	2023-096R	Starlink-30177	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57306	2023-096S	Starlink-30200	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57307	2023-096T	Starlink-30209	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57308	2023-096U	Starlink-30194	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57309	2023-096V	Starlink-30163	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57310	2023-096W	Starlink-30184	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57311	2023-096X	Starlink-30175	2023 Jul 10 	2023 Jul 10	*	*	-	Starlink 2F92G6	6 1	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S57312	1998-067VQ	SC-ODIN	2023 Jun  5 	2023 Jul  6	*	*	-	Concordia	-	-	-	A	TECH	[CA]	-	-	-	-	-	S	-	-	-
 S57313	1998-067VR	Iris	2023 Jun  5 	2023 Jul  6	*	*	-	Manitoba	-	-	-	A	TECH	[CA]	-	-	-	-	-	S	-	-	-
 S57314	1998-067VS	RADSAT-SK	2023 Jun  5 	2023 Jul  6	*	*	-	Sask	-	-	-	A	TECH	[CA]	-	-	-	-	-	S	-	-	-
@@ -17019,3 +17019,31 @@ S57620	2023-119U	Starlink-30141	2023 Aug 11 	2023 Aug 11	*	*	-	Starlink 2F92G6	6
 S57621	2023-119V	Starlink-30150	2023 Aug 11 	2023 Aug 11	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S57622	2023-119W	Starlink-30056	2023 Aug 11 	2023 Aug 11	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
 S57623	2023-119X	Starlink-30100	2023 Aug 11 	2023 Aug 11	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57624	2023-120A	Ludi Tance 4A	2023 Aug 12 	2023 Aug 12	*	*	-	L-SAR4	-	P	M	D	IMG-R	[CN]	-	-	-	-	-	S	-	-	-
+S57626	2023-121A	Jiaotong-6	2023 Aug 14 	2023 Aug 14	*	*	-	HEAD	-	-	-	B	COM	[CN]	-	-	-	-	-	S	-	-	-
+S57627	2023-121B	Jiaotong-7	2023 Aug 14 	2023 Aug 14	*	*	-	HEAD	-	-	-	B	COM	[CN]	-	-	-	-	-	S	-	-	-
+S57628	2023-121C	Jiaotong-8	2023 Aug 14 	2023 Aug 14	*	*	-	HEAD	-	-	-	B	COM	[CN]	-	-	-	-	-	S	-	-	-
+S57629	2023-121D	Jiaotong-9	2023 Aug 14 	2023 Aug 14	*	*	-	HEAD	-	-	-	B	COM	[CN]	-	-	-	-	-	S	-	-	-
+S57630	2023-121E	Jiaotong-10	2023 Aug 14 	2023 Aug 14	*	*	-	HEAD	-	-	-	B	COM	[CN]	-	-	-	-	-	S	-	-	-
+S57632	2023-122A	Starlink-30309	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57633	2023-122B	Starlink-30306	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57634	2023-122C	Starlink-30323	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57635	2023-122D	Starlink-30329	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57636	2023-122E	Starlink-30330	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57637	2023-122F	Starlink-30311	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57638	2023-122G	Starlink-30328	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57639	2023-122H	Starlink-30326	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57640	2023-122J	Starlink-30324	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57641	2023-122K	Starlink-30312	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57642	2023-122L	Starlink-30263	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57643	2023-122M	Starlink-30280	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57644	2023-122N	Starlink-30247	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57645	2023-122P	Starlink-30277	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57646	2023-122Q	Starlink-30265	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57647	2023-122R	Starlink-30286	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57648	2023-122S	Starlink-30243	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57649	2023-122T	Starlink-30293	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57650	2023-122U	Starlink-30299	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57651	2023-122V	Starlink-30294	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57652	2023-122W	Starlink-30276	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-
+S57653	2023-122X	Starlink-30289	2023 Aug 17 	2023 Aug 17	*	*	-	Starlink 2F92G6	6	P	M	B	COM	[US]	-	-	-	-	-	S	-	-	-

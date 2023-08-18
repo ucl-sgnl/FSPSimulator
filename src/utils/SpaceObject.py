@@ -4,7 +4,7 @@ import warnings
 from enum import Enum
 import numpy as np
 from astropy.time import Time
-from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day,split_ephemeris_tuple, fit_TLE_to_ephemeris, utc_to_jd
+from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day,split_ephemeris_tuple, fit_TLE_to_ephemeris,write_tle, utc_to_jd
 from utils.Propagators import numerical_prop, kepler_prop, sgp4_prop_TLE
 
 class OperationalStatus(Enum):
@@ -64,7 +64,6 @@ class SpaceObject:
         
         # launch_date must be datetime.datetime.strptime('%Y-%m-%d') format between 1900-00-00 and 2999-12-31
         self.launch_date = datetime.datetime.strptime(launch_date, '%Y-%m-%d')
-
         self.decay_date = decay_date
         self.rso_name = str(rso_name)
         self.rso_type = str(rso_type) if rso_type is not None else None
@@ -76,7 +75,7 @@ class SpaceObject:
             #raise a warning that still lets the code run and forces the operational status to be '?'
             # warnings.warn('WARNING: payload_operational_status should be one of the following: {}'.format(possible_operational_status))
             self.payload_operational_status = '?'
-        
+
         #Object type
         self.object_type = str(object_type) # read in the value that is passed and cast to string
         possible_object_types = ['DEB', 'PAY', 'R/B', 'UNK', '?'] # i have added ? as a possible object type so that the code can still run if this is not specified
@@ -142,18 +141,6 @@ class SpaceObject:
             else:
                 raise ValueError('station_keeping must be either None, True, False or a list of length 1 or 2')
         
-        # if tle is not a string of the format: "{69 characters}\n{69 characters}""  i.e. 2 lines of 69 characters, then raise a warning and set tle to None
-        self.tle=tle
-        if tle is not None:
-            if len(tle) != 2*69+1 or tle[69] != '\n':
-                warnings.warn('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')
-                # Example TLE that works: "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
-                self.tle = None
-            else:
-                self.tle = tle
-        elif tle is None:
-            self.tle = None
-
         self.ephemeris = None # This is where the ephemeris of the propagations will be stored
 
         # Semi-major axis
@@ -179,7 +166,21 @@ class SpaceObject:
         self.cart_state = self.generate_cart() #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
 
         self.C_d = 2.2 #Drag coefficient
-    
+
+        mean_motion = 2*math.pi/self.orbital_period # in radians per minute
+        mean_motion_revs_per_day = mean_motion * 24 * 60 / (2*math.pi) # in revolutions per day
+
+        # if tle is not a string of the format: "{69 characters}\n{69 characters}""  i.e. 2 lines of 69 characters, then raise a warning and set tle to None
+        self.tle=write_tle(catalog_number=00000, classification="U", launch_year=2020, launch_number='067', launch_piece="A",
+              epoch_year=20, epoch_day=264.51782528, first_derivative='-.00002182', second_derivative='00000-0', drag_term='-11606-4',
+              ephemeris_type=0, element_set_number='292',inclination= self.inc, raan=self.raan, eccentricity=self.eccentricity, arg_perigee=self.argp,
+              mean_anomaly=self.meananomaly, mean_motion=mean_motion_revs_per_day,revolution_number=56353)
+        
+        if len(tle) != 2*69+1 or tle[69] != '\n':
+            warnings.warn('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')
+            # Example TLE that works: "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
+
+
     def impute_char_length(self, char_length):
         """
         This function will impute a characteristic length based on the object type
@@ -289,11 +290,12 @@ class SpaceObject:
             positions_eci, velocities_eci, jds =  split_ephemeris_tuple(ephemeris_numerical) # Split the ephemeris tuple into three lists
             # Fit TLE from numerical ephemeris
 
-            #convert mjds to jds
-            TLE = fit_TLE_to_ephemeris(jds, positions_eci, velocities_eci)
-            line1 = TLE.getLine1()
-            line2 = TLE.getLine2()
-            tle_string = line1 + '\n' + line2
+            # #convert mjds to jds
+            # TLE = fit_TLE_to_ephemeris(jds, positions_eci, velocities_eci)
+            # line1 = TLE.getLine1()
+            # line2 = TLE.getLine2()
+            # tle_string = line1 + '\n' + line2
+            tle_string = self.tle
 
             # Propagate using SGP4 for the rest of the orbit
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)

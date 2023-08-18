@@ -176,7 +176,6 @@ def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
         results += (U,)
 
     return results
-                
 
 def true_to_eccentric_anomaly(true_anomaly, eccentricity):
     cos_E = (eccentricity + math.cos(true_anomaly)) / (1 + eccentricity * math.cos(true_anomaly))
