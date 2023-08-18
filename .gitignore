@@ -1,4 +1,4 @@
-*/src/tests/profiling_results
+*/src/fspsim/tests/profiling_results
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -13,7 +13,7 @@ __pycache__/
 
 # Exception for base catalog pickle file
 !SATCAT_before_prop.pickle
-!src/data/results/propagated_catalogs/oneweb_starlink.pickle
+!src/fspsim/data/results/propagated_catalogs/oneweb_starlink.pickle
 # Distribution / packaging
 .Python
 build/

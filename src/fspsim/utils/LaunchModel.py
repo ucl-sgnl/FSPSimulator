@@ -9,8 +9,8 @@ import csv
 import random
 import numpy as np
 from datetime import timedelta
-from utils.Conversions import orbit_classify, orbital_period, generate_cospar_id
-from utils.SpaceObject import SpaceObject
+from fspsim.utils.Conversions import orbit_classify, orbital_period, generate_cospar_id
+from fspsim.utils.SpaceObject import SpaceObject
 
 def import_configuration_json(filename):
     with open(filename) as f:
@@ -307,6 +307,6 @@ if __name__ == '__main__':
     def get_path(*args):
         return os.path.join(os.getcwd(), *args)
 
-    in_file = 'src/data/prediction_csv/04_04_23_fsp.csv'
-    settings = json.load(open(get_path('src/data/specify_simulation/testsim.json'), 'r')) 
+    in_file = 'src/fspsim/data/prediction_csv/04_04_23_fsp.csv'
+    settings = json.load(open(get_path('src/fspsim/data/specify_simulation/testsim.json'), 'r')) 
     Prediction2SpaceObjects(in_file, settings)

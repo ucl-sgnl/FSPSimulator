@@ -6,8 +6,8 @@ import pickle
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from concurrent.futures import ThreadPoolExecutor
-from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
-from utils.Conversions import utc_to_jd, initialize_orekit
+from fspsim.utils.SpaceCatalogue import SpaceCatalogue, check_json_file
+from fspsim.utils.Conversions import utc_to_jd
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -45,7 +45,6 @@ def run_sim(settings):
     integrator_type = str(settings["integrator_type"])
     sgp4_long_term = bool(settings["sgp4_long_term"])
     force_model = settings["force_model"]
-    initialize_orekit()
 
     batch = 1
     batch_size = 100
@@ -70,21 +69,21 @@ def run_sim(settings):
 
         # Save the current batch
         print(f"Saving batch {batch}...")
-        save_path = os.path.join(f'src/data/results/propagated_catalogs/', f"{scenario_name}_batch_{batch}.pickle")
+        save_path = os.path.join(f'src/fspsim/data/results/propagated_catalogs/', f"{scenario_name}_batch_{batch}.pickle")
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         dump_pickle(save_path, current_batch)
         batch += 1
 
     pbar.close()  # Close the progress bar
-    print(f"Simulation complete. Results saved to batches in: {get_path(f'src/data/results/propagated_catalogs/')}")
+    print(f"Simulation complete. Results saved to batches in: {get_path(f'src/fspsim/data/results/propagated_catalogs/')}")
 
 if __name__ == '__main__':
-    #list all the json files in src/data/specify_simulations
-    sims = os.listdir(get_path('src/data/specify_simulations/'))
+    #list all the json files in src/fspsim/data/specify_simulations
+    sims = os.listdir(get_path('src/fspsim/data/specify_simulations/'))
     for sim in sims:
         if sim.endswith('.json'):
             print(f"Running simulation: {sim}")
-            settings = json.load(open(get_path(f'src/data/specify_simulations/{sim}'), 'r'))
+            settings = json.load(open(get_path(f'src/fspsim/data/specify_simulations/{sim}'), 'r'))
             check_json_file(settings)#check if the json file is filled out correctly
             run_sim(settings)
             print(f"Simulation {sim} complete")

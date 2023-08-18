@@ -514,7 +514,7 @@ def earth_sun_vec(jd, unit = True):
     Returns:
         earth_sun_vec (array): Earth-Sun vector in ECI coordinates.
     """
-    bsp_file = 'src/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
+    bsp_file = 'src/fspsim/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
     kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
     earth_position = kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
     sun_position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given jd
@@ -537,7 +537,7 @@ def earth_moon_vec(jd, unit=True):
     Returns:
         earth_moon_vec (array): Earth-Moon vector in ECI coordinates.
     """
-    bsp_file = 'src/data/JPL_ephemerides/de421.bsp'  # select the first (and only) one
+    bsp_file = 'src/fspsim/data/JPL_ephemerides/de421.bsp'  # select the first (and only) one
     kernel = SPK.open(bsp_file)  # Load the planetary SPK kernel file. This file must be in the working directory.
 
     earth_position = kernel[3, 399].compute(jd)  # Earth Barycenter -> Earth vector
@@ -569,81 +569,3 @@ def probe_sun_vec(r, jd, unit = False):
     if unit == True:
         return p/np.linalg.norm(p)
     print("length of probe-sun vector is: ", np.linalg.norm(p))
-    
-def probe_moon_vec(r, jd, unit = False):
-    """
-    Calculates the probe-Moon vector in ECI coordinates.
-    Args:
-        r (array): probe position in ECI coordinates.
-        jd (float): Julian Date for which we want the probe-Moon vector.
-        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is False.
-    Returns:
-        probe_moon_vec (array): Probe-Moon vector in ECI coordinates.
-    """
-    m = earth_moon_vec(jd, unit = False)
-    p = (m-r) #probe-moon vector = earth-moon vector - earth-probe vector
-    if unit == False:
-        return p #output in Km
-    
-    if unit == True:
-        return p/np.linalg.norm(p)
-    print("length of probe-moon vector is: ", np.linalg.norm(p))
-
-# Convert MJD to datetime
-def mjd_to_datetime(mjd):
-    jd = mjd + 2400000.5
-    return datetime.datetime(1858, 11, 17) + datetime.timedelta(days=jd - 2400000.5)
-
-def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], velocities_eci: List[List[float]]) -> str:
-    """
-    Fits a Two-Line Element Set (TLE) to the given Earth-Centered Inertial (ECI) positions and velocities.
-
-    Args:
-        positions_eci (List[List[float]]): A list of ECI positions, each represented as a list of three coordinates [X, Y, Z].
-        velocities_eci (List[List[float]]): A list of ECI velocities, each represented as a list of three velocity components [Vx, Vy, Vz].
-        mjds (List[float]): A list of Modified Julian Dates corresponding to the positions and velocities.
-
-    Returns:
-        str: The fitted TLE represented as a string.
-    """
-    #use the position and velocity halfway into the ephemeris as the initial guess for the TLE
-    a, e, i, pa, raan, ma = car2kep(*positions_eci[int(len(positions_eci)/2)], *velocities_eci[int(len(velocities_eci)/2)])
-    e = float(e)
-    i = float(np.deg2rad(i))
-    pa = float(np.deg2rad(pa))
-    raan = float(np.deg2rad(raan))
-    ma = float(np.deg2rad(ma))
-    mjds = [jd - 2400000.5 for jd in jds]
-    dates = datetime_from_mjd(mjds)
-    obstimes = Time(dates)
-    mjds = obstimes.mjd
-    # Create spacecraft states
-    positions_eci_meters = [[coord *1000 for coord in position] for position in positions_eci]
-    velocities_eci_meters = [[velocity * 1000 for velocity in velocities] for velocities in velocities_eci]
-    spacecraft_states = create_spacecraft_states(positions_eci_meters, velocities_eci_meters, mjds)
-    sma_meters = a * 1000
-    mean_motion = float(np.sqrt(Constants.EIGEN5C_EARTH_MU /sma_meters**3)) #this is radians per second
-    ## Placeholder parameters.
-    ## TODO: I believe none of these are actually used in the propagtion itself but they are required to make a TLE
-    ## TODO: we must double check that none of these are used in the propagation itself.
-    satellite_number = 99999 #TODO: this is going to have to be changed to self.norad id
-    classification = 'U' #
-    launch_year = 2022 #TODO: does this actually change anything in the propagation?
-    launch_number = 42
-    launch_piece = 'A'
-    ephemeris_type = 0
-    element_number = 999
-    mean_motion_first_derivative = 0.0
-    mean_motion_second_derivative = 0.0
-    revolution_number = 100
-
-    date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
-    b_star_first_guess = float(1e-4) # doesn't matter what this is set to, it will be fit to the spacecraft states
-
-    # Call the function to fit TLE
-    fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
-                                            launch_year, launch_number, launch_piece, ephemeris_type,
-                                            element_number, date_start_orekit, mean_motion,
-                                            mean_motion_first_derivative, mean_motion_second_derivative,
-                                            e, i, pa, raan, ma, revolution_number, b_star_first_guess)
-    return fitted_tle
