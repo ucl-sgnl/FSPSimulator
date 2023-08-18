@@ -365,7 +365,7 @@ class SpaceCatalogue:
         spacetrack_path = external_dir + f'spacetrack_active.txt'
         url = 'https://www.space-track.org/basicspacedata/query/class/gp/EPOCH/%3Enow-30/orderby/NORAD_CAT_ID,EPOCH/format/3le' # all satellites
         r = requests.get(url, stream=True)
-        if r.status_code != 200: #TODO: does this need to be 200?
+        if r.status_code >= 300: #TODO: does this need to be 200?
             # check if the file exists already, if so continue
             if os.path.exists(spacetrack_path):
                 print("Failed to get file but a version of the file already exists locally, continuing")
