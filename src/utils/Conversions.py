@@ -10,23 +10,6 @@ from poliastro.frames import Planes
 from jplephem.spk import SPK
 from astropy.coordinates import CartesianRepresentation, CartesianDifferential, GCRS, ITRS
 from typing import Tuple, List
-import orekit
-from org.orekit.orbits import CartesianOrbit, PositionAngle, EquinoctialOrbit
-from org.orekit.propagation import SpacecraftState
-from org.orekit.time import AbsoluteDate
-from org.orekit.propagation.analytical.tle import TLE
-from org.orekit.utils import Constants, PVCoordinates
-from org.hipparchus.geometry.euclidean.threed import Vector3D
-from org.orekit.time import AbsoluteDate, TimeScalesFactory
-from org.orekit.frames import FramesFactory, ITRFVersion
-from org.orekit.propagation.conversion import TLEPropagatorBuilder, FiniteDifferencePropagatorConverter
-from org.orekit.propagation.analytical.tle import TLEPropagator
-from org.orekit.utils import Constants as orekit_constants
-from org.orekit.utils import IERSConventions
-from org.orekit.models.earth import ReferenceEllipsoid
-from org.orekit.errors import OrekitException
-from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir, absolutedate_to_datetime, datetime_to_absolutedate
-from java.util import ArrayList
 
 Re = 6378.137 #km Earth's equatorial radius
 
@@ -606,154 +589,10 @@ def probe_moon_vec(r, jd, unit = False):
         return p/np.linalg.norm(p)
     print("length of probe-moon vector is: ", np.linalg.norm(p))
 
-def initialize_orekit():
-    """Initializes Orekit."""
-    download_orekit_data_curdir()
-    orekit.initVM()
-    setup_orekit_curdir()
-
 # Convert MJD to datetime
 def mjd_to_datetime(mjd):
     jd = mjd + 2400000.5
     return datetime.datetime(1858, 11, 17) + datetime.timedelta(days=jd - 2400000.5)
-
-def create_spacecraft_states(positions: List[List[float]], velocities: List[List[float]], dates_mjd: List[float]) -> ArrayList:
-    """Creates a list of SpacecraftState objects based on positions, velocities, and dates.
-
-    Args:
-        positions (List[List[float]]): Positions.
-        velocities (List[List[float]]): Velocities.
-        dates_mjd (List[float]): Dates in Modified Julian Date format.
-
-    Returns:
-        ArrayList: List of SpacecraftState objects.
-    """
-
-    gcrf = FramesFactory.getGCRF()
-    itrf = FramesFactory.getITRF(IERSConventions.IERS_2010, False)
-    #itrf = FramesFactory.getITRF(ITRFVersion.ITRF_2014, IERSConventions.IERS_2010, False)
-    # Selecting frames to use for OD
-    eci_frame = gcrf
-    ecef_frame = itrf
-    wgs84Ellipsoid = ReferenceEllipsoid.getWgs84(ecef_frame)
-
-    frame = FramesFactory.getGCRF()
-    spacecraft_states = ArrayList()
-    dates_orekit = [datetime_to_absolutedate(mjd_to_datetime(mjd)) for mjd in dates_mjd]
-    for position, velocity, date_orekit in zip(positions, velocities, dates_orekit):
-        pos_x, pos_y, pos_z = position
-        vel_x, vel_y, vel_z = velocity
-        position_vector = Vector3D(float(pos_x), float(pos_y), float(pos_z))
-        velocity_vector = Vector3D(float(vel_x), float(vel_y), float(vel_z))
-        acceleration_vector = Vector3D(float(0.0), float(0.0), float(0.0))
-        pv_coordinates = PVCoordinates(position_vector, velocity_vector, acceleration_vector)
-
-        #make the spacecraft state from the pv coordinates
-        orbit = CartesianOrbit(pv_coordinates, eci_frame, date_orekit, wgs84Ellipsoid.getGM())
-        state = SpacecraftState(orbit)
-
-        spacecraft_states.add(state)
-        
-    return spacecraft_states
-
-def fit_tle_to_spacecraft_states(spacecraft_states: ArrayList, satellite_number: int, classification: str,
-                                 launch_year: int, launch_number: int, launch_piece: str, ephemeris_type: int,
-                                 element_number: int, date_start_orekit: AbsoluteDate, mean_motion: float,
-                                 mean_motion_first_derivative: float, mean_motion_second_derivative: float, e: float,
-                                 i: float, pa: float, raan: float, ma: float, revolution_number: int,
-                                 b_star_first_guess: float) -> TLE:
-    
-    tle_first_guess = TLE(satellite_number, classification, launch_year, launch_number, launch_piece, 
-                          ephemeris_type, element_number, date_start_orekit, mean_motion, 
-                          mean_motion_first_derivative, mean_motion_second_derivative, e, i, pa, raan, ma, 
-                          revolution_number, b_star_first_guess)
-    return create_static_TLE(spacecraft_states, tle_first_guess)
-
-    ####### TODO: this used to fit the numerically propagated ephemeris to a TLE, but it produces crazy TLEs.
-    # try:
-    #     return fit_TLE_to_cart(spacecraft_states, tle_first_guess)
-    # except Exception as error1:
-    #     if "unable to compute TLE" in str(error1) or "hyperbolic orbits cannot be handled" in str(error1):
-    #         print("TLE fitting to numerically propagated ephemeris failed. Modifying eccentricity and trying again.")
-            
-    #         tle_new_guess = modify_eccentricity(tle_first_guess)
-            
-    #         try:
-    #             return fit_TLE_to_cart(spacecraft_states, tle_new_guess)
-    #         except Exception as error2:
-    #             if "unable to compute TLE" in str(error2) or "hyperbolic orbits cannot be handled" in str(error2):
-    #                 print("Modified TLE fitting also failed. Falling back to TLE.stateToTLE() method.")
-    #                 return create_static_TLE(spacecraft_states, tle_first_guess)
-    #             else:
-    #                 raise error2  # If the error is different from the TLE fitting error, raise it again.
-    #     else:
-    #         raise error1  # If the initial error is different from the TLE fitting error, raise it again.
-
-def modify_eccentricity(tle: TLE, delta_e: float = 0.00001) -> TLE:
-    """Modifies the eccentricity of the provided TLE.
-    This is a helper function for the TLE fitting process which struggles with near circular orbits."""
-    e_new = tle.getE() + delta_e
-    return TLE(tle.getSatelliteNumber(),
-               tle.getClassification(),
-               tle.getLaunchYear(),
-               tle.getLaunchNumber(),
-               tle.getLaunchPiece(),
-               tle.getEphemerisType(),
-               tle.getElementNumber(),
-               tle.getDate(),
-               tle.getMeanMotion(),
-               tle.getMeanMotionFirstDerivative(),
-               tle.getMeanMotionSecondDerivative(),
-               e_new,
-               tle.getI(),
-               tle.getPerigeeArgument(),
-               tle.getRaan(),
-               tle.getMeanAnomaly(),
-               tle.getRevolutionNumberAtEpoch(),
-               tle.getBStar())
-
-def fit_TLE_to_cart(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
-    """Fits a TLE to a given list of SpacecraftState objects using the finite difference method in Orekit"""
-
-    threshold = 0.1 
-    max_iterations = 10000        
-    tle_builder = TLEPropagatorBuilder(tle_first_guess, PositionAngle.MEAN, 1.0)
-    fitter = FiniteDifferencePropagatorConverter(tle_builder, threshold, max_iterations)
-    fitter.convert(spacecraft_states, False, 'BSTAR')
-    tle_propagator = TLEPropagator.cast_(fitter.getAdaptedPropagator())
-    return tle_propagator.getTLE()
-
-def create_static_TLE(spacecraft_states: ArrayList, tle_first_guess: TLE) -> TLE:
-    """ Create a TLE from a cartesian state- imputes placeholder values for BSTAR and mean motion derivatives.
-    It is highly preferrable to avoid the use of this as it's propagation will be much less accurate than a TLE fit to the same state."""
-    first_state = spacecraft_states.get(0)
-    return TLE.stateToTLE(first_state, tle_first_guess)
-
-def datetime_from_mjd(mjds: list) -> pd.DatetimeIndex:
-    """Generates dates from a given list of Modified Julian Dates (MJDs).
-
-    Args:
-        mjds (list): List of Modified Julian Dates.
-
-    Returns:
-        pd.DatetimeIndex: Generated dates.
-    """
-    utc_times = [Time(mjd, format="mjd", scale="utc").datetime for mjd in mjds]
-    return pd.DatetimeIndex(utc_times)
-
-def split_ephemeris_tuple(ephemeris):
-    # split the ephemeris into the three component lists
-    jds = []
-    positions_eci = []
-    velocities_eci = []
-
-    for item in ephemeris:
-        time_mjd, pos_at_t, vel_at_t = item
-        jds.append(time_mjd)
-        positions_eci.append(pos_at_t)
-        velocities_eci.append(vel_at_t)
-
-    return positions_eci, velocities_eci, jds
 
 def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], velocities_eci: List[List[float]]) -> str:
     """
