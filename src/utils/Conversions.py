@@ -800,7 +800,7 @@ def fit_TLE_to_ephemeris(jds: List[float], positions_eci: List[List[float]], vel
     revolution_number = 100
 
     date_start_orekit = datetime_to_absolutedate(mjd_to_datetime(mjds[0]))
-    b_star_first_guess = float(1e-7) # doesn't matter what this is set to, it will be fit to the spacecraft states
+    b_star_first_guess = float(1e-4) # doesn't matter what this is set to, it will be fit to the spacecraft states
 
     # Call the function to fit TLE
     fitted_tle = fit_tle_to_spacecraft_states(spacecraft_states, satellite_number, classification,
