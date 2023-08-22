@@ -284,7 +284,8 @@ def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
     operators_to_remove = simsettings["remove_operators"]
     all_space_objects = []
     # create a list of dictionaries containing the metadata for each sub-constellation
-    metadata_dicts = satellite_metadata(file_path=satellite_predictions_csv)
+    lauch_file_direc = 'src/fspsim/data/prediction_csv'
+    metadata_dicts = satellite_metadata(file_path=os.path.join(lauch_file_direc, satellite_predictions_csv))
 
     # need to be able to policy to the constellation companies, then at constellation level (i.e number of satellites that have failed)
     metadata_dicts = apply_settings_at_organisation_level(metadata_dicts,failure_rate = 0, remove_operators =  operators_to_remove)

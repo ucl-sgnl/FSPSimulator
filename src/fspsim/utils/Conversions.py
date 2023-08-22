@@ -382,10 +382,14 @@ def generate_cospar_id(launch_year, launch_number, launch_piece):
     return cospar_id
 
 def tle_exponent_format(value):
+    # if already a string then continue
+    if isinstance(value, str) and '-':
+        return value
+
     # Format a value in scientific notation used in TLEs
     if value == 0:
         return "00000-0"
-
+    
     exponent = int('{:e}'.format(value).split('e')[-1])
     mantissa = '{:.5e}'.format(abs(value)).replace('.', '')[:5]
     sign = '-' if value < 0 else '+'

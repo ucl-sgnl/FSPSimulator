@@ -171,12 +171,12 @@ class SpaceObject:
         mean_motion_revs_per_day = mean_motion * 24 * 60 / (2*math.pi) # in revolutions per day
 
         # if tle is not a string of the format: "{69 characters}\n{69 characters}""  i.e. 2 lines of 69 characters, then raise a warning and set tle to None
-        self.tle=write_tle(catalog_number=00000, classification="U", launch_year=2020, launch_number='067', launch_piece="A",
+        self.tle=write_tle(catalog_number=00000, classification="U", launch_year=2020, launch_number= 67, launch_piece="A",
               epoch_year=20, epoch_day=264.51782528, first_derivative='-.00002182', second_derivative='00000-0', drag_term='-11606-4',
-              ephemeris_type=0, element_set_number='292',inclination= self.inc, raan=self.raan, eccentricity=self.eccentricity, arg_perigee=self.argp,
+              ephemeris_type=0, element_set_number=292,inclination= self.inc, raan=self.raan, eccentricity=self.eccentricity, arg_perigee=self.argp,
               mean_anomaly=self.meananomaly, mean_motion=mean_motion_revs_per_day,revolution_number=56353)
         
-        if len(tle) != 2*69+1 or tle[69] != '\n':
+        if len(self.tle) != 2*69+1 or self.tle[69] != '\n':
             warnings.warn('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')
             # Example TLE that works: "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
 
