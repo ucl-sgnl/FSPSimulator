@@ -12,6 +12,15 @@ from fspsim.utils.Conversions import tle_parse
 from fspsim.utils.LaunchModel import Prediction2SpaceObjects
 
 # If we are deploying to pypi, this code will need to change
+home = os.path.join(os.getcwd() + str("src/fspsim"))
+# firstly create a storage file in their home directory
+cataloguepath, resultspath, externalpath = os.path.join(home + str("data/catalogue/")), os.path.join(home + str("data/results/")), os.path.join(home + str("data/external/"))
+os.makedirs(cataloguepath, exist_ok=True)
+os.makedirs(resultspath, exist_ok=True)
+os.makedirs(externalpath, exist_ok=True)
+
+print(home)
+print(cataloguepath, resultspath, externalpath)
 
 def check_json_file(json):
     # Define the valid keys and their types
@@ -57,11 +66,12 @@ def dump_pickle(file_path, data):
 
 class SpaceCatalogue:
     def __init__(self, settings):
-        satellite_predictions_csv = str("src/fspsim/data/prediction_csv/") + settings["satellite_predictions_csv"]
+         # check to see if they have included a file that exists, if not then use the default from the package
+        satellite_predictions_csv = settings["satellite_predictions_csv"]
         sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
         sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
-        self.sgp4_long_term = settings["sgp4_long_term"]
+        self.Satellites = []
         self.Catalogue = []
         self.CurrentCatalogue = None
         self.sim_object_type = sim_object_type # this can be "active", "all", or "debris"
@@ -72,27 +82,28 @@ class SpaceCatalogue:
         if self.sim_object_catalogue not in ["jsr", "spacetrack", "both"]:
             raise Exception("Invalid sim_object_catalogue specified, must be 'jsr', 'spacetrack', or 'both'")
         self.repull_catalogues = bool(repull_catalogues)
-            
+
         # If we are repulling the catalogues call the appropriate function depending on the sim_object_catalogue
         if self.repull_catalogues == True:
             if self.sim_object_catalogue == "jsr":
                 print("re-downloading JSR Cat")
-                self.PullCatalogueJSR()
+                self.PullCatalogueJSR(external_dir=externalpath)
             elif self.sim_object_catalogue == "spacetrack":
                 print("re-downloading SpaceTrack Cat")
-                self.PullCatalogueSpaceTrack()
+                self.PullCatalogueSpaceTrack(external_dir=externalpath)
             elif self.sim_object_catalogue == "both":
                 print("re-downloading JSR and SpaceTrack Cat")
-                self.PullCatalogueJSR()
-                self.PullCatalogueSpaceTrack()
+                self.PullCatalogueJSR(external_dir=externalpath)
+                self.PullCatalogueSpaceTrack(external_dir=externalpath)
 
-            print("saving new catalogue data to pickle")
-            dump_pickle('src/fspsim/data/catalogue/SATCAT_before_prop.pickle', self)
+            print("Saving new catalogue to /src/ file")
+            output_path = f'{cataloguepath}SATCAT_before_prop.pickle'
+            dump_pickle(output_path, self)
 
         # If we are not repulling the catalogues just use the existing local catalogues
         else:
             print("using existing local catalogues")
-            loaded_data = self.load_from_file('src/fspsim/data/catalogue/SATCAT_before_prop.pickle')
+            loaded_data = self.load_from_file(cataloguepath + 'SATCAT_before_prop.pickle')
             self.__dict__ = loaded_data.__dict__
 
         # Now use the catalogues to create a list of SpaceObjects which will be appended to the Catalogue list
@@ -104,13 +115,10 @@ class SpaceCatalogue:
             raise Exception("Debris not yet implemented")
         
         self.Catalogue2SpaceObjects()
-        print("Total number of SpaceObjects in Catalogue from base catalogs: ", len(self.Catalogue))
         
         # Now add the predictions to the Catalogue attribute of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
         predicted_space_objects = Prediction2SpaceObjects(satellite_predictions_csv = satellite_predictions_csv, simsettings=settings)
         self.Catalogue.extend(predicted_space_objects)
-
-        print("Total number of SpaceObjects in Catalogue (predictions+base catalogs): ", len(self.Catalogue))
         return None
     
     @classmethod
