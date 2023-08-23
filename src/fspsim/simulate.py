@@ -23,14 +23,13 @@ def dump_pickle(file_path, data):
 def propagate_space_object(args):
     space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4 = args
     # Execute the prop_catobject method on the space object
-    print(f"Propagating {space_object.rso_name}...")
+    #print(f"Propagating {space_object.rso_name}...")
     try:
         space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type, force_model=force_model, long_term_sgp4=long_term_sgp4)
     except Exception as e:
-        print(f"An error occurred while propagating {space_object.rso_name}: {e}")
+        #print(f"An error occurred while propagating {space_object.rso_name}: {e}")
         import traceback
         traceback.print_exc()
-
     return
 
 def run_sim(settings):
@@ -47,9 +46,9 @@ def run_sim(settings):
     force_model = settings["force_model"]
 
     batch = 1
-    batch_size = 100
+    batch_size = 100000000
 
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice for testing   
+    #SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice for testing   
 
     # Create a progress bar
     pbar = tqdm(total=len(SATCAT.Catalogue), desc="Propagating")

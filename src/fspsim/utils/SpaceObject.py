@@ -286,8 +286,8 @@ class SpaceObject:
 
             # Propagate numerically for the segment time
             next_jd = min(current_jd + numerical_segment_seconds / 86400, jd_stop)
-            ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
-            positions_eci, velocities_eci, jds =  split_ephemeris_tuple(ephemeris_numerical) # Split the ephemeris tuple into three lists
+            #ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
+            #positions_eci, velocities_eci, jds =  split_ephemeris_tuple(ephemeris_numerical) # Split the ephemeris tuple into three lists
             # Fit TLE from numerical ephemeris
 
             # #convert mjds to jds
@@ -300,16 +300,16 @@ class SpaceObject:
             # Propagate using SGP4 for the rest of the orbit
             ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
 
-            ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
+            #ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
             ephemeris_sgp4_array = np.array(ephemeris_sgp4, dtype=object)
 
             # Combine arrays
-            combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array)) # Stack arrays vertically. i.e. numerical ephemeris on top of SGP4 ephemeris
+            #combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array)) # Stack arrays vertically. i.e. numerical ephemeris on top of SGP4 ephemeris
 
             # Convert inner tuples to lists
-            combined_ephemeris = [ [entry[0], list(entry[1]), list(entry[2])] for entry in combined_ephemeris_array]
+            #combined_ephemeris = [ [entry[0], list(entry[1]), list(entry[2])] for entry in combined_ephemeris_array]
 
-            self.ephemeris = combined_ephemeris
+            self.ephemeris = ephemeris_sgp4_array
 
         elif self.station_keeping == True:
             # Object will station keep from launch to decay
