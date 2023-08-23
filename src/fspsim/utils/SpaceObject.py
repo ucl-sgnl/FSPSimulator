@@ -4,8 +4,8 @@ import warnings
 from enum import Enum
 import numpy as np
 from astropy.time import Time
-from fspsim.utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
-from fspsim.utils.Propagators import kepler_prop, sgp4_prop_TLE
+from utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
+from utils.Propagators import kepler_prop, sgp4_prop_TLE
 
 class OperationalStatus(Enum):
     POSITIVE = '+'
@@ -171,10 +171,13 @@ class SpaceObject:
         mean_motion_revs_per_day = mean_motion * 24 * 60 / (2*math.pi) # in revolutions per day
 
         # if tle is not a string of the format: "{69 characters}\n{69 characters}""  i.e. 2 lines of 69 characters, then raise a warning and set tle to None
-        self.tle=write_tle(catalog_number=00000, classification="U", launch_year=2020, launch_number= 67, launch_piece="A",
-              epoch_year=20, epoch_day=264.51782528, first_derivative='-.00002182', second_derivative='00000-0', drag_term='-11606-4',
-              ephemeris_type=0, element_set_number=292,inclination= self.inc, raan=self.raan, eccentricity=self.eccentricity, arg_perigee=self.argp,
-              mean_anomaly=self.meananomaly, mean_motion=mean_motion_revs_per_day,revolution_number=56353)
+        if tle is None:
+            self.tle=write_tle(catalog_number=00000, classification="U", launch_year=2020, launch_number= 67, launch_piece="A",
+                epoch_year=20, epoch_day=264.51782528, first_derivative='-.00002182', second_derivative='00000-0', drag_term='-11606-4',
+                ephemeris_type=0, element_set_number=292,inclination= self.inc, raan=self.raan, eccentricity=self.eccentricity, arg_perigee=self.argp,
+                mean_anomaly=self.meananomaly, mean_motion=mean_motion_revs_per_day,revolution_number=56353)
+        else:
+            self.tle = tle
         
         if len(self.tle) != 2*69+1 or self.tle[69] != '\n':
             warnings.warn('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')

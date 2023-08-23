@@ -9,8 +9,8 @@ import csv
 import random
 import numpy as np
 from datetime import timedelta
-from fspsim.utils.Conversions import orbit_classify, orbital_period, generate_cospar_id
-from fspsim.utils.SpaceObject import SpaceObject
+from utils.Conversions import orbit_classify, orbital_period, generate_cospar_id
+from utils.SpaceObject import SpaceObject
 
 def import_configuration_json(filename):
     with open(filename) as f:

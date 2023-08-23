@@ -6,8 +6,8 @@ import pickle
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from concurrent.futures import ThreadPoolExecutor
-from fspsim.utils.SpaceCatalogue import SpaceCatalogue, check_json_file
-from fspsim.utils.Conversions import utc_to_jd
+from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
+from utils.Conversions import utc_to_jd
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -46,9 +46,9 @@ def run_sim(settings):
     force_model = settings["force_model"]
 
     batch = 1
-    batch_size = 100000000
+    batch_size = 30000
 
-    #SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice for testing   
+    # SATCAT.Catalogue = SATCAT.Catalogue[::10] # Slice for testing   
 
     # Create a progress bar
     pbar = tqdm(total=len(SATCAT.Catalogue), desc="Propagating")
