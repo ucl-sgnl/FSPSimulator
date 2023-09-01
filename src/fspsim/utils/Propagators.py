@@ -3,6 +3,8 @@ import warnings
 from sgp4.api import Satrec
 from sgp4.api import SGP4_ERRORS
 import math
+from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir
+import orekit
 
 # Useful constants
 Re = 6378.137  # km
@@ -182,7 +184,7 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         ephemeris.append([current_jd, pos, vel])
         # Update the JD time stamp
         current_jd = current_jd + step_size/86400.0  # convert seconds to days
-    return ephemeris
+    return ephemeris   
 
 if __name__ == "__main__":
     pass
