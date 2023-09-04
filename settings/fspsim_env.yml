@@ -18,8 +18,6 @@ dependencies:
   - matplotlib
   - python
   - pyshtools
-  - orekit
-  - openjdk=8.0.321
   - scipy
   - pillow 
   - fftw
