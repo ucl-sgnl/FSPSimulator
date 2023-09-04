@@ -3,12 +3,12 @@ import warnings
 from sgp4.api import Satrec
 from sgp4.api import SGP4_ERRORS
 import math
-from orekit.pyhelpers import setup_orekit_curdir, download_orekit_data_curdir
-import orekit
+from pyatmos import coesa76
 
 # Useful constants
 Re = 6378.137  # km
 GM_earth = 398600.4418 #km^3/s^2
+
 
 def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
@@ -185,6 +185,77 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
         # Update the JD time stamp
         current_jd = current_jd + step_size/86400.0  # convert seconds to days
     return ephemeris   
+
+def kepler_prop_dragdecay(jd_start, jd_stop, step_size, a, e, i, w, W, V, area, mass, cd):
+    # Constants
+    r_tol = 1e-7
+    GM_earth = 398600.4415
+    i, w, W, V = map(np.deg2rad, [i, w, W, V])
+    n = np.sqrt(GM_earth / (a**3))
+    
+    p = a * (1 - (e**2))
+    r = p / (1 + e * np.cos(V))
+
+    # Compute the eccentric anomaly at t=t0
+    cos_Eo = ((r * np.cos(V)) / a) + e
+    sin_Eo = (r * np.sin(V)) / (a * np.sqrt(1 - e**2))
+    Eo = np.arctan2(sin_Eo, cos_Eo)
+    Eo = Eo if Eo >= 0 else Eo + 2*np.pi
+
+    # Compute mean anomaly at start point
+    Mo = Eo - e * np.sin(Eo)
+    
+    # Gaussian vectors
+    P = np.array([[np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)], 
+                  [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)], 
+                  [np.sin(i) * np.sin(w)]])
+    
+    Q = np.array([[-np.cos(W) * np.sin(w) - np.sin(W) * np.cos(i) * np.cos(w)], 
+                  [-np.sin(W) * np.sin(w) + np.cos(W) * np.cos(i) * np.cos(w)], 
+                  [np.sin(i) * np.cos(w)]])
+    
+    # Time calculations
+    t_diff = jd_stop - jd_start
+    t_diff_secs = 86400 * t_diff
+    current_jd = jd_start
+    steps = math.ceil(t_diff_secs / step_size)
+    ephemeris = []
+
+    for step in range(steps):
+        Mi = Mo + n * (step * step_size)
+        # Initial Guess at Eccentric Anomaly
+        E = Mi + (e/2) if Mi < np.pi else Mi - (e/2)
+        # Iterative solution for E
+        f = E - e * np.sin(E) - Mi
+        f_prime = 1 - e * np.cos(E)
+        while abs(f/f_prime) > r_tol:
+            E -= f/f_prime
+            f = E - e * np.sin(E) - Mi
+            f_prime = 1 - e * np.cos(E)
+        # Calculate coordinates
+        x_new, y_new = a * (np.cos(E) - e), a * np.sqrt(1 - e**2) * np.sin(E)
+        cart_pos = x_new*P + y_new*Q
+        r_new = a * (1 - e * np.cos(E))
+        f_new = np.sqrt(a * GM_earth) / r_new
+        g_new = np.sqrt(1 - e**2)
+        cos_Ei, sin_Ei = x_new/a + e, y_new/a * np.sqrt(1 - e**2)
+        cart_vel = (-f_new*sin_Ei*P) + (f_new*g_new*cos_Ei*Q)
+        ephemeris.append([current_jd, cart_pos.flatten(), cart_vel.flatten()])
+        
+        # sma_drag_decay inline
+        altitude = np.linalg.norm(cart_pos) - (6378.137)
+        print("alt:", altitude)
+        if altitude < 200:   # Check altitude condition
+            break
+        rho = coesa76(altitude).rho
+        vel_ms = np.linalg.norm(cart_vel) * 1000
+        sma_m = a * 1000
+        delta_a = -(cd * area * rho * np.linalg.norm(cart_vel)**2 * sma_m) / (2 * mass) * step_size
+        
+        a += delta_a
+        current_jd += step_size/86400.0
+        
+    return ephemeris
 
 if __name__ == "__main__":
     pass
