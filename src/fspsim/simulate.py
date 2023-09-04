@@ -1,11 +1,7 @@
-import datetime
-import sys
 import os
 import json
 import pickle
 from tqdm import tqdm
-from multiprocessing import Pool, cpu_count
-from concurrent.futures import ThreadPoolExecutor
 from fspsim.utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from fspsim.utils.Conversions import utc_to_jd
 
@@ -27,9 +23,8 @@ def propagate_space_object(args):
     try:
         space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type, force_model=force_model, long_term_sgp4=long_term_sgp4)
     except Exception as e:
-        #print(f"An error occurred while propagating {space_object.rso_name}: {e}")
-        import traceback
-        traceback.print_exc()
+        print(f"An error occurred while propagating {space_object.rso_name}: {e}")
+
     return
 
 def run_sim(settings):
@@ -48,7 +43,7 @@ def run_sim(settings):
     batch = 1
     batch_size = 100000000
 
-    # SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice for testing   
+    SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice for testing   
 
     # remove satellites that have an altitude higher than 2000, or are HEO
     for sat in SATCAT.Catalogue:

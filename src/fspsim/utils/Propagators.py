@@ -265,6 +265,7 @@ def _compute_velocity(GM_earth, a, e, E, P, Q):
     return (-f_new * sin_Ei * P) + (f_new * g_new * cos_Ei * Q)
 
 def _sma_drag_decay(cart_pos, cart_vel, cd, area, mass, step_size):
+    #doing this in meters as rho is in kg/m^3 
     GM_earth_m = 398600.4415e9  # in m^3/s^2
     
     r = np.linalg.norm(cart_pos) * 1000  # Convert to meters
