@@ -5,7 +5,7 @@ from enum import Enum
 import numpy as np
 from astropy.time import Time
 from fspsim.utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
-from fspsim.utils.Propagators import kepler_prop, sgp4_prop_TLE
+from fspsim.utils.Propagators import kepler_prop, kepler_prop_dragdecay
 
 class OperationalStatus(Enum):
     POSITIVE = '+'
@@ -180,7 +180,6 @@ class SpaceObject:
             warnings.warn('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')
             # Example TLE that works: "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
 
-
     def impute_char_length(self, char_length):
         """
         This function will impute a characteristic length based on the object type
@@ -269,56 +268,31 @@ class SpaceObject:
 
         combined_ephemeris = []
 
-        if long_term_sgp4:
-            #TODO: I have shortened this numerical_segment_minutes as the numerical fitting of TLEs is not working.
-            numerical_segment_minutes = 1 # 5 mins of higher fidelity numerical propagation to fit the TLE to
-            numerical_segment_seconds = numerical_segment_minutes * 60
+        # Check if station keeping is specified
+        if isinstance(self.station_keeping, list):
+            # Propagate using Kepler from the start date to the end of the station keeping date
+            ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+            combined_ephemeris += ephemeris_station_keep
+            current_jd = self.station_keeping[1]
+        else:
+            current_jd = jd_start
 
-            # Check if station keeping is specified
-            if isinstance(self.station_keeping, list):
-                print(f"station keeping for {self.rso_name}")
-                # Propagate using Kepler from the start date to the end of the station keeping date
-                ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
-                combined_ephemeris += ephemeris_station_keep
-                current_jd = self.station_keeping[1]
-            else:
-                current_jd = jd_start
-
-            # Propagate numerically for the segment time
-            next_jd = min(current_jd + numerical_segment_seconds / 86400, jd_stop)
-            #ephemeris_numerical = numerical_prop(tot_time=(next_jd - current_jd) * 86400, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=current_jd, integrator_type=integrator_type, force_model=force_model)
-            #positions_eci, velocities_eci, jds =  split_ephemeris_tuple(ephemeris_numerical) # Split the ephemeris tuple into three lists
-            # Fit TLE from numerical ephemeris
-
-            # #convert mjds to jds
-            # TLE = fit_TLE_to_ephemeris(jds, positions_eci, velocities_eci)
-            # line1 = TLE.getLine1()
-            # line2 = TLE.getLine2()
-            # tle_string = line1 + '\n' + line2
-            tle_string = self.tle
-
-            # Propagate using SGP4 for the rest of the orbit
-            ephemeris_sgp4 = sgp4_prop_TLE(tle_string, next_jd, jd_stop, step_size)
-
-            #ephemeris_numerical_array = np.array(ephemeris_numerical, dtype=object)
-            ephemeris_sgp4_array = np.array(ephemeris_sgp4, dtype=object)
+            # Propagate using dragdecay for the rest of the orbit
+            dragdecay_ephemeris = kepler_prop_dragdecay(jd_start=current_jd, jd_stop=jd_stop, step_size=step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, area=self.characteristic_area, mass=self.mass, cd=self.C_d)
 
             # Combine arrays
-            #combined_ephemeris_array = np.vstack((ephemeris_numerical_array, ephemeris_sgp4_array)) # Stack arrays vertically. i.e. numerical ephemeris on top of SGP4 ephemeris
+            combined_ephemeris_array = np.vstack((dragdecay_ephemeris, combined_ephemeris))
 
-            # Convert inner tuples to lists
-            #combined_ephemeris = [ [entry[0], list(entry[1]), list(entry[2])] for entry in combined_ephemeris_array]
+            self.ephemeris = combined_ephemeris_array
 
-            self.ephemeris = ephemeris_sgp4_array
-
-        elif self.station_keeping == True:
+        if self.station_keeping == True:
             # Object will station keep from launch to decay
             self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
             self.ephemeris = self.ephemeris[::output_freq_steps]
 
         elif not self.station_keeping:
-            # Object will not station keep, propagate using the numerical integrator
-            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=jd_start, integrator_type=integrator_type, force_model=force_model)
+            # Object will not station keep, propagate using only decay
+            self.ephemeris = kepler_prop_dragdecay(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass, JD_time_start=jd_start, integrator_type=integrator_type, force_model=force_model)
             self.ephemeris = self.ephemeris[::output_freq_steps]
 
 if __name__ == "__main__":

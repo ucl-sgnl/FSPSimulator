@@ -187,6 +187,11 @@ def kepler_prop(jd_start,jd_stop,step_size,a,e,i,w,W,V):
     return ephemeris   
 
 def kepler_prop_dragdecay(jd_start, jd_stop, step_size, a, e, i, w, W, V, area, mass, cd):
+    """
+    Propagates the orbit of a satellite in a Keplerian orbit, taking drag decay into account.
+    Uses Kepler's equation for propagation and Gaussian vectors for coordinate transformation.
+    Stops the propagation if altitude drops below 200 km.
+    """
     # Constants
     r_tol = 1e-7
     GM_earth = 398600.4415
@@ -195,67 +200,90 @@ def kepler_prop_dragdecay(jd_start, jd_stop, step_size, a, e, i, w, W, V, area, 
     
     p = a * (1 - (e**2))
     r = p / (1 + e * np.cos(V))
-
-    # Compute the eccentric anomaly at t=t0
     cos_Eo = ((r * np.cos(V)) / a) + e
     sin_Eo = (r * np.sin(V)) / (a * np.sqrt(1 - e**2))
-    Eo = np.arctan2(sin_Eo, cos_Eo)
-    Eo = Eo if Eo >= 0 else Eo + 2*np.pi
-
-    # Compute mean anomaly at start point
+    Eo = np.arctan2(sin_Eo, cos_Eo) % (2 * np.pi)
     Mo = Eo - e * np.sin(Eo)
     
     # Gaussian vectors
-    P = np.array([[np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)], 
-                  [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)], 
-                  [np.sin(i) * np.sin(w)]])
+    P, Q = _compute_gaussian_vectors(W, w, i)
     
-    Q = np.array([[-np.cos(W) * np.sin(w) - np.sin(W) * np.cos(i) * np.cos(w)], 
-                  [-np.sin(W) * np.sin(w) + np.cos(W) * np.cos(i) * np.cos(w)], 
-                  [np.sin(i) * np.cos(w)]])
-    
-    # Time calculations
-    t_diff = jd_stop - jd_start
-    t_diff_secs = 86400 * t_diff
-    current_jd = jd_start
+    t_diff_secs = 86400 * (jd_stop - jd_start)
     steps = math.ceil(t_diff_secs / step_size)
     ephemeris = []
 
     for step in range(steps):
-        Mi = Mo + n * (step * step_size)
-        # Initial Guess at Eccentric Anomaly
-        E = Mi + (e/2) if Mi < np.pi else Mi - (e/2)
-        # Iterative solution for E
-        f = E - e * np.sin(E) - Mi
-        f_prime = 1 - e * np.cos(E)
-        while abs(f/f_prime) > r_tol:
-            E -= f/f_prime
-            f = E - e * np.sin(E) - Mi
-            f_prime = 1 - e * np.cos(E)
-        # Calculate coordinates
+        # Compute new eccentric anomaly
+        E = _compute_eccentric_anomaly(Mo, e, n, step, step_size, r_tol)
+        
+        # Calculate position and velocity
         x_new, y_new = a * (np.cos(E) - e), a * np.sqrt(1 - e**2) * np.sin(E)
-        cart_pos = x_new*P + y_new*Q
+        cart_pos = x_new * P + y_new * Q
         r_new = a * (1 - e * np.cos(E))
-        f_new = np.sqrt(a * GM_earth) / r_new
-        g_new = np.sqrt(1 - e**2)
-        cos_Ei, sin_Ei = x_new/a + e, y_new/a * np.sqrt(1 - e**2)
-        cart_vel = (-f_new*sin_Ei*P) + (f_new*g_new*cos_Ei*Q)
-        ephemeris.append([current_jd, cart_pos.flatten(), cart_vel.flatten()])
+        cart_vel = _compute_velocity(GM_earth, a, e, E, P, Q)
         
-        # sma_drag_decay inline
-        altitude = np.linalg.norm(cart_pos) - (6378.137)
-        print("alt:", altitude)
-        if altitude < 200:   # Check altitude condition
-            break
-        rho = coesa76(altitude).rho
-        vel_ms = np.linalg.norm(cart_vel) * 1000
-        sma_m = a * 1000
-        delta_a = -(cd * area * rho * np.linalg.norm(cart_vel)**2 * sma_m) / (2 * mass) * step_size
+        ephemeris.append([jd_start + step * step_size / 86400.0, cart_pos.flatten(), cart_vel.flatten()])
         
-        a += delta_a
-        current_jd += step_size/86400.0
+        # Check altitude and update semi-major axis
+        altitude = np.linalg.norm(cart_pos) - 6378.137
+        if altitude < 200: break
+        
+        # Semi-major axis decay due to drag
+        a += _sma_drag_decay(cart_pos, cart_vel, cd, area, mass, step_size)
         
     return ephemeris
+
+def _compute_gaussian_vectors(W, w, i):
+    P = np.array([
+        [np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)], 
+        [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)], 
+        [np.sin(i) * np.sin(w)]
+    ])
+    
+    Q = np.array([
+        [-np.cos(W) * np.sin(w) - np.sin(W) * np.cos(i) * np.cos(w)], 
+        [-np.sin(W) * np.sin(w) + np.cos(W) * np.cos(i) * np.cos(w)], 
+        [np.sin(i) * np.cos(w)]
+    ])
+    return P, Q
+
+def _compute_eccentric_anomaly(Mo, e, n, step, step_size, r_tol):
+    Mi = Mo + n * step * step_size
+    E = Mi + (e/2) if Mi < np.pi else Mi - (e/2)
+    f = E - e * np.sin(E) - Mi
+    f_prime = 1 - e * np.cos(E)
+    while abs(f/f_prime) > r_tol:
+        E -= f/f_prime
+        f = E - e * np.sin(E) - Mi
+        f_prime = 1 - e * np.cos(E)
+    return E
+
+def _compute_velocity(GM_earth, a, e, E, P, Q):
+    f_new = np.sqrt(a * GM_earth) / (a * (1 - e * np.cos(E)))
+    g_new = np.sqrt(1 - e**2)
+    cos_Ei, sin_Ei = np.cos(E) + e, np.sin(E) * np.sqrt(1 - e**2)
+    return (-f_new * sin_Ei * P) + (f_new * g_new * cos_Ei * Q)
+
+def _sma_drag_decay(cart_pos, cart_vel, cd, area, mass, step_size):
+    GM_earth_m = 398600.4415e9  # in m^3/s^2
+    
+    r = np.linalg.norm(cart_pos) * 1000  # Convert to meters
+    altitude = r - 6378.137e3  # Convert Earth radius to meters
+    altitude_km = altitude / 1000
+    rho = coesa76(altitude_km).rho  # Atmospheric density
+    
+    vel_ms = np.linalg.norm(cart_vel) * 1000  # Convert to meters/second
+    drag_acc = -(cd * area * rho * vel_ms**2) / (2 * mass)  # Drag acceleration in m/s^2
+    
+    delta_v = drag_acc * step_size
+    
+    # Semi-major axis decay by vis-viva equation 
+    a_initial = 1 / ((2 / r) - (vel_ms**2 / GM_earth_m)) # Initial semi-major axis in meters
+    a_final = 1 / ((2 / r) - ((vel_ms + delta_v)**2 / GM_earth_m)) # Final semi-major axis in meters
+
+    delta_a_m = a_final - a_initial
+    delta_a_km = delta_a_m / 1000  # Convert to kilometers
+    return delta_a_km
 
 if __name__ == "__main__":
     pass
