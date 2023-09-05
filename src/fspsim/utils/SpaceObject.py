@@ -5,7 +5,7 @@ from enum import Enum
 import numpy as np
 from astropy.time import Time
 from .Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
-from .Propagators import kepler_prop, kepler_prop_dragdecay
+from .Propagators import kepler_prop
 
 class OperationalStatus(Enum):
     POSITIVE = '+'
@@ -273,28 +273,26 @@ class SpaceObject:
 
         # Check if station keeping is specified as a list. If it is propagate using Kepler from the start date to the start of the station keeping date
         elif isinstance(self.station_keeping, list):
-            # Propagate using Kepler from the start date to the end of the station keeping date]
-            print("station keeping for: ", self.rso_name)
-            ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
+            # Propagate using Kepler from the start date to the end of the station keeping date
+            # This assumes that if station keeping is going to occurr, it always occurs from the beggining of the orbit
+
+            station_keeping_start_jd = utc_to_jd(self.station_keeping[0])
+            station_keeping_end_jd = utc_to_jd(self.station_keeping[1])
+            ephemeris_station_keep = kepler_prop(station_keeping_start_jd, station_keeping_end_jd, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, drag_decay=False)
 
             # Propagate using dragdecay for the rest of the orbit
-            print("dragdecay part 2 for: ", self.rso_name)
-            current_jd = self.station_keeping[1] # set the current_jd to the end of the station keeping date so that the next propagation starts from here
-            dragdecay_ephemeris = kepler_prop_dragdecay(jd_start=current_jd, jd_stop=jd_stop, step_size=step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, area=self.characteristic_area, mass=self.mass, cd=self.C_d)
-            print("combined ephemeris shape: ", ephemeris_station_keep.shape)
-            print("dragdecay_ephemeris shape: ", dragdecay_ephemeris.shape)
-            # Combine arrays
-            combined_ephemeris_array = np.concatenate((ephemeris_station_keep, dragdecay_ephemeris), axis=0)
+            dragdecay_ephemeris = kepler_prop(jd_start=station_keeping_end_jd, jd_stop=jd_stop, step_size=step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, area=self.characteristic_area, mass=self.mass, cd=self.C_d, drag_decay=True)
 
-            self.ephemeris = combined_ephemeris_array
+            ephemeris_station_keep = np.array(ephemeris_station_keep)
+            dragdecay_ephemeris = np.array(dragdecay_ephemeris)
+
+            # Combine arrays
+            self.ephemeris = np.concatenate((ephemeris_station_keep, dragdecay_ephemeris), axis=0)
 
         else: # if no station keeping involved at all, then just propagate using dragdecay the whole way through
             # Object will not station keep, propagate using only decay
-            print("dragdecay for: ", self.rso_name)
-            self.ephemeris = kepler_prop_dragdecay(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, area=self.characteristic_area, mass=self.mass, cd=self.C_d)
+            self.ephemeris = kepler_prop(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, area=self.characteristic_area, mass=self.mass, cd=self.C_d, drag_decay=True)
             self.ephemeris = self.ephemeris[::output_freq_steps]
-
-        print("ephemeris length: ", len(self.ephemeris))
 
 if __name__ == "__main__":
     pass

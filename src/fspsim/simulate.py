@@ -46,12 +46,12 @@ def run_sim(settings):
     batch = 1
     batch_size = 100000000
 
-    SATCAT.Catalogue = SATCAT.Catalogue[::100] # Slice for testing   
+    SATCAT.Catalogue = SATCAT.Catalogue # Slice for testing   
 
     # remove satellites that have an altitude higher than 2000, or are HEO
-    for sat in SATCAT.Catalogue:
-        if (sat.apogee + sat.perigee) / 2 > 2000 or sat.eccentricity > 0.2:
-            SATCAT.Catalogue.remove(sat)
+    # for sat in SATCAT.Catalogue:
+    #     if (sat.apogee + sat.perigee) / 2 > 2000 or sat.eccentricity > 0.2:
+    #         SATCAT.Catalogue.remove(sat)
 
     # Create a progress bar
     pbar = tqdm(total=len(SATCAT.Catalogue), desc="Propagating")
