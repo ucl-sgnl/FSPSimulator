@@ -185,7 +185,7 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
 
     if any(math.isnan(val) for val in [a, P, S, delta_Omega, delta_omega, delta_TRAN, period]):
         print("ERROR: NaN value in FSP launch entry")
-        return []
+        return
 
     # Repeat and truncate launch_schedule 
     launch_schedule = launch_schedule * (N // len(launch_schedule)) + launch_schedule[:N % len(launch_schedule)]
@@ -194,7 +194,15 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
     dates_np = np.array([datetime.strptime(date, "%Y-%m-%d") for date in launch_schedule])
     decay_schedule = [(date + timedelta(days=365*5)).strftime("%Y-%m-01") for date in dates_np]
 
+    #STATION KEEPING
+    # For now the assumption is that all constellations are station keeping until their decay schedule after which they go to natural decay. TODO: make this parameterizable
+    # TODO: implement forced reentry
+    # we will make the 
     # Create SpaceObjects
+    if _maneuverable == 'y':
+        station_keeping = True
+    else:
+        station_keeping = False
     subconstellation_Space_Objects = [
         SpaceObject(
             object_type="PAY",
@@ -218,13 +226,13 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
             launch_site="JSC",
             launch_date=launch_schedule[n-1],
             decay_date=decay_schedule[n-1],
-            rso_name=f"{_soname}_{n}"
+            rso_name=f"{_soname}_{n}",
+            station_keeping=station_keeping,
         ) 
         for n in range(1, N+1)
     ]
 
     return subconstellation_Space_Objects
-
 
 def remove_items_from_dict(dict, failure_rate):
     #TODO: this needs work. leaving it for now as just want to run sim
@@ -264,15 +272,6 @@ def apply_settings_at_organisation_level(metadata_dicts, failure_rate , remove_o
         metadata_dicts_settings_applied = metadata_dicts_settings_applied
 
     return metadata_dicts_settings_applied
-
-# def apply_settings_at_constellation_level(metadata_dicts, settings):
-#     list_of_dicts_settings_applied = []
-#     for metadata_dict in metadata_dicts:
-#         num_launches = np.maximum(np.random.normal(float(settings['satellite_failure_rate']), 0.25, 10)[0], 1) # ensure not negative
-#         metadata_dict["N"] = round(num_launches * metadata_dict["N"])
-#         list_of_dicts_settings_applied.append(metadata_dict)
-
-#     return list_of_dicts_settings_applied
 
 def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
     """Generate instances of the SpaceObject class for each of the satellties in the prediction data excel file
