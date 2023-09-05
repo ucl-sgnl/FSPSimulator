@@ -2,8 +2,9 @@ import os
 import json
 import pickle
 from tqdm import tqdm
-from fspsim.utils.SpaceCatalogue import SpaceCatalogue, check_json_file
-from fspsim.utils.Conversions import utc_to_jd
+import traceback
+from .utils.SpaceCatalogue import SpaceCatalogue, check_json_file
+from .utils.Conversions import utc_to_jd
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -24,12 +25,14 @@ def propagate_space_object(args):
         space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type, force_model=force_model, long_term_sgp4=long_term_sgp4)
     except Exception as e:
         print(f"An error occurred while propagating {space_object.rso_name}: {e}")
+        #print the error location
+        print(traceback.format_exc())
 
     return
 
 def run_sim(settings):
     SATCAT = SpaceCatalogue(settings=settings)
-    total_objects = len(SATCAT.Catalogue)
+    # total_objects = len(SATCAT.Catalogue)
     
     jd_start = float(utc_to_jd(settings["sim_start_date"]))
     jd_stop = float(utc_to_jd(settings["sim_end_date"]))
@@ -62,7 +65,7 @@ def run_sim(settings):
                 break
 
             space_object = SATCAT.Catalogue.pop(0)
-            propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
+            propagate_space_object(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term)
             current_batch.append(space_object)
             pbar.update(1)  # Update the progress bar
 

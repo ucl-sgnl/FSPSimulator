@@ -7,12 +7,12 @@ import pandas as pd
 import datetime
 import json
 from dotenv import load_dotenv
-from fspsim.utils.SpaceObject import SpaceObject
-from fspsim.utils.Conversions import tle_parse
-from fspsim.utils.LaunchModel import Prediction2SpaceObjects
+from .SpaceObject import SpaceObject
+from .Conversions import tle_parse
+from .LaunchModel import Prediction2SpaceObjects
 
 # If we are deploying to pypi, this code will need to change
-home = os.path.join(os.getcwd() + str("src/fspsim"))
+home = os.path.join(os.getcwd() + str("/src/fspsim"))
 # firstly create a storage file in their home directory
 cataloguepath, resultspath, externalpath = os.path.join(home + str("data/catalogue/")), os.path.join(home + str("data/results/")), os.path.join(home + str("data/external/"))
 os.makedirs(cataloguepath, exist_ok=True)
