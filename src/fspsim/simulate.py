@@ -46,7 +46,7 @@ def run_sim(settings):
     batch = 1
     batch_size = 100000000
 
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000] # Slice for testing   
+    SATCAT.Catalogue = SATCAT.Catalogue[::100] # Slice for testing   
 
     # remove satellites that have an altitude higher than 2000, or are HEO
     for sat in SATCAT.Catalogue:
@@ -65,7 +65,7 @@ def run_sim(settings):
                 break
 
             space_object = SATCAT.Catalogue.pop(0)
-            propagate_space_object(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term)
+            propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, sgp4_long_term))
             current_batch.append(space_object)
             pbar.update(1)  # Update the progress bar
 

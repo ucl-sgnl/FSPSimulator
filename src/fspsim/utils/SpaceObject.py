@@ -259,14 +259,11 @@ class SpaceObject:
         if integrator_type not in valid_integrator_types:
             raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
 
-        tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
         # If output_freq is not specified, set it to equal the step_size
         if output_freq is None:
             output_freq = step_size
         else:
             output_freq_steps = max(1, round(output_freq / step_size))  # Calculate the output frequency in steps
-
-        combined_ephemeris = []
 
         if self.station_keeping == True:
         # Object will station keep from launch to decay

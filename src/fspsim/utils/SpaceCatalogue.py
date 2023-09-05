@@ -11,7 +11,7 @@ from .SpaceObject import SpaceObject
 from .Conversions import tle_parse
 from .LaunchModel import Prediction2SpaceObjects
 
-# If we are deploying to pypi, this code will need to change
+# TODO:If we are deploying to pypi, this code will need to change
 home = os.path.join(os.getcwd() + str("/src/fspsim"))
 # firstly create a storage file in their home directory
 cataloguepath, resultspath, externalpath = os.path.join(home + str("data/catalogue/")), os.path.join(home + str("data/results/")), os.path.join(home + str("data/external/"))
@@ -19,13 +19,11 @@ os.makedirs(cataloguepath, exist_ok=True)
 os.makedirs(resultspath, exist_ok=True)
 os.makedirs(externalpath, exist_ok=True)
 
-print(home)
-print(cataloguepath, resultspath, externalpath)
-
 def check_json_file(json):
     # Define the valid keys and their types
     expected_keys = {
         # ... (same as before)
+        #TODO: you forgot to add the keys here
     }
 
     # Define the valid values for keys with a limited set of valid options

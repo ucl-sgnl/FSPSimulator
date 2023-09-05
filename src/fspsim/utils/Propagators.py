@@ -219,14 +219,15 @@ def kepler_prop_dragdecay(jd_start, jd_stop, step_size, a, e, i, w, W, V, area, 
         # Calculate position and velocity
         x_new, y_new = a * (np.cos(E) - e), a * np.sqrt(1 - e**2) * np.sin(E)
         cart_pos = x_new * P + y_new * Q
-        r_new = a * (1 - e * np.cos(E))
+        # r_new = a * (1 - e * np.cos(E))
         cart_vel = _compute_velocity(GM_earth, a, e, E, P, Q)
         
         ephemeris.append([jd_start + step * step_size / 86400.0, cart_pos.flatten(), cart_vel.flatten()])
         
         # Check altitude and update semi-major axis
         altitude = np.linalg.norm(cart_pos) - 6378.137
-        if altitude < 200: break
+        if altitude <= 200: 
+            break
         
         # Semi-major axis decay due to drag
         a += _sma_drag_decay(cart_pos, cart_vel, cd, area, mass, step_size)
