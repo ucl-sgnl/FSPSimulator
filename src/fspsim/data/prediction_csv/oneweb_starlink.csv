@@ -1,6 +1,6 @@
-﻿Sub-Constellation,Mega-Constellation,Launched,Approved,Number of sats,Owner Type (Company/ Govt.),Inclination,Altitude,Orbit,Number of Planes,Form Factor,Country,Mass(kg),Mission type/application,Maneuverable,Propulsion,Information Sources,Reasoning for selected orbit values,Extra information
-Oneweb-2,OneWeb,,,6372,Company,87.9,1200,LEO,,0.48*0.52*1.520,UK,200,Comms,y,electric,,,
-Starlink-2,Starlink,,22488,30000,Company,53,350,,,2.4*0.282*0.576,,260,Comms,y,electric,,,
-Starlink-2A,Starlink,,2500,2500,Company,33,535,LEO,,1.2*0.282*0.576,US,260,Comms,y,electric,,,
-Starlink-2B,Starlink,,2200,2200,Company,53,525,LEO,,1.2*0.282*0.576,US,260,Comms,y,electric,,,120 satellites by 2025
-Starlink-2C,Starlink,,2500,2500,Company,43,530,LEO,,1.2*0.282*0.576,US,260,Comms,y,electric,,,47 satellites by the end of 2023
+﻿Sub-Constellation,Mega-Constellation,Predicted,Number of sats,Owner Type (Company/ Govt.),Inclination,Altitude,Form Factor,Country,Mass(kg),Mission type/application,Maneuverable,Propulsion
+Oneweb-2,OneWeb,6372,Company,87.9,1200,,0.48*0.52*1.520,UK,200,Comms,y,electric
+Starlink-2,Starlink,22488,30000,Company,53,350,2.4*0.282*0.576,,260,Comms,y,electric
+Starlink-2A,Starlink,2500,2500,Company,33,535,1.2*0.282*0.576,US,260,Comms,y,electric
+Starlink-2B,Starlink,2200,2200,Company,53,525,1.2*0.282*0.576,US,260,Comms,y,electric
+Starlink-2C,Starlink,2500,2500,Company,43,530,1.2*0.282*0.576,US,260,Comms,y,electric

@@ -66,13 +66,10 @@ class SpaceCatalogue:
     def __init__(self, settings):
          # check to see if they have included a file that exists, if not then use the default from the package
         satellite_predictions_csv = settings["satellite_predictions_csv"]
-        sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
-        sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
+        self.sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
+        self.sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
-        self.Satellites = []
         self.Catalogue = []
-        self.sim_object_type = sim_object_type # this can be "active", "all", or "debris"
-        self.sim_object_catalogue = sim_object_catalogue # this can be "jsr", "spacetrack", or "both"
         # raise exception if invalid sim_object_type or sim_object_catalogue is specified
         if self.sim_object_type not in ["active", "all", "debris"]:
             raise Exception("Invalid sim_object_type specified, must be 'active', 'all', or 'debris'")
