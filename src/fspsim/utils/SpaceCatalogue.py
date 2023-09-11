@@ -71,7 +71,6 @@ class SpaceCatalogue:
         repull_catalogues = settings["repull_catalogues"]
         self.Satellites = []
         self.Catalogue = []
-        self.CurrentCatalogue = None
         self.sim_object_type = sim_object_type # this can be "active", "all", or "debris"
         self.sim_object_catalogue = sim_object_catalogue # this can be "jsr", "spacetrack", or "both"
         # raise exception if invalid sim_object_type or sim_object_catalogue is specified
