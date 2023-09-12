@@ -11,83 +11,12 @@ import numpy as np
 from datetime import timedelta
 from .Conversions import orbit_classify, orbital_period, generate_cospar_id
 from .SpaceObject import SpaceObject
+from .Formatting import future_constellations_csv_handler
 
 def import_configuration_json(filename):
     with open(filename) as f:
         data = json.load(f)
     return data
-
-def calculate_form_factor(form_factor_str):
-    """reads a string describing the form factor of satellties in a sub constellation and 
-    returns characteristic length and area of to populate the SpaceObject class metadata
-    return error if form factor is not a string
-
-    Args:
-        form_factor_str (string): string describing the form factor of satellties
-
-    Raises:
-        ValueError: Form factor must be a string
-
-    Returns:
-        tuple: characteristic length, characteristic area
-    """
-    if not isinstance(form_factor_str, str):
-        raise ValueError('Form factor must be a string')
-    
-    if 'u' in form_factor_str: #DIVIDE by 10 since 1U = 10cm^3
-        _length = float(form_factor_str.split('u')[0]) /10 
-        _area = float(form_factor_str.split('u')[0]) /10
-    elif 'U' in form_factor_str:
-        _length = float(form_factor_str.split('U')[0]) /10
-        _area = float(form_factor_str.split('U')[0]) /10
-    # if there is the character '*', extract all the numbers. The largest value is the characteristic length and the characteristic area is all the two largest values multiplied together
-    elif '*' in form_factor_str:
-        #split the values by the character '*' and make them in ascending order
-        form_factor_str = sorted([float(i) for i in form_factor_str.split('*')])
-        _length = form_factor_str[-1]
-        _area = form_factor_str[-1] * form_factor_str[-2]
-
-    return _length, _area
-    
-    #####======= THIS NEEDS TO BE ITS OWN FUNCTION =========#####
-    #####======= DECIMATE() =========#####
-    # # create a list of the indices of the rows in the dataframe
-    # indices = list(sat_df.index)
-    # # randomly shuffle the indices
-    # np.random.shuffle(indices)
-    # # calculate the number of rows to drop
-    # num_rows_to_drop = math.ceil(len(indices) * startup_failure_rate)
-    # # drop the rows
-    # sat_df = sat_df.drop(indices[:num_rows_to_drop])
-    # #print the number of rows remaining
-    # print('number of rows remaining after startup failure rate applied:',sat_df.shape[0])
-    #####======= THIS NEEDS TO BE ITS OWN FUNCTION =========#####
-
-def satellite_metadata(file_path):
-    sat_df = pd.read_csv(file_path, sep=',')
-    sat_df = sat_df.dropna(subset=['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion'])
-    print('number of rows with all data required in prediction CSV:', sat_df.shape[0])
-
-    # Apply functions to entire columns
-    sat_df['Sub-Constellation'] = sat_df['Sub-Constellation'].str.replace(' ', '_')
-    sat_df[['_length', '_area']] = sat_df['Form Factor'].apply(calculate_form_factor).to_list()
-
-    sat_df = sat_df.rename(columns={
-        'Mega-Constellation': '_owner',
-        'Number of sats': 'N',
-        'Inclination': 'i',
-        'Altitude': 'h',
-        'Sub-Constellation': '_soname',
-        'Mission type/application': '_application',
-        'Mass(kg)': '_mass',
-        'Maneuverable': '_maneuverable',
-        'Propulsion': '_propulsion'
-    })
-    
-    # Convert DataFrame to list of dictionaries
-    metadata_dicts = sat_df.to_dict('records')
-
-    return metadata_dicts
 
 LEO_launchers = {
     'Falcon 9': {
@@ -133,6 +62,23 @@ LEO_launchers = {
 }
 
 def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_ton_capacity, launches_start_date, rocket = "Falcon 9"):
+    """
+    Determines the launch dates for various sub-constellations.
+
+    :param sub_constellation_metadata_dicts: List of metadata for each sub-constellation.
+    :type sub_constellation_metadata_dicts: list[dict]
+    :param settings: Configuration settings.
+    :type settings: dict
+    :param monthly_ton_capacity: The maximum weight capacity available for launching in tons per month.
+    :type monthly_ton_capacity: float
+    :param launches_start_date: The initial date to begin scheduling launches.
+    :type launches_start_date: str
+    :param rocket: The type of rocket used for launches, defaults to "Falcon 9".
+    :type rocket: str, optional
+    :raises ValueError: If the provided rocket is not in the list of LEO launchers.
+    :return: A dictionary of launch dates for each sub-constellation.
+    :rtype: dict[str, list[str]]
+    """
     if rocket not in LEO_launchers:
         raise ValueError(f'rocket must be one of the following: {list(LEO_launchers.keys())}')
 
@@ -166,7 +112,37 @@ def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_t
 
 
 def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner, launch_schedule, _mass, _area, _length, _maneuverable, _propulsion):
-    
+    """
+    Creates a list of space objects for a given sub-constellation.
+
+    :param N: Number of satellites in the constellation.
+    :type N: int
+    :param i: Inclination of the satellite orbit.
+    :type i: float
+    :param h: Altitude of the satellite orbit.
+    :type h: float
+    :param _soname: Name of the sub-constellation.
+    :type _soname: str
+    :param _application: Application for which the satellite is used.
+    :type _application: str
+    :param _owner: Owner or operator of the satellite.
+    :type _owner: str
+    :param launch_schedule: Schedule of satellite launches.
+    :type launch_schedule: list[str]
+    :param _mass: Mass of the satellite.
+    :type _mass: float
+    :param _area: Characteristic area of the satellite.
+    :type _area: float
+    :param _length: Characteristic length of the satellite.
+    :type _length: float
+    :param _maneuverable: Indicates if the satellite is maneuverable.
+    :type _maneuverable: str
+    :param _propulsion: Type of propulsion used in the satellite.
+    :type _propulsion: str
+    :raises ValueError: If N is less than 1.
+    :return: A list of space objects for the sub-constellation.
+    :rtype: list[SpaceObject]
+    """
     # Check that N is always >= 1 
     if N < 1:
         raise ValueError('N (number of satellites in constellation) must be >= 1')
@@ -234,61 +210,22 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
 
     return subconstellation_Space_Objects
 
-def remove_items_from_dict(dict, failure_rate):
-    #TODO: this needs work. leaving it for now as just want to run sim
-    # calculate the number of items to remove
-    companies_to_exclude = ["Starlink", "OneWeb", "E-Space"]
-    output_company_list = []
-    companies_to_remove = []
-
-    # firstly remove all the constellations we want to exclude from above list
-    for company in dict:
-        if company["_owner"] in companies_to_exclude:
-            output_company_list.append(company)
-        else:
-            companies_to_remove.append(company)
-
-    # remove the total number of companies already excluded from the total number of companies
-    num_items_to_remove = round(int(len(dict) - len(output_company_list)) * failure_rate) # this is incorrect use of rate. need to fix
-
-    # randomly select items to remove
-    indices_to_remove = random.sample(range(len(companies_to_remove)), num_items_to_remove)
-    remaining_companies = [v for i, v in enumerate(companies_to_remove) if i not in indices_to_remove]
-    
-    # add start ups to list of companies excluded
-    output_company_list.extend(remaining_companies)
-    
-    return output_company_list
-
-def apply_settings_at_organisation_level(metadata_dicts, failure_rate , remove_operators):
-    # Firstly, remove the startups
-    metadata_dicts_settings_applied = remove_items_from_dict(metadata_dicts, failure_rate = failure_rate)
-
-    # Ability to remove specific operators
-    if remove_operators:
-        operators_to_remove = [operator.strip() for operator in remove_operators.split(",")]
-        metadata_dicts_settings_applied = [dictionary for dictionary in metadata_dicts_settings_applied if dictionary["_owner"] not in operators_to_remove]
-    else:
-        metadata_dicts_settings_applied = metadata_dicts_settings_applied
-
-    return metadata_dicts_settings_applied
 
 def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
-    """Generate instances of the SpaceObject class for each of the satellties in the prediction data excel file
-
-    Args:
-        in_csv_path (_type_): CSV file with the satellite predictions data
-        simsettings_json (_type_): loaded JSON file with the simulation settings to be applied (launch model parameters contained here)
     """
-    operators_to_remove = simsettings["remove_operators"]
+    Generate instances of the SpaceObject class for each of the satellites in the prediction data CSV file.
+
+    :param satellite_predictions_csv: CSV file with the satellite predictions data.
+    :type satellite_predictions_csv: str
+    :param simsettings: Loaded JSON file with the simulation settings (contains launch model parameters).
+    :type simsettings: dict
+    :return: A list of space objects generated from the prediction data.
+    :rtype: list[SpaceObject]
+    """
     all_space_objects = []
     # create a list of dictionaries containing the metadata for each sub-constellation
     lauch_file_direc = 'src/fspsim/data/prediction_csv'
-    metadata_dicts = satellite_metadata(file_path=os.path.join(lauch_file_direc, satellite_predictions_csv))
-
-    # need to be able to policy to the constellation companies, then at constellation level (i.e number of satellites that have failed)
-    metadata_dicts = apply_settings_at_organisation_level(metadata_dicts,failure_rate = 0, remove_operators =  operators_to_remove)
-    # metadata_dicts = apply_settings_at_constellation_level(metadata_dicts, policy)
+    metadata_dicts = future_constellations_csv_handler(file_path=os.path.join(lauch_file_direc, satellite_predictions_csv))
 
     #global_launch_schedule(sub_constellation_metadata_dicts=metadata_dicts)
     sub_constellation_launch_dates = global_launch_schedule(

@@ -285,7 +285,7 @@ class SpaceObject:
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4):
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq):
         """
         Propagates a celestial object based on initial conditions, propagator type, and station keeping preferences.
 
@@ -308,10 +308,6 @@ class SpaceObject:
         if utc_to_jd(self.launch_date) > jd_start:
             jd_start = utc_to_jd(self.launch_date)
 
-        valid_integrator_types = ["RK45"]
-        if integrator_type not in valid_integrator_types:
-            raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
-
         # If output_freq is not specified, set it to equal the step_size
         if output_freq is None:
             output_freq = step_size
@@ -328,7 +324,6 @@ class SpaceObject:
         elif isinstance(self.station_keeping, list):
             # Propagate using Kepler from the start date to the end of the station keeping date
             # This assumes that if station keeping is going to occurr, it always occurs from the beggining of the orbit
-
             station_keeping_start_jd = utc_to_jd(self.station_keeping[0])
             station_keeping_end_jd = utc_to_jd(self.station_keeping[1])
             ephemeris_station_keep = kepler_prop(station_keeping_start_jd, station_keeping_end_jd, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, drag_decay=False)
