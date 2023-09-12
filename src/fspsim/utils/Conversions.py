@@ -540,7 +540,7 @@ def write_tle(catalog_number, classification, launch_year, launch_number, launch
     :type launch_number: int
     :param launch_piece: Piece of the launch.
     :type launch_piece: str
-    ... (and so on for other parameters)
+#INCOMPLETE    ... (and so on for other parameters)
     :return: A two-line element set (TLE) string.
     :rtype: str
     """
