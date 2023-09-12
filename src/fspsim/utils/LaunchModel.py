@@ -224,8 +224,12 @@ def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
     """
     all_space_objects = []
     # create a list of dictionaries containing the metadata for each sub-constellation
-    lauch_file_direc = 'src/fspsim/data/prediction_csv'
-    metadata_dicts = future_constellations_csv_handler(file_path=os.path.join(lauch_file_direc, satellite_predictions_csv))
+    # if the user has selected a file use this
+    if satellite_predictions_csv:
+        metadata_dicts = future_constellations_csv_handler(file_path=satellite_predictions_csv)
+    else:
+        lauch_file_direc = 'src/fspsim/data/prediction_csv'
+        metadata_dicts = future_constellations_csv_handler(file_path=os.path.join(lauch_file_direc, satellite_predictions_csv))
 
     #global_launch_schedule(sub_constellation_metadata_dicts=metadata_dicts)
     sub_constellation_launch_dates = global_launch_schedule(

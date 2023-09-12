@@ -8,6 +8,6 @@
     "integrator_step_size": 960000,
     "sim_object_type": "all",
     "sim_object_catalogue" : "both",
-    "repull_catalogues": true,
+    "repull_catalogues": false,
     "satellite_predictions_csv": "oneweb_starlink_test.csv"
-  }
+}

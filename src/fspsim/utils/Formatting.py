@@ -47,8 +47,10 @@ def future_constellations_csv_handler(file_path):
         sat_df = pd.read_csv(file_path, sep=',')
     except FileNotFoundError:
         print("Future Constellation File has not been found")
+        sys.exit()
     except:
-        print("Cannot read Future Constellation csv") 
+        print("Cannot read Future Constellation csv")
+        sys.exit() 
 
     expected_headers = ['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion']
     

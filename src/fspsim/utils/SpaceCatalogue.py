@@ -6,6 +6,7 @@ import pickle
 import pandas as pd
 import datetime
 import json
+from tqdm import tqdm
 from dotenv import load_dotenv
 from .SpaceObject import SpaceObject
 from .Conversions import tle_parse
@@ -335,7 +336,7 @@ class SpaceCatalogue:
         :rtype: list[SpaceObject]
         """
         if self.sim_object_type == "active":
-            for index, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
+                for _, row in tqdm(self.CurrentCatalogueDF.iloc[1:].iterrows(), total=len(self.CurrentCatalogueDF.iloc[1:]), desc="Building Existing Space Objects"):
                     self.Catalogue.append(SpaceObject(  object_type=row['Type'], 
                                                         payload_operational_status=row['Active'],
                                                         application="Unknown", 
@@ -358,7 +359,8 @@ class SpaceCatalogue:
             # the dataframe we are looking at is the merged JSR and SpaceTrack catalogue
             # it contains the columns from both catalogues
             print(f"Building {len(self.CurrentCatalogueDF)} space objects from JSR/Space-Track merged catalogue")         
-            for _, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
+            #for _, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
+            for _, row in tqdm(self.CurrentCatalogueDF.iloc[1:].iterrows(), total=len(self.CurrentCatalogueDF.iloc[1:]), desc="Building Existing Space Objects"):
                 tle = row["TLE_LINE1"] + "\n" + row["TLE_LINE2"]
                 self.Catalogue.append(SpaceObject(object_type=row['OBJECT_TYPE'], 
                                                     mass=row['Mass'], 
