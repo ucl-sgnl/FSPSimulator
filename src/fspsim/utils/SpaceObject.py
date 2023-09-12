@@ -25,7 +25,18 @@ class ObjectType(Enum):
     OTHER = '?'
 
 def verify_value(value, impute_function):
-    """Verifies that the value is a float and is not None. If it is None or not a float or too small, then impute the value using the impute_function."""
+    """
+    Verifies that the value is a float and is not None. 
+
+    If the value is None, not a float, or too small, it imputes the value using the provided impute_function.
+
+    :param value: The value to be verified.
+    :type value: Any
+    :param impute_function: Function to impute the value if verification fails.
+    :type impute_function: callable
+    :return: Verified or imputed value.
+    :rtype: float
+    """
     try:
         value = float(value)
         if value >= 0.1:  # if value is acceptable
@@ -35,7 +46,22 @@ def verify_value(value, impute_function):
     return impute_function(value)  # pass the value to the impute_function
 
 def verify_angle(value, name, random=False):
-    """Verifies that the value is a float and is between 0 and 360. If it is None or not a float or out of range, raise a ValueError."""
+    """
+    Verifies that the value is a float and is between 0 and 360. 
+
+    If the value is None, not a float, or out of range, it raises a ValueError. If `random` is True and value fails verification,
+    a random value between 0 and 360 is returned.
+
+    :param value: The angle value to be verified.
+    :type value: Any
+    :param name: Name of the object for which the angle is being verified.
+    :type name: str
+    :param random: Whether to return a random value between 0 and 360 if verification fails, defaults to False.
+    :type random: bool, optional
+    :raises ValueError: If value fails verification and `random` is False.
+    :return: Verified or random angle value.
+    :rtype: float
+    """
     try:
         value = float(value)
         if 0 <= value <= 360:  # if value is acceptable
@@ -47,7 +73,17 @@ def verify_angle(value, name, random=False):
         raise ValueError(f'{value} is None or not a float. Please check the input data')
 
 def verify_eccentricity(value):
-    """Verifies that the value is a float and is between 0 and 1. If it is None or not a float or out of range, raise a ValueError."""
+    """
+    Verifies that the value is a float and is between 0 and 1.
+
+    If the value is None, not a float, or out of range, it raises a ValueError.
+
+    :param value: The eccentricity value to be verified.
+    :type value: Any
+    :raises ValueError: If value is None, not a float, or out of range.
+    :return: Verified eccentricity value.
+    :rtype: float
+    """
     try:
         value = float(value)
         if 0 <= value <= 1:  # if value is acceptable
@@ -182,7 +218,13 @@ class SpaceObject:
 
     def impute_char_length(self, char_length):
         """
-        This function will impute a characteristic length based on the object type
+        Impute a characteristic length based on the object type.
+
+        :param char_length: Initial characteristic length.
+        :type char_length: float or None
+        :raises ValueError: If imputed characteristic length is None or 0.
+        :return: Imputed characteristic length.
+        :rtype: float
         """
         if char_length is None or char_length == 0:
             if self.object_type == 'PAYLOAD':
@@ -199,7 +241,13 @@ class SpaceObject:
 
     def impute_char_area(self, char_area):
         """
-        This function will impute a characteristic area based on the object type
+        Impute a characteristic area based on the object type.
+
+        :param char_area: Initial characteristic area.
+        :type char_area: float or None
+        :raises ValueError: If imputed characteristic area is None or 0.
+        :return: Imputed characteristic area.
+        :rtype: float
         """
         if char_area is None or char_area == 0:
             if self.object_type == 'PAYLOAD':
@@ -216,7 +264,12 @@ class SpaceObject:
         
     def impute_mass(self, mass):
         """
-        This function will impute a mass based on the object type
+        Impute a mass based on the object type and a formula from Alfano, Oltrogge and Sheppard (2020).
+
+        :param mass: Initial mass of the object.
+        :type mass: float or None
+        :return: Imputed mass.
+        :rtype: float
         """
         # From Alfano, Oltrogge and Sheppard, 2020
         if mass is None or mass == 0: # if mass is None or 0, then impute it based on the object length
@@ -226,27 +279,29 @@ class SpaceObject:
         return imputed_mass
     
     def generate_cart(self):
-        # generate cartesian state vector from keplerian elements
-        # Keplerian elements are in radians
-        
-        #This is the format of the epoch: datetime.datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S') #in UTC
-        # COnvert it to astropy time
+        """
+        Generate cartesian state vector from keplerian elements.
+
+        :return: Cartesian state vector.
+        :rtype: np.ndarray
+        """
         x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran), epoch=Time(self.epoch, format='datetime'))
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
     def prop_catobject(self, jd_start, jd_stop, step_size, output_freq):
         """
-        Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
+        Propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
 
-        Parameters:
-        jd_start (float): Julian start date for the simulation. Note that this will also dictate the propagation start date, unless the launch_date is greater than jd_start in which case the propagation (jd_start) will start at the launch date.
-        jd_stop (float): Julian stop date for simulation
-        step_size (float): Step size for propagation
-        output_freq (float): Frequency at which to output the ephemeris (in seconds)
-
-        Returns:
-        None: The function does not return anything but updates the `ephemeris` attribute of the object.
+        :param jd_start: Julian start date for the simulation.
+        :type jd_start: float
+        :param jd_stop: Julian stop date for simulation.
+        :type jd_stop: float
+        :param step_size: Step size for propagation.
+        :type step_size: float
+        :param output_freq: Frequency at which to output the ephemeris (in seconds).
+        :type output_freq: float, optional
+        :return: None, but updates the `ephemeris` attribute of the object.
         """
         
         #check launch date - this is for objects that are launched after the start of the simulation
