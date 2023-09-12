@@ -50,7 +50,7 @@ def set_future_constellations(constellations) -> bool:
     
     return True
 
-def run_sim(settings: json, future_constellations: None) -> None:
+def run_sim(settings: json) -> None:
     """
     Propagates a list of space objects over a specified time range.
 
@@ -79,7 +79,7 @@ def run_sim(settings: json, future_constellations: None) -> None:
     - The pickle files are saved with a filename pattern: '<scenario_name>_batch_<batch_number>.pickle'.
     - The propagation function used is 'propagate_space_object' (not defined in the provided code snippet).
     """
-    if (future_constellations):
+    if future_constellations_dict:
         # User defined fsp launch files
         SATCAT = SpaceCatalogue(settings=settings, future_constellations=future_constellations_dict)
     else:
@@ -123,8 +123,7 @@ if __name__ == '__main__':
             print(f"Running simulation: {sim}")
             settings = json.load(open(get_path(f'src/fspsim/data/specify_simulations/{sim}'), 'r'))
             check_json_file(settings)#check if the json file is filled out correctly
-            # provide my own launch file
-            correct_csv = set_future_constellations(r'D:\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink_test.csv')
-            if correct_csv:
-                run_sim(settings, correct_csv)
+            # provide my own launch file # charles you might have to change this path
+            set_future_constellations(r'D:\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink_test.csv')
+            run_sim(settings)
             print(f"Simulation {sim} complete")

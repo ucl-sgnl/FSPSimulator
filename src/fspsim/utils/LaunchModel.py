@@ -17,21 +17,6 @@ def import_configuration_json(filename):
     with open(filename) as f:
         data = json.load(f)
     return data
-    
-    #####======= THIS NEEDS TO BE ITS OWN FUNCTION =========#####
-    #####======= DECIMATE() =========#####
-    # # create a list of the indices of the rows in the dataframe
-    # indices = list(sat_df.index)
-    # # randomly shuffle the indices
-    # np.random.shuffle(indices)
-    # # calculate the number of rows to drop
-    # num_rows_to_drop = math.ceil(len(indices) * startup_failure_rate)
-    # # drop the rows
-    # sat_df = sat_df.drop(indices[:num_rows_to_drop])
-    # #print the number of rows remaining
-    # print('number of rows remaining after startup failure rate applied:',sat_df.shape[0])
-    #####======= THIS NEEDS TO BE ITS OWN FUNCTION =========#####
-
 
 LEO_launchers = {
     'Falcon 9': {
@@ -77,6 +62,23 @@ LEO_launchers = {
 }
 
 def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_ton_capacity, launches_start_date, rocket = "Falcon 9"):
+    """
+    Determines the launch dates for various sub-constellations.
+
+    :param sub_constellation_metadata_dicts: List of metadata for each sub-constellation.
+    :type sub_constellation_metadata_dicts: list[dict]
+    :param settings: Configuration settings.
+    :type settings: dict
+    :param monthly_ton_capacity: The maximum weight capacity available for launching in tons per month.
+    :type monthly_ton_capacity: float
+    :param launches_start_date: The initial date to begin scheduling launches.
+    :type launches_start_date: str
+    :param rocket: The type of rocket used for launches, defaults to "Falcon 9".
+    :type rocket: str, optional
+    :raises ValueError: If the provided rocket is not in the list of LEO launchers.
+    :return: A dictionary of launch dates for each sub-constellation.
+    :rtype: dict[str, list[str]]
+    """
     if rocket not in LEO_launchers:
         raise ValueError(f'rocket must be one of the following: {list(LEO_launchers.keys())}')
 
@@ -110,7 +112,37 @@ def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_t
 
 
 def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner, launch_schedule, _mass, _area, _length, _maneuverable, _propulsion):
-    
+    """
+    Creates a list of space objects for a given sub-constellation.
+
+    :param N: Number of satellites in the constellation.
+    :type N: int
+    :param i: Inclination of the satellite orbit.
+    :type i: float
+    :param h: Altitude of the satellite orbit.
+    :type h: float
+    :param _soname: Name of the sub-constellation.
+    :type _soname: str
+    :param _application: Application for which the satellite is used.
+    :type _application: str
+    :param _owner: Owner or operator of the satellite.
+    :type _owner: str
+    :param launch_schedule: Schedule of satellite launches.
+    :type launch_schedule: list[str]
+    :param _mass: Mass of the satellite.
+    :type _mass: float
+    :param _area: Characteristic area of the satellite.
+    :type _area: float
+    :param _length: Characteristic length of the satellite.
+    :type _length: float
+    :param _maneuverable: Indicates if the satellite is maneuverable.
+    :type _maneuverable: str
+    :param _propulsion: Type of propulsion used in the satellite.
+    :type _propulsion: str
+    :raises ValueError: If N is less than 1.
+    :return: A list of space objects for the sub-constellation.
+    :rtype: list[SpaceObject]
+    """
     # Check that N is always >= 1 
     if N < 1:
         raise ValueError('N (number of satellites in constellation) must be >= 1')
@@ -180,11 +212,15 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
 
 
 def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
-    """Generate instances of the SpaceObject class for each of the satellties in the prediction data excel file
+    """
+    Generate instances of the SpaceObject class for each of the satellites in the prediction data CSV file.
 
-    Args:
-        in_csv_path (_type_): CSV file with the satellite predictions data
-        simsettings_json (_type_): loaded JSON file with the simulation settings to be applied (launch model parameters contained here)
+    :param satellite_predictions_csv: CSV file with the satellite predictions data.
+    :type satellite_predictions_csv: str
+    :param simsettings: Loaded JSON file with the simulation settings (contains launch model parameters).
+    :type simsettings: dict
+    :return: A list of space objects generated from the prediction data.
+    :rtype: list[SpaceObject]
     """
     all_space_objects = []
     # create a list of dictionaries containing the metadata for each sub-constellation
