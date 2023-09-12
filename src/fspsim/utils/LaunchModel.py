@@ -5,9 +5,9 @@ import os
 import json 
 import numpy as np
 from datetime import timedelta
-from fspsim.utils.Conversions import orbital_period
-from fspsim.utils.SpaceObject import SpaceObject
-from fspsim.utils.Formatting import future_constellations_csv_handler
+from ..utils.Conversions import orbital_period
+from ..utils.SpaceObject import SpaceObject
+from ..utils.Formatting import future_constellations_csv_handler
 
 def import_configuration_json(filename):
     with open(filename) as f:
