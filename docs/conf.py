@@ -20,7 +20,8 @@ release = '0.1'
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon']
+    'sphinx.ext.napoleon', 
+    'matplotlib.sphinxext.plot_directive']
 
 
 templates_path = ['_templates']
