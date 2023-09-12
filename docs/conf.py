@@ -8,7 +8,10 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath('..'))       # root directory
+sys.path.insert(0, os.path.abspath('../src'))   # src directory
+
+
 
 project = 'FSPSim'
 copyright = '2023, Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart'
@@ -22,7 +25,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon', 
     'matplotlib.sphinxext.plot_directive']
-
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

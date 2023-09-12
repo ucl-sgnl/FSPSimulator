@@ -1,12 +1,11 @@
 import os
 import json
 import pickle
-import csv
 from tqdm import tqdm
 import traceback
-from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
-from utils.Conversions import utc_to_jd
-from utils.Formatting import future_constellations_csv_handler
+from fspsim.utils.SpaceCatalogue import SpaceCatalogue, check_json_file
+from fspsim.utils.Conversions import utc_to_jd
+from fspsim.utils.Formatting import future_constellations_csv_handler
 
 future_constellations_dict = {}
 

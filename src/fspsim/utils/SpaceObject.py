@@ -4,8 +4,8 @@ import warnings
 from enum import Enum
 import numpy as np
 from astropy.time import Time
-from .Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
-from .Propagators import kepler_prop
+from fspsim.utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
+from fspsim.utils.Propagators import kepler_prop
 
 class OperationalStatus(Enum):
     POSITIVE = '+'

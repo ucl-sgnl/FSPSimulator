@@ -8,9 +8,9 @@ import datetime
 import json
 from tqdm import tqdm
 from dotenv import load_dotenv
-from .SpaceObject import SpaceObject
-from .Conversions import tle_parse
-from .LaunchModel import Prediction2SpaceObjects
+from fspsim.utils.SpaceObject import SpaceObject
+from fspsim.utils.Conversions import tle_parse
+from fspsim.utils.LaunchModel import Prediction2SpaceObjects
 
 # TODO:If we are deploying to pypi, this code will need to change
 home = os.path.join(os.getcwd() + str("/src/fspsim"))

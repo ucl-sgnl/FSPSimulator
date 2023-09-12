@@ -1,9 +1,9 @@
 import pandas as pd
-import csv
 import sys
 
 def calculate_form_factor(form_factor_str):
-    """reads a string describing the form factor of satellties in a sub constellation and 
+    """
+    Reads a string describing the form factor of satellties in a sub constellation and 
     returns characteristic length and area of to populate the SpaceObject class metadata
     return error if form factor is not a string
 
