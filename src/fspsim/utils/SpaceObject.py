@@ -25,7 +25,17 @@ class ObjectType(Enum):
     OTHER = '?'
 
 def verify_value(value, impute_function):
-    """Verifies that the value is a float and is not None. If it is None or not a float or too small, then impute the value using the impute_function."""
+    """
+    Verifies that the value is a float and is not None. If it is None or not a float or 
+    too small, then impute the value using the impute_function.
+
+    :param value: The value to verify
+    :type value: float or None or str
+    :param impute_function: Function to impute value if necessary
+    :type impute_function: function
+    :return: The verified or imputed value
+    :rtype: float
+    """   
     try:
         value = float(value)
         if value >= 0.1:  # if value is acceptable
@@ -35,7 +45,20 @@ def verify_value(value, impute_function):
     return impute_function(value)  # pass the value to the impute_function
 
 def verify_angle(value, name, random=False):
-    """Verifies that the value is a float and is between 0 and 360. If it is None or not a float or out of range, raise a ValueError."""
+    """
+    Verifies that the value is a float and is between 0 and 360. If it is None or not 
+    a float or out of range, raise a ValueError.
+
+    :param value: The value to verify
+    :type value: float or None or str
+    :param name: Name of the object
+    :type name: str
+    :param random: If `True`, return a random angle between 0 and 360 for invalid values, defaults to `False`
+    :type random: bool, optional
+    :return: The verified angle or a random angle if `random` is `True`
+    :rtype: float
+    :raises ValueError: If the value is not a float or out of range and `random` is `False`
+    """
     try:
         value = float(value)
         if 0 <= value <= 360:  # if value is acceptable
@@ -47,7 +70,16 @@ def verify_angle(value, name, random=False):
         raise ValueError(f'{value} is None or not a float. Please check the input data')
 
 def verify_eccentricity(value):
-    """Verifies that the value is a float and is between 0 and 1. If it is None or not a float or out of range, raise a ValueError."""
+    """
+    Verifies that the value is a float and is between 0 and 1. If it is None or not a 
+    float or out of range, raise a ValueError.
+
+    :param value: The value to verify
+    :type value: float or None or str
+    :return: The verified value
+    :rtype: float
+    :raises ValueError: If the value is not a float or out of range
+    """
     try:
         value = float(value)
         if 0 <= value <= 1:  # if value is acceptable
@@ -182,7 +214,13 @@ class SpaceObject:
 
     def impute_char_length(self, char_length):
         """
-        This function will impute a characteristic length based on the object type
+        Imputes a characteristic length based on the object type.
+
+        :param char_length: Characteristic length to verify or impute.
+        :type char_length: float or None
+        :return: Imputed or verified characteristic length.
+        :rtype: float
+        :raises ValueError: If the imputed or given char_length is None or 0.
         """
         if char_length is None or char_length == 0:
             if self.object_type == 'PAYLOAD':
@@ -199,7 +237,13 @@ class SpaceObject:
 
     def impute_char_area(self, char_area):
         """
-        This function will impute a characteristic area based on the object type
+        Imputes a characteristic area based on the object type.
+
+        :param char_area: Characteristic area to verify or impute.
+        :type char_area: float or None
+        :return: Imputed or verified characteristic area.
+        :rtype: float
+        :raises ValueError: If the imputed or given char_area is None or 0.
         """
         if char_area is None or char_area == 0:
             if self.object_type == 'PAYLOAD':
@@ -216,7 +260,12 @@ class SpaceObject:
         
     def impute_mass(self, mass):
         """
-        This function will impute a mass based on the object type
+        Imputes a mass based on the object type.
+
+        :param mass: Mass to verify or impute.
+        :type mass: float or None or str
+        :return: Imputed mass value.
+        :rtype: float
         """
         # From Alfano, Oltrogge and Sheppard, 2020
         if mass is None or mass == 0: # if mass is None or 0, then impute it based on the object length
@@ -226,29 +275,33 @@ class SpaceObject:
         return imputed_mass
     
     def generate_cart(self):
-        # generate cartesian state vector from keplerian elements
-        # Keplerian elements are in radians
-        
-        #This is the format of the epoch: datetime.datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S') #in UTC
-        # COnvert it to astropy time
+        """
+        Generates a cartesian state vector from keplerian elements.
+
+        :return: Cartesian state.
+        :rtype: np.array
+        """
         x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran), epoch=Time(self.epoch, format='datetime'))
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
     def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type, force_model, long_term_sgp4):
         """
-        Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
+        Propagates a celestial object based on initial conditions, propagator type, and station keeping preferences.
 
-        Parameters:
-        jd_start (float): Julian start date for the simulation. Note that this will also dictate the propagation start date, unless the launch_date is greater than jd_start in which case the propagation (jd_start) will start at the launch date.
-        jd_stop (float): Julian stop date for simulation
-        step_size (float): Step size for propagation
-        output_freq (float): Frequency at which to output the ephemeris (in seconds)
-        integrator_type (str): String indicating which numerical integrator to use, default is "RK45"
-        use_sgp4_propagation (bool): Propagate using SGP4 for 100-minute segments. Default is False.
-
-        Returns:
-        None: The function does not return anything but updates the `ephemeris` attribute of the object.
+        :param jd_start: Julian start date for the simulation.
+        :type jd_start: float
+        :param jd_stop: Julian stop date for simulation.
+        :type jd_stop: float
+        :param step_size: Step size for propagation.
+        :type step_size: float
+        :param output_freq: Frequency at which to output the ephemeris (in seconds).
+        :type output_freq: float
+        :param integrator_type: Numerical integrator to use.
+        :type integrator_type: str
+        :param use_sgp4_propagation: Propagate using SGP4 for 100-minute segments.
+        :type use_sgp4_propagation: bool
+        :return: None. Updates the `ephemeris` attribute of the object.
         """
         
         #check launch date - this is for objects that are launched after the start of the simulation

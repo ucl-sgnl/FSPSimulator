@@ -14,7 +14,7 @@ from .LaunchModel import Prediction2SpaceObjects
 # TODO:If we are deploying to pypi, this code will need to change
 home = os.path.join(os.getcwd() + str("/src/fspsim"))
 # firstly create a storage file in their home directory
-cataloguepath, resultspath, externalpath = os.path.join(home + str("data/catalogue/")), os.path.join(home + str("data/results/")), os.path.join(home + str("data/external/"))
+cataloguepath, resultspath, externalpath = os.path.join(home + str("data/catalogue/")), os.path.join(home + str("data/results/")), os.path.join(home + str("/data/external/"))
 os.makedirs(cataloguepath, exist_ok=True)
 os.makedirs(resultspath, exist_ok=True)
 os.makedirs(externalpath, exist_ok=True)
@@ -126,10 +126,12 @@ class SpaceCatalogue:
             
     def CreateCatalogueActive(self):
         """
-        This function will merge the JSR and SpaceTrack catalogues
-        
-        ### Exports
-        - List of merged space objects to 'src/fspsim/data/external/active_jsr_spacetrack.csv'
+        Merges the JSR and SpaceTrack active catalogues.
+
+        :return: None
+        :rtype: None
+        :raises Exception: If any errors are encountered during merging.
+        :exports: List of merged space objects to 'src/fspsim/data/external/active_jsr_spacetrack.csv'
         """
         # This merges the JSR and Spacetrack active catalogues
         jsr_cat = pd.read_csv(externalpath +'currentcat.tsv', sep='\t')
@@ -176,12 +178,13 @@ class SpaceCatalogue:
 
     def CreateCatalogueAll(self):
         """
-        Will use Space-track as a base and merge JSR for the active satellites that we have information on. 
+        Merges JSR active satellites data with Space-track's all satellites data.
 
-        ### Exports
-        - Space Catalogue of all tracked objects by Space-track
-            - 'src/fspsim/data/catalogue/All_catalogue_latest.txt'
-        """ 
+        :return: None
+        :rtype: None
+        :raises Exception: If any errors are encountered during merging.
+        :exports: Space Catalogue of all tracked objects by Space-track to 'src/fspsim/data/catalogue/All_catalogue_latest.txt'
+        """
         # Space Track's catalogue is a json
         spacetrack = pd.read_json(externalpath + 'spacetrack_all.json')
         print("Number of satellites in spacetrack catalogue: ", len(spacetrack))
@@ -276,11 +279,11 @@ class SpaceCatalogue:
         
     def Catalogue2SpaceObjects(self):
         """
-        This function will convert the current catalogue into a list of SpaceObjects
+        Converts the current catalogue into a list of SpaceObjects.
 
-        ### Returns
-        - List of SpaceObjects
-            - View the SpaceObject class for more information
+        :return: List of SpaceObjects. View the SpaceObject class for more information.
+        :rtype: list
+        :raises Exception: If `sim_object_type` is invalid.
         """
         if self.sim_object_type == "active":
             for index, row in self.CurrentCatalogueDF.iloc[1:].iterrows():
@@ -330,7 +333,14 @@ class SpaceCatalogue:
         return self.Catalogue
 
     def DownloadJSRCatalogueIfNewer(self, local_path, url):
-        """Download a file from a URL if it is newer than the local file."""
+        """
+        Download a file from a URL if it is newer than the local file.
+        
+        :param local_path: Path to the local file.
+        :type local_path: str
+        :param url: URL of the file to be downloaded.
+        :type url: str
+        """
         if os.path.exists(local_path):
             local_last_modified = datetime.datetime.fromtimestamp(os.path.getmtime(local_path))
 
@@ -343,7 +353,12 @@ class SpaceCatalogue:
         wget.download(url, local_path)
 
     def PullCatalogueJSR(self, external_dir):
-        """Update the JSR catalogue files."""
+        """
+        Update the JSR catalogue files.
+        
+        :param external_dir: Directory path where the external data is stored.
+        :type external_dir: str
+        """
         cwd = os.getcwd()
         # external_dir = os.path.join(cwd, 'src/fspsim/data/external/')
         tsv_cat_path = external_dir + 'currentcat.tsv'
@@ -356,8 +371,12 @@ class SpaceCatalogue:
             self.DownloadJSRCatalogueIfNewer(path, url)
 
     def PullCatalogueSpaceTrack(self, external_dir):
-        """ Pull down the entire SpaceTrack catalogue """
-    
+        """
+        Pull down the entire SpaceTrack catalogue.
+        
+        :param external_dir: Directory path where the external data is stored.
+        :type external_dir: str
+        """
         spacetrack_path = external_dir + f'spacetrack_all.json'
 
         # Will require spacetrak login

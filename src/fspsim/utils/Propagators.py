@@ -3,6 +3,8 @@ import warnings
 from sgp4.api import Satrec
 from sgp4.api import SGP4_ERRORS
 import math
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 from pyatmos import coesa76
 
 # Useful constants

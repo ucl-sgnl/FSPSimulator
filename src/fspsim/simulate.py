@@ -3,8 +3,8 @@ import json
 import pickle
 from tqdm import tqdm
 import traceback
-from .utils.SpaceCatalogue import SpaceCatalogue, check_json_file
-from .utils.Conversions import utc_to_jd
+from utils.SpaceCatalogue import SpaceCatalogue, check_json_file
+from utils.Conversions import utc_to_jd
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)

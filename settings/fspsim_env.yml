@@ -21,6 +21,7 @@ dependencies:
   - scipy
   - pillow 
   - fftw
+  - tqdm
   - pip:
     - sp3
     - datetime
