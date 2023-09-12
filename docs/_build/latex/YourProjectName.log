@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.12.27)  13 SEP 2023 00:15
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.12.27)  13 SEP 2023 00:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1076,32 +1076,300 @@ LaTeX Info: Redefining \ttfamily on input line 1.
 Chapter 1.
 [1
 
-] [2]
+] [2] [3] [4] [5] [6] [7] [8] [9] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 1361--1363
+\TU/FreeSerif(0)/m/n/10 None. But exports a CSV file with merged list of space 
+objects to
+ []
+
+[11] [12] [13] [14] [15] [16] [17] [18
+
+]
 Chapter 2.
-[3
+[19] [20
 
-] [4
-
-] [5
+] [21
 
 
-] (./YourProjectName.ind [6
+] (./YourProjectName.ind [22
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+[]\TU/FreeMono(0)/m/n/10 calculate_eccentricity() \TU/FreeSerif(0)/m/n/10 (\TU/
+FreeSerif(0)/m/it/10 in module fsp-
+ []
+
+
+Overfull \hbox (4.1225pt too wide) in paragraph at lines 16--17
+[]\TU/FreeMono(0)/m/n/10 calculate_energy_from_semi_major_axis()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
 []\TU/FreeMono(0)/m/n/10 calculate_form_factor() \TU/FreeSerif(0)/m/n/10 (\TU/F
 reeSerif(0)/m/it/10 in module fsp-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--22
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+[]\TU/FreeMono(0)/m/n/10 Catalogue2SpaceObjects() \TU/FreeSerif(0)/m/n/10 (\TU/
+FreeSerif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceCatalogue.SpaceCatalogue
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+[]\TU/FreeMono(0)/m/n/10 check_json_file() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSer
+if(0)/m/it/10 in module fsp-
+ []
+
+
+Overfull \hbox (4.1225pt too wide) in paragraph at lines 21--22
+[]\TU/FreeMono(0)/m/n/10 create_subconstellation_Space_Objects()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+[]\TU/FreeMono(0)/m/n/10 CreateCatalogueActive() \TU/FreeSerif(0)/m/n/10 (\TU/F
+reeSerif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceCatalogue.SpaceCatalogue
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+[]\TU/FreeMono(0)/m/n/10 CreateCatalogueAll() \TU/FreeSerif(0)/m/n/10 (\TU/Free
+Serif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceCatalogue.SpaceCatalogue
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+[]\TU/FreeMono(0)/m/n/10 DownloadJSRCatalogueIfNewer() \TU/FreeSerif(0)/m/n/10 
+(\TU/FreeSerif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceCatalogue.SpaceCatalogue
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+[]\TU/FreeMono(0)/m/n/10 dump_pickle() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif(0
+)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
+[]\TU/FreeMono(0)/m/n/10 earth_moon_vec() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSeri
+f(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+[]\TU/FreeMono(0)/m/n/10 earth_sun_vec() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif
+(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
+[]\TU/FreeMono(0)/m/n/10 ecef2eci_astropy() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSe
+rif(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
 []\TU/FreeMono(0)/m/n/10 future_constellations_csv_handler() \TU/FreeSerif(0)/m
 /n/10 (\TU/FreeSerif(0)/m/it/10 in
  []
 
-[7
 
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+[]\TU/FreeMono(0)/m/n/10 generate_cart() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif
+(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceObject.SpaceObject method\TU/FreeSerif(
+0)/m/n/10 ),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
+[]\TU/FreeMono(0)/m/n/10 generate_cospar_id() \TU/FreeSerif(0)/m/n/10 (\TU/Free
+Serif(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
+[]\TU/FreeMono(0)/m/n/10 global_launch_schedule() \TU/FreeSerif(0)/m/n/10 (\TU/
+FreeSerif(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+[]\TU/FreeMono(0)/m/n/10 impute_char_area() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSe
+rif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceObject.SpaceObject method\TU/FreeSerif(
+0)/m/n/10 ),
+ []
+
+[23
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+[]\TU/FreeMono(0)/m/n/10 impute_char_length() \TU/FreeSerif(0)/m/n/10 (\TU/Free
+Serif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceObject.SpaceObject method\TU/FreeSerif(
+0)/m/n/10 ),
+ []
+
+
+Underfull \hbox (badness 8000) in paragraph at lines 81--82
+[]\TU/FreeMono(0)/m/n/10 impute_mass() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif(0
+)/m/it/10 fspsim.utils.SpaceObject.SpaceObject
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
+[]\TU/FreeMono(0)/m/n/10 load_from_file() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSeri
+f(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceCatalogue.SpaceCatalogue class
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+[]\TU/FreeMono(0)/m/n/10 load_pickle() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif(0
+)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+[]\TU/FreeMono(0)/m/n/10 OperationalStatus \TU/FreeSerif(0)/m/n/10 (\TU/FreeSer
+if(0)/m/it/10 class in fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--126
+[]\TU/FreeMono(0)/m/n/10 orbit_classify() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSeri
+f(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
+[]\TU/FreeMono(0)/m/n/10 orbital_period() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSeri
+f(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+[]\TU/FreeMono(0)/m/n/10 Prediction2SpaceObjects() \TU/FreeSerif(0)/m/n/10 (\TU
+/FreeSerif(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+[]\TU/FreeMono(0)/m/n/10 probe_sun_vec() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif
+(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+[]\TU/FreeMono(0)/m/n/10 prop_catobject() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSeri
+f(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceObject.SpaceObject method\TU/FreeSerif(
+0)/m/n/10 ),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
+[]\TU/FreeMono(0)/m/n/10 propagate_space_object() \TU/FreeSerif(0)/m/n/10 (\TU/
+FreeSerif(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+[]\TU/FreeMono(0)/m/n/10 PullCatalogueJSR() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSe
+rif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceCatalogue.SpaceCatalogue
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+[]\TU/FreeMono(0)/m/n/10 PullCatalogueSpaceTrack() \TU/FreeSerif(0)/m/n/10 (\TU
+/FreeSerif(0)/m/it/10 fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+\TU/FreeSerif(0)/m/it/10 sim.utils.SpaceCatalogue.SpaceCatalogue
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+[]\TU/FreeMono(0)/m/n/10 sgp4_prop_TLE() \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif
+(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--155
+[]\TU/FreeMono(0)/m/n/10 SpaceCatalogue \TU/FreeSerif(0)/m/n/10 (\TU/FreeSerif(
+0)/m/it/10 class in fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+[]\TU/FreeMono(0)/m/n/10 tle_exponent_format() \TU/FreeSerif(0)/m/n/10 (\TU/Fre
+eSerif(0)/m/it/10 in module fsp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
+[]\TU/FreeMono(0)/m/n/10 true_to_mean_anomaly() \TU/FreeSerif(0)/m/n/10 (\TU/Fr
+eeSerif(0)/m/it/10 in module fsp-
+ []
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
+[]\TU/FreeMono(0)/m/n/10 verify_eccentricity() \TU/FreeSerif(0)/m/n/10 (\TU/Fre
+eSerif(0)/m/it/10 in module fsp-
+ []
+
+[25
 
 ])
 The property list \polyglossia@langsetup contains the pairs (without outer
@@ -1144,15 +1412,15 @@ LaTeX Info: Redefining \sffamily on input line 19.
 LaTeX Info: Redefining \ttfamily on input line 19.
 )
 Package rerunfilecheck Info: File `YourProjectName.out' has not changed.
-(rerunfilecheck)             Checksum: 2675FB9337A04E88962A50DACC33BE2A;2772.
+(rerunfilecheck)             Checksum: 6E832EF21B6F40AE30315F33EFECB8D0;2809.
  ) 
 Here is how much of TeX's memory you used:
- 18213 strings out of 476179
- 364847 string characters out of 5809543
- 715578 words of memory out of 5000000
- 38582 multiletter control sequences out of 15000+600000
+ 18295 strings out of 476179
+ 369428 string characters out of 5809543
+ 728635 words of memory out of 5000000
+ 38664 multiletter control sequences out of 15000+600000
  474737 words of font info for 90 fonts, out of 8000000 for 9000
  1349 hyphenation exceptions out of 8191
- 73i,11n,85p,482b,432s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,11n,85p,2881b,684s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on YourProjectName.pdf (11 pages).
+Output written on YourProjectName.pdf (29 pages).

@@ -11,8 +11,6 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))       # root directory
 sys.path.insert(0, os.path.abspath('../src'))   # src directory
 
-
-
 project = 'FSPSim'
 copyright = '2023, Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart'
 author = 'Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart'
@@ -28,6 +26,7 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+autodoc_mock_imports = ["wget", "poliastro", "sgp4", "dotenv", "jplephem", "pyatmos"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

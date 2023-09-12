@@ -1,8 +1,93 @@
-\indexentry{module@\spxentry{module}!fspsim.utils.Formatting@\spxentry{fspsim.utils.Formatting}}{1}
-\indexentry{fspsim.utils.Formatting@\spxentry{fspsim.utils.Formatting}!module@\spxentry{module}}{1}
-\indexentry{calculate\_form\_factor() (in module fspsim.utils.Formatting)@\spxentry{calculate\_form\_factor()}\spxextra{in module fspsim.utils.Formatting}}{1}
-\indexentry{future\_constellations\_csv\_handler() (in module fspsim.utils.Formatting)@\spxentry{future\_constellations\_csv\_handler()}\spxextra{in module fspsim.utils.Formatting}}{1}
-\indexentry{module@\spxentry{module}!fspsim.utils@\spxentry{fspsim.utils}}{2}
-\indexentry{fspsim.utils@\spxentry{fspsim.utils}!module@\spxentry{module}}{2}
-\indexentry{module@\spxentry{module}!fspsim@\spxentry{fspsim}}{2}
-\indexentry{fspsim@\spxentry{fspsim}!module@\spxentry{module}}{2}
+\indexentry{module@\spxentry{module}!fspsim.utils.Conversions@\spxentry{fspsim.utils.Conversions}}{1}
+\indexentry{fspsim.utils.Conversions@\spxentry{fspsim.utils.Conversions}!module@\spxentry{module}}{1}
+\indexentry{TLE\_time() (in module fspsim.utils.Conversions)@\spxentry{TLE\_time()}\spxextra{in module fspsim.utils.Conversions}}{1}
+\indexentry{UTC\_step() (in module fspsim.utils.Conversions)@\spxentry{UTC\_step()}\spxextra{in module fspsim.utils.Conversions}}{1}
+\indexentry{calculate\_eccentricity() (in module fspsim.utils.Conversions)@\spxentry{calculate\_eccentricity()}\spxextra{in module fspsim.utils.Conversions}}{1}
+\indexentry{calculate\_energy\_from\_semi\_major\_axis() (in module fspsim.utils.Conversions)@\spxentry{calculate\_energy\_from\_semi\_major\_axis()}\spxextra{in module fspsim.utils.Conversions}}{2}
+\indexentry{car2kep() (in module fspsim.utils.Conversions)@\spxentry{car2kep()}\spxextra{in module fspsim.utils.Conversions}}{2}
+\indexentry{earth\_moon\_vec() (in module fspsim.utils.Conversions)@\spxentry{earth\_moon\_vec()}\spxextra{in module fspsim.utils.Conversions}}{2}
+\indexentry{earth\_sun\_vec() (in module fspsim.utils.Conversions)@\spxentry{earth\_sun\_vec()}\spxextra{in module fspsim.utils.Conversions}}{3}
+\indexentry{eccentric\_to\_mean\_anomaly() (in module fspsim.utils.Conversions)@\spxentry{eccentric\_to\_mean\_anomaly()}\spxextra{in module fspsim.utils.Conversions}}{3}
+\indexentry{ecef2eci\_astropy() (in module fspsim.utils.Conversions)@\spxentry{ecef2eci\_astropy()}\spxextra{in module fspsim.utils.Conversions}}{3}
+\indexentry{generate\_cospar\_id() (in module fspsim.utils.Conversions)@\spxentry{generate\_cospar\_id()}\spxextra{in module fspsim.utils.Conversions}}{3}
+\indexentry{get\_day\_of\_year\_and\_fractional\_day() (in module fspsim.utils.Conversions)@\spxentry{get\_day\_of\_year\_and\_fractional\_day()}\spxextra{in module fspsim.utils.Conversions}}{4}
+\indexentry{jd\_to\_utc() (in module fspsim.utils.Conversions)@\spxentry{jd\_to\_utc()}\spxextra{in module fspsim.utils.Conversions}}{4}
+\indexentry{kep2car() (in module fspsim.utils.Conversions)@\spxentry{kep2car()}\spxextra{in module fspsim.utils.Conversions}}{4}
+\indexentry{orbit\_classify() (in module fspsim.utils.Conversions)@\spxentry{orbit\_classify()}\spxextra{in module fspsim.utils.Conversions}}{4}
+\indexentry{orbital\_period() (in module fspsim.utils.Conversions)@\spxentry{orbital\_period()}\spxextra{in module fspsim.utils.Conversions}}{5}
+\indexentry{probe\_sun\_vec() (in module fspsim.utils.Conversions)@\spxentry{probe\_sun\_vec()}\spxextra{in module fspsim.utils.Conversions}}{5}
+\indexentry{tle\_checksum() (in module fspsim.utils.Conversions)@\spxentry{tle\_checksum()}\spxextra{in module fspsim.utils.Conversions}}{5}
+\indexentry{tle\_convert() (in module fspsim.utils.Conversions)@\spxentry{tle\_convert()}\spxextra{in module fspsim.utils.Conversions}}{5}
+\indexentry{tle\_exponent\_format() (in module fspsim.utils.Conversions)@\spxentry{tle\_exponent\_format()}\spxextra{in module fspsim.utils.Conversions}}{6}
+\indexentry{tle\_parse() (in module fspsim.utils.Conversions)@\spxentry{tle\_parse()}\spxextra{in module fspsim.utils.Conversions}}{6}
+\indexentry{true\_to\_eccentric\_anomaly() (in module fspsim.utils.Conversions)@\spxentry{true\_to\_eccentric\_anomaly()}\spxextra{in module fspsim.utils.Conversions}}{6}
+\indexentry{true\_to\_mean\_anomaly() (in module fspsim.utils.Conversions)@\spxentry{true\_to\_mean\_anomaly()}\spxextra{in module fspsim.utils.Conversions}}{6}
+\indexentry{utc\_to\_jd() (in module fspsim.utils.Conversions)@\spxentry{utc\_to\_jd()}\spxextra{in module fspsim.utils.Conversions}}{6}
+\indexentry{v\_rel() (in module fspsim.utils.Conversions)@\spxentry{v\_rel()}\spxextra{in module fspsim.utils.Conversions}}{7}
+\indexentry{write\_tle() (in module fspsim.utils.Conversions)@\spxentry{write\_tle()}\spxextra{in module fspsim.utils.Conversions}}{7}
+\indexentry{module@\spxentry{module}!fspsim.utils.Formatting@\spxentry{fspsim.utils.Formatting}}{8}
+\indexentry{fspsim.utils.Formatting@\spxentry{fspsim.utils.Formatting}!module@\spxentry{module}}{8}
+\indexentry{calculate\_form\_factor() (in module fspsim.utils.Formatting)@\spxentry{calculate\_form\_factor()}\spxextra{in module fspsim.utils.Formatting}}{8}
+\indexentry{future\_constellations\_csv\_handler() (in module fspsim.utils.Formatting)@\spxentry{future\_constellations\_csv\_handler()}\spxextra{in module fspsim.utils.Formatting}}{8}
+\indexentry{module@\spxentry{module}!fspsim.utils.LaunchModel@\spxentry{fspsim.utils.LaunchModel}}{8}
+\indexentry{fspsim.utils.LaunchModel@\spxentry{fspsim.utils.LaunchModel}!module@\spxentry{module}}{8}
+\indexentry{Prediction2SpaceObjects() (in module fspsim.utils.LaunchModel)@\spxentry{Prediction2SpaceObjects()}\spxextra{in module fspsim.utils.LaunchModel}}{8}
+\indexentry{create\_subconstellation\_Space\_Objects() (in module fspsim.utils.LaunchModel)@\spxentry{create\_subconstellation\_Space\_Objects()}\spxextra{in module fspsim.utils.LaunchModel}}{9}
+\indexentry{global\_launch\_schedule() (in module fspsim.utils.LaunchModel)@\spxentry{global\_launch\_schedule()}\spxextra{in module fspsim.utils.LaunchModel}}{9}
+\indexentry{import\_configuration\_json() (in module fspsim.utils.LaunchModel)@\spxentry{import\_configuration\_json()}\spxextra{in module fspsim.utils.LaunchModel}}{10}
+\indexentry{module@\spxentry{module}!fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}}{10}
+\indexentry{fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}!module@\spxentry{module}}{10}
+\indexentry{kepler\_prop() (in module fspsim.utils.Propagators)@\spxentry{kepler\_prop()}\spxextra{in module fspsim.utils.Propagators}}{10}
+\indexentry{sgp4\_prop\_TLE() (in module fspsim.utils.Propagators)@\spxentry{sgp4\_prop\_TLE()}\spxextra{in module fspsim.utils.Propagators}}{10}
+\indexentry{module@\spxentry{module}!fspsim.utils.SpaceCatalogue@\spxentry{fspsim.utils.SpaceCatalogue}}{10}
+\indexentry{fspsim.utils.SpaceCatalogue@\spxentry{fspsim.utils.SpaceCatalogue}!module@\spxentry{module}}{10}
+\indexentry{SpaceCatalogue (class in fspsim.utils.SpaceCatalogue)@\spxentry{SpaceCatalogue}\spxextra{class in fspsim.utils.SpaceCatalogue}}{10}
+\indexentry{Catalogue2SpaceObjects() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{Catalogue2SpaceObjects()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}{10}
+\indexentry{CreateCatalogueActive() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueActive()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}{11}
+\indexentry{CreateCatalogueAll() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueAll()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}{11}
+\indexentry{DownloadJSRCatalogueIfNewer() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{DownloadJSRCatalogueIfNewer()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}{11}
+\indexentry{PullCatalogueJSR() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{PullCatalogueJSR()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}{11}
+\indexentry{PullCatalogueSpaceTrack() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{PullCatalogueSpaceTrack()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}{12}
+\indexentry{load\_from\_file() (fspsim.utils.SpaceCatalogue.SpaceCatalogue class method)@\spxentry{load\_from\_file()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue class method}}{12}
+\indexentry{check\_json\_file() (in module fspsim.utils.SpaceCatalogue)@\spxentry{check\_json\_file()}\spxextra{in module fspsim.utils.SpaceCatalogue}}{12}
+\indexentry{dump\_pickle() (in module fspsim.utils.SpaceCatalogue)@\spxentry{dump\_pickle()}\spxextra{in module fspsim.utils.SpaceCatalogue}}{12}
+\indexentry{get\_path() (in module fspsim.utils.SpaceCatalogue)@\spxentry{get\_path()}\spxextra{in module fspsim.utils.SpaceCatalogue}}{12}
+\indexentry{load\_pickle() (in module fspsim.utils.SpaceCatalogue)@\spxentry{load\_pickle()}\spxextra{in module fspsim.utils.SpaceCatalogue}}{12}
+\indexentry{module@\spxentry{module}!fspsim.utils.SpaceObject@\spxentry{fspsim.utils.SpaceObject}}{13}
+\indexentry{fspsim.utils.SpaceObject@\spxentry{fspsim.utils.SpaceObject}!module@\spxentry{module}}{13}
+\indexentry{ObjectType (class in fspsim.utils.SpaceObject)@\spxentry{ObjectType}\spxextra{class in fspsim.utils.SpaceObject}}{13}
+\indexentry{DEB (fspsim.utils.SpaceObject.ObjectType attribute)@\spxentry{DEB}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}}{13}
+\indexentry{OTHER (fspsim.utils.SpaceObject.ObjectType attribute)@\spxentry{OTHER}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}}{13}
+\indexentry{PAYLOAD (fspsim.utils.SpaceObject.ObjectType attribute)@\spxentry{PAYLOAD}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}}{13}
+\indexentry{ROCKET\_BODY (fspsim.utils.SpaceObject.ObjectType attribute)@\spxentry{ROCKET\_BODY}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}}{13}
+\indexentry{UNKNOWN (fspsim.utils.SpaceObject.ObjectType attribute)@\spxentry{UNKNOWN}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}}{13}
+\indexentry{OperationalStatus (class in fspsim.utils.SpaceObject)@\spxentry{OperationalStatus}\spxextra{class in fspsim.utils.SpaceObject}}{13}
+\indexentry{B (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{B}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{D (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{D}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{NEGATIVE (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{NEGATIVE}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{PARTIAL (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{PARTIAL}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{POSITIVE (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{POSITIVE}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{S (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{S}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{UNKNOWN (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{UNKNOWN}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{X (fspsim.utils.SpaceObject.OperationalStatus attribute)@\spxentry{X}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}}{13}
+\indexentry{SpaceObject (class in fspsim.utils.SpaceObject)@\spxentry{SpaceObject}\spxextra{class in fspsim.utils.SpaceObject}}{13}
+\indexentry{generate\_cart() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{generate\_cart()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}{13}
+\indexentry{impute\_char\_area() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{impute\_char\_area()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}{14}
+\indexentry{impute\_char\_length() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{impute\_char\_length()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}{14}
+\indexentry{impute\_mass() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{impute\_mass()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}{14}
+\indexentry{prop\_catobject() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{prop\_catobject()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}{14}
+\indexentry{verify\_angle() (in module fspsim.utils.SpaceObject)@\spxentry{verify\_angle()}\spxextra{in module fspsim.utils.SpaceObject}}{15}
+\indexentry{verify\_eccentricity() (in module fspsim.utils.SpaceObject)@\spxentry{verify\_eccentricity()}\spxextra{in module fspsim.utils.SpaceObject}}{15}
+\indexentry{verify\_value() (in module fspsim.utils.SpaceObject)@\spxentry{verify\_value()}\spxextra{in module fspsim.utils.SpaceObject}}{15}
+\indexentry{module@\spxentry{module}!fspsim.utils@\spxentry{fspsim.utils}}{16}
+\indexentry{fspsim.utils@\spxentry{fspsim.utils}!module@\spxentry{module}}{16}
+\indexentry{module@\spxentry{module}!fspsim.simulate@\spxentry{fspsim.simulate}}{16}
+\indexentry{fspsim.simulate@\spxentry{fspsim.simulate}!module@\spxentry{module}}{16}
+\indexentry{dump\_pickle() (in module fspsim.simulate)@\spxentry{dump\_pickle()}\spxextra{in module fspsim.simulate}}{16}
+\indexentry{get\_path() (in module fspsim.simulate)@\spxentry{get\_path()}\spxextra{in module fspsim.simulate}}{16}
+\indexentry{load\_pickle() (in module fspsim.simulate)@\spxentry{load\_pickle()}\spxextra{in module fspsim.simulate}}{16}
+\indexentry{propagate\_space\_object() (in module fspsim.simulate)@\spxentry{propagate\_space\_object()}\spxextra{in module fspsim.simulate}}{16}
+\indexentry{run\_sim() (in module fspsim.simulate)@\spxentry{run\_sim()}\spxextra{in module fspsim.simulate}}{16}
+\indexentry{set\_future\_constellations() (in module fspsim.simulate)@\spxentry{set\_future\_constellations()}\spxextra{in module fspsim.simulate}}{16}
+\indexentry{module@\spxentry{module}!fspsim@\spxentry{fspsim}}{17}
+\indexentry{fspsim@\spxentry{fspsim}!module@\spxentry{module}}{17}

@@ -8,7 +8,6 @@ Subpackages
    :maxdepth: 6
 
    fspsim.utils
-   fspsim
 
 Submodules
 ----------
