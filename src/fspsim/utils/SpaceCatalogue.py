@@ -14,7 +14,7 @@ from .LaunchModel import Prediction2SpaceObjects
 # TODO:If we are deploying to pypi, this code will need to change
 home = os.path.join(os.getcwd() + str("/src/fspsim"))
 # firstly create a storage file in their home directory
-cataloguepath, resultspath, externalpath = os.path.join(home + str("data/catalogue/")), os.path.join(home + str("data/results/")), os.path.join(home + str("data/external/"))
+cataloguepath, resultspath, externalpath = os.path.join(home + str("/data/catalogue/")), os.path.join(home + str("/data/results/")), os.path.join(home + str("/data/external/"))
 os.makedirs(cataloguepath, exist_ok=True)
 os.makedirs(resultspath, exist_ok=True)
 os.makedirs(externalpath, exist_ok=True)
@@ -63,9 +63,12 @@ def dump_pickle(file_path, data):
         pickle.dump(data, f)
 
 class SpaceCatalogue:
-    def __init__(self, settings):
-         # check to see if they have included a file that exists, if not then use the default from the package
-        satellite_predictions_csv = settings["satellite_predictions_csv"]
+    def __init__(self, settings, future_constellations=None):
+        # Check if the user has supplied a csv for the future constellations, else use the default
+        if (future_constellations):
+            satellite_predictions_csv = future_constellations
+        else:
+            satellite_predictions_csv = settings["satellite_predictions_csv"]
         self.sim_object_type = settings["sim_object_type"] # this can be "active", "all", or "debris"
         self.sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
@@ -183,8 +186,12 @@ class SpaceCatalogue:
             - 'src/fspsim/data/catalogue/All_catalogue_latest.txt'
         """ 
         # Space Track's catalogue is a json
-        spacetrack = pd.read_json(externalpath + 'spacetrack_all.json')
-        print("Number of satellites in spacetrack catalogue: ", len(spacetrack))
+        try:
+            spacetrack = pd.read_json(externalpath + 'spacetrack_all.json')
+            print("Number of satellites in spacetrack catalogue: ", len(spacetrack))
+        except:
+            # print a user error saying that this package has not been shipped with a starting catalogue
+            print("This simulator does not have a starting catalogue, set 'pull_catalogues' = true in the config file")
         jsr_cat_extra_info = pd.read_csv(externalpath + 'satcat.tsv', sep='\t')
         print("Number of satellites in jsr catalogue: ", len(jsr_cat_extra_info))
         # merge the two dataframes, keeping all items in spacetrack dataframe

@@ -2,17 +2,12 @@
     "scenario_name": "oneweb_starlink",
     "monthly_ton_capacity": "150",
     "launch_start_date":"2019-01-01",
-    "remove_operators": " ",
     "sim_start_date":"2019-01-01",
     "sim_end_date":"2028-01-01",
     "output_frequency": 960000,
     "integrator_step_size": 960000,
-    "integrator_type": "RK45",
     "sim_object_type": "all",
     "sim_object_catalogue" : "both",
-    "environment": "development",
-    "repull_catalogues": true,
-    "satellite_predictions_csv": "oneweb_starlink.csv",
-    "force_model": ["all"],
-    "sgp4_long_term":true
+    "repull_catalogues": false,
+    "satellite_predictions_csv": "oneweb_starlink_test.csv"
   }
