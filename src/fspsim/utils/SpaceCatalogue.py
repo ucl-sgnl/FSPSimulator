@@ -8,9 +8,9 @@ import datetime
 import json
 from tqdm import tqdm
 from dotenv import load_dotenv
-from .SpaceObject import SpaceObject
-from .Conversions import tle_parse
-from .LaunchModel import Prediction2SpaceObjects
+from ..utils.SpaceObject import SpaceObject
+from ..utils.Conversions import tle_parse
+from ..utils.LaunchModel import Prediction2SpaceObjects
 
 # TODO:If we are deploying to pypi, this code will need to change
 home = os.path.join(os.getcwd() + str("/src/fspsim"))
@@ -20,44 +20,26 @@ os.makedirs(cataloguepath, exist_ok=True)
 os.makedirs(resultspath, exist_ok=True)
 os.makedirs(externalpath, exist_ok=True)
 
-def check_json_file(json):
+def check_json_file(json_data):
     """
     Checks the validity of the provided JSON content.
 
-    :param json: Dictionary parsed from a JSON file that needs to be checked.
-    :type json: dict
+    :param json_data: Dictionary parsed from a JSON file that needs to be checked.
+    :type json_data: dict
     :raises KeyError: If an expected key is not found in the JSON content.
-    :raises TypeError: If the type of value for a key doesn't match the expected type.
     :raises ValueError: If the value of a key is not in the list of valid options.
     """
-    # Define the valid keys and their types
-    expected_keys = {
-        # ... (same as before)
-        #TODO: you forgot to add the keys here
-    }
-
-    # Define the valid values for keys with a limited set of valid options
     valid_values = {
-        "integrator_type": ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"],
         "sim_object_type": ["all", "debris", "active"],
         "sim_object_catalogue": ["jsr", "spacetrack", "both"],
-        "force_model": ["all", "grav_mono", "j2", "sun_grav", "moon_grav", "drag_aero", "srp"],
     }
 
-    for key, expected_type in expected_keys.items():
-        if key not in json:
-            raise KeyError(f"Key '{key}' not found in JSON file.")
-        if not isinstance(json[key], expected_type):
-            raise TypeError(f"Expected type '{expected_type}' for key '{key}', but got '{type(json[key])}'.")
-
-        if key == "force_model":
-            if not all(value in valid_values[key] for value in json[key]):
-                raise ValueError(f"Invalid values in '{json[key]}' for key '{key}'. Valid values are: {valid_values[key]}.")
-
-        elif key in valid_values and json[key] not in valid_values[key]:
-            raise ValueError(f"Invalid value '{json[key]}' for key '{key}'. Valid values are: {valid_values[key]}.")
-
-    print("JSON file is valid.")
+    for key in valid_values:
+        if key not in json_data:
+            raise KeyError(f"Key '{key}' not found in JSON content.")
+        
+        if json_data[key] not in valid_values[key]:
+            raise ValueError(f"Invalid value '{json_data[key]}' for key '{key}'. Valid values are: {valid_values[key]}.")
     pass
 
 def get_path(*args):
@@ -97,6 +79,24 @@ def dump_pickle(file_path, data):
         pickle.dump(data, f)
 
 class SpaceCatalogue:
+    """
+    A representation of a space catalogue that consolidates satellite data from various sources.
+
+    The class aims to process and manage satellite information from multiple sources like JSR and SpaceTrack. 
+    It provides functionality to merge active satellite catalogues, repull information from sources, 
+    and create a consolidated catalogue of space objects.
+
+    Attributes:
+        sim_object_type (str): Type of simulation objects. Can be 'active', 'all', or 'debris'.
+        sim_object_catalogue (str): Source of the simulation object. Can be 'jsr', 'spacetrack', or 'both'.
+        Catalogue (list): A list of SpaceObjects representing the space objects in the catalogue.
+        repull_catalogues (bool): Flag to determine if the catalogues should be repulled from sources.
+        
+    Raises:
+        Exception: If an invalid sim_object_type or sim_object_catalogue is specified.
+        TypeError: If loaded data from file is not an instance of SpaceCatalogue.
+
+    """
     def __init__(self, settings, future_constellations=None):
         # Check if the user has supplied a csv for the future constellations, else use the default
         if (future_constellations):
@@ -217,7 +217,7 @@ class SpaceCatalogue:
 
     def CreateCatalogueAll(self):
         """
-        Merge the JSR catalogue information with the entire SpaceTrack catalogue.
+        Merge the JSR catalogue with the SpaceTrack catalogue.
 
         The function prioritizes SpaceTrack's data in case of conflicting information.
         The resulting merged catalogue is stored in an attribute named CurrentCatalogueDF.
@@ -226,6 +226,7 @@ class SpaceCatalogue:
         :raises ValueError: If there's an issue with the data content or format.
         :return: None. But exports a CSV file of merged space catalogue of all tracked objects to 'src/fspsim/data/catalogue/All_catalogue_latest.txt'.
         :rtype: None
+        :Note: In the case of missing data for the simulation, the function will drop the rows that do not have the required data. At present this results in a couple thousands of objects being dropped.
         """
         # Space Track's catalogue is a json
         try:
@@ -327,10 +328,6 @@ class SpaceCatalogue:
         """
         Convert the current catalogue into a list of SpaceObjects.
 
-        This function will prioritize the SpaceTrack data in case of conflicting information 
-        between JSR and SpaceTrack. The function takes into account the simulation object type 
-        (`sim_object_type`) to determine the data source for the conversion.
-
         :raises Exception: If invalid `sim_object_type` is specified.
         :return: List of SpaceObjects.
         :rtype: list[SpaceObject]
@@ -407,7 +404,7 @@ class SpaceCatalogue:
 
     def PullCatalogueJSR(self, external_dir):
         """
-        Update the JSR catalogue files by downloading them if there's a newer version online.
+        Update the JSR catalogue files by downloading them if a newer version is available online.
 
         :param external_dir: The directory path where the files will be saved.
         :type external_dir: str
@@ -440,7 +437,6 @@ class SpaceCatalogue:
     
         spacetrack_path = external_dir + f'spacetrack_all.json'
 
-        # Will require spacetrak login
         load_dotenv('.env')
         username = os.getenv('SPACETRACK_USERNAME')
         password = os.getenv('SPACETRACK_PASSWORD')

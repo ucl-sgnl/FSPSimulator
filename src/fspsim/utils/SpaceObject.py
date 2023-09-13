@@ -4,8 +4,8 @@ import warnings
 from enum import Enum
 import numpy as np
 from astropy.time import Time
-from .Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
-from .Propagators import kepler_prop
+from ..utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
+from ..utils.Propagators import kepler_prop
 
 class OperationalStatus(Enum):
     POSITIVE = '+'
@@ -89,6 +89,47 @@ def verify_eccentricity(value):
         raise ValueError('Object eccentricity is None or not a float. Please check the input data')
 
 class SpaceObject:
+    """
+    A representation of a space object detailing its orbital and physical properties.
+
+    This class provides comprehensive details about the space object, including its launch date, 
+    operational status, object type, application, and a variety of other orbital parameters.
+
+    Attributes:
+        launch_date (datetime): The date when the object was launched.
+        decay_date (datetime): The date when the object is expected to decay.
+        rso_name (str): Name of the Resident Space Object (RSO).
+        rso_type (str): Type of the RSO.
+        payload_operational_status (str): Operational status of the payload.
+        object_type (str): Type of the object. Can be 'DEB', 'PAY', 'R/B', 'UNK', or '?'.
+        application (str): Application purpose of the space object.
+        operator (str): The operator or owner of the object.
+        characteristic_length (float): The characteristic length of the object.
+        characteristic_area (float): The characteristic area of the object.
+        mass (float): The mass of the object.
+        source (str): Source or country of origin of the object.
+        launch_site (str): The site where the object was launched from.
+        maneuverable (str): Indicates if the object is maneuverable.
+        spin_stabilized (str): Indicates if the object is spin-stabilized.
+        apogee (float): The maximum altitude of the object's orbit.
+        perigee (float): The minimum altitude of the object's orbit.
+        propulsion_type (str): Type of propulsion used by the object.
+        epoch (datetime): Reference time for the object's orbital parameters.
+        day_of_year (int): Day of the year derived from the epoch.
+        station_keeping (list or bool or None): Dates indicating station keeping period.
+        ephemeris (list): Ephemeris data for the object.
+        sma (float): Semi-major axis of the object's orbit.
+        orbital_period (float): Orbital period of the object.
+        inc (float): Inclination of the object's orbit.
+        argp (float): Argument of perigee.
+        raan (float): Right ascension of the ascending node.
+        tran (float): True anomaly.
+        eccentricity (float): Eccentricity of the object's orbit.
+        meananomaly (float): Mean anomaly.
+        cart_state (np.array): Cartesian state vector [x,y,z,u,v,w].
+        C_d (float): Drag coefficient.
+        tle (str): Two-line element set representing the object's orbit.
+    """
     def __init__(self, rso_name=None, rso_type=None, payload_operational_status=None, application=None, source=None, 
                  launch_site=None, mass=None, maneuverable=False, spin_stabilized=False,
                  object_type = None, apogee=None, perigee=None, characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
@@ -214,7 +255,7 @@ class SpaceObject:
 
     def impute_char_length(self, char_length):
         """
-        Imputes a characteristic length based on the object type.
+        Imputes a characteristic length based on the object type if the given value is None or 0.
 
         :param char_length: Characteristic length to verify or impute.
         :type char_length: float or None
@@ -237,7 +278,7 @@ class SpaceObject:
 
     def impute_char_area(self, char_area):
         """
-        Imputes a characteristic area based on the object type.
+        Imputes a characteristic area based on the object type if the given value is None or 0.
 
         :param char_area: Characteristic area to verify or impute.
         :type char_area: float or None
@@ -260,7 +301,8 @@ class SpaceObject:
         
     def impute_mass(self, mass):
         """
-        Imputes a mass based on the object type.
+        Imputes a mass based on the object characteristic length if the given value is None or 0.
+        The relationship between mass and characteristic length is based on the relationship between mass and length reported in From Alfano, Oltrogge and Sheppard, 2020
 
         :param mass: Mass to verify or impute.
         :type mass: float or None or str
@@ -287,7 +329,7 @@ class SpaceObject:
 
     def prop_catobject(self, jd_start, jd_stop, step_size, output_freq):
         """
-        Propagates a celestial object based on initial conditions, propagator type, and station keeping preferences.
+        Propagates the object based on initial conditions, propagator type, and station keeping preferences.
 
         :param jd_start: Julian start date for the simulation.
         :type jd_start: float

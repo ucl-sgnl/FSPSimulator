@@ -13,8 +13,10 @@ GM_earth = 398600.4418 #km^3/s^2
 
 def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
 
-    """Given a TLE, a start time, end time, and time step, propagate the TLE and return the time-series of Cartesian coordinates, and accompanying time-stamps (MJD)
-        Note: Simply a wrapper for the SGP4 routine in the sgp4.api package (Brandon Rhodes)
+    """
+    Given a TLE, a start time, end time, and time step, propagate the TLE and return the time-series of Cartesian coordinates, and accompanying time-stamps (MJD)
+    Note: Simply a wrapper for the SGP4 routine in the sgp4.api package (Brandon Rhodes)
+    
     Args:
         TLE (string): TLE to be propagated
         jd_start (float): start time of propagation in Julian Date format
@@ -23,8 +25,7 @@ def sgp4_prop_TLE(TLE, jd_start, jd_end, dt):
         alt_series (bool, optional): If True, return the altitude series as well as the position series. Defaults to False.
         
     Returns:
-    list: list of lists containing the time-series of Cartesian coordinates, and accompanying time-stamps (MJD)
-    
+    list: list of lists containing the time-series of Cartesian coordinates, and accompanying time-stamps (JD)
     """
 
     if jd_start > jd_end:
@@ -74,7 +75,26 @@ def kepler_prop(jd_start, jd_stop, step_size, a, e, i, w, W, V, area=None, mass=
     Uses Kepler's equation for propagation and Gaussian vectors for coordinate transformation.
     Stops the propagation if altitude drops below 200 km.
     Area, mass, and drag coefficient are required only for drag decay.
+
+    Args:
+        jd_start (float): start time of propagation in Julian Date format
+        jd_stop (float): end time of propagation in Julian Date format
+        step_size (float): time step of propagation in seconds
+        a (float): semi-major axis of the orbit in km
+        e (float): eccentricity of the orbit
+        i (float): inclination of the orbit in degrees
+        w (float): argument of perigee of the orbit in degrees
+        W (float): right ascension of the ascending node of the orbit in degrees
+        V (float): true anomaly of the orbit in degrees
+        area (float, optional): cross-sectional area of the satellite in m^2. Defaults to None.
+        mass (float, optional): mass of the satellite in kg. Defaults to None.
+        cd (float, optional): drag coefficient of the satellite. Defaults to None.
+        drag_decay (bool, optional): If True, decay the semi-major axis due to drag. Defaults to False.
+        
+    Returns:
+    list: list of lists containing the propagated ephemeris
     """
+
 
     # Constants
     r_tol = 1e-7
@@ -90,7 +110,7 @@ def kepler_prop(jd_start, jd_stop, step_size, a, e, i, w, W, V, area=None, mass=
     Mo = Eo - e * np.sin(Eo)
     
     # Gaussian vectors
-    P, Q = _compute_gaussian_vectors(W, w, i)
+    P, Q = compute_gaussian_vectors(W, w, i)
     
     t_diff_secs = 86400 * (jd_stop - jd_start)
     steps = math.ceil(t_diff_secs / step_size)
@@ -99,7 +119,7 @@ def kepler_prop(jd_start, jd_stop, step_size, a, e, i, w, W, V, area=None, mass=
 
     for step in range(steps):
         # Compute new eccentric anomaly
-        E = _compute_eccentric_anomaly(Mo, e, n, step, step_size, r_tol)
+        E = compute_eccentric_anomaly(Mo, e, n, step, step_size, r_tol)
         
         # Calculate position and velocity
         x_new, y_new = a * (np.cos(E) - e), a * np.sqrt(1 - e**2) * np.sin(E)
@@ -123,7 +143,25 @@ def kepler_prop(jd_start, jd_stop, step_size, a, e, i, w, W, V, area=None, mass=
 
     return ephemeris
 
-def _compute_gaussian_vectors(W, w, i):
+def compute_gaussian_vectors(W, w, i):
+    """Computes the Gaussian vectors P and Q for coordinate transformation.
+
+    Parameters
+    ----------
+    W : float
+        Right ascension of the ascending node of the orbit in radians
+    w : float
+        Argument of perigee of the orbit in radians
+    i : float
+        Inclination of the orbit in radians
+
+    Returns
+    -------
+    P : numpy.ndarray
+        Gaussian vector P
+    Q : numpy.ndarray
+        Gaussian vector Q
+    """
     P = np.array([
         [np.cos(W) * np.cos(w) - np.sin(W) * np.cos(i) * np.sin(w)], 
         [np.sin(W) * np.cos(w) + np.cos(W) * np.cos(i) * np.sin(w)], 
@@ -137,7 +175,29 @@ def _compute_gaussian_vectors(W, w, i):
     ])
     return P, Q
 
-def _compute_eccentric_anomaly(Mo, e, n, step, step_size, r_tol):
+def compute_eccentric_anomaly(Mo, e, n, step, step_size, r_tol):
+    """Computes the eccentric anomaly using Newton's method.
+
+    Parameters
+    ----------
+    Mo : float
+        Mean anomaly (first "guess") in radians
+    e : float
+        Eccentricity of the orbit
+    n : float
+        Mean motion of the orbit in radians/second
+    step : int
+        Current step number
+    step_size : float
+        Time step of propagation in seconds
+    r_tol : float
+        Relative tolerance for Newton's method
+
+    Returns
+    -------
+    E : float
+        Approximated value of eccentric anomaly in radians
+    """
     Mi = Mo + n * step * step_size
     E = Mi + (e/2) if Mi < np.pi else Mi - (e/2)
     f = E - e * np.sin(E) - Mi
@@ -148,13 +208,59 @@ def _compute_eccentric_anomaly(Mo, e, n, step, step_size, r_tol):
         f_prime = 1 - e * np.cos(E)
     return E
 
-def _compute_velocity(GM_earth, a, e, E, P, Q):
+def compute_velocity(GM_earth, a, e, E, P, Q):
+    """Computes the velocity vector of a satellite in a Keplerian orbit.
+
+    Parameters
+    ----------
+    GM_earth : float
+        Gravitational constant of the Earth in km^3/s^2
+    a : float
+        Semi-major axis of the orbit in km
+    e : float
+        Eccentricity of the orbit
+    E : float
+        Eccentric anomaly in radians
+    P : numpy.ndarray
+        Gaussian vector P
+    Q : numpy.ndarray
+        Gaussian vector Q
+
+    Returns
+    -------
+    numpy.ndarray
+        Velocity vector of the satellite in km/s
+    """
     f_new = np.sqrt(a * GM_earth) / (a * (1 - e * np.cos(E)))
     g_new = np.sqrt(1 - e**2)
     cos_Ei, sin_Ei = np.cos(E) + e, np.sin(E) * np.sqrt(1 - e**2)
     return (-f_new * sin_Ei * P) + (f_new * g_new * cos_Ei * Q)
 
 def _sma_drag_decay(cart_pos, cart_vel, cd, area, mass, step_size):
+    """Computes the semi-major axis decay due to drag.
+    Assumes drag acceleration is constant over the time step, and uses the vis-viva equation to compute the change in semi-major axis.
+    Does not model the effect of drag on eccentricity. Uses USSA76 atmospheric model for density. Assumes drag is applied only in the anti-velocity direction.
+
+    Parameters
+    ----------
+    cart_pos : np.ndarray
+        Cartesian position vector of the satellite in km
+    cart_vel : np.ndarray
+        Cartesian velocity vector of the satellite in km/s
+    cd : float
+        Drag coefficient of the satellite
+    area : float
+        Cross-sectional area of the satellite in m^2
+    mass : float
+        Mass of the satellite in kg
+    step_size : float
+        Time step of propagation in seconds
+
+    Returns
+    -------
+    float
+        Change in semi-major axis in km due to drag over the time period specified
+    """
     #doing this in meters as rho is in kg/m^3 
     GM_earth_m = 398600.4415e9  # in m^3/s^2
     

@@ -1,11 +1,11 @@
 import pandas as pd
-import csv
 import sys
 
 def calculate_form_factor(form_factor_str):
-    """reads a string describing the form factor of satellties in a sub constellation and 
-    returns characteristic length and area of to populate the SpaceObject class metadata
-    return error if form factor is not a string
+    """
+    Convert the form factor specified in the predictions csv to a characteristic length and area.
+    For CubeSats, the area can be specified by writing the number of "U"s in the form factor string. e.g. "3U" or "6u" (the case does not matter)
+    For other satellites the form factor must be three numbers (floats or ints), separated by stars. e.g. "1.2*2.3*4.5" or "1*2*3"
 
     Args:
         form_factor_str (string): string describing the form factor of satellties
@@ -25,12 +25,12 @@ def calculate_form_factor(form_factor_str):
     elif 'U' in form_factor_str:
         _length = float(form_factor_str.split('U')[0]) /10
         _area = float(form_factor_str.split('U')[0]) /10
-    # if there is the character '*', extract all the numbers. The largest value is the characteristic length and the characteristic area is all the two largest values multiplied together
     elif '*' in form_factor_str:
-        #split the values by the character '*' and make them in ascending order
         form_factor_str = sorted([float(i) for i in form_factor_str.split('*')])
         _length = form_factor_str[-1]
         _area = form_factor_str[-1] * form_factor_str[-2]
+    else:
+        raise ValueError('Form factor must be of the form "3U" or "1*2*3"')
 
     return _length, _area
 
@@ -54,11 +54,11 @@ def future_constellations_csv_handler(file_path):
 
     expected_headers = ['Number of sats', 'Inclination', 'Altitude', 'Sub-Constellation', 'Mission type/application', 'Mass(kg)', 'Form Factor', 'Maneuverable','Propulsion']
     
-    # check that the headers are in the correct format
-    if not set(sat_df.columns).issubset(set(sat_df.columns)):
-        print("The Future Constellation file is not in the correct format. Stopping simulation.")
+    # if any of the expected headers are missing, stop the simulation
+    if not set(expected_headers).issubset(set(sat_df.columns)):
+        print("The Future Constellation file is not complete. Please fill any missing values.\n Stopping simulation.")
         sys.exit()
-
+        
     sat_df = sat_df.dropna(subset=expected_headers)
 
     # Apply functions to entire columns

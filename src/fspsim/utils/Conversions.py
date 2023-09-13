@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import math
 import datetime
 from astropy import units as u
@@ -28,7 +27,6 @@ def utc_to_jd(time_stamps):
              Returns a single float if the input is a single datetime or string, and a list of floats if the input is a list.
     :rtype: float or list of float
 
-    .. note:: The function uses the 'astropy' library for the conversion, so ensure that 'astropy' is installed and available.
     """
     if not isinstance(time_stamps, list):
         time_stamps = [time_stamps]
@@ -65,7 +63,6 @@ def calculate_eccentricity(position: List[float], velocity: List[float], mu: flo
     :return: Eccentricity of the orbit.
     :rtype: float
 
-    .. note:: Requires `numpy` for vector operations.
     """
     r = np.linalg.norm(position)
     v = np.linalg.norm(velocity)
@@ -133,10 +130,6 @@ def kep2car(a, e, i, w, W, V, epoch):
     :return: Tuple containing x, y, z coordinates and vx, vy, vz velocities.
     :rtype: tuple of floats
     """
-
-    # Suppress the UserWarning for true anomaly wrapping
-    # with warnings.catch_warnings():
-    #     warnings.simplefilter("ignore", UserWarning)
         
     # Create an Orbit object from the Keplerian elements
     orbit = Orbit.from_classical(Earth,
@@ -224,7 +217,7 @@ def true_to_eccentric_anomaly(true_anomaly, eccentricity):
 
 def calculate_energy_from_semi_major_axis(a, m):
     """
-    Calculate the total mechanical energy of an object in orbit around the Earth.
+    Use the vis-viva law to calculate the total mechanical energy of an object in orbit around the Earth.
 
     :param float a: Semi-major axis in meters.
     :param float m: Mass of the object in kg.
@@ -251,14 +244,12 @@ def eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity):
 def true_to_mean_anomaly(true_anomaly, eccentricity):
     """
     Convert true anomaly to mean anomaly. 
-    Note: This function may return the absolute value due to a potential sign error that needs fixing.
 
     :param float true_anomaly: True anomaly in radians.
     :param float eccentricity: Orbital eccentricity.
     :return: Mean anomaly in radians.
     :rtype: float
     """
-    #TODO: i dont know where I have lost a minus sign but I made the output here the absolute value to deal wtih it. Needs fixing.
     eccentric_anomaly = true_to_eccentric_anomaly(true_anomaly, eccentricity)
     mean_anomaly = eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity)
     return np.abs(mean_anomaly)
@@ -266,8 +257,6 @@ def true_to_mean_anomaly(true_anomaly, eccentricity):
 def orbit_classify(altitude):
     """
     Classify the orbit based on the altitude.
-
-    TODO: Expand to include all possible altitudes. Classifications must be set to match JSR/Celestrak orbit classifications.
 
     :param float altitude: Altitude of the orbit in km.
     :return: Orbit classification as a string.
@@ -293,11 +282,10 @@ def tle_parse(tle_2le):
     """
     Parse a 2LE string (e.g. as provided by Celestrak) and return all the data in a dictionary.
 
-    NOTE: Does not work on 3LE strings.
-
     :param str tle_2le: 2LE string to be parsed.
     :return: Dictionary of all the data contained in the TLE string.
     :rtype: dict
+
     """
     # This function takes a TLE string and returns a dictionary of the TLE data
     tle_lines = tle_2le.split('\n')
@@ -454,7 +442,7 @@ def orbital_period(semi_major_axis):
     return orbital_period_minutes
 
 def generate_cospar_id(launch_year, launch_number, launch_piece):
-    """Generates a COSPAR ID for a spacecraft.
+    """Generates a placeholder (fake) COSPAR ID for a spacecraft based on the launch year, launch number, and launch piece.
 
     :param launch_year: The launch year of the spacecraft.
     :type launch_year: int
@@ -482,7 +470,7 @@ def generate_cospar_id(launch_year, launch_number, launch_piece):
 
 def tle_exponent_format(value):
     """
-    Format the scientific notion used in TLEs (usually for BSTAR)
+    Convert a value to the TLE-specific exponent format.
 
     :param value: TLE Value
     :type value: str
@@ -506,7 +494,7 @@ def tle_exponent_format(value):
     return formatted_value
 
 def tle_checksum(line):
-    """Generate Checksum for one TLE line
+    """Perform the checksum for one TLE line
 
     :param line: TLE line
     :type line: str
@@ -528,7 +516,7 @@ def write_tle(catalog_number, classification, launch_year, launch_number, launch
               revolution_number):
     
     """
-    This function generates a Two-Line Element Set (TLE) for a satellite based on provided input data.
+    This function builds a TLE string in the correct format when given the necessary parameters.
 
     :param catalog_number: Catalog number of the satellite.
     :type catalog_number: int
@@ -540,7 +528,35 @@ def write_tle(catalog_number, classification, launch_year, launch_number, launch
     :type launch_number: int
     :param launch_piece: Piece of the launch.
     :type launch_piece: str
-    ... (and so on for other parameters)
+    :param epoch_year: Year of the epoch.
+    :type epoch_year: int
+    :param epoch_day: Day of year the epoch.
+    :type epoch_day: float
+    :param first_derivative: First time derivative of the mean motion (ballistic coefficient).
+    :type first_derivative: float
+    :param second_derivative: Second time derivative of the mean motion (delta-dot).
+    :type second_derivative: float
+    :param drag_term: B* drag term.
+    :type drag_term: float
+    :param ephemeris_type: Ephemeris type.
+    :type ephemeris_type: int
+    :param element_set_number: Element set number.
+    :type element_set_number: int
+    :param inclination: Inclination (rad).
+    :type inclination: float
+    :param raan: Right ascension of the ascending node (RAAN) (rad).
+    :type raan: float
+    :param eccentricity: Eccentricity.
+    :type eccentricity: float
+    :param arg_perigee: Argument of perigee (rad).
+    :type arg_perigee: float
+    :param mean_anomaly: Mean anomaly (rad).
+    :type mean_anomaly: float
+    :param mean_motion: Mean motion (rad/s).
+    :type mean_motion: float
+    :param revolution_number: Revolution number at epoch.
+    :type revolution_number: int
+
     :return: A two-line element set (TLE) string.
     :rtype: str
     """
@@ -582,7 +598,7 @@ def write_tle(catalog_number, classification, launch_year, launch_number, launch
     l2_col17 = ' '
     l2_col18_25 = '{:8.4f}'.format(np.rad2deg(raan))
     l2_col26 = ' '
-    l2_col27_33 = '{:7.7s}'.format(str(eccentricity)[2:]) #remove the 0. from the beginning
+    l2_col27_33 = '{:7.7s}'.format(str(eccentricity)[2:]) #remember to remove the 0. from the beginning
     l2_col34 = ' '
     l2_col35_42 = '{:8.4f}'.format(np.rad2deg(arg_perigee))
     l2_col43 = ' '
@@ -639,6 +655,7 @@ def UTC_step(date_list, steps,h):
 def v_rel(state):
     """
     Calculate the speed of the satellite relative to the Earth's atmosphere.
+    This assumes that the atmosphere is stationary and co-rotating with the surface Earth.
     
     :param state: State vector of the satellite in ECI coordinates.
     :type state: array-like
@@ -655,6 +672,7 @@ def v_rel(state):
 def earth_sun_vec(jd, unit = True):
     """
     Calculate the Earth-Sun vector in ECI coordinates.
+    Makes use of the JPL ephemerides to calculate the Earth-Sun vector.
     
     :param jd: Julian Date for which we want the Earth-Sun vector.
     :type jd: float
@@ -680,6 +698,7 @@ def earth_sun_vec(jd, unit = True):
 def earth_moon_vec(jd, unit=True):
     """
     Calculate the Earth-Moon vector in ECI coordinates.
+    Makes use of the JPL ephemerides to calculate the Earth-Moon vector.
     
     :param jd: Julian Date for which we want the Earth-Moon vector.
     :type jd: float

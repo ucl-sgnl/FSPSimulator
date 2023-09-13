@@ -1,18 +1,14 @@
-import os
 import math
-import pandas as pd
 from datetime import datetime
 from datetime import timedelta
 import os
 import json 
-import csv
-import random
 import numpy as np
 from tqdm import tqdm
 from datetime import timedelta
-from .Conversions import orbit_classify, orbital_period, generate_cospar_id
-from .SpaceObject import SpaceObject
-from .Formatting import future_constellations_csv_handler
+from ..utils.Conversions import orbital_period
+from ..utils.SpaceObject import SpaceObject
+from ..utils.Formatting import future_constellations_csv_handler
 
 def import_configuration_json(filename):
     with open(filename) as f:
@@ -62,14 +58,13 @@ LEO_launchers = {
     }
 }
 
-def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_ton_capacity, launches_start_date, rocket = "Falcon 9"):
+def global_launch_schedule(sub_constellation_metadata_dicts, monthly_ton_capacity, launches_start_date, rocket = "Falcon 9"):
     """
-    Determines the launch dates for various sub-constellations.
+    Determines the launch dates for various sub-constellations based on a greedy algorithm, limited by
+    global montly launch capacity (tons/month), the date to start scheduling launches, and the type of rocket used.
 
     :param sub_constellation_metadata_dicts: List of metadata for each sub-constellation.
     :type sub_constellation_metadata_dicts: list[dict]
-    :param settings: Configuration settings.
-    :type settings: dict
     :param monthly_ton_capacity: The maximum weight capacity available for launching in tons per month.
     :type monthly_ton_capacity: float
     :param launches_start_date: The initial date to begin scheduling launches.
@@ -114,7 +109,9 @@ def global_launch_schedule(sub_constellation_metadata_dicts, settings, monthly_t
 
 def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner, launch_schedule, _mass, _area, _length, _maneuverable, _propulsion):
     """
-    Creates a list of space objects for a given sub-constellation.
+    Generate a list of SpaceObjects that are in a Walker-Delta constellation.
+    This maximizes geometric coverage of the Earth given the number of satellites and the inclination and altitude of the orbit.
+    Based on the parameters passed in the launch file.
 
     :param N: Number of satellites in the constellation.
     :type N: int
@@ -167,15 +164,10 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
     # Repeat and truncate launch_schedule 
     launch_schedule = launch_schedule * (N // len(launch_schedule)) + launch_schedule[:N % len(launch_schedule)]
 
-    # Pre-compute decay_schedule using vectorized operations
+    # Pre-compute decay_schedule
     dates_np = np.array([datetime.strptime(date, "%Y-%m-%d") for date in launch_schedule])
     decay_schedule = [(date + timedelta(days=365*5)).strftime("%Y-%m-01") for date in dates_np]
 
-    #STATION KEEPING
-    # For now the assumption is that all constellations are station keeping until their decay schedule after which they go to natural decay. TODO: make this parameterizable
-    # TODO: implement forced reentry
-    # we will make the 
-    # Create SpaceObjects
     if _maneuverable == 'y':
         station_keeping = True
     else:
@@ -211,10 +203,11 @@ def create_subconstellation_Space_Objects(N, i, h, _soname, _application, _owner
 
     return subconstellation_Space_Objects
 
-
 def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
     """
-    Generate instances of the SpaceObject class for each of the satellites in the prediction data CSV file.
+    Generates a list SpaceObjects for each of the sub-constellation in the prediction data CSV file.
+    Each object gets assigned a launch and decay date based on the launch model parameters and the parameters 
+    specified in the prediction data CSV file.
 
     :param satellite_predictions_csv: CSV file with the satellite predictions data.
     :type satellite_predictions_csv: str
@@ -235,7 +228,6 @@ def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
     #global_launch_schedule(sub_constellation_metadata_dicts=metadata_dicts)
     sub_constellation_launch_dates = global_launch_schedule(
                                                             sub_constellation_metadata_dicts = metadata_dicts, 
-                                                            settings=simsettings,
                                                             monthly_ton_capacity=float(simsettings['monthly_ton_capacity']), 
                                                             launches_start_date = simsettings['launch_start_date']   
                                                          )                                                     
