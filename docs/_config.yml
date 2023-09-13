@@ -1,0 +1,5 @@
+theme: minima
+include:
+  - "*.html"
+  - "_static/"
+  - "_images/"
