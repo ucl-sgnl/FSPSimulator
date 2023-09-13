@@ -21,8 +21,7 @@ release = '0.1'
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon', 
-    'matplotlib.sphinxext.plot_directive']
+    'sphinx.ext.napoleon']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -38,6 +37,6 @@ html_static_path = ['_static']
 latex_engine = 'xelatex'  # xelatex is modern and supports more features
 master_doc = 'index'
 latex_documents = [
-    (master_doc, 'YourProjectName.tex', 'Your Project Documentation',
-     'Your Name', 'manual'),
+    (master_doc, 'FSPSim.tex', 'FSPSim Documentation',
+     'Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart', 'manual'),
 ]

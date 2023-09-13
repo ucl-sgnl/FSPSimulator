@@ -15,3 +15,4 @@
 \contentsline {section}{\numberline {1.4}Module contents}{22}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Indices and tables}{23}{chapter.2}%
 \contentsline {chapter}{Python Module Index}{25}{section*.118}%
+\contentsline {chapter}{Index}{27}{section*.119}%

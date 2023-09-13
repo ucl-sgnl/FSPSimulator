@@ -33,7 +33,8 @@ def propagate_space_object(args):
     return
 
 def set_future_constellations(constellations) -> bool: 
-    """This allows one to provide their own future constellation guide. This will check that it is in the correct format
+    """Incorporates user-specified launch predictions into the simulation. 
+    This will check that it is in the correct format
     and can be used by the simulation.
 
     :param constellations: The path of the specified csv file
@@ -53,13 +54,12 @@ def run_sim(settings: json, future_constellations_file: str = None) -> None:
     """
     Propagates a list of space objects over a specified time range.
 
-    The function retrieves space objects from a space catalogue (SATCAT), propagates each object over 
-    up to a specified timestemp, saving the output locally but will also return a list of propogated 
-    space ojects. 
-    A progress bar is displayed to track the propagation process.
+    The function retrieves space objects from a space catalogue (SATCAT), propagates each object
+    up to a the specified time. This will save the output locally but will also return a list of propagated
+    space ojects. A progress bar is displayed to track the propagation process.
 
     Parameters:
-    - settings (dict): A dictionary containing the following key-value pairs:
+        - settings (dict): A dictionary containing the following key-value pairs:
         - "sim_start_date": UTC start date for simulation (str)
         - "sim_end_date": UTC end date for simulation (str)
         - "integrator_step_size": Time step size for integrator (str, converted to int)
