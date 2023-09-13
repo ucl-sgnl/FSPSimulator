@@ -1,5 +1,7 @@
 import pandas as pd
 import sys
+import os 
+import pickle
 
 def calculate_form_factor(form_factor_str):
     """
@@ -81,3 +83,14 @@ def future_constellations_csv_handler(file_path):
     metadata_dicts = sat_df.to_dict('records')
 
     return metadata_dicts
+
+def get_path(*args):
+    return os.path.join(os.getcwd(), *args)
+
+def load_pickle(file_path):
+    with open(get_path(file_path), 'rb') as f:
+        return pickle.load(f)
+
+def dump_pickle(file_path, data):
+    with open(get_path(file_path), 'wb') as f:
+        pickle.dump(data, f)

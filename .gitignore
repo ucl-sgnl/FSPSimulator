@@ -15,7 +15,6 @@
 !src/fspsim/data/results/propagated_catalogs/oneweb_starlink.pickle
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/

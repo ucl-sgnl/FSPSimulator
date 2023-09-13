@@ -1,24 +1,12 @@
 import os
 import json
-import pickle
 from tqdm import tqdm
 import traceback
 from .utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from .utils.Conversions import utc_to_jd
-from .utils.Formatting import future_constellations_csv_handler
+from .utils.Formatting import future_constellations_csv_handler, get_path, dump_pickle
 
 future_constellations_dict = {}
-
-def get_path(*args):
-    return os.path.join(os.getcwd(), *args)
-
-def load_pickle(file_path):
-    with open(get_path(file_path), 'rb') as f:
-        return pickle.load(f)
-
-def dump_pickle(file_path, data):
-    with open(get_path(file_path), 'wb') as f:
-        pickle.dump(data, f)
 
 def propagate_space_object(args):
     space_object, jd_start, jd_stop, step_size, output_freq = args

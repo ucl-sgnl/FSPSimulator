@@ -15,7 +15,7 @@ FSPSim consists of various classes and modules:
 - **The LaunchModel Module:** Transforms user predictions into SpaceObjects.
 - **The Propagator Module:** Drives the propagation of all SpaceObjects.
 
-.. figure:: ./_static/FSPSim_system_diag_v1.png
+.. figure:: _static/FSPSim_system_diag_v1.png
    :alt: Overview of FSPSim's architecture
    :align: center
    :width: 80%
@@ -28,7 +28,7 @@ Illustrative Examples
 ~~~~~~~~~~~~~~~~~~~~~
 Users can generate various visualizations to analyze the simulation data. 
 
-.. figure:: ./_static/fspsim_example.png
+.. figure:: _static/fspsim_example.png
    :alt: A sample altitude time-series plot
    :align: center
    :width: 80%
