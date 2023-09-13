@@ -6,11 +6,6 @@ Motivation and Significance
 FSPSim is a comprehensive tool designed to address the complexities and challenges of human space endeavors in the modern era.
 Human space endeavors have expanded dramatically over the past decades. The rapid growth and potential impacts of satellite launches have led to the development of various models. FSPSim offers a transparent, configurable, and open-source solution, making source-sink evolutionary models more accessible.
 
-.. figure:: FSPSim_system_diag_v1.png
-   :alt: Overview of FSPSim's architecture
-   :align: center
-   :width: 80%
-
 Software Description
 ~~~~~~~~~~~~~~~~~~~~
 FSPSim consists of various classes and modules:
@@ -19,6 +14,11 @@ FSPSim consists of various classes and modules:
 - **The SpaceObject Class:** Represents an individual object in space.
 - **The LaunchModel Module:** Transforms user predictions into SpaceObjects.
 - **The Propagator Module:** Drives the propagation of all SpaceObjects.
+
+.. figure:: FSPSim_system_diag_v1.png
+   :alt: Overview of FSPSim's architecture
+   :align: center
+   :width: 80%
 
 Software Functionalities
 ~~~~~~~~~~~~~~~~~~~~~~~~
