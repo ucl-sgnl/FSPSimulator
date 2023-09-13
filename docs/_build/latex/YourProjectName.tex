@@ -213,11 +213,6 @@ float
 
 \end{description}\end{quote}
 
-\begin{sphinxadmonition}{note}{Note:}
-\sphinxAtStartPar
-Requires \sphinxtitleref{numpy} for vector operations.
-\end{sphinxadmonition}
-
 \end{fulllineitems}
 
 \index{calculate\_energy\_from\_semi\_major\_axis() (in module fspsim.utils.Conversions)@\spxentry{calculate\_energy\_from\_semi\_major\_axis()}\spxextra{in module fspsim.utils.Conversions}}
@@ -228,7 +223,7 @@ Requires \sphinxtitleref{numpy} for vector operations.
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Conversions.}}\sphinxbfcode{\sphinxupquote{calculate\_energy\_from\_semi\_major\_axis}}}{\sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{m}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Calculate the total mechanical energy of an object in orbit around the Earth.
+Use the vis\sphinxhyphen{}viva law to calculate the total mechanical energy of an object in orbit around the Earth.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -321,6 +316,7 @@ tuple
 \pysigstopsignatures
 \sphinxAtStartPar
 Calculate the Earth\sphinxhyphen{}Moon vector in ECI coordinates.
+Makes use of the JPL ephemerides to calculate the Earth\sphinxhyphen{}Moon vector.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -354,6 +350,7 @@ np.array
 \pysigstopsignatures
 \sphinxAtStartPar
 Calculate the Earth\sphinxhyphen{}Sun vector in ECI coordinates.
+Makes use of the JPL ephemerides to calculate the Earth\sphinxhyphen{}Sun vector.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -456,7 +453,7 @@ tuple of np.ndarray
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Conversions.}}\sphinxbfcode{\sphinxupquote{generate\_cospar\_id}}}{\sphinxparam{\DUrole{n}{launch\_year}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launch\_number}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launch\_piece}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Generates a COSPAR ID for a spacecraft.
+Generates a placeholder (fake) COSPAR ID for a spacecraft based on the launch year, launch number, and launch piece.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -599,9 +596,6 @@ tuple of floats
 \pysigstopsignatures
 \sphinxAtStartPar
 Classify the orbit based on the altitude.
-
-\sphinxAtStartPar
-TODO: Expand to include all possible altitudes. Classifications must be set to match JSR/Celestrak orbit classifications.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -690,7 +684,7 @@ np.array
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Conversions.}}\sphinxbfcode{\sphinxupquote{tle\_checksum}}}{\sphinxparam{\DUrole{n}{line}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Generate Checksum for one TLE line
+Perform the checksum for one TLE line
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -749,7 +743,7 @@ dict
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Conversions.}}\sphinxbfcode{\sphinxupquote{tle\_exponent\_format}}}{\sphinxparam{\DUrole{n}{value}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Format the scientific notion used in TLEs (usually for BSTAR)
+Convert a value to the TLE\sphinxhyphen{}specific exponent format.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -776,9 +770,6 @@ str
 \pysigstopsignatures
 \sphinxAtStartPar
 Parse a 2LE string (e.g. as provided by Celestrak) and return all the data in a dictionary.
-
-\sphinxAtStartPar
-NOTE: Does not work on 3LE strings.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -838,7 +829,6 @@ float
 \pysigstopsignatures
 \sphinxAtStartPar
 Convert true anomaly to mean anomaly.
-Note: This function may return the absolute value due to a potential sign error that needs fixing.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -894,11 +884,6 @@ float or list of float
 
 \end{description}\end{quote}
 
-\begin{sphinxadmonition}{note}{Note:}
-\sphinxAtStartPar
-The function uses the ‘astropy’ library for the conversion, so ensure that ‘astropy’ is installed and available.
-\end{sphinxadmonition}
-
 \end{fulllineitems}
 
 \index{v\_rel() (in module fspsim.utils.Conversions)@\spxentry{v\_rel()}\spxextra{in module fspsim.utils.Conversions}}
@@ -910,6 +895,7 @@ The function uses the ‘astropy’ library for the conversion, so ensure that �
 \pysigstopsignatures
 \sphinxAtStartPar
 Calculate the speed of the satellite relative to the Earth’s atmosphere.
+This assumes that the atmosphere is stationary and co\sphinxhyphen{}rotating with the surface Earth.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -933,66 +919,98 @@ np.array
 \phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.Conversions.write_tle}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Conversions.}}\sphinxbfcode{\sphinxupquote{write\_tle}}}{\sphinxparam{\DUrole{n}{catalog\_number}}\sphinxparamcomma \sphinxparam{\DUrole{n}{classification}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launch\_year}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launch\_number}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launch\_piece}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epoch\_year}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epoch\_day}}\sphinxparamcomma \sphinxparam{\DUrole{n}{first\_derivative}}\sphinxparamcomma \sphinxparam{\DUrole{n}{second\_derivative}}\sphinxparamcomma \sphinxparam{\DUrole{n}{drag\_term}}\sphinxparamcomma \sphinxparam{\DUrole{n}{ephemeris\_type}}\sphinxparamcomma \sphinxparam{\DUrole{n}{element\_set\_number}}\sphinxparamcomma \sphinxparam{\DUrole{n}{inclination}}\sphinxparamcomma \sphinxparam{\DUrole{n}{raan}}\sphinxparamcomma \sphinxparam{\DUrole{n}{eccentricity}}\sphinxparamcomma \sphinxparam{\DUrole{n}{arg\_perigee}}\sphinxparamcomma \sphinxparam{\DUrole{n}{mean\_anomaly}}\sphinxparamcomma \sphinxparam{\DUrole{n}{mean\_motion}}\sphinxparamcomma \sphinxparam{\DUrole{n}{revolution\_number}}}{}
-\pysigstopsignatures\begin{quote}
-
+\pysigstopsignatures
 \sphinxAtStartPar
-This function generates a Two\sphinxhyphen{}Line Element Set (TLE) for a satellite based on provided input data.
+This function builds a TLE string in the correct format when given the necessary parameters.
 \begin{quote}\begin{description}
-\sphinxlineitem{param catalog\_number}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
 \sphinxAtStartPar
-Catalog number of the satellite.
+\sphinxstyleliteralstrong{\sphinxupquote{catalog\_number}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Catalog number of the satellite.
 
-\sphinxlineitem{type catalog\_number}
+\item {} 
 \sphinxAtStartPar
-int
+\sphinxstyleliteralstrong{\sphinxupquote{classification}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) – Classification type (usually ‘U’ for unclassified).
 
-\sphinxlineitem{param classification}
+\item {} 
 \sphinxAtStartPar
-Classification type (usually ‘U’ for unclassified).
+\sphinxstyleliteralstrong{\sphinxupquote{launch\_year}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Year of launch.
 
-\sphinxlineitem{type classification}
+\item {} 
 \sphinxAtStartPar
-str
+\sphinxstyleliteralstrong{\sphinxupquote{launch\_number}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Launch number of the year.
 
-\sphinxlineitem{param launch\_year}
+\item {} 
 \sphinxAtStartPar
-Year of launch.
+\sphinxstyleliteralstrong{\sphinxupquote{launch\_piece}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) – Piece of the launch.
 
-\sphinxlineitem{type launch\_year}
+\item {} 
 \sphinxAtStartPar
-int
+\sphinxstyleliteralstrong{\sphinxupquote{epoch\_year}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Year of the epoch.
 
-\sphinxlineitem{param launch\_number}
+\item {} 
 \sphinxAtStartPar
-Launch number of the year.
+\sphinxstyleliteralstrong{\sphinxupquote{epoch\_day}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Day of year the epoch.
 
-\sphinxlineitem{type launch\_number}
+\item {} 
 \sphinxAtStartPar
-int
+\sphinxstyleliteralstrong{\sphinxupquote{first\_derivative}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – First time derivative of the mean motion (ballistic coefficient).
 
-\sphinxlineitem{param launch\_piece}
+\item {} 
 \sphinxAtStartPar
-Piece of the launch.
+\sphinxstyleliteralstrong{\sphinxupquote{second\_derivative}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Second time derivative of the mean motion (delta\sphinxhyphen{}dot).
 
-\sphinxlineitem{type launch\_piece}
+\item {} 
 \sphinxAtStartPar
-str
+\sphinxstyleliteralstrong{\sphinxupquote{drag\_term}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – B* drag term.
 
-\end{description}\end{quote}
-\end{quote}
-\begin{description}
-\sphinxlineitem{\#INCOMPLETE    … (and so on for other parameters)}\begin{quote}\begin{description}
-\sphinxlineitem{return}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{ephemeris\_type}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Ephemeris type.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{element\_set\_number}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Element set number.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{inclination}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Inclination (rad).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{raan}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Right ascension of the ascending node (RAAN) (rad).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{eccentricity}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Eccentricity.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{arg\_perigee}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Argument of perigee (rad).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{mean\_anomaly}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Mean anomaly (rad).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{mean\_motion}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Mean motion (rad/s).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{revolution\_number}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Revolution number at epoch.
+
+\end{itemize}
+
+\sphinxlineitem{Returns}
 \sphinxAtStartPar
 A two\sphinxhyphen{}line element set (TLE) string.
 
-\sphinxlineitem{rtype}
+\sphinxlineitem{Return type}
 \sphinxAtStartPar
 str
 
 \end{description}\end{quote}
-
-\end{description}
 
 \end{fulllineitems}
 
@@ -1007,9 +1025,9 @@ str
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Formatting.}}\sphinxbfcode{\sphinxupquote{calculate\_form\_factor}}}{\sphinxparam{\DUrole{n}{form\_factor\_str}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Reads a string describing the form factor of satellties in a sub constellation and
-returns characteristic length and area of to populate the SpaceObject class metadata
-return error if form factor is not a string
+Convert the form factor specified in the predictions csv to a characteristic length and area.
+For CubeSats, the area can be specified by writing the number of “U”s in the form factor string. e.g. “3U” or “6u” (the case does not matter)
+For other satellites the form factor must be three numbers (floats or ints), separated by stars. e.g. “1.2*2.3*4.5” or “1*2*3”
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -1068,7 +1086,9 @@ dict
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.LaunchModel.}}\sphinxbfcode{\sphinxupquote{Prediction2SpaceObjects}}}{\sphinxparam{\DUrole{n}{satellite\_predictions\_csv}}\sphinxparamcomma \sphinxparam{\DUrole{n}{simsettings}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Generate instances of the SpaceObject class for each of the satellites in the prediction data CSV file.
+Generates a list SpaceObjects for each of the sub\sphinxhyphen{}constellation in the prediction data CSV file.
+Each object gets assigned a launch and decay date based on the launch model parameters and the parameters
+specified in the prediction data CSV file.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -1101,7 +1121,9 @@ list{[}{\hyperref[\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject}
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.LaunchModel.}}\sphinxbfcode{\sphinxupquote{create\_subconstellation\_Space\_Objects}}}{\sphinxparam{\DUrole{n}{N}}\sphinxparamcomma \sphinxparam{\DUrole{n}{i}}\sphinxparamcomma \sphinxparam{\DUrole{n}{h}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_soname}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_application}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_owner}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launch\_schedule}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_mass}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_area}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_length}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_maneuverable}}\sphinxparamcomma \sphinxparam{\DUrole{n}{\_propulsion}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Creates a list of space objects for a given sub\sphinxhyphen{}constellation.
+Generate a list of SpaceObjects that are in a Walker\sphinxhyphen{}Delta constellation.
+This maximizes geometric coverage of the Earth given the number of satellites and the inclination and altitude of the orbit.
+Based on the parameters passed in the launch file.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -1175,19 +1197,16 @@ list{[}{\hyperref[\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject}
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.LaunchModel.global_launch_schedule}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.LaunchModel.}}\sphinxbfcode{\sphinxupquote{global\_launch\_schedule}}}{\sphinxparam{\DUrole{n}{sub\_constellation\_metadata\_dicts}}\sphinxparamcomma \sphinxparam{\DUrole{n}{settings}}\sphinxparamcomma \sphinxparam{\DUrole{n}{monthly\_ton\_capacity}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launches\_start\_date}}\sphinxparamcomma \sphinxparam{\DUrole{n}{rocket}\DUrole{o}{=}\DUrole{default_value}{'Falcon 9'}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.LaunchModel.}}\sphinxbfcode{\sphinxupquote{global\_launch\_schedule}}}{\sphinxparam{\DUrole{n}{sub\_constellation\_metadata\_dicts}}\sphinxparamcomma \sphinxparam{\DUrole{n}{monthly\_ton\_capacity}}\sphinxparamcomma \sphinxparam{\DUrole{n}{launches\_start\_date}}\sphinxparamcomma \sphinxparam{\DUrole{n}{rocket}\DUrole{o}{=}\DUrole{default_value}{'Falcon 9'}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Determines the launch dates for various sub\sphinxhyphen{}constellations.
+Determines the launch dates for various sub\sphinxhyphen{}constellations based on a greedy algorithm, limited by
+global montly launch capacity (tons/month), the date to start scheduling launches, and the type of rocket used.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{sub\_constellation\_metadata\_dicts}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}\sphinxstyleliteralemphasis{\sphinxupquote{dict}}\sphinxstyleliteralemphasis{\sphinxupquote{{]}}}) – List of metadata for each sub\sphinxhyphen{}constellation.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{settings}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) – Configuration settings.
 
 \item {} 
 \sphinxAtStartPar
@@ -1231,7 +1250,148 @@ dict{[}str, list{[}str{]}{]}
 
 
 \subsubsection{fspsim.utils.Propagators module}
-\label{\detokenize{fspsim.utils:module-fspsim.utils.Propagators}}\label{\detokenize{fspsim.utils:fspsim-utils-propagators-module}}\index{module@\spxentry{module}!fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}}\index{fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}!module@\spxentry{module}}\index{kepler\_prop() (in module fspsim.utils.Propagators)@\spxentry{kepler\_prop()}\spxextra{in module fspsim.utils.Propagators}}
+\label{\detokenize{fspsim.utils:module-fspsim.utils.Propagators}}\label{\detokenize{fspsim.utils:fspsim-utils-propagators-module}}\index{module@\spxentry{module}!fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}}\index{fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}!module@\spxentry{module}}\index{compute\_eccentric\_anomaly() (in module fspsim.utils.Propagators)@\spxentry{compute\_eccentric\_anomaly()}\spxextra{in module fspsim.utils.Propagators}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.Propagators.compute_eccentric_anomaly}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Propagators.}}\sphinxbfcode{\sphinxupquote{compute\_eccentric\_anomaly}}}{\sphinxparam{\DUrole{n}{Mo}}\sphinxparamcomma \sphinxparam{\DUrole{n}{e}}\sphinxparamcomma \sphinxparam{\DUrole{n}{n}}\sphinxparamcomma \sphinxparam{\DUrole{n}{step}}\sphinxparamcomma \sphinxparam{\DUrole{n}{step\_size}}\sphinxparamcomma \sphinxparam{\DUrole{n}{r\_tol}}}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Computes the eccentric anomaly using Newton’s method.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{Mo}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Mean anomaly (first “guess”) in radians
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{e}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Eccentricity of the orbit
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{n}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Mean motion of the orbit in radians/second
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{step}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) – Current step number
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{step\_size}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Time step of propagation in seconds
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{r\_tol}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Relative tolerance for Newton’s method
+
+\end{itemize}
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\sphinxstylestrong{E} – Approximated value of eccentric anomaly in radians
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{compute\_gaussian\_vectors() (in module fspsim.utils.Propagators)@\spxentry{compute\_gaussian\_vectors()}\spxextra{in module fspsim.utils.Propagators}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.Propagators.compute_gaussian_vectors}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Propagators.}}\sphinxbfcode{\sphinxupquote{compute\_gaussian\_vectors}}}{\sphinxparam{\DUrole{n}{W}}\sphinxparamcomma \sphinxparam{\DUrole{n}{w}}\sphinxparamcomma \sphinxparam{\DUrole{n}{i}}}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Computes the Gaussian vectors P and Q for coordinate transformation.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{W}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Right ascension of the ascending node of the orbit in radians
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{w}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Argument of perigee of the orbit in radians
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{i}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Inclination of the orbit in radians
+
+\end{itemize}
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{P} (\sphinxstyleemphasis{numpy.ndarray}) – Gaussian vector P
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Q} (\sphinxstyleemphasis{numpy.ndarray}) – Gaussian vector Q
+
+\end{itemize}
+
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{compute\_velocity() (in module fspsim.utils.Propagators)@\spxentry{compute\_velocity()}\spxextra{in module fspsim.utils.Propagators}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.Propagators.compute_velocity}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.Propagators.}}\sphinxbfcode{\sphinxupquote{compute\_velocity}}}{\sphinxparam{\DUrole{n}{GM\_earth}}\sphinxparamcomma \sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{e}}\sphinxparamcomma \sphinxparam{\DUrole{n}{E}}\sphinxparamcomma \sphinxparam{\DUrole{n}{P}}\sphinxparamcomma \sphinxparam{\DUrole{n}{Q}}}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Computes the velocity vector of a satellite in a Keplerian orbit.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{GM\_earth}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Gravitational constant of the Earth in km\textasciicircum{}3/s\textasciicircum{}2
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{a}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Semi\sphinxhyphen{}major axis of the orbit in km
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{e}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Eccentricity of the orbit
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{E}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – Eccentric anomaly in radians
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{P}} (\sphinxstyleliteralemphasis{\sphinxupquote{numpy.ndarray}}) – Gaussian vector P
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{Q}} (\sphinxstyleliteralemphasis{\sphinxupquote{numpy.ndarray}}) – Gaussian vector Q
+
+\end{itemize}
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+Velocity vector of the satellite in km/s
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{kepler\_prop() (in module fspsim.utils.Propagators)@\spxentry{kepler\_prop()}\spxextra{in module fspsim.utils.Propagators}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.Propagators.kepler_prop}}
@@ -1243,6 +1403,67 @@ Propagates the orbit of a satellite in a Keplerian orbit, taking drag decay into
 Uses Kepler’s equation for propagation and Gaussian vectors for coordinate transformation.
 Stops the propagation if altitude drops below 200 km.
 Area, mass, and drag coefficient are required only for drag decay.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{jd\_start}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – start time of propagation in Julian Date format
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{jd\_stop}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – end time of propagation in Julian Date format
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{step\_size}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – time step of propagation in seconds
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{a}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – semi\sphinxhyphen{}major axis of the orbit in km
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{e}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – eccentricity of the orbit
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{i}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – inclination of the orbit in degrees
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{w}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – argument of perigee of the orbit in degrees
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{W}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – right ascension of the ascending node of the orbit in degrees
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{V}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) – true anomaly of the orbit in degrees
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{area}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) – cross\sphinxhyphen{}sectional area of the satellite in m\textasciicircum{}2. Defaults to None.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{mass}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) – mass of the satellite in kg. Defaults to None.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{cd}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) – drag coefficient of the satellite. Defaults to None.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{drag\_decay}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) – If True, decay the semi\sphinxhyphen{}major axis due to drag. Defaults to False.
+
+\end{itemize}
+
+\end{description}\end{quote}
+
+\sphinxAtStartPar
+Returns:
+list: list of lists containing the propagated ephemeris
 
 \end{fulllineitems}
 
@@ -1286,7 +1507,7 @@ Note: Simply a wrapper for the SGP4 routine in the sgp4.api package (Brandon Rho
 
 \sphinxAtStartPar
 Returns:
-list: list of lists containing the time\sphinxhyphen{}series of Cartesian coordinates, and accompanying time\sphinxhyphen{}stamps (MJD)
+list: list of lists containing the time\sphinxhyphen{}series of Cartesian coordinates, and accompanying time\sphinxhyphen{}stamps (JD)
 
 \end{fulllineitems}
 
@@ -1302,20 +1523,198 @@ list: list of lists containing the time\sphinxhyphen{}series of Cartesian coordi
 \pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
+
+\sphinxAtStartPar
+A representation of a space catalogue that consolidates satellite data from various sources.
+
+\sphinxAtStartPar
+The class aims to process and manage satellite information from multiple sources like JSR and SpaceTrack.
+It provides functionality to merge active satellite catalogues, repull information from sources,
+and create a consolidated catalogue of space objects.
+\index{sim\_object\_type (fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute)@\spxentry{sim\_object\_type}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_type}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{sim\_object\_type}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Type of simulation objects. Can be ‘active’, ‘all’, or ‘debris’.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{sim\_object\_catalogue (fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute)@\spxentry{sim\_object\_catalogue}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_catalogue}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{sim\_object\_catalogue}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Source of the simulation object. Can be ‘jsr’, ‘spacetrack’, or ‘both’.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{Catalogue (fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute)@\spxentry{Catalogue}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{Catalogue}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+A list of SpaceObjects representing the space objects in the catalogue.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+list
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{repull\_catalogues (fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute)@\spxentry{repull\_catalogues}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.repull_catalogues}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{repull\_catalogues}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Flag to determine if the catalogues should be repulled from sources.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+bool
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{load\_from\_file(file\_path}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+str) \sphinxhyphen{}> “SpaceCatalogue”:
+Loads a SpaceCatalogue instance from a file.
+
+\end{fulllineitems}
+
+\index{CreateCatalogueActive() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueActive()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueActive}}}{}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Merges the JSR and SpaceTrack active satellite catalogues.
+
+\end{fulllineitems}
+
+\index{CreateCatalogueAll() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueAll()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueAll}}}{}{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Merges the entire JSR catalogue information with the entire SpaceTrack catalogue.
+Prioritizes SpaceTrack’s data in cases of conflicting information.
+
+\end{fulllineitems}
+
 \index{Catalogue2SpaceObjects() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{Catalogue2SpaceObjects()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue2SpaceObjects}}
 \pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{Catalogue2SpaceObjects}}}{}{{ $\rightarrow$ list\DUrole{p}{{[}}{\hyperref[\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject}]{\sphinxcrossref{SpaceObject}}}\DUrole{p}{{]}}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Converts the current catalogue into a list of SpaceObjects. It prioritizes the SpaceTrack data
+for any conflicting information between JSR and SpaceTrack.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{DownloadJSRCatalogueIfNewer(local\_path}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+str, url: str):
+Downloads a file from a given URL if it is newer than the local file.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{PullCatalogueJSR(external\_dir}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+str):
+Updates the JSR catalogue files by downloading the latest version if available online.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{PullCatalogueSpaceTrack(external\_dir}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+str):
+Downloads the entire SpaceTrack catalogue. Requires SpaceTrack login credentials in a ‘.env’ file.
+
+\end{fulllineitems}
+
+\begin{quote}\begin{description}
+\sphinxlineitem{Raises}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{Exception}} – If an invalid sim\_object\_type or sim\_object\_catalogue is specified.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} – If loaded data from file is not an instance of SpaceCatalogue.
+
+\end{itemize}
+
+\end{description}\end{quote}
+\index{Catalogue2SpaceObjects() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{Catalogue2SpaceObjects()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:id0}}
+\pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{Catalogue2SpaceObjects}}}{}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Convert the current catalogue into a list of SpaceObjects.
-
-\sphinxAtStartPar
-This function will prioritize the SpaceTrack data in case of conflicting information
-between JSR and SpaceTrack. The function takes into account the simulation object type
-(\sphinxtitleref{sim\_object\_type}) to determine the data source for the conversion.
 \begin{quote}\begin{description}
 \sphinxlineitem{Raises}
 \sphinxAtStartPar
@@ -1336,7 +1735,7 @@ list{[}{\hyperref[\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject}
 \index{CreateCatalogueActive() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueActive()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive}}
+\phantomsection\label{\detokenize{fspsim.utils:id1}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueActive}}}{}{}
 \pysigstopsignatures
@@ -1372,12 +1771,12 @@ None
 \index{CreateCatalogueAll() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueAll()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll}}
+\phantomsection\label{\detokenize{fspsim.utils:id2}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueAll}}}{}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Merge the JSR catalogue information with the entire SpaceTrack catalogue.
+Merge the JSR catalogue with the SpaceTrack catalogue.
 
 \sphinxAtStartPar
 The function prioritizes SpaceTrack’s data in case of conflicting information.
@@ -1401,6 +1800,10 @@ None. But exports a CSV file of merged space catalogue of all tracked objects to
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
 None
+
+\sphinxlineitem{Note}
+\sphinxAtStartPar
+In the case of missing data for the simulation, the function will drop the rows that do not have the required data. At present this results in a couple thousands of objects being dropped.
 
 \end{description}\end{quote}
 
@@ -1447,7 +1850,7 @@ None
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{PullCatalogueJSR}}}{\sphinxparam{\DUrole{n}{external\_dir}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Update the JSR catalogue files by downloading them if there’s a newer version online.
+Update the JSR catalogue files by downloading them if a newer version is available online.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -1515,23 +1918,19 @@ None
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.check_json_file}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.SpaceCatalogue.}}\sphinxbfcode{\sphinxupquote{check\_json\_file}}}{\sphinxparam{\DUrole{n}{json}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.utils.SpaceCatalogue.}}\sphinxbfcode{\sphinxupquote{check\_json\_file}}}{\sphinxparam{\DUrole{n}{json\_data}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Checks the validity of the provided JSON content.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{json}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) – Dictionary parsed from a JSON file that needs to be checked.
+\sphinxstyleliteralstrong{\sphinxupquote{json\_data}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) – Dictionary parsed from a JSON file that needs to be checked.
 
 \sphinxlineitem{Raises}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{KeyError}} – If an expected key is not found in the JSON content.
-
-\item {} 
-\sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{TypeError}} – If the type of value for a key doesn’t match the expected type.
 
 \item {} 
 \sphinxAtStartPar
@@ -1773,10 +2172,675 @@ Bases: \sphinxcode{\sphinxupquote{Enum}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
+
+\sphinxAtStartPar
+A representation of a space object detailing its orbital and physical properties.
+
+\sphinxAtStartPar
+This class provides comprehensive details about the space object, including its launch date,
+operational status, object type, application, and a variety of other orbital parameters.
+\index{launch\_date (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{launch\_date}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.launch_date}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{launch\_date}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The date when the object was launched.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+datetime
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{decay\_date (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{decay\_date}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.decay_date}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{decay\_date}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The date when the object is expected to decay.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+datetime
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{rso\_name (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{rso\_name}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.rso_name}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{rso\_name}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Name of the Resident Space Object (RSO).
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{rso\_type (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{rso\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.rso_type}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{rso\_type}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Type of the RSO.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{payload\_operational\_status (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{payload\_operational\_status}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.payload_operational_status}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{payload\_operational\_status}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Operational status of the payload.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{object\_type (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{object\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.object_type}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{object\_type}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Type of the object. Can be ‘DEB’, ‘PAY’, ‘R/B’, ‘UNK’, or ‘?’.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{application (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{application}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.application}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{application}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Application purpose of the space object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{operator (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{operator}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.operator}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{operator}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The operator or owner of the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{characteristic\_length (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{characteristic\_length}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.characteristic_length}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{characteristic\_length}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The characteristic length of the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{characteristic\_area (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{characteristic\_area}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.characteristic_area}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{characteristic\_area}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The characteristic area of the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{mass (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{mass}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.mass}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{mass}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The mass of the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{source (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{source}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.source}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{source}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Source or country of origin of the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{launch\_site (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{launch\_site}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.launch_site}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{launch\_site}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The site where the object was launched from.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{maneuverable (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{maneuverable}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.maneuverable}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{maneuverable}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Indicates if the object is maneuverable.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{spin\_stabilized (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{spin\_stabilized}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.spin_stabilized}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{spin\_stabilized}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Indicates if the object is spin\sphinxhyphen{}stabilized.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{apogee (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{apogee}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.apogee}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{apogee}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The maximum altitude of the object’s orbit.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{perigee (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{perigee}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.perigee}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{perigee}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+The minimum altitude of the object’s orbit.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{propulsion\_type (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{propulsion\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.propulsion_type}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{propulsion\_type}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Type of propulsion used by the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{epoch (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{epoch}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.epoch}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{epoch}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Reference time for the object’s orbital parameters.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+datetime
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{day\_of\_year (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{day\_of\_year}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.day_of_year}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{day\_of\_year}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Day of the year derived from the epoch.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+int
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{station\_keeping (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{station\_keeping}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.station_keeping}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{station\_keeping}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Dates indicating station keeping period.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+list or bool or None
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{ephemeris (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{ephemeris}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.ephemeris}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{ephemeris}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Ephemeris data for the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+list
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{sma (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{sma}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.sma}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{sma}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Semi\sphinxhyphen{}major axis of the object’s orbit.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{orbital\_period (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{orbital\_period}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.orbital_period}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{orbital\_period}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Orbital period of the object.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{inc (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{inc}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.inc}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{inc}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Inclination of the object’s orbit.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{argp (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{argp}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.argp}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{argp}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Argument of perigee.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{raan (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{raan}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.raan}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{raan}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Right ascension of the ascending node.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{tran (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{tran}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.tran}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{tran}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+True anomaly.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{eccentricity (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{eccentricity}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.eccentricity}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{eccentricity}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Eccentricity of the object’s orbit.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{meananomaly (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{meananomaly}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.meananomaly}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{meananomaly}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Mean anomaly.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{cart\_state (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{cart\_state}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.cart_state}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{cart\_state}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Cartesian state vector {[}x,y,z,u,v,w{]}.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+np.array
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{C\_d (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{C\_d}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.C_d}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{C\_d}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Drag coefficient.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+float
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{tle (fspsim.utils.SpaceObject.SpaceObject attribute)@\spxentry{tle}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.tle}}
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{tle}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Two\sphinxhyphen{}line element set representing the object’s orbit.
+\begin{quote}\begin{description}
+\sphinxlineitem{Type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{impute\_char\_length(char\_length}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+float) \sphinxhyphen{}> float:
+Imputes a characteristic length based on the object type if the given value is None or 0.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{impute\_char\_area(char\_area}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+float) \sphinxhyphen{}> float:
+Imputes a characteristic area based on the object type if the given value is None or 0.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{impute\_mass(mass}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Union{[}float, str{]}) \sphinxhyphen{}> float:
+Imputes a mass based on the object characteristic area if the given value is None or 0.
+
+\end{fulllineitems}
+
 \index{generate\_cart() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{generate\_cart()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.generate_cart}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generate\_cart}}}{}{{ $\rightarrow$ np.array}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Generates a starting cartesian state vector from keplerian elements.
+
+\end{fulllineitems}
+
+
+
+\begin{fulllineitems}
+
+\pysigstartsignatures
+\pysigline{\sphinxbfcode{\sphinxupquote{prop\_catobject(jd\_start}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+float, jd\_stop: float, step\_size: float, output\_freq: float):
+Propagates the object based on initial conditions, propagator type, and station keeping parameters.
+
+\end{fulllineitems}
+
+\index{generate\_cart() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{generate\_cart()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{fspsim.utils:id3}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generate\_cart}}}{}{}
 \pysigstopsignatures
@@ -1803,7 +2867,7 @@ np.array
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{impute\_char\_area}}}{\sphinxparam{\DUrole{n}{char\_area}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Imputes a characteristic area based on the object type.
+Imputes a characteristic area based on the object type if the given value is None or 0.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -1833,7 +2897,7 @@ float
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{impute\_char\_length}}}{\sphinxparam{\DUrole{n}{char\_length}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Imputes a characteristic length based on the object type.
+Imputes a characteristic length based on the object type if the given value is None or 0.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -1863,7 +2927,8 @@ float
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{impute\_mass}}}{\sphinxparam{\DUrole{n}{mass}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Imputes a mass based on the object type.
+Imputes a mass based on the object characteristic length if the given value is None or 0.
+The relationship between mass and characteristic length is based on the relationship between mass and length reported in From Alfano, Oltrogge and Sheppard, 2020
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
@@ -1889,7 +2954,7 @@ float
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{prop\_catobject}}}{\sphinxparam{\DUrole{n}{jd\_start}}\sphinxparamcomma \sphinxparam{\DUrole{n}{jd\_stop}}\sphinxparamcomma \sphinxparam{\DUrole{n}{step\_size}}\sphinxparamcomma \sphinxparam{\DUrole{n}{output\_freq}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
-Propagates a celestial object based on initial conditions, propagator type, and station keeping preferences.
+Propagates the object based on initial conditions, propagator type, and station keeping preferences.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {} 
@@ -2158,7 +3223,8 @@ Notes:
 \pysiglinewithargsret{\sphinxcode{\sphinxupquote{fspsim.simulate.}}\sphinxbfcode{\sphinxupquote{set\_future\_constellations}}}{\sphinxparam{\DUrole{n}{constellations}}}{{ $\rightarrow$ bool}}
 \pysigstopsignatures
 \sphinxAtStartPar
-This allows one to provide their own future constellation guide. This will check that it is in the correct format
+Incorporates user\sphinxhyphen{}specified launch predictions into the simulation.
+This will check that it is in the correct format
 and can be used by the simulation.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
