@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('../src'))   # src directory
 
 project = 'FSPSim'
 copyright = '2023, Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart'
-author = 'Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart'
+author = 'Indigo Brownhall, \nCharles Constant, \nSantosh Bhattarai, \nLee Devlin, \nMarek Ziebart'
 release = '0.1'
 
 # -- General configuration ---------------------------------------------------
@@ -38,5 +38,5 @@ latex_engine = 'xelatex'  # xelatex is modern and supports more features
 master_doc = 'index'
 latex_documents = [
     (master_doc, 'FSPSim.tex', 'FSPSim Documentation',
-     'Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart', 'manual'),
+     'Indigo Brownhall, \nCharles Constant, \nSantosh Bhattarai, \nLee Devlin, \nMarek Ziebart', 'manual'),
 ]

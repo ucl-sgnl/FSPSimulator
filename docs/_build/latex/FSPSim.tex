@@ -76,10 +76,14 @@
 \setcounter{secnumdepth}{5}
 
 
-\title{Your Project Documentation}
+\title{FSPSim Documentation}
 \date{Sep 13, 2023}
 \release{0.1}
-\author{Your Name}
+\author{Indigo Brownhall, 
+Charles Constant, 
+Santosh Bhattarai, 
+Lee Devlin, 
+Marek Ziebart}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
 \makeindex
@@ -93,24 +97,89 @@
 \phantomsection\label{\detokenize{index::doc}}
 
 
+
+\chapter{Motivation and Significance}
+\label{\detokenize{index:motivation-and-significance}}
+\sphinxAtStartPar
+Human space endeavors have expanded dramatically over the past decades, with a significant increase in the number of satellites currently in orbit.
+The rapid growth and potential impacts of satellite launches have led to the development of various models and the need for a more accessible and adaptable modeling framework.
+The FSPSim tool addresses this need by offering a transparent, configurable, and open\sphinxhyphen{}source solution. This tool empowers stakeholders to comprehend and address the potential impacts of satellite mega\sphinxhyphen{}constellations.
+FSPSim aims to make source\sphinxhyphen{}sink evolutionary models more accessible to a broader audience. It allows stakeholders to utilize modeling insights crafted by the community, promoting a more inclusive approach to understanding the effects of various decisions on the space environment.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=0.800\linewidth]{{FSPSim_system_diag_v1}.png}
+\caption{Overview of FSPSim’s architecture, showcasing how user inputs influence simulation parameters, the classes, and data sources they connect with, and the propagation mechanism.}\label{\detokenize{index:id1}}\end{figure}
+
+
+\chapter{Software Description}
+\label{\detokenize{index:software-description}}
+\sphinxAtStartPar
+FSPSim consists of various classes and modules designed to simulate the behavior and impact of space objects.
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{The SpaceCatalogue Class:} Manages all SpaceObject instances and fetches data from major space object catalogs.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{The SpaceObject Class:} Represents an individual object in space with detailed attributes.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{The LaunchModel Module:} Transforms user predictions into SpaceObjects.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{The Propagator Module:} Drives the propagation of all SpaceObjects within a given SpaceCatalog.
+
+\end{itemize}
+
+
+\chapter{Software Functionalities}
+\label{\detokenize{index:software-functionalities}}
+\sphinxAtStartPar
+Users specify simulation parameters using a JSON file. The results are saved in a pickle file and can be further analyzed using popular data science libraries.
+
+
+\chapter{Illustrative Examples}
+\label{\detokenize{index:illustrative-examples}}
+\sphinxAtStartPar
+Based on provided input parameters, users can generate various visualizations to analyze the simulation data.
+
+\begin{figure}[htbp]
+\centering
+\capstart
+
+\noindent\sphinxincludegraphics[width=0.800\linewidth]{{fspsim_example}.png}
+\caption{A sample altitude time\sphinxhyphen{}series plot generated from a simulation.}\label{\detokenize{index:id2}}\end{figure}
+
+
+\chapter{Current and Future Developments}
+\label{\detokenize{index:current-and-future-developments}}
+\sphinxAtStartPar
+Key areas of focus include refining the Launch Model and expanding the preliminary launch cost estimator.
+
 \sphinxstepscope
 
 
-\chapter{fspsim package}
+\section{fspsim package}
 \label{\detokenize{fspsim:fspsim-package}}\label{\detokenize{fspsim::doc}}
 
-\section{Subpackages}
+\subsection{Subpackages}
 \label{\detokenize{fspsim:subpackages}}
 \sphinxstepscope
 
 
-\subsection{fspsim.utils package}
+\subsubsection{fspsim.utils package}
 \label{\detokenize{fspsim.utils:fspsim-utils-package}}\label{\detokenize{fspsim.utils::doc}}
 
-\subsubsection{Submodules}
+\paragraph{Submodules}
 \label{\detokenize{fspsim.utils:submodules}}
 
-\subsubsection{fspsim.utils.Conversions module}
+\paragraph{fspsim.utils.Conversions module}
 \label{\detokenize{fspsim.utils:module-fspsim.utils.Conversions}}\label{\detokenize{fspsim.utils:fspsim-utils-conversions-module}}\index{module@\spxentry{module}!fspsim.utils.Conversions@\spxentry{fspsim.utils.Conversions}}\index{fspsim.utils.Conversions@\spxentry{fspsim.utils.Conversions}!module@\spxentry{module}}\index{TLE\_time() (in module fspsim.utils.Conversions)@\spxentry{TLE\_time()}\spxextra{in module fspsim.utils.Conversions}}
 
 \begin{fulllineitems}
@@ -1016,7 +1085,7 @@ str
 
 
 
-\subsubsection{fspsim.utils.Formatting module}
+\paragraph{fspsim.utils.Formatting module}
 \label{\detokenize{fspsim.utils:module-fspsim.utils.Formatting}}\label{\detokenize{fspsim.utils:fspsim-utils-formatting-module}}\index{module@\spxentry{module}!fspsim.utils.Formatting@\spxentry{fspsim.utils.Formatting}}\index{fspsim.utils.Formatting@\spxentry{fspsim.utils.Formatting}!module@\spxentry{module}}\index{calculate\_form\_factor() (in module fspsim.utils.Formatting)@\spxentry{calculate\_form\_factor()}\spxextra{in module fspsim.utils.Formatting}}
 
 \begin{fulllineitems}
@@ -1077,7 +1146,7 @@ dict
 
 
 
-\subsubsection{fspsim.utils.LaunchModel module}
+\paragraph{fspsim.utils.LaunchModel module}
 \label{\detokenize{fspsim.utils:module-fspsim.utils.LaunchModel}}\label{\detokenize{fspsim.utils:fspsim-utils-launchmodel-module}}\index{module@\spxentry{module}!fspsim.utils.LaunchModel@\spxentry{fspsim.utils.LaunchModel}}\index{fspsim.utils.LaunchModel@\spxentry{fspsim.utils.LaunchModel}!module@\spxentry{module}}\index{Prediction2SpaceObjects() (in module fspsim.utils.LaunchModel)@\spxentry{Prediction2SpaceObjects()}\spxextra{in module fspsim.utils.LaunchModel}}
 
 \begin{fulllineitems}
@@ -1249,7 +1318,7 @@ dict{[}str, list{[}str{]}{]}
 
 
 
-\subsubsection{fspsim.utils.Propagators module}
+\paragraph{fspsim.utils.Propagators module}
 \label{\detokenize{fspsim.utils:module-fspsim.utils.Propagators}}\label{\detokenize{fspsim.utils:fspsim-utils-propagators-module}}\index{module@\spxentry{module}!fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}}\index{fspsim.utils.Propagators@\spxentry{fspsim.utils.Propagators}!module@\spxentry{module}}\index{compute\_eccentric\_anomaly() (in module fspsim.utils.Propagators)@\spxentry{compute\_eccentric\_anomaly()}\spxextra{in module fspsim.utils.Propagators}}
 
 \begin{fulllineitems}
@@ -1511,7 +1580,7 @@ list: list of lists containing the time\sphinxhyphen{}series of Cartesian coordi
 
 
 
-\subsubsection{fspsim.utils.SpaceCatalogue module}
+\paragraph{fspsim.utils.SpaceCatalogue module}
 \label{\detokenize{fspsim.utils:module-fspsim.utils.SpaceCatalogue}}\label{\detokenize{fspsim.utils:fspsim-utils-spacecatalogue-module}}\index{module@\spxentry{module}!fspsim.utils.SpaceCatalogue@\spxentry{fspsim.utils.SpaceCatalogue}}\index{fspsim.utils.SpaceCatalogue@\spxentry{fspsim.utils.SpaceCatalogue}!module@\spxentry{module}}\index{SpaceCatalogue (class in fspsim.utils.SpaceCatalogue)@\spxentry{SpaceCatalogue}\spxextra{class in fspsim.utils.SpaceCatalogue}}
 
 \begin{fulllineitems}
@@ -1929,7 +1998,7 @@ Any
 
 
 
-\subsubsection{fspsim.utils.SpaceObject module}
+\paragraph{fspsim.utils.SpaceObject module}
 \label{\detokenize{fspsim.utils:module-fspsim.utils.SpaceObject}}\label{\detokenize{fspsim.utils:fspsim-utils-spaceobject-module}}\index{module@\spxentry{module}!fspsim.utils.SpaceObject@\spxentry{fspsim.utils.SpaceObject}}\index{fspsim.utils.SpaceObject@\spxentry{fspsim.utils.SpaceObject}!module@\spxentry{module}}\index{ObjectType (class in fspsim.utils.SpaceObject)@\spxentry{ObjectType}\spxextra{class in fspsim.utils.SpaceObject}}
 
 \begin{fulllineitems}
@@ -2947,13 +3016,13 @@ float
 
 
 
-\subsubsection{Module contents}
+\paragraph{Module contents}
 \label{\detokenize{fspsim.utils:module-fspsim.utils}}\label{\detokenize{fspsim.utils:module-contents}}\index{module@\spxentry{module}!fspsim.utils@\spxentry{fspsim.utils}}\index{fspsim.utils@\spxentry{fspsim.utils}!module@\spxentry{module}}
 
-\section{Submodules}
+\subsection{Submodules}
 \label{\detokenize{fspsim:submodules}}
 
-\section{fspsim.simulate module}
+\subsection{fspsim.simulate module}
 \label{\detokenize{fspsim:module-fspsim.simulate}}\label{\detokenize{fspsim:fspsim-simulate-module}}\index{module@\spxentry{module}!fspsim.simulate@\spxentry{fspsim.simulate}}\index{fspsim.simulate@\spxentry{fspsim.simulate}!module@\spxentry{module}}\index{dump\_pickle() (in module fspsim.simulate)@\spxentry{dump\_pickle()}\spxextra{in module fspsim.simulate}}
 
 \begin{fulllineitems}
@@ -3089,7 +3158,7 @@ bool
 
 
 
-\section{Module contents}
+\subsection{Module contents}
 \label{\detokenize{fspsim:module-fspsim}}\label{\detokenize{fspsim:module-contents}}\index{module@\spxentry{module}!fspsim@\spxentry{fspsim}}\index{fspsim@\spxentry{fspsim}!module@\spxentry{module}}
 
 \chapter{Indices and tables}
