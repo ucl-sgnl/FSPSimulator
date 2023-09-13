@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "fspsim"
-version = "0.0.11"
+version = "0.0.14"
 authors = [
   { name="Indigo Brownhall", email="indigo.brownhall.20@ucl.ac.uk" },
   { name="Charles Constant", email="chales.constant.18@ucl.ac.uk" },
@@ -32,9 +32,8 @@ dependencies = [
     "tqdm >= 4.65.0",
     "sgp4 >= 2.21",
     "numba >= 0.53",
-    "numpy >= 1.19",
-    "joblb >= 1.3.1"
-]
+    "numpy >= 1.19"
+  ]
 
 [project.urls]
 "Homepage" = "https://github.com/ucl-sgnl/fspsimulator"

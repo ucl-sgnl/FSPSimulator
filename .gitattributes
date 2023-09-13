@@ -1,0 +1,2 @@
+src/fspsim/data/results/propagated_catalogs/*.pickle filter=lfs diff=lfs merge=lfs -text
+src/fspsim/data/results/propagated_catalogs/oneweb_starlink.pickle filter=lfs diff=lfs merge=lfs -text

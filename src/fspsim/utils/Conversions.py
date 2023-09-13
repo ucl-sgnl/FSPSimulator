@@ -1,64 +1,145 @@
 import numpy as np
-import warnings
 import math
 import datetime
-import glob
 from astropy import units as u
 from astropy.time import Time
 from poliastro.bodies import Earth
 from poliastro.twobody import Orbit
 from poliastro.frames import Planes
 from jplephem.spk import SPK
-import importlib.resources
+from astropy.coordinates import CartesianRepresentation, CartesianDifferential, GCRS, ITRS
+from typing import Tuple, List
 
 Re = 6378.137 #km Earth's equatorial radius
 
 def utc_to_jd(time_stamps):
-    """Converts UTC time to Julian Date.
-    Args: 
-        time_stamps(list): list of UTC times datetime.datetime objects that need to be converted to JD.
-    Returns:
-        jd(list): is a list of Julian Date times.
     """
+    Convert UTC datetime or string representations to Julian Date (JD).
+
+    This function takes in either a single datetime, string representation of a datetime, or a list of them. It then
+    converts each of these into its corresponding Julian Date (JD) value. If a list is provided, it returns a list of JD
+    values. If a single datetime or string is provided, it returns a single JD value.
+
+    :param time_stamps: The datetime object(s) or string representation(s) of dates/times to be converted to Julian Date.
+                        Strings should be in the format '%Y-%m-%d' or '%Y-%m-%d %H:%M:%S'.
+    :type time_stamps: datetime.datetime, str or list of datetime.datetime/str
+    :return: The corresponding Julian Date (JD) value(s) for the provided datetime(s) or string representation(s). 
+             Returns a single float if the input is a single datetime or string, and a list of floats if the input is a list.
+    :rtype: float or list of float
+
+    """
+    if not isinstance(time_stamps, list):
+        time_stamps = [time_stamps]
+
     UTC_string = []
-    for i in range(0,len(time_stamps),1):
+    for ts in time_stamps:
         try:
-            UTC_string.append(time_stamps[i].strftime('%Y-%m-%d %H:%M:%S'))
+            UTC_string.append(ts.strftime('%Y-%m-%d %H:%M:%S'))
         except:
-            time_str = datetime.datetime.strptime(time_stamps, '%Y-%m-%d')
+            time_str = datetime.datetime.strptime(ts, '%Y-%m-%d')
             UTC_string.append(time_str.strftime('%Y-%m-%d %H:%M:%S'))
 
-    t = Time(UTC_string, format='iso', scale='utc') #astropy time object
-    jd = t.to_value('jd', 'long') #convert to jd
+    t = Time(UTC_string, format='iso', scale='utc')  # astropy time object
+    jd = t.to_value('jd', 'long')  # convert to jd
 
-    jd_vals = []
-    for i in range (0, len(jd),1):
-        jd_vals.append(float(jd[i]))
+    jd_vals = [float(j) for j in jd]
     
-    return jd_vals
+    # If the input was a single datetime, then return a single value. Otherwise, return the list.
+    return jd_vals[0] if len(jd_vals) == 1 else jd_vals
+
+def calculate_eccentricity(position: List[float], velocity: List[float], mu: float):
+    """
+    Calculate the eccentricity of an orbit given position, velocity, and gravitational parameter.
+
+    The function computes the eccentricity using the specific mechanical energy and specific angular momentum
+    of the object in orbit.
+
+    :param position: Position vector of the object in orbit. Expected to be a 3-element list representing [x, y, z].
+    :type position: List[float]
+    :param velocity: Velocity vector of the object in orbit. Expected to be a 3-element list representing [vx, vy, vz].
+    :type velocity: List[float]
+    :param mu: Gravitational parameter, product of the gravitational constant (G) and the mass (M) of the primary body.
+    :type mu: float
+    :return: Eccentricity of the orbit.
+    :rtype: float
+
+    """
+    r = np.linalg.norm(position)
+    v = np.linalg.norm(velocity)
+    E = v**2 / 2 - mu / r
+    h = np.cross(position, velocity)
+    h_magnitude = np.linalg.norm(h)
+    e = np.sqrt(1 + 2 * E * h_magnitude**2 / mu**2)
+    return e
 
 def jd_to_utc(jd):
-    """Converts Julian Date to UTC time tag(datetime object) using Astropy"""
+    """
+    Converts Julian Date to UTC time tag (datetime object) using Astropy.
+
+    :param jd: Julian Date
+    :type jd: float
+    :return: UTC time tag (datetime object)
+    :rtype: datetime.datetime
+    """
     #convert jd to astropy time object
     time = Time(jd, format='jd', scale='utc')
     #convert astropy time object to datetime object
     utc = time.datetime
     return utc
 
-def kep2car(a, e, i, w, W, V):
-    # Suppress the UserWarning for true anomaly wrapping
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", UserWarning)
+def ecef2eci_astropy(ecef_pos: np.ndarray, ecef_vel: np.ndarray, mjd: float) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Convert ECEF (Earth-Centered, Earth-Fixed) coordinates to ECI (Earth-Centered Inertial) coordinates using Astropy.
+
+    :param ecef_pos: ECEF position vectors.
+    :type ecef_pos: np.ndarray
+    :param ecef_vel: ECEF velocity vectors.
+    :type ecef_vel: np.ndarray
+    :param mjd: Modified Julian Date.
+    :type mjd: float
+    :return: Tuple containing ECI position and ECI velocity vectors.
+    :rtype: tuple of np.ndarray
+    """
+    # Convert MJD to isot format for Astropy
+    time_utc = Time(mjd, format="mjd", scale='utc')
+
+    # Convert ECEF position and velocity to ITRS coordinates using Astropy
+    ecef_cartesian = CartesianRepresentation(ecef_pos.T * u.km)
+    ecef_velocity = CartesianDifferential(ecef_vel.T * u.km / u.s)
+    itrs_coords = ITRS(ecef_cartesian.with_differentials(ecef_velocity), obstime=time_utc)
+    gcrs_coords = itrs_coords.transform_to(GCRS(obstime=time_utc))
+
+    # Get ECI position and velocity from Astropy coordinates
+    eci_pos = np.column_stack((gcrs_coords.cartesian.x.value, gcrs_coords.cartesian.y.value, gcrs_coords.cartesian.z.value))
+    eci_vel = np.column_stack((gcrs_coords.velocity.d_x.value, gcrs_coords.velocity.d_y.value, gcrs_coords.velocity.d_z.value))
+
+    return eci_pos, eci_vel
+
+def kep2car(a, e, i, w, W, V, epoch):
+    """
+    Convert Keplerian elements to Cartesian coordinates.
+
+    :param a: Semi-major axis (km).
+    :param e: Eccentricity.
+    :param i: Inclination (rad).
+    :param w: Argument of perigee (rad).
+    :param W: Right ascension of ascending node (RAAN) (rad).
+    :param V: True anomaly (rad).
+    :param epoch: Time at which the elements are given.
+    :type epoch: Time
+    :return: Tuple containing x, y, z coordinates and vx, vy, vz velocities.
+    :rtype: tuple of floats
+    """
         
-        # Create an Orbit object from the Keplerian elements
-        orbit = Orbit.from_classical(Earth,
-                                     a * u.km,
-                                     e * u.one,
-                                     i * u.rad,
-                                     w * u.rad,
-                                     W * u.rad,
-                                     V * u.rad,
-                                     epoch=Time.now())
+    # Create an Orbit object from the Keplerian elements
+    orbit = Orbit.from_classical(Earth,
+                                    a * u.km,
+                                    e * u.one,
+                                    i * u.rad,
+                                    w * u.rad,
+                                    W * u.rad,
+                                    V * u.rad,
+                                    epoch=epoch)
 
     # Get the position and velocity vectors in ECI frame
     pos_vec = orbit.r.value
@@ -70,61 +151,63 @@ def kep2car(a, e, i, w, W, V):
 
     return x, y, z, vx, vy, vz
 
-def car2kep(x, y, z, u, v, w, deg=False, arg_l=False):
-    """Convert cartesian to keplerian elements.
-
-    Args:
-        x (float): x position in km
-        y (float): y position in km
-        z (float): z position in km
-        u (float): x velocity in km/s
-        v (float): y velocity in km/s
-        w (float): z velocity in km/s
-        deg (bool, optional): If True, return angles in degrees. If False, return angles in radians. Defaults to False.
-        arg_l (bool, optional): If True, return argument of latitude in degrees. If False, return argument of latitude in radians. Defaults to False.
-
-    Returns:
-        tuple: a, e, i, w, W, V, arg_lat
+def car2kep(x, y, z, vx, vy, vz, mean_motion=False, arg_l=False):
     """
-    #TODO: add argument of latitude
-    #make the vectors in as astropy Quantity objects
-    r = [x, y, z] * u.km
-    v = [u, v, w] * u.km / u.s
+    Convert Cartesian coordinates to Keplerian elements in radians.
 
-    #convert to cartesian
+    :param float x: Position coordinate in km.
+    :param float y: Position coordinate in km.
+    :param float z: Position coordinate in km.
+    :param float vx: Velocity component in km/s.
+    :param float vy: Velocity component in km/s.
+    :param float vz: Velocity component in km/s.
+    :param bool mean_motion: If True, return mean motion. Default is False.
+    :param bool arg_l: If True, return the argument of latitude. Default is False.
+    :return: Tuple containing semi-major axis, eccentricity, inclination,
+             RAAN, argument of perigee, and true anomaly. Optionally returns
+             mean motion and argument of latitude.
+    :rtype: tuple
+    """
+    
+    r = u.Quantity([x, y, z], unit=u.km)
+    v = u.Quantity([vx, vy, vz], unit=u.km/u.s)
+
     orb = Orbit.from_vectors(Earth, r, v, plane=Planes.EARTH_EQUATOR)
 
-    #convert to keplerian
-    if deg == True:
+    a = orb.a.value
+    e = orb.ecc.value
+    i = orb.inc.value
+    w = orb.raan.value
+    W = orb.argp.value
+    V = orb.nu.value
+    n = orb.n.value if mean_motion else None
 
-        a = orb.a.value
-        e = orb.ecc.value
-        i = np.rad2deg(orb.inc.value)
-        w = np.rad2deg(orb.raan.value)
-        W = np.rad2deg(orb.argp.value)
-        V = np.rad2deg(orb.nu.value)
-        # arg_lat = np.rad2deg(orb.arglat.value)
+    # If true anomaly is negative, adjust by adding 2*pi
+    if V < 0:
+        V += 2 * np.pi
 
-        if arg_l == True:
-            return a, e, i, w, W, V
-        elif arg_l == False:
-            return a, e, i, w, W, V
+    # Calculate argument of latitude if requested
+    U = None
+    if arg_l:
+        U = W + V
 
-    elif deg == False:
-        a = orb.a.value
-        e = orb.ecc.value
-        i = orb.inc.value
-        w = orb.raan.value
-        W = orb.argp.value
-        V = orb.nu.value
-        # arg_lat = orb.arg_lat.value
+    results = (a, e, i, w, W, V)
+    if mean_motion:
+        results += (n,)
+    if arg_l:
+        results += (U,)
 
-        if arg_l == True:
-            return a, e, i, w, W, V
-
-    return a, e, i, w, W, V                
+    return results
 
 def true_to_eccentric_anomaly(true_anomaly, eccentricity):
+    """
+    Convert true anomaly to eccentric anomaly.
+
+    :param float true_anomaly: True anomaly in radians.
+    :param float eccentricity: Orbital eccentricity.
+    :return: Eccentric anomaly in radians.
+    :rtype: float
+    """
     cos_E = (eccentricity + math.cos(true_anomaly)) / (1 + eccentricity * math.cos(true_anomaly))
     sin_E = math.sqrt(1 - cos_E**2)
     if true_anomaly > math.pi:
@@ -133,25 +216,52 @@ def true_to_eccentric_anomaly(true_anomaly, eccentricity):
     return eccentric_anomaly
 
 def calculate_energy_from_semi_major_axis(a, m):
-    """Calculate the total mechanical energy of an object in orbit around the Earth, given its semi-major axis (a) and mass (m)."""
+    """
+    Use the vis-viva law to calculate the total mechanical energy of an object in orbit around the Earth.
+
+    :param float a: Semi-major axis in meters.
+    :param float m: Mass of the object in kg.
+    :return: Total mechanical energy in joules.
+    :rtype: float
+    """
     G = 6.67430e-11  # Gravitational constant, units: m^3 kg^-1 s^-2
     M_earth = 5.97219e24  # Mass of Earth, units: kg
     energy = -G * M_earth * m / (2 * a)
     return energy
 
 def eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity):
+    """
+    Convert eccentric anomaly to mean anomaly.
+
+    :param float eccentric_anomaly: Eccentric anomaly in radians.
+    :param float eccentricity: Orbital eccentricity.
+    :return: Mean anomaly in radians.
+    :rtype: float
+    """
     mean_anomaly = eccentric_anomaly - eccentricity * math.sin(eccentric_anomaly)
     return mean_anomaly
 
 def true_to_mean_anomaly(true_anomaly, eccentricity):
-    #TODO: i dont know where I have lost a minus sign but I made the output here the absolute value to deal wtih it. Needs fixing.
+    """
+    Convert true anomaly to mean anomaly. 
+
+    :param float true_anomaly: True anomaly in radians.
+    :param float eccentricity: Orbital eccentricity.
+    :return: Mean anomaly in radians.
+    :rtype: float
+    """
     eccentric_anomaly = true_to_eccentric_anomaly(true_anomaly, eccentricity)
     mean_anomaly = eccentric_to_mean_anomaly(eccentric_anomaly, eccentricity)
     return np.abs(mean_anomaly)
 
 def orbit_classify(altitude):
-    # Classifies the orbit based on the altitude
-    #TODO: expand to include all possible altitudes. Classifications must be set to match JSR/Celestrak orbit classifications
+    """
+    Classify the orbit based on the altitude.
+
+    :param float altitude: Altitude of the orbit in km.
+    :return: Orbit classification as a string.
+    :rtype: str
+    """
     # if less than 160 km, it is deorbiting
     if altitude < 160:
         orbit_class = 'Deorbiting'
@@ -169,15 +279,14 @@ def orbit_classify(altitude):
     return orbit_class
 
 def tle_parse(tle_2le):
-    #NOTE: does not work on 3LE strings
     """
-    Parses a 2LE string (e.g. as provided by Celestrak) and returns all the data in a dictionary.
-    Args:
-        tle_2le (string): 2LE string to be parsed
-    Returns:
-        2le_dict (dict): dictionary of all the data contained in the TLE string
-    """
+    Parse a 2LE string (e.g. as provided by Celestrak) and return all the data in a dictionary.
 
+    :param str tle_2le: 2LE string to be parsed.
+    :return: Dictionary of all the data contained in the TLE string.
+    :rtype: dict
+
+    """
     # This function takes a TLE string and returns a dictionary of the TLE data
     tle_lines = tle_2le.split('\n')
     tle_dict = {}
@@ -212,13 +321,12 @@ def tle_parse(tle_2le):
 
 def tle_convert(tle_dict, display=False):
     """
-    Converts a TLE dictionary into the corresponding keplerian elements
-    
-    ### Args:
-        - tle_dict (dict): dictionary of TLE data as provided by the tle_parse function
+    Convert a TLE dictionary into the corresponding Keplerian elements.
 
-    ### Returns:
-        - keplerian_dict(dict): dictionary containing Keplerian elements
+    :param dict tle_dict: Dictionary of TLE data as provided by the tle_parse function.
+    :param bool display: If True, print out the Keplerian elements. Default is False.
+    :return: Dictionary containing Keplerian elements.
+    :rtype: dict
     """
 
     # Standard gravitational parameter for the Earth
@@ -292,8 +400,14 @@ def tle_convert(tle_dict, display=False):
     return keplerian_dict
 
 def TLE_time(TLE):
+    """
+    Returns the Epoch Year of the TLE as a Julian Date. 
 
-    """Find the time of a TLE in julian day format"""
+    :param TLE: Two Line Element
+    :type TLE: string
+    :return: Julian Date
+    :rtype: datetime.datetime
+    """
     #find the epoch section of the TLE
     epoch = TLE[18:32]
     #take the first tow numerical digits of the epoch (deal with white )
@@ -308,6 +422,14 @@ def TLE_time(TLE):
     return jd
 
 def orbital_period(semi_major_axis):
+    """
+    Calculate the Orbital Period of a satellite based on the semi-major-axis
+
+    :param semi_major_axis: Semi Major Axis 
+    :type semi_major_axis: int
+    :return: Orbital Period in Minutes
+    :rtype: int
+    """
     G = 6.67430 * 10**(-11)  # Gravitational constant in m^3 kg^-1 s^-2
     a = semi_major_axis*1000      # Semi-major axis in Km
     M = 5.972 * 10**24       # Mass of Earth in kg
@@ -320,17 +442,18 @@ def orbital_period(semi_major_axis):
     return orbital_period_minutes
 
 def generate_cospar_id(launch_year, launch_number, launch_piece):
-    """
-    Generates a COSPAR ID for a spacecraft.
+    """Generates a placeholder (fake) COSPAR ID for a spacecraft based on the launch year, launch number, and launch piece.
 
-    Args:
-    launch_year (int): The launch year of the spacecraft.
-    launch_number (int): The launch number of the spacecraft.
-    launch_piece (str): The piece of the launch.
-
-    Returns:
-    str: The generated COSPAR ID.
+    :param launch_year: The launch year of the spacecraft.
+    :type launch_year: int
+    :param launch_number: The launch number of the spacecraft.
+    :type launch_number: int
+    :param launch_piece: The piece of the launch.
+    :type launch_piece: str
+    :return: The generated COSPAR ID.
+    :rtype: str
     """
+    
     # Format the launch year by taking the last two digits
     year_str = str(launch_year)
 
@@ -346,10 +469,22 @@ def generate_cospar_id(launch_year, launch_number, launch_piece):
     return cospar_id
 
 def tle_exponent_format(value):
+    """
+    Convert a value to the TLE-specific exponent format.
+
+    :param value: TLE Value
+    :type value: str
+    :return: Formatted value
+    :rtype: str
+    """
+    # if already a string then continue
+    if isinstance(value, str) and '-':
+        return value
+
     # Format a value in scientific notation used in TLEs
     if value == 0:
         return "00000-0"
-
+    
     exponent = int('{:e}'.format(value).split('e')[-1])
     mantissa = '{:.5e}'.format(abs(value)).replace('.', '')[:5]
     sign = '-' if value < 0 else '+'
@@ -359,6 +494,13 @@ def tle_exponent_format(value):
     return formatted_value
 
 def tle_checksum(line):
+    """Perform the checksum for one TLE line
+
+    :param line: TLE line
+    :type line: str
+    :return: Checksum
+    :rtype: int
+    """
     checksum = 0
     for char in line[:-1]:
         if char.isdigit():
@@ -372,6 +514,52 @@ def write_tle(catalog_number, classification, launch_year, launch_number, launch
               ephemeris_type, element_set_number,
               inclination, raan, eccentricity, arg_perigee, mean_anomaly, mean_motion,
               revolution_number):
+    
+    """
+    This function builds a TLE string in the correct format when given the necessary parameters.
+
+    :param catalog_number: Catalog number of the satellite.
+    :type catalog_number: int
+    :param classification: Classification type (usually 'U' for unclassified).
+    :type classification: str
+    :param launch_year: Year of launch.
+    :type launch_year: int
+    :param launch_number: Launch number of the year.
+    :type launch_number: int
+    :param launch_piece: Piece of the launch.
+    :type launch_piece: str
+    :param epoch_year: Year of the epoch.
+    :type epoch_year: int
+    :param epoch_day: Day of year the epoch.
+    :type epoch_day: float
+    :param first_derivative: First time derivative of the mean motion (ballistic coefficient).
+    :type first_derivative: float
+    :param second_derivative: Second time derivative of the mean motion (delta-dot).
+    :type second_derivative: float
+    :param drag_term: B* drag term.
+    :type drag_term: float
+    :param ephemeris_type: Ephemeris type.
+    :type ephemeris_type: int
+    :param element_set_number: Element set number.
+    :type element_set_number: int
+    :param inclination: Inclination (rad).
+    :type inclination: float
+    :param raan: Right ascension of the ascending node (RAAN) (rad).
+    :type raan: float
+    :param eccentricity: Eccentricity.
+    :type eccentricity: float
+    :param arg_perigee: Argument of perigee (rad).
+    :type arg_perigee: float
+    :param mean_anomaly: Mean anomaly (rad).
+    :type mean_anomaly: float
+    :param mean_motion: Mean motion (rad/s).
+    :type mean_motion: float
+    :param revolution_number: Revolution number at epoch.
+    :type revolution_number: int
+
+    :return: A two-line element set (TLE) string.
+    :rtype: str
+    """
 
     formatted_drag_term = tle_exponent_format(drag_term)
     #drop the sign 
@@ -410,7 +598,7 @@ def write_tle(catalog_number, classification, launch_year, launch_number, launch
     l2_col17 = ' '
     l2_col18_25 = '{:8.4f}'.format(np.rad2deg(raan))
     l2_col26 = ' '
-    l2_col27_33 = '{:7.7s}'.format(str(eccentricity)[2:]) #remove the 0. from the beginning
+    l2_col27_33 = '{:7.7s}'.format(str(eccentricity)[2:]) #remember to remove the 0. from the beginning
     l2_col34 = ' '
     l2_col35_42 = '{:8.4f}'.format(np.rad2deg(arg_perigee))
     l2_col43 = ' '
@@ -428,6 +616,14 @@ def write_tle(catalog_number, classification, launch_year, launch_number, launch
     return newtle
 
 def get_day_of_year_and_fractional_day(epoch):
+    """
+    Compute the day of the year and fractional day for a given date.
+
+    :param epoch: Datetime object representing the epoch.
+    :type epoch: datetime.datetime
+    :return: Day of the year and fractional day.
+    :rtype: float
+    """
     start_of_the_year = datetime.datetime(epoch.year, 1, 1)
     day_of_year = (epoch - start_of_the_year).days + 1
     seconds_since_midnight = (epoch - epoch.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
@@ -435,16 +631,19 @@ def get_day_of_year_and_fractional_day(epoch):
     return day_of_year + fractional_day
 
 def UTC_step(date_list, steps,h):
-    """ Make an array of datetime strings in UTC format
-
-    Args:
-        UTC (list): UTC time described in the following format: [year,month,day,hour,minute,second]
-        steps (int): number of steps in the propagation
-        h (float): step size the propagation uses in seconds
-
-    Returns:
-        UTC_array (list): list of datetime strings in UTC format
     """
+    Make an array of datetime strings in UTC format.
+    
+    :param date_list: List containing year, month, day, hour, minute, and second.
+    :type date_list: list[int]
+    :param steps: Number of steps in the propagation.
+    :type steps: int
+    :param h: Step size the propagation uses in seconds.
+    :type h: float
+    :return: List of datetime strings in UTC format.
+    :rtype: list[datetime.datetime]
+    """
+
     UTC_times = []
    # convert step size of integrator (seconds) to minutes
     dt = datetime.datetime(date_list[0],date_list[1],date_list[2],date_list[3],date_list[4],date_list[5]) 
@@ -454,13 +653,14 @@ def UTC_step(date_list, steps,h):
     return UTC_times
 
 def v_rel(state):
-    """Calcualte the speed of the satellite relative to the Earth's atmosphere assuming it co-rotates with the Earth
-
-    Args:
-        state (array-like): state vector of the satellite in ECI coordinates
-
-    Returns:
-        v_rel: velocity of the satellite with respect to the Earth's atmosphere in Km/s
+    """
+    Calculate the speed of the satellite relative to the Earth's atmosphere.
+    This assumes that the atmosphere is stationary and co-rotating with the surface Earth.
+    
+    :param state: State vector of the satellite in ECI coordinates.
+    :type state: array-like
+    :return: Velocity of the satellite with respect to the Earth's atmosphere in Km/s.
+    :rtype: np.array
     """
     r = np.array([state[0], state[1], state[2]])
     v = np.array([state[3], state[4], state[5]])  # velocity vector
@@ -471,57 +671,68 @@ def v_rel(state):
 
 def earth_sun_vec(jd, unit = True):
     """
-    Calculates the Earth-Sun vector in ECI coordinates.
-    Args:
-        jd (float): Julian Date for which we want the Earth-Sun vector.
-        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
-    Returns:
-        earth_sun_vec (array): Earth-Sun vector in ECI coordinates.
-    """
-    with importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp') as path:
-        kernel = SPK.open(path)
-    position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
-    position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
-    position -= kernel[3,399].compute(jd) # Earth Barycenter -> Earth vector
+    Calculate the Earth-Sun vector in ECI coordinates.
+    Makes use of the JPL ephemerides to calculate the Earth-Sun vector.
     
+    :param jd: Julian Date for which we want the Earth-Sun vector.
+    :type jd: float
+    :param unit: If True, returns the unit vector. If False, returns the vector itself. Default is True.
+    :type unit: bool
+    :return: Earth-Sun vector in ECI coordinates.
+    :rtype: np.array
+    """
+    bsp_file = 'src/fspsim/data/JPL_ephemerides/de421.bsp' #select the first (and only) one
+    kernel = SPK.open(bsp_file) # Load the planetary SPK kernel file. This file must be in the working directory.
+    earth_position = kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
+    sun_position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given jd
+
+    position = sun_position - earth_position # Earth to Sun vector
+
     if unit == False:
         return position #output in Km
-    
+
     if unit == True:
         return position/np.linalg.norm(position)
     print("length of earth-sun vector is: ", np.linalg.norm(position))
 
-def earth_moon_vec(jd, unit = True):
+def earth_moon_vec(jd, unit=True):
     """
-    Calculates the Earth-Moon vector in ECI coordinates.
-    Args:
-        jd (float): Julian Date for which we want the Earth-Moon vector.
-        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is True.
-    Returns:
-        earth_moon_vec (array): Earth-Moon vector in ECI coordinates.
-    """
-    with importlib.resources.path('fspsim.data.JPL_ephemerides', 'de421.bsp') as path:
-        kernel = SPK.open(path)
-    position = kernel[0,10].compute(jd) # Solar System Barycenter -> Sun vector for a given mjd
-    position -= kernel[0,3].compute(jd) # Solar System Barycenter -> Earth Barycenter vector 
-    position -= kernel[3,301].compute(jd) # Earth Barycenter -> Moon vector
+    Calculate the Earth-Moon vector in ECI coordinates.
+    Makes use of the JPL ephemerides to calculate the Earth-Moon vector.
     
+    :param jd: Julian Date for which we want the Earth-Moon vector.
+    :type jd: float
+    :param unit: If True, returns the unit vector. If False, returns the vector itself. Default is True.
+    :type unit: bool
+    :return: Earth-Moon vector in ECI coordinates.
+    :rtype: np.array
+    """
+    bsp_file = 'src/fspsim/data/JPL_ephemerides/de421.bsp'  # select the first (and only) one
+    kernel = SPK.open(bsp_file)  # Load the planetary SPK kernel file. This file must be in the working directory.
+
+    earth_position = kernel[3, 399].compute(jd)  # Earth Barycenter -> Earth vector
+    moon_position = kernel[3, 301].compute(jd)  # Earth Barycenter -> Moon vector 
+    position = moon_position - earth_position  # Earth to Moon vector
+
     if unit == False:
-        return position #output in Km
-    
+        return position  # output in Km
+
     if unit == True:
-        return position/np.linalg.norm(position)
+        return position / np.linalg.norm(position)
     print("length of earth-moon vector is: ", np.linalg.norm(position))
 
 def probe_sun_vec(r, jd, unit = False):
     """
-    Calculates the probe-Sun vector in ECI coordinates.
-    Args:
-        r (array): probe position in ECI coordinates.
-        jd (float): Julian Date for which we want the probe-Sun vector.
-        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is False.
-    Returns:
-        probe_sun_vec (array): Probe-Sun vector in ECI coordinates.
+    Calculate the probe-Sun vector in ECI coordinates.
+    
+    :param r: Probe position in ECI coordinates.
+    :type r: array
+    :param jd: Julian Date for which we want the probe-Sun vector.
+    :type jd: float
+    :param unit: If True, returns the unit vector. If False, returns the vector itself. Default is False.
+    :type unit: bool
+    :return: Probe-Sun vector in ECI coordinates.
+    :rtype: np.array
     """
     s = earth_sun_vec(jd, unit = False)
     p = (s-r) #probe-sun vector = earth-sun vector - earth-probe vector
@@ -531,22 +742,3 @@ def probe_sun_vec(r, jd, unit = False):
     if unit == True:
         return p/np.linalg.norm(p)
     print("length of probe-sun vector is: ", np.linalg.norm(p))
-    
-def probe_moon_vec(r, jd, unit = False):
-    """
-    Calculates the probe-Moon vector in ECI coordinates.
-    Args:
-        r (array): probe position in ECI coordinates.
-        jd (float): Julian Date for which we want the probe-Moon vector.
-        unit (bool): if True, returns the unit vector. If False, returns the vector itself. Default is False.
-    Returns:
-        probe_moon_vec (array): Probe-Moon vector in ECI coordinates.
-    """
-    m = earth_moon_vec(jd, unit = False)
-    p = (m-r) #probe-moon vector = earth-moon vector - earth-probe vector
-    if unit == False:
-        return p #output in Km
-    
-    if unit == True:
-        return p/np.linalg.norm(p)
-    print("length of probe-moon vector is: ", np.linalg.norm(p))

@@ -17,7 +17,6 @@ A typical simulation configuration can be represented in the JSON file format as
   "scenario_name": "testrun",
   "monthly_ton_capacity": "100",
   "launch_start_date":"2019-01-01",
-  "remove_operators": "E-Space",
   "sim_start_date":"2019-01-01",
   "sim_end_date":"2019-01-08",
   "output_frequency": 360,

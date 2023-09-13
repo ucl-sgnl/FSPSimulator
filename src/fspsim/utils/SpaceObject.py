@@ -3,9 +3,9 @@ import datetime
 import warnings
 from enum import Enum
 import numpy as np
-
-from fspsim.utils.Conversions import kep2car, true_to_mean_anomaly, utc_to_jd, tle_parse, tle_convert, write_tle, orbital_period, get_day_of_year_and_fractional_day, TLE_time, jd_to_utc
-from fspsim.utils.Propagators import numerical_prop, kepler_prop
+from astropy.time import Time
+from ..utils.Conversions import kep2car, true_to_mean_anomaly, orbital_period, get_day_of_year_and_fractional_day ,write_tle, utc_to_jd
+from ..utils.Propagators import kepler_prop
 
 class OperationalStatus(Enum):
     POSITIVE = '+'
@@ -25,7 +25,17 @@ class ObjectType(Enum):
     OTHER = '?'
 
 def verify_value(value, impute_function):
-    """Verifies that the value is a float and is not None. If it is None or not a float or too small, then impute the value using the impute_function."""
+    """
+    Verifies that the value is a float and is not None. If it is None or not a float or 
+    too small, then impute the value using the impute_function.
+
+    :param value: The value to verify
+    :type value: float or None or str
+    :param impute_function: Function to impute value if necessary
+    :type impute_function: function
+    :return: The verified or imputed value
+    :rtype: float
+    """   
     try:
         value = float(value)
         if value >= 0.1:  # if value is acceptable
@@ -35,7 +45,20 @@ def verify_value(value, impute_function):
     return impute_function(value)  # pass the value to the impute_function
 
 def verify_angle(value, name, random=False):
-    """Verifies that the value is a float and is between 0 and 360. If it is None or not a float or out of range, raise a ValueError."""
+    """
+    Verifies that the value is a float and is between 0 and 360. If it is None or not 
+    a float or out of range, raise a ValueError.
+
+    :param value: The value to verify
+    :type value: float or None or str
+    :param name: Name of the object
+    :type name: str
+    :param random: If `True`, return a random angle between 0 and 360 for invalid values, defaults to `False`
+    :type random: bool, optional
+    :return: The verified angle or a random angle if `random` is `True`
+    :rtype: float
+    :raises ValueError: If the value is not a float or out of range and `random` is `False`
+    """
     try:
         value = float(value)
         if 0 <= value <= 360:  # if value is acceptable
@@ -47,7 +70,16 @@ def verify_angle(value, name, random=False):
         raise ValueError(f'{value} is None or not a float. Please check the input data')
 
 def verify_eccentricity(value):
-    """Verifies that the value is a float and is between 0 and 1. If it is None or not a float or out of range, raise a ValueError."""
+    """
+    Verifies that the value is a float and is between 0 and 1. If it is None or not a 
+    float or out of range, raise a ValueError.
+
+    :param value: The value to verify
+    :type value: float or None or str
+    :return: The verified value
+    :rtype: float
+    :raises ValueError: If the value is not a float or out of range
+    """
     try:
         value = float(value)
         if 0 <= value <= 1:  # if value is acceptable
@@ -56,16 +88,55 @@ def verify_eccentricity(value):
     except (TypeError, ValueError):
         raise ValueError('Object eccentricity is None or not a float. Please check the input data')
 
-
 class SpaceObject:
+    """
+    A representation of a space object detailing its orbital and physical properties.
+
+    This class provides comprehensive details about the space object, including its launch date, 
+    operational status, object type, application, and a variety of other orbital parameters.
+
+    Attributes:
+        launch_date (datetime): The date when the object was launched.
+        decay_date (datetime): The date when the object is expected to decay.
+        rso_name (str): Name of the Resident Space Object (RSO).
+        rso_type (str): Type of the RSO.
+        payload_operational_status (str): Operational status of the payload.
+        object_type (str): Type of the object. Can be 'DEB', 'PAY', 'R/B', 'UNK', or '?'.
+        application (str): Application purpose of the space object.
+        operator (str): The operator or owner of the object.
+        characteristic_length (float): The characteristic length of the object.
+        characteristic_area (float): The characteristic area of the object.
+        mass (float): The mass of the object.
+        source (str): Source or country of origin of the object.
+        launch_site (str): The site where the object was launched from.
+        maneuverable (str): Indicates if the object is maneuverable.
+        spin_stabilized (str): Indicates if the object is spin-stabilized.
+        apogee (float): The maximum altitude of the object's orbit.
+        perigee (float): The minimum altitude of the object's orbit.
+        propulsion_type (str): Type of propulsion used by the object.
+        epoch (datetime): Reference time for the object's orbital parameters.
+        day_of_year (int): Day of the year derived from the epoch.
+        station_keeping (list or bool or None): Dates indicating station keeping period.
+        ephemeris (list): Ephemeris data for the object.
+        sma (float): Semi-major axis of the object's orbit.
+        orbital_period (float): Orbital period of the object.
+        inc (float): Inclination of the object's orbit.
+        argp (float): Argument of perigee.
+        raan (float): Right ascension of the ascending node.
+        tran (float): True anomaly.
+        eccentricity (float): Eccentricity of the object's orbit.
+        meananomaly (float): Mean anomaly.
+        cart_state (np.array): Cartesian state vector [x,y,z,u,v,w].
+        C_d (float): Drag coefficient.
+        tle (str): Two-line element set representing the object's orbit.
+    """
     def __init__(self, rso_name=None, rso_type=None, payload_operational_status=None, application=None, source=None, 
                  launch_site=None, mass=None, maneuverable=False, spin_stabilized=False,
                  object_type = None, apogee=None, perigee=None, characteristic_area=None, characteristic_length=None, propulsion_type=None, epoch=None, sma=None, inc=None, 
-                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None):
+                 argp=None, raan=None, tran=None, eccentricity=None, operator=None, launch_date=None,  decay_date=None, tle=None, station_keeping=None, orbit_source=None):
         
         # launch_date must be datetime.datetime.strptime('%Y-%m-%d') format between 1900-00-00 and 2999-12-31
         self.launch_date = datetime.datetime.strptime(launch_date, '%Y-%m-%d')
-
         self.decay_date = decay_date
         self.rso_name = str(rso_name)
         self.rso_type = str(rso_type) if rso_type is not None else None
@@ -77,7 +148,7 @@ class SpaceObject:
             #raise a warning that still lets the code run and forces the operational status to be '?'
             # warnings.warn('WARNING: payload_operational_status should be one of the following: {}'.format(possible_operational_status))
             self.payload_operational_status = '?'
-        
+
         #Object type
         self.object_type = str(object_type) # read in the value that is passed and cast to string
         possible_object_types = ['DEB', 'PAY', 'R/B', 'UNK', '?'] # i have added ? as a possible object type so that the code can still run if this is not specified
@@ -143,18 +214,6 @@ class SpaceObject:
             else:
                 raise ValueError('station_keeping must be either None, True, False or a list of length 1 or 2')
         
-        # if tle is not a string of the format: "{69 characters}\n{69 characters}""  i.e. 2 lines of 69 characters, then raise a warning and set tle to None
-        self.tle=tle
-        if tle is not None:
-            if len(tle) != 2*69+1 or tle[69] != '\n':
-                warnings.warn('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')
-                # Example TLE that works: "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
-                self.tle = None
-            else:
-                self.tle = tle
-        elif tle is None:
-            self.tle = None
-
         self.ephemeris = None # This is where the ephemeris of the propagations will be stored
 
         # Semi-major axis
@@ -175,17 +234,34 @@ class SpaceObject:
         self.tran = verify_angle(tran, 'tran', random=True) # random=True means that if tran is None, then a random value between 0 and 360 is imputed
         self.eccentricity = verify_eccentricity(eccentricity)
         self.meananomaly = true_to_mean_anomaly(self.tran, self.eccentricity)
-            
-        self.altitude = self.perigee #TODO: this needs to get deleted imo (discuss first)
 
         # This is to store the result of the conversion of the Keplerian elements to cartesian ECI coordinates
         self.cart_state = self.generate_cart() #cartesian state vector [x,y,z,u,v,w] to be computed using generate_cart (from keplerian elements)
 
         self.C_d = 2.2 #Drag coefficient
-    
+
+        mean_motion = 2*math.pi/self.orbital_period # in radians per minute
+        mean_motion_revs_per_day = mean_motion * 24 * 60 / (2*math.pi) # in revolutions per day
+
+        # if tle is not a string of the format: "{69 characters}\n{69 characters}""  i.e. 2 lines of 69 characters, then raise a warning and set tle to None
+        self.tle=write_tle(catalog_number=00000, classification="U", launch_year=2020, launch_number= 67, launch_piece="A",
+              epoch_year=20, epoch_day=264.51782528, first_derivative='-.00002182', second_derivative='00000-0', drag_term='-11606-4',
+              ephemeris_type=0, element_set_number=292,inclination= self.inc, raan=self.raan, eccentricity=self.eccentricity, arg_perigee=self.argp,
+              mean_anomaly=self.meananomaly, mean_motion=mean_motion_revs_per_day,revolution_number=56353)
+        
+        if len(self.tle) != 2*69+1 or self.tle[69] != '\n':
+            warnings.warn('WARNING: tle must be a string of the format: "{69 characters}\\n{69 characters}" i.e. 2 lines of 69 characters. Setting tle to None')
+            # Example TLE that works: "1 53544U 22101T   23122.20221856  .00001510  00000-0  11293-3 0  9999\n2 53544  53.2176  64.0292 0001100  79.8127 280.2989 15.08842383 38928"
+
     def impute_char_length(self, char_length):
         """
-        This function will impute a characteristic length based on the object type
+        Imputes a characteristic length based on the object type if the given value is None or 0.
+
+        :param char_length: Characteristic length to verify or impute.
+        :type char_length: float or None
+        :return: Imputed or verified characteristic length.
+        :rtype: float
+        :raises ValueError: If the imputed or given char_length is None or 0.
         """
         if char_length is None or char_length == 0:
             if self.object_type == 'PAYLOAD':
@@ -202,7 +278,13 @@ class SpaceObject:
 
     def impute_char_area(self, char_area):
         """
-        This function will impute a characteristic area based on the object type
+        Imputes a characteristic area based on the object type if the given value is None or 0.
+
+        :param char_area: Characteristic area to verify or impute.
+        :type char_area: float or None
+        :return: Imputed or verified characteristic area.
+        :rtype: float
+        :raises ValueError: If the imputed or given char_area is None or 0.
         """
         if char_area is None or char_area == 0:
             if self.object_type == 'PAYLOAD':
@@ -219,7 +301,13 @@ class SpaceObject:
         
     def impute_mass(self, mass):
         """
-        This function will impute a mass based on the object type
+        Imputes a mass based on the object characteristic length if the given value is None or 0.
+        The relationship between mass and characteristic length is based on the relationship between mass and length reported in From Alfano, Oltrogge and Sheppard, 2020
+
+        :param mass: Mass to verify or impute.
+        :type mass: float or None or str
+        :return: Imputed mass value.
+        :rtype: float
         """
         # From Alfano, Oltrogge and Sheppard, 2020
         if mass is None or mass == 0: # if mass is None or 0, then impute it based on the object length
@@ -229,79 +317,72 @@ class SpaceObject:
         return imputed_mass
     
     def generate_cart(self):
-        # generate cartesian state vector from keplerian elements
-        # Keplerian elements are in radians
-        x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran))
+        """
+        Generates a cartesian state vector from keplerian elements.
+
+        :return: Cartesian state.
+        :rtype: np.array
+        """
+        x,y,z,u,v,w = kep2car(a = self.sma, e=self.eccentricity, i = math.radians(self.inc), w = math.radians(self.argp), W=math.radians(self.raan), V=math.radians(self.tran), epoch=Time(self.epoch, format='datetime'))
         self.cart_state = np.array([[x, y, z], [u, v, w]])
         return self.cart_state
 
-    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq, integrator_type):
+    def prop_catobject(self, jd_start, jd_stop, step_size, output_freq):
         """
-        Function to propagate a celestial object based on initial conditions, propagator type, and station keeping preferences.
-        
-        Parameters:
-        jd_start (float): Julian start date for propagation
-        jd_stop (float): Julian stop date for propagation
-        step_size (float): Step size for propagation
-        output_freq (float): Frequency at which to output the ephemeris (in seconds)
-        integrator_type (str): String indicating which numerical integrator to use, default is "RK45"
-        
-        Returns:
-        None: The function does not return anything but updates the `ephemeris` attribute of the object.
+        Propagates the object based on initial conditions, propagator type, and station keeping preferences.
+
+        :param jd_start: Julian start date for the simulation.
+        :type jd_start: float
+        :param jd_stop: Julian stop date for simulation.
+        :type jd_stop: float
+        :param step_size: Step size for propagation.
+        :type step_size: float
+        :param output_freq: Frequency at which to output the ephemeris (in seconds).
+        :type output_freq: float
+        :param integrator_type: Numerical integrator to use.
+        :type integrator_type: str
+        :param use_sgp4_propagation: Propagate using SGP4 for 100-minute segments.
+        :type use_sgp4_propagation: bool
+        :return: None. Updates the `ephemeris` attribute of the object.
         """
-        valid_integrator_types = ["RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"]
-        if integrator_type not in integrator_type:
-            raise ValueError(f"Invalid integrator. Must be one of the following: {valid_integrator_types}")
+        
+        #check launch date - this is for objects that are launched after the start of the simulation
+        if utc_to_jd(self.launch_date) > jd_start:
+            jd_start = utc_to_jd(self.launch_date)
 
-        tot_time = (jd_stop - jd_start) * 24 * 60 * 60  # calculate total time in seconds for the propagation
-
-        #if output_freq is not specified set it to equal the step_size
+        # If output_freq is not specified, set it to equal the step_size
         if output_freq is None:
             output_freq = step_size
-        #if output_freq is specified, check that it is not smaller than the step_size
-        elif output_freq < step_size:
-            raise ValueError('output_freq cannot be smaller than step_size')
-        # Calculate the output frequency in steps of the numerical integrator
         else:
-            output_freq_steps = max(1, round(output_freq / step_size))  
+            output_freq_steps = max(1, round(output_freq / step_size))  # Calculate the output frequency in steps
 
-        # calculate the julian date of each of the output steps (this is used to retrive positions from the JPL ephemeris)
-        step_size_in_days = step_size / (24 * 60 * 60) # convert step_size from seconds to days
-        jd_time_stamps = np.arange(jd_start, jd_stop, step_size_in_days) # create an array of julian dates from jd_start to jd_stop with step size of step_size_in_days
-
-        if isinstance(self.station_keeping, list):  # presence of a list implies station keeping start and end dates
-            combined_ephemeris = []
-
-            # propagate using kepler from the start date to the end of the station keeping date
-            ephemeris_station_keep = kepler_prop(jd_start, self.station_keeping[1], step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
-            combined_ephemeris.append(ephemeris_station_keep)
-
-            # recalculate total time for the remaining journey after station keeping
-            tot_time = (jd_stop - self.station_keeping[1]) * 24 * 60 * 60
-            ephemeris_numerical = numerical_prop(tot_time, pos=self.cart_state[0], vel=self.cart_state[1], cd=self.C_d, area=self.characteristic_area, mass=self.mass, h=step_size, integrator_type=integrator_type)
-
-            # reformat the ephemeris output
-            steps = int(tot_time/step_size)
-            time_stamps = np.linspace(self.station_keeping[1], jd_stop, steps)
-            positions = np.array([x[:3] for x in ephemeris_numerical])
-            velocities = np.array([x[3:] for x in ephemeris_numerical])
-            ephemeris_numerical = list(zip(time_stamps, positions, velocities))
-            combined_ephemeris.append(ephemeris_numerical)
-
-            # reformat the ephemeris output with respect to output frequency
-            sampled_ephemeris_numerical = ephemeris_numerical[::output_freq_steps]
-            combined_ephemeris.append(sampled_ephemeris_numerical)
-
-            self.ephemeris = np.concatenate(combined_ephemeris)
-
-        elif self.station_keeping == True:  # object will station keep from launch to decay
+        if self.station_keeping == True:
+        # Object will station keep from launch to decay
+            print("kepler for: ", self.rso_name)
             self.ephemeris = kepler_prop(jd_start, jd_stop, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran)
-            self.ephemeris = self.ephemeris[::output_freq_steps]  # resample the ephemeris with respect to output frequency
+            self.ephemeris = self.ephemeris[::output_freq_steps]
 
-        
-        elif not self.station_keeping:  # object will not station keep, propagate using the numerical integrator
-            self.ephemeris = numerical_prop(tot_time=tot_time, pos=self.cart_state[0], vel=self.cart_state[1], C_d=self.C_d, area=self.characteristic_area, mass=self.mass,JD_time_stamps= jd_time_stamps, h=step_size, integrator_type=integrator_type)
-            self.ephemeris = self.ephemeris[::output_freq_steps]  # resample the ephemeris with respect to output frequency
-            #TODO: calculate the JD time stamps of all the steps in the ephemeris and add them an array which I will pass to an updated version of numerical_prop so that it can calculate the solar radiaition pressure which is a function of JD time stamp
+        # Check if station keeping is specified as a list. If it is propagate using Kepler from the start date to the start of the station keeping date
+        elif isinstance(self.station_keeping, list):
+            # Propagate using Kepler from the start date to the end of the station keeping date
+            # This assumes that if station keeping is going to occurr, it always occurs from the beggining of the orbit
+            station_keeping_start_jd = utc_to_jd(self.station_keeping[0])
+            station_keeping_end_jd = utc_to_jd(self.station_keeping[1])
+            ephemeris_station_keep = kepler_prop(station_keeping_start_jd, station_keeping_end_jd, step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, drag_decay=False)
+
+            # Propagate using dragdecay for the rest of the orbit
+            dragdecay_ephemeris = kepler_prop(jd_start=station_keeping_end_jd, jd_stop=jd_stop, step_size=step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, area=self.characteristic_area, mass=self.mass, cd=self.C_d, drag_decay=True)
+
+            ephemeris_station_keep = np.array(ephemeris_station_keep)
+            dragdecay_ephemeris = np.array(dragdecay_ephemeris)
+
+            # Combine arrays
+            self.ephemeris = np.concatenate((ephemeris_station_keep, dragdecay_ephemeris), axis=0)
+
+        else: # if no station keeping involved at all, then just propagate using dragdecay the whole way through
+            # Object will not station keep, propagate using only decay
+            self.ephemeris = kepler_prop(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, a=self.sma, e=self.eccentricity, i=self.inc, w=self.argp, W=self.raan, V=self.tran, area=self.characteristic_area, mass=self.mass, cd=self.C_d, drag_decay=True)
+            self.ephemeris = self.ephemeris[::output_freq_steps]
+
 if __name__ == "__main__":
     pass

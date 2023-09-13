@@ -1,28 +1,13 @@
-import datetime
-import sys
 import os
 import json
 import pickle
 from tqdm import tqdm
-from multiprocessing import Pool, cpu_count
+import traceback
 from fspsim.utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from fspsim.utils.Conversions import utc_to_jd
-import logging
-import importlib.resources
-import pandas as pd
-from dotenv import set_key
-from pathlib import Path
-from joblib import Parallel, delayed
+from fspsim.utils.Formatting import future_constellations_csv_handler
 
-
-home = str(Path.home())
-direc = home + '/.fspsim/'
-os.makedirs(direc + str("data/catalogue/"), exist_ok=True)
-os.makedirs(direc + str("data/results/"), exist_ok=True)
-os.makedirs(direc + str("data/external/"), exist_ok=True)
-os.makedirs(direc + str("data/results/propagated_catalogues"), exist_ok=True)
-cataloguepath, resultspath, externalpath, propagatedpath = direc + str("data/catalogue/"), direc + str("data/results/"), direc + str("data/external/"), direc + str("data/results/propagated_catalogues/")  
-
+future_constellations_dict = {}
 
 def get_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -35,78 +20,116 @@ def dump_pickle(file_path, data):
     with open(get_path(file_path), 'wb') as f:
         pickle.dump(data, f)
 
-def set_spacetrack_login(username, password):
-    set_key(".env", "SPACETRACK_USERNAME", username)
-    set_key(".env", "SPACETRACK_PASSWORD", password)
-
-def propagate_space_object(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type):
+def propagate_space_object(args):
+    space_object, jd_start, jd_stop, step_size, output_freq = args
     # Execute the prop_catobject method on the space object
-    space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq, integrator_type=integrator_type)
-    return space_object
+    #print(f"Propagating {space_object.rso_name}...")
+    try:
+        space_object.prop_catobject(jd_start=jd_start, jd_stop=jd_stop, step_size=step_size, output_freq=output_freq)
+    except Exception as e:
+        print(f"An error occurred while propagating {space_object.rso_name}: {e}")
+        #print the error location
+        print(traceback.format_exc())
+    return
 
-def return_baseline_catalogue():
+def set_future_constellations(constellations) -> bool: 
+    """Incorporates user-specified launch predictions into the simulation. 
+    This will check that it is in the correct format
+    and can be used by the simulation.
+
+    :param constellations: The path of the specified csv file
+    :type constellations: str
+    :return: If it is in the correct format.
+    :rtype: bool
     """
-    Returns a pickle file of the current catalogue of space objects
-    """
-    with importlib.resources.open_binary('fspsim.data.catalogue', 'SATCAT_before_prop.pickle') as resource:
-        print(resource)
-        return pickle.loads(resource)
+    future_constellations_dict = future_constellations_csv_handler(constellations)
+
+    if not future_constellations_dict:
+        print("There are no future constellations in your provided dictionary")
+        return False
     
-def return_baseline_csv():
-    with importlib.resources.open_text('fspsim.data.catalogue', 'Cleaned_All_catalogue_latest.csv') as file:
-        df = pd.read_csv(file)
-    return df
+    return True
 
-def run_parallel_sim(settings):
+def run_sim(settings: json, future_constellations_file: str = None, save_locally: bool = False) -> None:
     """
-    The main entry point into the FSP Simulator. This function will run the simulation based on the settings provided in the json file.
-    This function will define the simulation settings and run the simulation based on the SpaceCatalogue class instantiation.
-    The SpaceCatalogue class will create a catalogue(list) of SpaceObjects based on the settings provided.
-    This list of SpaceObjects is just metadata (empty ephemerides) until we propagate the SpaceObjects using the prop_catobject method.   
-    ### Exports
-    - List of merged space objects to 'src/fspsim/data/external/active_jsr_spacetrack.csv'
+    Propagates a list of space objects over a specified time range.
+
+    The function retrieves space objects from a space catalogue (SATCAT), propagates each object
+    up to a the specified time. This will save the output locally but will also return a list of propagated
+    space ojects. A progress bar is displayed to track the propagation process.
+
+    Parameters:
+        - settings (dict): A dictionary containing the following key-value pairs:
+        - "sim_start_date": UTC start date for simulation (str)
+        - "sim_end_date": UTC end date for simulation (str)
+        - "integrator_step_size": Time step size for integrator (str, converted to int)
+        - "output_frequency": Output frequency (str, converted to int)
+        - "scenario_name": Name of the scenario (str)
+        - "integrator_type": Type of integrator to use (str)
+        - "sgp4_long_term": Boolean indicating if SGP4 long term propagation should be used (str, converted to bool)
+        - "force_model": Force model settings (can be various types, depending on implementation)
+
+    Returns:
+    SATCAT Catalogue with updated ephemeris of the locations.
+    Results are saved to pickle files in the directory: 'src/fspsim/data/results/propagated_catalogs/'.
+
+    Notes:
+    - Each batch consists of a set number of space objects (defined by the batch_size variable).
+    - The pickle files are saved with a filename pattern: '<scenario_name>_batch_<batch_number>.pickle'.
+    - The propagation function used is 'propagate_space_object' (not defined in the provided code snippet).
     """
-    # first check the json file
-    if check_json_file(settings) == False:
-        sys.exit()
-    SATCAT = SpaceCatalogue(settings = settings)
-    jd_start = float(utc_to_jd(settings["sim_start_date"])[0])
-    jd_stop = float(utc_to_jd(settings["sim_end_date"])[0])
-    step_size = int(settings["integrator_step_size"]) # in seconds
-    output_freq = int(settings["output_frequency"]) # in seconds
-    scenario_name = settings["scenario_name"] # this will be used to name the output pickle file
-    integrator_type = settings["integrator_type"]  # must be one of "RK45", "RK23", "DOP853", "Radau", "BDF", "LSODA"
+    if future_constellations_file:
+        # User defined fsp launch files
+        # check if valid 
+        if future_constellations_csv_handler(future_constellations_file):
+            SATCAT = SpaceCatalogue(settings=settings, future_constellations=future_constellations_file)
+        else:
+            return
+    else:
+        # Use default fsp launch files
+        SATCAT = SpaceCatalogue(settings=settings)
+    jd_start = float(utc_to_jd(settings["sim_start_date"]))
+    jd_stop = float(utc_to_jd(settings["sim_end_date"]))
+    step_size = int(settings["integrator_step_size"])
+    output_freq = int(settings["output_frequency"])
+    scenario_name = str(settings["scenario_name"])
 
-    logging.info("Number of space_object in catalogue specified: ", len(SATCAT.Catalogue))
-    logging.info(f"Propagating SpaceObjects and saving state vectors every {settings['output_frequency']} seconds...")
+    # only select every 1000 objects in SATCAT.Catalogue
+    # SATCAT.Catalogue = SATCAT.Catalogue[::1000] 
 
-    decayed_before_start = 0
-    for space_object in SATCAT.Catalogue:
-        if space_object.decay_date < datetime.datetime.strptime(settings["sim_start_date"], '%Y-%m-%d'):
-            SATCAT.Catalogue.remove(space_object)
-            decayed_before_start += 1
-    logging.info("# sats decayed before sim start date: ", decayed_before_start)
+    # Create a progress bar
+    pbar = tqdm(total=len(SATCAT.Catalogue), desc="Propagating")
+    propagated_objects = []
 
-    SATCAT.Catalogue = SATCAT.Catalogue[:10]
+    while SATCAT.Catalogue:
+        # Propagate space objects
+        if not SATCAT.Catalogue:
+            break
 
-    parallel_test(SATCAT, jd_start, jd_stop, step_size, output_freq, scenario_name, integrator_type)
+        space_object = SATCAT.Catalogue.pop(0)
+        propagate_space_object((space_object, jd_start, jd_stop, step_size, output_freq))
+        propagated_objects.append(space_object)
+        pbar.update(1)  # Update the progress bar
 
-def parallel_test(SATCAT, jd_start, jd_stop, step_size, output_freq, scenario_name, integrator_type):
-    logging.info("Propagating space objects in parallel...")
-    iterable = [(space_object, jd_start, jd_stop, step_size, output_freq, integrator_type) for space_object in SATCAT.Catalogue]
-    # with Pool(processes=cpu_count()) as pool:
-    #     with tqdm(total=len(iterable)) as pbar:
-    #         results = []
-    #         for result in pool.imap_unordered(propagate_space_object, iterable):
-    #             results.append(result)
-    #             pbar.update()
-        
-    results = Parallel(n_jobs=cpu_count())(delayed(propagate_space_object)(*args) for args in iterable)
-    SATCAT.Catalogue = results
-    logging.info("Exporting results...")
-    dump_pickle(propagatedpath + f'{scenario_name}.pickle', SATCAT)
-    logging.info(f"Simulation complete. Results saved to: {get_path(propagatedpath + f'{scenario_name}.pickle')}")
-
+    if (len(propagated_objects) > 0):
+        if save_locally:
+            # Save the propagated objects to a pickle file
+            # Check to see if src directory exists
+            if os.path.exists(f'src/fspsim/data/results/propagated_catalogs/'):
+                save_path = os.path.join(f'src/fspsim/data/results/propagated_catalogs/', f"{scenario_name}.pickle")
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                dump_pickle(save_path, propagated_objects)
+                print(f'File saved in {save_path}')
+            else: 
+                # save in the currect directory
+                save_path = os.path.join(os.getcwd(), f"{scenario_name}.pickle")
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                dump_pickle(save_path, propagated_objects)
+                print(f'File saved in current working directory: {save_path}')
+        else:
+            return propagated_objects
+    pbar.close() # Close the progress bar
+    print('Simulation complete')
 
 if __name__ == '__main__':
     sims = os.listdir(get_path('src/fspsim/data/specify_simulations/'))
@@ -115,5 +138,7 @@ if __name__ == '__main__':
             print(f"Running simulation: {sim}")
             settings = json.load(open(get_path(f'src/fspsim/data/specify_simulations/{sim}'), 'r'))
             check_json_file(settings)#check if the json file is filled out correctly
-            run_parallel_sim(settings)
+            # provide my own launch file # charles you might have to change this path
+            future_constellations_file = r'C:\Users\IT\Documents\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink.csv'
+            run_sim(settings, future_constellations_file, save_locally=True)
             print(f"Simulation {sim} complete")
