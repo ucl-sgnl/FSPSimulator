@@ -22,7 +22,7 @@ extensions = [
     'sphinx.ext.napoleon']
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = [ 'Thumbs.db', '.DS_Store']
 autodoc_mock_imports = ["wget", "poliastro", "sgp4", "dotenv", "jplephem", "pyatmos"]
 
 # -- Options for HTML output -------------------------------------------------
