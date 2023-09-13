@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fspsim.utils package &mdash; FSPSim 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="fspsim package" href="fspsim.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            FSPSim
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fspsim.html">fspsim package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">fspsim.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.utils.Conversions">fspsim.utils.Conversions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.TLE_time"><code class="docutils literal notranslate"><span class="pre">TLE_time()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.UTC_step"><code class="docutils literal notranslate"><span class="pre">UTC_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.calculate_eccentricity"><code class="docutils literal notranslate"><span class="pre">calculate_eccentricity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.calculate_energy_from_semi_major_axis"><code class="docutils literal notranslate"><span class="pre">calculate_energy_from_semi_major_axis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.car2kep"><code class="docutils literal notranslate"><span class="pre">car2kep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.earth_moon_vec"><code class="docutils literal notranslate"><span class="pre">earth_moon_vec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.earth_sun_vec"><code class="docutils literal notranslate"><span class="pre">earth_sun_vec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.eccentric_to_mean_anomaly"><code class="docutils literal notranslate"><span class="pre">eccentric_to_mean_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.ecef2eci_astropy"><code class="docutils literal notranslate"><span class="pre">ecef2eci_astropy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.generate_cospar_id"><code class="docutils literal notranslate"><span class="pre">generate_cospar_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.get_day_of_year_and_fractional_day"><code class="docutils literal notranslate"><span class="pre">get_day_of_year_and_fractional_day()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.jd_to_utc"><code class="docutils literal notranslate"><span class="pre">jd_to_utc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.kep2car"><code class="docutils literal notranslate"><span class="pre">kep2car()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.orbit_classify"><code class="docutils literal notranslate"><span class="pre">orbit_classify()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.orbital_period"><code class="docutils literal notranslate"><span class="pre">orbital_period()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.probe_sun_vec"><code class="docutils literal notranslate"><span class="pre">probe_sun_vec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.tle_checksum"><code class="docutils literal notranslate"><span class="pre">tle_checksum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.tle_convert"><code class="docutils literal notranslate"><span class="pre">tle_convert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.tle_exponent_format"><code class="docutils literal notranslate"><span class="pre">tle_exponent_format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.tle_parse"><code class="docutils literal notranslate"><span class="pre">tle_parse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.true_to_eccentric_anomaly"><code class="docutils literal notranslate"><span class="pre">true_to_eccentric_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.true_to_mean_anomaly"><code class="docutils literal notranslate"><span class="pre">true_to_mean_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.utc_to_jd"><code class="docutils literal notranslate"><span class="pre">utc_to_jd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.v_rel"><code class="docutils literal notranslate"><span class="pre">v_rel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Conversions.write_tle"><code class="docutils literal notranslate"><span class="pre">write_tle()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.utils.Formatting">fspsim.utils.Formatting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Formatting.calculate_form_factor"><code class="docutils literal notranslate"><span class="pre">calculate_form_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Formatting.future_constellations_csv_handler"><code class="docutils literal notranslate"><span class="pre">future_constellations_csv_handler()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.utils.LaunchModel">fspsim.utils.LaunchModel module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.LaunchModel.Prediction2SpaceObjects"><code class="docutils literal notranslate"><span class="pre">Prediction2SpaceObjects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.LaunchModel.create_subconstellation_Space_Objects"><code class="docutils literal notranslate"><span class="pre">create_subconstellation_Space_Objects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.LaunchModel.global_launch_schedule"><code class="docutils literal notranslate"><span class="pre">global_launch_schedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.LaunchModel.import_configuration_json"><code class="docutils literal notranslate"><span class="pre">import_configuration_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.utils.Propagators">fspsim.utils.Propagators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Propagators.compute_eccentric_anomaly"><code class="docutils literal notranslate"><span class="pre">compute_eccentric_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Propagators.compute_gaussian_vectors"><code class="docutils literal notranslate"><span class="pre">compute_gaussian_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Propagators.compute_velocity"><code class="docutils literal notranslate"><span class="pre">compute_velocity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Propagators.kepler_prop"><code class="docutils literal notranslate"><span class="pre">kepler_prop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.Propagators.sgp4_prop_TLE"><code class="docutils literal notranslate"><span class="pre">sgp4_prop_TLE()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.utils.SpaceCatalogue">fspsim.utils.SpaceCatalogue module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_type"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.sim_object_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_catalogue"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.sim_object_catalogue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.Catalogue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.repull_catalogues"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.repull_catalogues</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue2SpaceObjects"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.Catalogue2SpaceObjects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.CreateCatalogueActive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.CreateCatalogueAll()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.DownloadJSRCatalogueIfNewer"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.DownloadJSRCatalogueIfNewer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueJSR"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.PullCatalogueJSR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueSpaceTrack"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.PullCatalogueSpaceTrack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.load_from_file"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.load_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.check_json_file"><code class="docutils literal notranslate"><span class="pre">check_json_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.dump_pickle"><code class="docutils literal notranslate"><span class="pre">dump_pickle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.get_path"><code class="docutils literal notranslate"><span class="pre">get_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceCatalogue.load_pickle"><code class="docutils literal notranslate"><span class="pre">load_pickle()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.utils.SpaceObject">fspsim.utils.SpaceObject module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceObject.ObjectType"><code class="docutils literal notranslate"><span class="pre">ObjectType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.ObjectType.DEB"><code class="docutils literal notranslate"><span class="pre">ObjectType.DEB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.ObjectType.OTHER"><code class="docutils literal notranslate"><span class="pre">ObjectType.OTHER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.ObjectType.PAYLOAD"><code class="docutils literal notranslate"><span class="pre">ObjectType.PAYLOAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.ObjectType.ROCKET_BODY"><code class="docutils literal notranslate"><span class="pre">ObjectType.ROCKET_BODY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.ObjectType.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">ObjectType.UNKNOWN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus"><code class="docutils literal notranslate"><span class="pre">OperationalStatus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.B"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.B</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.D"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.D</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.NEGATIVE"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.NEGATIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.PARTIAL"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.PARTIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.POSITIVE"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.POSITIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.S"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.S</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.OperationalStatus.X"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.X</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject"><code class="docutils literal notranslate"><span class="pre">SpaceObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.launch_date"><code class="docutils literal notranslate"><span class="pre">SpaceObject.launch_date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.decay_date"><code class="docutils literal notranslate"><span class="pre">SpaceObject.decay_date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.rso_name"><code class="docutils literal notranslate"><span class="pre">SpaceObject.rso_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.rso_type"><code class="docutils literal notranslate"><span class="pre">SpaceObject.rso_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.payload_operational_status"><code class="docutils literal notranslate"><span class="pre">SpaceObject.payload_operational_status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.object_type"><code class="docutils literal notranslate"><span class="pre">SpaceObject.object_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.application"><code class="docutils literal notranslate"><span class="pre">SpaceObject.application</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.operator"><code class="docutils literal notranslate"><span class="pre">SpaceObject.operator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.characteristic_length"><code class="docutils literal notranslate"><span class="pre">SpaceObject.characteristic_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.characteristic_area"><code class="docutils literal notranslate"><span class="pre">SpaceObject.characteristic_area</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.mass"><code class="docutils literal notranslate"><span class="pre">SpaceObject.mass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.source"><code class="docutils literal notranslate"><span class="pre">SpaceObject.source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.launch_site"><code class="docutils literal notranslate"><span class="pre">SpaceObject.launch_site</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.maneuverable"><code class="docutils literal notranslate"><span class="pre">SpaceObject.maneuverable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.spin_stabilized"><code class="docutils literal notranslate"><span class="pre">SpaceObject.spin_stabilized</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.apogee"><code class="docutils literal notranslate"><span class="pre">SpaceObject.apogee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.perigee"><code class="docutils literal notranslate"><span class="pre">SpaceObject.perigee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.propulsion_type"><code class="docutils literal notranslate"><span class="pre">SpaceObject.propulsion_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.epoch"><code class="docutils literal notranslate"><span class="pre">SpaceObject.epoch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.day_of_year"><code class="docutils literal notranslate"><span class="pre">SpaceObject.day_of_year</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.station_keeping"><code class="docutils literal notranslate"><span class="pre">SpaceObject.station_keeping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.ephemeris"><code class="docutils literal notranslate"><span class="pre">SpaceObject.ephemeris</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.sma"><code class="docutils literal notranslate"><span class="pre">SpaceObject.sma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.orbital_period"><code class="docutils literal notranslate"><span class="pre">SpaceObject.orbital_period</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.inc"><code class="docutils literal notranslate"><span class="pre">SpaceObject.inc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.argp"><code class="docutils literal notranslate"><span class="pre">SpaceObject.argp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.raan"><code class="docutils literal notranslate"><span class="pre">SpaceObject.raan</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.tran"><code class="docutils literal notranslate"><span class="pre">SpaceObject.tran</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.eccentricity"><code class="docutils literal notranslate"><span class="pre">SpaceObject.eccentricity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.meananomaly"><code class="docutils literal notranslate"><span class="pre">SpaceObject.meananomaly</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.cart_state"><code class="docutils literal notranslate"><span class="pre">SpaceObject.cart_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.C_d"><code class="docutils literal notranslate"><span class="pre">SpaceObject.C_d</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.tle"><code class="docutils literal notranslate"><span class="pre">SpaceObject.tle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.generate_cart"><code class="docutils literal notranslate"><span class="pre">SpaceObject.generate_cart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.impute_char_area"><code class="docutils literal notranslate"><span class="pre">SpaceObject.impute_char_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.impute_char_length"><code class="docutils literal notranslate"><span class="pre">SpaceObject.impute_char_length()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.impute_mass"><code class="docutils literal notranslate"><span class="pre">SpaceObject.impute_mass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject.prop_catobject"><code class="docutils literal notranslate"><span class="pre">SpaceObject.prop_catobject()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceObject.verify_angle"><code class="docutils literal notranslate"><span class="pre">verify_angle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceObject.verify_eccentricity"><code class="docutils literal notranslate"><span class="pre">verify_eccentricity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.utils.SpaceObject.verify_value"><code class="docutils literal notranslate"><span class="pre">verify_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">FSPSim</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fspsim.html">fspsim package</a></li>
+      <li class="breadcrumb-item active">fspsim.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fspsim.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fspsim-utils-package">
+<h1>fspsim.utils package<a class="headerlink" href="#fspsim-utils-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-fspsim.utils.Conversions">
+<span id="fspsim-utils-conversions-module"></span><h2>fspsim.utils.Conversions module<a class="headerlink" href="#module-fspsim.utils.Conversions" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.TLE_time">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">TLE_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TLE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.TLE_time" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the Epoch Year of the TLE as a Julian Date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TLE</strong> (<em>string</em>) – Two Line Element</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Julian Date</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime.datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.UTC_step">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">UTC_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.UTC_step" title="Link to this definition">¶</a></dt>
+<dd><p>Make an array of datetime strings in UTC format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date_list</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – List containing year, month, day, hour, minute, and second.</p></li>
+<li><p><strong>steps</strong> (<em>int</em>) – Number of steps in the propagation.</p></li>
+<li><p><strong>h</strong> (<em>float</em>) – Step size the propagation uses in seconds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of datetime strings in UTC format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[datetime.datetime]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.calculate_eccentricity">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">calculate_eccentricity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.calculate_eccentricity" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the eccentricity of an orbit given position, velocity, and gravitational parameter.</p>
+<p>The function computes the eccentricity using the specific mechanical energy and specific angular momentum
+of the object in orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Position vector of the object in orbit. Expected to be a 3-element list representing [x, y, z].</p></li>
+<li><p><strong>velocity</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Velocity vector of the object in orbit. Expected to be a 3-element list representing [vx, vy, vz].</p></li>
+<li><p><strong>mu</strong> (<em>float</em>) – Gravitational parameter, product of the gravitational constant (G) and the mass (M) of the primary body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eccentricity of the orbit.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.calculate_energy_from_semi_major_axis">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">calculate_energy_from_semi_major_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.calculate_energy_from_semi_major_axis" title="Link to this definition">¶</a></dt>
+<dd><p>Use the vis-viva law to calculate the total mechanical energy of an object in orbit around the Earth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – Semi-major axis in meters.</p></li>
+<li><p><strong>m</strong> (<em>float</em>) – Mass of the object in kg.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Total mechanical energy in joules.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.car2kep">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">car2kep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_motion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.car2kep" title="Link to this definition">¶</a></dt>
+<dd><p>Convert Cartesian coordinates to Keplerian elements in radians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – Position coordinate in km.</p></li>
+<li><p><strong>y</strong> (<em>float</em>) – Position coordinate in km.</p></li>
+<li><p><strong>z</strong> (<em>float</em>) – Position coordinate in km.</p></li>
+<li><p><strong>vx</strong> (<em>float</em>) – Velocity component in km/s.</p></li>
+<li><p><strong>vy</strong> (<em>float</em>) – Velocity component in km/s.</p></li>
+<li><p><strong>vz</strong> (<em>float</em>) – Velocity component in km/s.</p></li>
+<li><p><strong>mean_motion</strong> (<em>bool</em>) – If True, return mean motion. Default is False.</p></li>
+<li><p><strong>arg_l</strong> (<em>bool</em>) – If True, return the argument of latitude. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing semi-major axis, eccentricity, inclination,
+RAAN, argument of perigee, and true anomaly. Optionally returns
+mean motion and argument of latitude.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.earth_moon_vec">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">earth_moon_vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.earth_moon_vec" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the Earth-Moon vector in ECI coordinates.
+Makes use of the JPL ephemerides to calculate the Earth-Moon vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jd</strong> (<em>float</em>) – Julian Date for which we want the Earth-Moon vector.</p></li>
+<li><p><strong>unit</strong> (<em>bool</em>) – If True, returns the unit vector. If False, returns the vector itself. Default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Earth-Moon vector in ECI coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.earth_sun_vec">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">earth_sun_vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.earth_sun_vec" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the Earth-Sun vector in ECI coordinates.
+Makes use of the JPL ephemerides to calculate the Earth-Sun vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jd</strong> (<em>float</em>) – Julian Date for which we want the Earth-Sun vector.</p></li>
+<li><p><strong>unit</strong> (<em>bool</em>) – If True, returns the unit vector. If False, returns the vector itself. Default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Earth-Sun vector in ECI coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.eccentric_to_mean_anomaly">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">eccentric_to_mean_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eccentric_anomaly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.eccentric_to_mean_anomaly" title="Link to this definition">¶</a></dt>
+<dd><p>Convert eccentric anomaly to mean anomaly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eccentric_anomaly</strong> (<em>float</em>) – Eccentric anomaly in radians.</p></li>
+<li><p><strong>eccentricity</strong> (<em>float</em>) – Orbital eccentricity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mean anomaly in radians.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.ecef2eci_astropy">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">ecef2eci_astropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ecef_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecef_vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mjd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fspsim.utils.Conversions.ecef2eci_astropy" title="Link to this definition">¶</a></dt>
+<dd><p>Convert ECEF (Earth-Centered, Earth-Fixed) coordinates to ECI (Earth-Centered Inertial) coordinates using Astropy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecef_pos</strong> (<em>np.ndarray</em>) – ECEF position vectors.</p></li>
+<li><p><strong>ecef_vel</strong> (<em>np.ndarray</em>) – ECEF velocity vectors.</p></li>
+<li><p><strong>mjd</strong> (<em>float</em>) – Modified Julian Date.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing ECI position and ECI velocity vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.generate_cospar_id">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">generate_cospar_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">launch_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_piece</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.generate_cospar_id" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a placeholder (fake) COSPAR ID for a spacecraft based on the launch year, launch number, and launch piece.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>launch_year</strong> (<em>int</em>) – The launch year of the spacecraft.</p></li>
+<li><p><strong>launch_number</strong> (<em>int</em>) – The launch number of the spacecraft.</p></li>
+<li><p><strong>launch_piece</strong> (<em>str</em>) – The piece of the launch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated COSPAR ID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.get_day_of_year_and_fractional_day">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">get_day_of_year_and_fractional_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.get_day_of_year_and_fractional_day" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the day of the year and fractional day for a given date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<em>datetime.datetime</em>) – Datetime object representing the epoch.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Day of the year and fractional day.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.jd_to_utc">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">jd_to_utc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.jd_to_utc" title="Link to this definition">¶</a></dt>
+<dd><p>Converts Julian Date to UTC time tag (datetime object) using Astropy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>jd</strong> (<em>float</em>) – Julian Date</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>UTC time tag (datetime object)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime.datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.kep2car">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">kep2car</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.kep2car" title="Link to this definition">¶</a></dt>
+<dd><p>Convert Keplerian elements to Cartesian coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – Semi-major axis (km).</p></li>
+<li><p><strong>e</strong> – Eccentricity.</p></li>
+<li><p><strong>i</strong> – Inclination (rad).</p></li>
+<li><p><strong>w</strong> – Argument of perigee (rad).</p></li>
+<li><p><strong>W</strong> – Right ascension of ascending node (RAAN) (rad).</p></li>
+<li><p><strong>V</strong> – True anomaly (rad).</p></li>
+<li><p><strong>epoch</strong> (<em>Time</em>) – Time at which the elements are given.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing x, y, z coordinates and vx, vy, vz velocities.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of floats</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.orbit_classify">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">orbit_classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">altitude</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.orbit_classify" title="Link to this definition">¶</a></dt>
+<dd><p>Classify the orbit based on the altitude.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>altitude</strong> (<em>float</em>) – Altitude of the orbit in km.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Orbit classification as a string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.orbital_period">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">orbital_period</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">semi_major_axis</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.orbital_period" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the Orbital Period of a satellite based on the semi-major-axis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>semi_major_axis</strong> (<em>int</em>) – Semi Major Axis</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Orbital Period in Minutes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.probe_sun_vec">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">probe_sun_vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.probe_sun_vec" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the probe-Sun vector in ECI coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>array</em>) – Probe position in ECI coordinates.</p></li>
+<li><p><strong>jd</strong> (<em>float</em>) – Julian Date for which we want the probe-Sun vector.</p></li>
+<li><p><strong>unit</strong> (<em>bool</em>) – If True, returns the unit vector. If False, returns the vector itself. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Probe-Sun vector in ECI coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.tle_checksum">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">tle_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.tle_checksum" title="Link to this definition">¶</a></dt>
+<dd><p>Perform the checksum for one TLE line</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>line</strong> (<em>str</em>) – TLE line</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Checksum</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.tle_convert">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">tle_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tle_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.tle_convert" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a TLE dictionary into the corresponding Keplerian elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tle_dict</strong> (<em>dict</em>) – Dictionary of TLE data as provided by the tle_parse function.</p></li>
+<li><p><strong>display</strong> (<em>bool</em>) – If True, print out the Keplerian elements. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing Keplerian elements.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.tle_exponent_format">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">tle_exponent_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.tle_exponent_format" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a value to the TLE-specific exponent format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – TLE Value</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Formatted value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.tle_parse">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">tle_parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tle_2le</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.tle_parse" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a 2LE string (e.g. as provided by Celestrak) and return all the data in a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tle_2le</strong> (<em>str</em>) – 2LE string to be parsed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of all the data contained in the TLE string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.true_to_eccentric_anomaly">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">true_to_eccentric_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">true_anomaly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.true_to_eccentric_anomaly" title="Link to this definition">¶</a></dt>
+<dd><p>Convert true anomaly to eccentric anomaly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>true_anomaly</strong> (<em>float</em>) – True anomaly in radians.</p></li>
+<li><p><strong>eccentricity</strong> (<em>float</em>) – Orbital eccentricity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Eccentric anomaly in radians.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.true_to_mean_anomaly">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">true_to_mean_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">true_anomaly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.true_to_mean_anomaly" title="Link to this definition">¶</a></dt>
+<dd><p>Convert true anomaly to mean anomaly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>true_anomaly</strong> (<em>float</em>) – True anomaly in radians.</p></li>
+<li><p><strong>eccentricity</strong> (<em>float</em>) – Orbital eccentricity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mean anomaly in radians.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.utc_to_jd">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">utc_to_jd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_stamps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.utc_to_jd" title="Link to this definition">¶</a></dt>
+<dd><p>Convert UTC datetime or string representations to Julian Date (JD).</p>
+<p>This function takes in either a single datetime, string representation of a datetime, or a list of them. It then
+converts each of these into its corresponding Julian Date (JD) value. If a list is provided, it returns a list of JD
+values. If a single datetime or string is provided, it returns a single JD value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>time_stamps</strong> (<em>datetime.datetime</em><em>, </em><em>str</em><em> or </em><em>list</em><em> of </em><em>datetime.datetime/str</em>) – The datetime object(s) or string representation(s) of dates/times to be converted to Julian Date.
+Strings should be in the format ‘%Y-%m-%d’ or ‘%Y-%m-%d %H:%M:%S’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding Julian Date (JD) value(s) for the provided datetime(s) or string representation(s).
+Returns a single float if the input is a single datetime or string, and a list of floats if the input is a list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or list of float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.v_rel">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">v_rel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.v_rel" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the speed of the satellite relative to the Earth’s atmosphere.
+This assumes that the atmosphere is stationary and co-rotating with the surface Earth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>array-like</em>) – State vector of the satellite in ECI coordinates.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Velocity of the satellite with respect to the Earth’s atmosphere in Km/s.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Conversions.write_tle">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Conversions.</span></span><span class="sig-name descname"><span class="pre">write_tle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">catalog_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classification</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_piece</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_day</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_derivative</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second_derivative</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drag_term</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ephemeris_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_set_number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_perigee</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_anomaly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_motion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revolution_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Conversions.write_tle" title="Link to this definition">¶</a></dt>
+<dd><p>This function builds a TLE string in the correct format when given the necessary parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>catalog_number</strong> (<em>int</em>) – Catalog number of the satellite.</p></li>
+<li><p><strong>classification</strong> (<em>str</em>) – Classification type (usually ‘U’ for unclassified).</p></li>
+<li><p><strong>launch_year</strong> (<em>int</em>) – Year of launch.</p></li>
+<li><p><strong>launch_number</strong> (<em>int</em>) – Launch number of the year.</p></li>
+<li><p><strong>launch_piece</strong> (<em>str</em>) – Piece of the launch.</p></li>
+<li><p><strong>epoch_year</strong> (<em>int</em>) – Year of the epoch.</p></li>
+<li><p><strong>epoch_day</strong> (<em>float</em>) – Day of year the epoch.</p></li>
+<li><p><strong>first_derivative</strong> (<em>float</em>) – First time derivative of the mean motion (ballistic coefficient).</p></li>
+<li><p><strong>second_derivative</strong> (<em>float</em>) – Second time derivative of the mean motion (delta-dot).</p></li>
+<li><p><strong>drag_term</strong> (<em>float</em>) – B* drag term.</p></li>
+<li><p><strong>ephemeris_type</strong> (<em>int</em>) – Ephemeris type.</p></li>
+<li><p><strong>element_set_number</strong> (<em>int</em>) – Element set number.</p></li>
+<li><p><strong>inclination</strong> (<em>float</em>) – Inclination (rad).</p></li>
+<li><p><strong>raan</strong> (<em>float</em>) – Right ascension of the ascending node (RAAN) (rad).</p></li>
+<li><p><strong>eccentricity</strong> (<em>float</em>) – Eccentricity.</p></li>
+<li><p><strong>arg_perigee</strong> (<em>float</em>) – Argument of perigee (rad).</p></li>
+<li><p><strong>mean_anomaly</strong> (<em>float</em>) – Mean anomaly (rad).</p></li>
+<li><p><strong>mean_motion</strong> (<em>float</em>) – Mean motion (rad/s).</p></li>
+<li><p><strong>revolution_number</strong> (<em>int</em>) – Revolution number at epoch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A two-line element set (TLE) string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-fspsim.utils.Formatting">
+<span id="fspsim-utils-formatting-module"></span><h2>fspsim.utils.Formatting module<a class="headerlink" href="#module-fspsim.utils.Formatting" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Formatting.calculate_form_factor">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Formatting.</span></span><span class="sig-name descname"><span class="pre">calculate_form_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_factor_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Formatting.calculate_form_factor" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the form factor specified in the predictions csv to a characteristic length and area.
+For CubeSats, the area can be specified by writing the number of “U”s in the form factor string. e.g. “3U” or “6u” (the case does not matter)
+For other satellites the form factor must be three numbers (floats or ints), separated by stars. e.g. “1.2*2.3*4.5” or “1*2*3”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>form_factor_str</strong> (<em>string</em>) – string describing the form factor of satellties</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Form factor must be a string</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>characteristic length, characteristic area</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Formatting.future_constellations_csv_handler">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Formatting.</span></span><span class="sig-name descname"><span class="pre">future_constellations_csv_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Formatting.future_constellations_csv_handler" title="Link to this definition">¶</a></dt>
+<dd><p>Checks that the user supplied Future Constellation CSV is in the correct format for the simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – File Path of the CSV</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of the constellations in a format the fspsim can read.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-fspsim.utils.LaunchModel">
+<span id="fspsim-utils-launchmodel-module"></span><h2>fspsim.utils.LaunchModel module<a class="headerlink" href="#module-fspsim.utils.LaunchModel" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.LaunchModel.Prediction2SpaceObjects">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.LaunchModel.</span></span><span class="sig-name descname"><span class="pre">Prediction2SpaceObjects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satellite_predictions_csv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simsettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.LaunchModel.Prediction2SpaceObjects" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a list SpaceObjects for each of the sub-constellation in the prediction data CSV file.
+Each object gets assigned a launch and decay date based on the launch model parameters and the parameters
+specified in the prediction data CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>satellite_predictions_csv</strong> (<em>str</em>) – CSV file with the satellite predictions data.</p></li>
+<li><p><strong>simsettings</strong> (<em>dict</em>) – Loaded JSON file with the simulation settings (contains launch model parameters).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of space objects generated from the prediction data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject" title="fspsim.utils.SpaceObject.SpaceObject">SpaceObject</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.LaunchModel.create_subconstellation_Space_Objects">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.LaunchModel.</span></span><span class="sig-name descname"><span class="pre">create_subconstellation_Space_Objects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_soname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_application</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_schedule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_mass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_maneuverable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_propulsion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.LaunchModel.create_subconstellation_Space_Objects" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a list of SpaceObjects that are in a Walker-Delta constellation.
+This maximizes geometric coverage of the Earth given the number of satellites and the inclination and altitude of the orbit.
+Based on the parameters passed in the launch file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Number of satellites in the constellation.</p></li>
+<li><p><strong>i</strong> (<em>float</em>) – Inclination of the satellite orbit.</p></li>
+<li><p><strong>h</strong> (<em>float</em>) – Altitude of the satellite orbit.</p></li>
+<li><p><strong>_soname</strong> (<em>str</em>) – Name of the sub-constellation.</p></li>
+<li><p><strong>_application</strong> (<em>str</em>) – Application for which the satellite is used.</p></li>
+<li><p><strong>_owner</strong> (<em>str</em>) – Owner or operator of the satellite.</p></li>
+<li><p><strong>launch_schedule</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Schedule of satellite launches.</p></li>
+<li><p><strong>_mass</strong> (<em>float</em>) – Mass of the satellite.</p></li>
+<li><p><strong>_area</strong> (<em>float</em>) – Characteristic area of the satellite.</p></li>
+<li><p><strong>_length</strong> (<em>float</em>) – Characteristic length of the satellite.</p></li>
+<li><p><strong>_maneuverable</strong> (<em>str</em>) – Indicates if the satellite is maneuverable.</p></li>
+<li><p><strong>_propulsion</strong> (<em>str</em>) – Type of propulsion used in the satellite.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If N is less than 1.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of space objects for the sub-constellation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject" title="fspsim.utils.SpaceObject.SpaceObject">SpaceObject</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.LaunchModel.global_launch_schedule">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.LaunchModel.</span></span><span class="sig-name descname"><span class="pre">global_launch_schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_constellation_metadata_dicts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monthly_ton_capacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launches_start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rocket</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Falcon</span> <span class="pre">9'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.LaunchModel.global_launch_schedule" title="Link to this definition">¶</a></dt>
+<dd><p>Determines the launch dates for various sub-constellations based on a greedy algorithm, limited by
+global montly launch capacity (tons/month), the date to start scheduling launches, and the type of rocket used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sub_constellation_metadata_dicts</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of metadata for each sub-constellation.</p></li>
+<li><p><strong>monthly_ton_capacity</strong> (<em>float</em>) – The maximum weight capacity available for launching in tons per month.</p></li>
+<li><p><strong>launches_start_date</strong> (<em>str</em>) – The initial date to begin scheduling launches.</p></li>
+<li><p><strong>rocket</strong> (<em>str</em><em>, </em><em>optional</em>) – The type of rocket used for launches, defaults to “Falcon 9”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the provided rocket is not in the list of LEO launchers.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary of launch dates for each sub-constellation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, list[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.LaunchModel.import_configuration_json">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.LaunchModel.</span></span><span class="sig-name descname"><span class="pre">import_configuration_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.LaunchModel.import_configuration_json" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-fspsim.utils.Propagators">
+<span id="fspsim-utils-propagators-module"></span><h2>fspsim.utils.Propagators module<a class="headerlink" href="#module-fspsim.utils.Propagators" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Propagators.compute_eccentric_anomaly">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Propagators.</span></span><span class="sig-name descname"><span class="pre">compute_eccentric_anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_tol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Propagators.compute_eccentric_anomaly" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the eccentric anomaly using Newton’s method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Mo</strong> (<em>float</em>) – Mean anomaly (first “guess”) in radians</p></li>
+<li><p><strong>e</strong> (<em>float</em>) – Eccentricity of the orbit</p></li>
+<li><p><strong>n</strong> (<em>float</em>) – Mean motion of the orbit in radians/second</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – Current step number</p></li>
+<li><p><strong>step_size</strong> (<em>float</em>) – Time step of propagation in seconds</p></li>
+<li><p><strong>r_tol</strong> (<em>float</em>) – Relative tolerance for Newton’s method</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>E</strong> – Approximated value of eccentric anomaly in radians</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Propagators.compute_gaussian_vectors">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Propagators.</span></span><span class="sig-name descname"><span class="pre">compute_gaussian_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Propagators.compute_gaussian_vectors" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the Gaussian vectors P and Q for coordinate transformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W</strong> (<em>float</em>) – Right ascension of the ascending node of the orbit in radians</p></li>
+<li><p><strong>w</strong> (<em>float</em>) – Argument of perigee of the orbit in radians</p></li>
+<li><p><strong>i</strong> (<em>float</em>) – Inclination of the orbit in radians</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>P</strong> (<em>numpy.ndarray</em>) – Gaussian vector P</p></li>
+<li><p><strong>Q</strong> (<em>numpy.ndarray</em>) – Gaussian vector Q</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Propagators.compute_velocity">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Propagators.</span></span><span class="sig-name descname"><span class="pre">compute_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GM_earth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Propagators.compute_velocity" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the velocity vector of a satellite in a Keplerian orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>GM_earth</strong> (<em>float</em>) – Gravitational constant of the Earth in km^3/s^2</p></li>
+<li><p><strong>a</strong> (<em>float</em>) – Semi-major axis of the orbit in km</p></li>
+<li><p><strong>e</strong> (<em>float</em>) – Eccentricity of the orbit</p></li>
+<li><p><strong>E</strong> (<em>float</em>) – Eccentric anomaly in radians</p></li>
+<li><p><strong>P</strong> (<em>numpy.ndarray</em>) – Gaussian vector P</p></li>
+<li><p><strong>Q</strong> (<em>numpy.ndarray</em>) – Gaussian vector Q</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Velocity vector of the satellite in km/s</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Propagators.kepler_prop">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Propagators.</span></span><span class="sig-name descname"><span class="pre">kepler_prop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jd_stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drag_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Propagators.kepler_prop" title="Link to this definition">¶</a></dt>
+<dd><p>Propagates the orbit of a satellite in a Keplerian orbit, taking drag decay into account.
+Uses Kepler’s equation for propagation and Gaussian vectors for coordinate transformation.
+Stops the propagation if altitude drops below 200 km.
+Area, mass, and drag coefficient are required only for drag decay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jd_start</strong> (<em>float</em>) – start time of propagation in Julian Date format</p></li>
+<li><p><strong>jd_stop</strong> (<em>float</em>) – end time of propagation in Julian Date format</p></li>
+<li><p><strong>step_size</strong> (<em>float</em>) – time step of propagation in seconds</p></li>
+<li><p><strong>a</strong> (<em>float</em>) – semi-major axis of the orbit in km</p></li>
+<li><p><strong>e</strong> (<em>float</em>) – eccentricity of the orbit</p></li>
+<li><p><strong>i</strong> (<em>float</em>) – inclination of the orbit in degrees</p></li>
+<li><p><strong>w</strong> (<em>float</em>) – argument of perigee of the orbit in degrees</p></li>
+<li><p><strong>W</strong> (<em>float</em>) – right ascension of the ascending node of the orbit in degrees</p></li>
+<li><p><strong>V</strong> (<em>float</em>) – true anomaly of the orbit in degrees</p></li>
+<li><p><strong>area</strong> (<em>float</em><em>, </em><em>optional</em>) – cross-sectional area of the satellite in m^2. Defaults to None.</p></li>
+<li><p><strong>mass</strong> (<em>float</em><em>, </em><em>optional</em>) – mass of the satellite in kg. Defaults to None.</p></li>
+<li><p><strong>cd</strong> (<em>float</em><em>, </em><em>optional</em>) – drag coefficient of the satellite. Defaults to None.</p></li>
+<li><p><strong>drag_decay</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, decay the semi-major axis due to drag. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:
+list: list of lists containing the propagated ephemeris</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.Propagators.sgp4_prop_TLE">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.Propagators.</span></span><span class="sig-name descname"><span class="pre">sgp4_prop_TLE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TLE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jd_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jd_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.Propagators.sgp4_prop_TLE" title="Link to this definition">¶</a></dt>
+<dd><p>Given a TLE, a start time, end time, and time step, propagate the TLE and return the time-series of Cartesian coordinates, and accompanying time-stamps (MJD)
+Note: Simply a wrapper for the SGP4 routine in the sgp4.api package (Brandon Rhodes)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TLE</strong> (<em>string</em>) – TLE to be propagated</p></li>
+<li><p><strong>jd_start</strong> (<em>float</em>) – start time of propagation in Julian Date format</p></li>
+<li><p><strong>jd_end</strong> (<em>float</em>) – end time of propagation in Julian Date format</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – time step of propagation in seconds</p></li>
+<li><p><strong>alt_series</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, return the altitude series as well as the position series. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:
+list: list of lists containing the time-series of Cartesian coordinates, and accompanying time-stamps (JD)</p>
+</dd></dl>
+
+</section>
+<section id="module-fspsim.utils.SpaceCatalogue">
+<span id="fspsim-utils-spacecatalogue-module"></span><h2>fspsim.utils.SpaceCatalogue module<a class="headerlink" href="#module-fspsim.utils.SpaceCatalogue" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceCatalogue.</span></span><span class="sig-name descname"><span class="pre">SpaceCatalogue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">future_constellations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of a space catalogue that consolidates satellite data from various sources.</p>
+<p>The class aims to process and manage satellite information from multiple sources like JSR and SpaceTrack.
+It provides functionality to merge active satellite catalogues, repull information from sources,
+and create a consolidated catalogue of space objects.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_type">
+<span class="sig-name descname"><span class="pre">sim_object_type</span></span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_type" title="Link to this definition">¶</a></dt>
+<dd><p>Type of simulation objects. Can be ‘active’, ‘all’, or ‘debris’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_catalogue">
+<span class="sig-name descname"><span class="pre">sim_object_catalogue</span></span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_catalogue" title="Link to this definition">¶</a></dt>
+<dd><p>Source of the simulation object. Can be ‘jsr’, ‘spacetrack’, or ‘both’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue">
+<span class="sig-name descname"><span class="pre">Catalogue</span></span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue" title="Link to this definition">¶</a></dt>
+<dd><p>A list of SpaceObjects representing the space objects in the catalogue.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.repull_catalogues">
+<span class="sig-name descname"><span class="pre">repull_catalogues</span></span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.repull_catalogues" title="Link to this definition">¶</a></dt>
+<dd><p>Flag to determine if the catalogues should be repulled from sources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Exception</strong> – If an invalid sim_object_type or sim_object_catalogue is specified.</p></li>
+<li><p><strong>TypeError</strong> – If loaded data from file is not an instance of SpaceCatalogue.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue2SpaceObjects">
+<span class="sig-name descname"><span class="pre">Catalogue2SpaceObjects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue2SpaceObjects" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the current catalogue into a list of SpaceObjects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If invalid <cite>sim_object_type</cite> is specified.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of SpaceObjects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#fspsim.utils.SpaceObject.SpaceObject" title="fspsim.utils.SpaceObject.SpaceObject">SpaceObject</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive">
+<span class="sig-name descname"><span class="pre">CreateCatalogueActive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive" title="Link to this definition">¶</a></dt>
+<dd><p>Merge the JSR and SpaceTrack active satellite catalogues.</p>
+<p>The resulting merged catalogue is stored in an attribute named CurrentCatalogueDF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>IOError</strong> – If file paths are not found or unreadable.</p></li>
+<li><p><strong>ValueError</strong> – If there’s an issue with the data content or format.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None. But exports a CSV file with merged list of space objects to ‘src/fspsim/data/external/active_jsr_spacetrack.csv’.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll">
+<span class="sig-name descname"><span class="pre">CreateCatalogueAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll" title="Link to this definition">¶</a></dt>
+<dd><p>Merge the JSR catalogue with the SpaceTrack catalogue.</p>
+<p>The function prioritizes SpaceTrack’s data in case of conflicting information.
+The resulting merged catalogue is stored in an attribute named CurrentCatalogueDF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>IOError</strong> – If file paths are not found or unreadable.</p></li>
+<li><p><strong>ValueError</strong> – If there’s an issue with the data content or format.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None. But exports a CSV file of merged space catalogue of all tracked objects to ‘src/fspsim/data/catalogue/All_catalogue_latest.txt’.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Note<span class="colon">:</span></dt>
+<dd class="field-even"><p>In the case of missing data for the simulation, the function will drop the rows that do not have the required data. At present this results in a couple thousands of objects being dropped.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.DownloadJSRCatalogueIfNewer">
+<span class="sig-name descname"><span class="pre">DownloadJSRCatalogueIfNewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.DownloadJSRCatalogueIfNewer" title="Link to this definition">¶</a></dt>
+<dd><p>Download a file from a given URL if it is newer than the local file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_path</strong> (<em>str</em>) – Local file path.</p></li>
+<li><p><strong>url</strong> (<em>str</em>) – URL of the file to be downloaded.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None. Downloads the file if newer.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueJSR">
+<span class="sig-name descname"><span class="pre">PullCatalogueJSR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">external_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueJSR" title="Link to this definition">¶</a></dt>
+<dd><p>Update the JSR catalogue files by downloading them if a newer version is available online.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>external_dir</strong> (<em>str</em>) – The directory path where the files will be saved.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None. Updates the JSR catalogue files.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueSpaceTrack">
+<span class="sig-name descname"><span class="pre">PullCatalogueSpaceTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">external_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueSpaceTrack" title="Link to this definition">¶</a></dt>
+<dd><p>Download the entire SpaceTrack catalogue.</p>
+<p>This method requires SpaceTrack login credentials stored in a ‘.env’ file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>external_dir</strong> (<em>str</em>) – The directory path where the SpaceTrack catalogue file will be saved.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If there’s an issue with the login credentials or fetching data.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None. Saves the SpaceTrack catalogue in a JSON file.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.SpaceCatalogue.load_from_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.SpaceCatalogue.load_from_file" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.check_json_file">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceCatalogue.</span></span><span class="sig-name descname"><span class="pre">check_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.check_json_file" title="Link to this definition">¶</a></dt>
+<dd><p>Checks the validity of the provided JSON content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>dict</em>) – Dictionary parsed from a JSON file that needs to be checked.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>KeyError</strong> – If an expected key is not found in the JSON content.</p></li>
+<li><p><strong>ValueError</strong> – If the value of a key is not in the list of valid options.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.dump_pickle">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceCatalogue.</span></span><span class="sig-name descname"><span class="pre">dump_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.dump_pickle" title="Link to this definition">¶</a></dt>
+<dd><p>Saves provided data to a pickle file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>str</em>) – Relative path where the data will be saved in pickle format.</p></li>
+<li><p><strong>data</strong> (<em>Any</em>) – Data to be saved in the pickle file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.get_path">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceCatalogue.</span></span><span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.get_path" title="Link to this definition">¶</a></dt>
+<dd><p>Constructs a full path by joining the current working directory with the provided arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>str</em>) – Arguments that constitute the relative path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The full path generated by joining the current directory with the provided arguments.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceCatalogue.load_pickle">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceCatalogue.</span></span><span class="sig-name descname"><span class="pre">load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceCatalogue.load_pickle" title="Link to this definition">¶</a></dt>
+<dd><p>Loads and returns data from a pickle file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Relative path to the pickle file to be loaded.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data loaded from the pickle file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-fspsim.utils.SpaceObject">
+<span id="fspsim-utils-spaceobject-module"></span><h2>fspsim.utils.SpaceObject module<a class="headerlink" href="#module-fspsim.utils.SpaceObject" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.ObjectType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceObject.</span></span><span class="sig-name descname"><span class="pre">ObjectType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.ObjectType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.ObjectType.DEB">
+<span class="sig-name descname"><span class="pre">DEB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEB'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.ObjectType.DEB" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.ObjectType.OTHER">
+<span class="sig-name descname"><span class="pre">OTHER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'?'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.ObjectType.OTHER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.ObjectType.PAYLOAD">
+<span class="sig-name descname"><span class="pre">PAYLOAD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PAY'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.ObjectType.PAYLOAD" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.ObjectType.ROCKET_BODY">
+<span class="sig-name descname"><span class="pre">ROCKET_BODY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'R/B'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.ObjectType.ROCKET_BODY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.ObjectType.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNK'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.ObjectType.UNKNOWN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceObject.</span></span><span class="sig-name descname"><span class="pre">OperationalStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.B">
+<span class="sig-name descname"><span class="pre">B</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'B'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.B" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.D">
+<span class="sig-name descname"><span class="pre">D</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'D'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.NEGATIVE">
+<span class="sig-name descname"><span class="pre">NEGATIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'-'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.NEGATIVE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.PARTIAL">
+<span class="sig-name descname"><span class="pre">PARTIAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'P'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.PARTIAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.POSITIVE">
+<span class="sig-name descname"><span class="pre">POSITIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'+'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.POSITIVE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.S">
+<span class="sig-name descname"><span class="pre">S</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'S'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.S" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'?'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.UNKNOWN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.OperationalStatus.X">
+<span class="sig-name descname"><span class="pre">X</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'X'</span></em><a class="headerlink" href="#fspsim.utils.SpaceObject.OperationalStatus.X" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceObject.</span></span><span class="sig-name descname"><span class="pre">SpaceObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rso_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rso_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload_operational_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">application</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_site</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maneuverable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_stabilized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apogee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perigee</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">characteristic_area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">characteristic_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">propulsion_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tran</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eccentricity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_keeping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of a space object detailing its orbital and physical properties.</p>
+<p>This class provides comprehensive details about the space object, including its launch date,
+operational status, object type, application, and a variety of other orbital parameters.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.launch_date">
+<span class="sig-name descname"><span class="pre">launch_date</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.launch_date" title="Link to this definition">¶</a></dt>
+<dd><p>The date when the object was launched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.decay_date">
+<span class="sig-name descname"><span class="pre">decay_date</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.decay_date" title="Link to this definition">¶</a></dt>
+<dd><p>The date when the object is expected to decay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.rso_name">
+<span class="sig-name descname"><span class="pre">rso_name</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.rso_name" title="Link to this definition">¶</a></dt>
+<dd><p>Name of the Resident Space Object (RSO).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.rso_type">
+<span class="sig-name descname"><span class="pre">rso_type</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.rso_type" title="Link to this definition">¶</a></dt>
+<dd><p>Type of the RSO.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.payload_operational_status">
+<span class="sig-name descname"><span class="pre">payload_operational_status</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.payload_operational_status" title="Link to this definition">¶</a></dt>
+<dd><p>Operational status of the payload.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.object_type">
+<span class="sig-name descname"><span class="pre">object_type</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.object_type" title="Link to this definition">¶</a></dt>
+<dd><p>Type of the object. Can be ‘DEB’, ‘PAY’, ‘R/B’, ‘UNK’, or ‘?’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.application">
+<span class="sig-name descname"><span class="pre">application</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.application" title="Link to this definition">¶</a></dt>
+<dd><p>Application purpose of the space object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.operator">
+<span class="sig-name descname"><span class="pre">operator</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.operator" title="Link to this definition">¶</a></dt>
+<dd><p>The operator or owner of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.characteristic_length">
+<span class="sig-name descname"><span class="pre">characteristic_length</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.characteristic_length" title="Link to this definition">¶</a></dt>
+<dd><p>The characteristic length of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.characteristic_area">
+<span class="sig-name descname"><span class="pre">characteristic_area</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.characteristic_area" title="Link to this definition">¶</a></dt>
+<dd><p>The characteristic area of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.mass">
+<span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.mass" title="Link to this definition">¶</a></dt>
+<dd><p>The mass of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.source">
+<span class="sig-name descname"><span class="pre">source</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.source" title="Link to this definition">¶</a></dt>
+<dd><p>Source or country of origin of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.launch_site">
+<span class="sig-name descname"><span class="pre">launch_site</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.launch_site" title="Link to this definition">¶</a></dt>
+<dd><p>The site where the object was launched from.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.maneuverable">
+<span class="sig-name descname"><span class="pre">maneuverable</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.maneuverable" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the object is maneuverable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.spin_stabilized">
+<span class="sig-name descname"><span class="pre">spin_stabilized</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.spin_stabilized" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the object is spin-stabilized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.apogee">
+<span class="sig-name descname"><span class="pre">apogee</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.apogee" title="Link to this definition">¶</a></dt>
+<dd><p>The maximum altitude of the object’s orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.perigee">
+<span class="sig-name descname"><span class="pre">perigee</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.perigee" title="Link to this definition">¶</a></dt>
+<dd><p>The minimum altitude of the object’s orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.propulsion_type">
+<span class="sig-name descname"><span class="pre">propulsion_type</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.propulsion_type" title="Link to this definition">¶</a></dt>
+<dd><p>Type of propulsion used by the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.epoch">
+<span class="sig-name descname"><span class="pre">epoch</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.epoch" title="Link to this definition">¶</a></dt>
+<dd><p>Reference time for the object’s orbital parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.day_of_year">
+<span class="sig-name descname"><span class="pre">day_of_year</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.day_of_year" title="Link to this definition">¶</a></dt>
+<dd><p>Day of the year derived from the epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.station_keeping">
+<span class="sig-name descname"><span class="pre">station_keeping</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.station_keeping" title="Link to this definition">¶</a></dt>
+<dd><p>Dates indicating station keeping period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list or bool or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.ephemeris">
+<span class="sig-name descname"><span class="pre">ephemeris</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.ephemeris" title="Link to this definition">¶</a></dt>
+<dd><p>Ephemeris data for the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.sma">
+<span class="sig-name descname"><span class="pre">sma</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.sma" title="Link to this definition">¶</a></dt>
+<dd><p>Semi-major axis of the object’s orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.orbital_period">
+<span class="sig-name descname"><span class="pre">orbital_period</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.orbital_period" title="Link to this definition">¶</a></dt>
+<dd><p>Orbital period of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.inc">
+<span class="sig-name descname"><span class="pre">inc</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.inc" title="Link to this definition">¶</a></dt>
+<dd><p>Inclination of the object’s orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.argp">
+<span class="sig-name descname"><span class="pre">argp</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.argp" title="Link to this definition">¶</a></dt>
+<dd><p>Argument of perigee.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.raan">
+<span class="sig-name descname"><span class="pre">raan</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.raan" title="Link to this definition">¶</a></dt>
+<dd><p>Right ascension of the ascending node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.tran">
+<span class="sig-name descname"><span class="pre">tran</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.tran" title="Link to this definition">¶</a></dt>
+<dd><p>True anomaly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.eccentricity">
+<span class="sig-name descname"><span class="pre">eccentricity</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.eccentricity" title="Link to this definition">¶</a></dt>
+<dd><p>Eccentricity of the object’s orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.meananomaly">
+<span class="sig-name descname"><span class="pre">meananomaly</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.meananomaly" title="Link to this definition">¶</a></dt>
+<dd><p>Mean anomaly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.cart_state">
+<span class="sig-name descname"><span class="pre">cart_state</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.cart_state" title="Link to this definition">¶</a></dt>
+<dd><p>Cartesian state vector [x,y,z,u,v,w].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.C_d">
+<span class="sig-name descname"><span class="pre">C_d</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.C_d" title="Link to this definition">¶</a></dt>
+<dd><p>Drag coefficient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.tle">
+<span class="sig-name descname"><span class="pre">tle</span></span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.tle" title="Link to this definition">¶</a></dt>
+<dd><p>Two-line element set representing the object’s orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.generate_cart">
+<span class="sig-name descname"><span class="pre">generate_cart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.generate_cart" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a cartesian state vector from keplerian elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Cartesian state.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.impute_char_area">
+<span class="sig-name descname"><span class="pre">impute_char_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">char_area</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.impute_char_area" title="Link to this definition">¶</a></dt>
+<dd><p>Imputes a characteristic area based on the object type if the given value is None or 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>char_area</strong> (<em>float</em><em> or </em><em>None</em>) – Characteristic area to verify or impute.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Imputed or verified characteristic area.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the imputed or given char_area is None or 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.impute_char_length">
+<span class="sig-name descname"><span class="pre">impute_char_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">char_length</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.impute_char_length" title="Link to this definition">¶</a></dt>
+<dd><p>Imputes a characteristic length based on the object type if the given value is None or 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>char_length</strong> (<em>float</em><em> or </em><em>None</em>) – Characteristic length to verify or impute.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Imputed or verified characteristic length.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the imputed or given char_length is None or 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.impute_mass">
+<span class="sig-name descname"><span class="pre">impute_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.impute_mass" title="Link to this definition">¶</a></dt>
+<dd><p>Imputes a mass based on the object characteristic length if the given value is None or 0.
+The relationship between mass and characteristic length is based on the relationship between mass and length reported in From Alfano, Oltrogge and Sheppard, 2020</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mass</strong> (<em>float</em><em> or </em><em>None</em><em> or </em><em>str</em>) – Mass to verify or impute.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Imputed mass value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.SpaceObject.prop_catobject">
+<span class="sig-name descname"><span class="pre">prop_catobject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jd_stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.SpaceObject.prop_catobject" title="Link to this definition">¶</a></dt>
+<dd><p>Propagates the object based on initial conditions, propagator type, and station keeping preferences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jd_start</strong> (<em>float</em>) – Julian start date for the simulation.</p></li>
+<li><p><strong>jd_stop</strong> (<em>float</em>) – Julian stop date for simulation.</p></li>
+<li><p><strong>step_size</strong> (<em>float</em>) – Step size for propagation.</p></li>
+<li><p><strong>output_freq</strong> (<em>float</em>) – Frequency at which to output the ephemeris (in seconds).</p></li>
+<li><p><strong>integrator_type</strong> (<em>str</em>) – Numerical integrator to use.</p></li>
+<li><p><strong>use_sgp4_propagation</strong> (<em>bool</em>) – Propagate using SGP4 for 100-minute segments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None. Updates the <cite>ephemeris</cite> attribute of the object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.verify_angle">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceObject.</span></span><span class="sig-name descname"><span class="pre">verify_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.verify_angle" title="Link to this definition">¶</a></dt>
+<dd><p>Verifies that the value is a float and is between 0 and 360. If it is None or not
+a float or out of range, raise a ValueError.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>float</em><em> or </em><em>None</em><em> or </em><em>str</em>) – The value to verify</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of the object</p></li>
+<li><p><strong>random</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <cite>True</cite>, return a random angle between 0 and 360 for invalid values, defaults to <cite>False</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The verified angle or a random angle if <cite>random</cite> is <cite>True</cite></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the value is not a float or out of range and <cite>random</cite> is <cite>False</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.verify_eccentricity">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceObject.</span></span><span class="sig-name descname"><span class="pre">verify_eccentricity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.verify_eccentricity" title="Link to this definition">¶</a></dt>
+<dd><p>Verifies that the value is a float and is between 0 and 1. If it is None or not a
+float or out of range, raise a ValueError.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>float</em><em> or </em><em>None</em><em> or </em><em>str</em>) – The value to verify</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The verified value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the value is not a float or out of range</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.utils.SpaceObject.verify_value">
+<span class="sig-prename descclassname"><span class="pre">fspsim.utils.SpaceObject.</span></span><span class="sig-name descname"><span class="pre">verify_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.utils.SpaceObject.verify_value" title="Link to this definition">¶</a></dt>
+<dd><p>Verifies that the value is a float and is not None. If it is None or not a float or
+too small, then impute the value using the impute_function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>float</em><em> or </em><em>None</em><em> or </em><em>str</em>) – The value to verify</p></li>
+<li><p><strong>impute_function</strong> (<em>function</em>) – Function to impute value if necessary</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The verified or imputed value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-fspsim.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fspsim.utils" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fspsim.html" class="btn btn-neutral float-left" title="fspsim package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

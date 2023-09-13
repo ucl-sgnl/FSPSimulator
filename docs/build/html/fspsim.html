@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fspsim package &mdash; FSPSim 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="fspsim.utils package" href="fspsim.utils.html" />
+    <link rel="prev" title="Welcome to FSPSim’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            FSPSim
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">fspsim package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html">fspsim.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim.simulate">fspsim.simulate module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.simulate.dump_pickle"><code class="docutils literal notranslate"><span class="pre">dump_pickle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.simulate.get_path"><code class="docutils literal notranslate"><span class="pre">get_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.simulate.load_pickle"><code class="docutils literal notranslate"><span class="pre">load_pickle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.simulate.propagate_space_object"><code class="docutils literal notranslate"><span class="pre">propagate_space_object()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.simulate.run_sim"><code class="docutils literal notranslate"><span class="pre">run_sim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fspsim.simulate.set_future_constellations"><code class="docutils literal notranslate"><span class="pre">set_future_constellations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fspsim">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fspsim.utils.html">fspsim.utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">FSPSim</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">fspsim package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fspsim.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fspsim-package">
+<h1>fspsim package<a class="headerlink" href="#fspsim-package" title="Link to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fspsim.utils.html">fspsim.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#module-fspsim.utils.Conversions">fspsim.utils.Conversions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.TLE_time"><code class="docutils literal notranslate"><span class="pre">TLE_time()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.UTC_step"><code class="docutils literal notranslate"><span class="pre">UTC_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.calculate_eccentricity"><code class="docutils literal notranslate"><span class="pre">calculate_eccentricity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.calculate_energy_from_semi_major_axis"><code class="docutils literal notranslate"><span class="pre">calculate_energy_from_semi_major_axis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.car2kep"><code class="docutils literal notranslate"><span class="pre">car2kep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.earth_moon_vec"><code class="docutils literal notranslate"><span class="pre">earth_moon_vec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.earth_sun_vec"><code class="docutils literal notranslate"><span class="pre">earth_sun_vec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.eccentric_to_mean_anomaly"><code class="docutils literal notranslate"><span class="pre">eccentric_to_mean_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.ecef2eci_astropy"><code class="docutils literal notranslate"><span class="pre">ecef2eci_astropy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.generate_cospar_id"><code class="docutils literal notranslate"><span class="pre">generate_cospar_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.get_day_of_year_and_fractional_day"><code class="docutils literal notranslate"><span class="pre">get_day_of_year_and_fractional_day()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.jd_to_utc"><code class="docutils literal notranslate"><span class="pre">jd_to_utc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.kep2car"><code class="docutils literal notranslate"><span class="pre">kep2car()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.orbit_classify"><code class="docutils literal notranslate"><span class="pre">orbit_classify()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.orbital_period"><code class="docutils literal notranslate"><span class="pre">orbital_period()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.probe_sun_vec"><code class="docutils literal notranslate"><span class="pre">probe_sun_vec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.tle_checksum"><code class="docutils literal notranslate"><span class="pre">tle_checksum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.tle_convert"><code class="docutils literal notranslate"><span class="pre">tle_convert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.tle_exponent_format"><code class="docutils literal notranslate"><span class="pre">tle_exponent_format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.tle_parse"><code class="docutils literal notranslate"><span class="pre">tle_parse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.true_to_eccentric_anomaly"><code class="docutils literal notranslate"><span class="pre">true_to_eccentric_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.true_to_mean_anomaly"><code class="docutils literal notranslate"><span class="pre">true_to_mean_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.utc_to_jd"><code class="docutils literal notranslate"><span class="pre">utc_to_jd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.v_rel"><code class="docutils literal notranslate"><span class="pre">v_rel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Conversions.write_tle"><code class="docutils literal notranslate"><span class="pre">write_tle()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#module-fspsim.utils.Formatting">fspsim.utils.Formatting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Formatting.calculate_form_factor"><code class="docutils literal notranslate"><span class="pre">calculate_form_factor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Formatting.future_constellations_csv_handler"><code class="docutils literal notranslate"><span class="pre">future_constellations_csv_handler()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#module-fspsim.utils.LaunchModel">fspsim.utils.LaunchModel module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.LaunchModel.Prediction2SpaceObjects"><code class="docutils literal notranslate"><span class="pre">Prediction2SpaceObjects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.LaunchModel.create_subconstellation_Space_Objects"><code class="docutils literal notranslate"><span class="pre">create_subconstellation_Space_Objects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.LaunchModel.global_launch_schedule"><code class="docutils literal notranslate"><span class="pre">global_launch_schedule()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.LaunchModel.import_configuration_json"><code class="docutils literal notranslate"><span class="pre">import_configuration_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#module-fspsim.utils.Propagators">fspsim.utils.Propagators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Propagators.compute_eccentric_anomaly"><code class="docutils literal notranslate"><span class="pre">compute_eccentric_anomaly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Propagators.compute_gaussian_vectors"><code class="docutils literal notranslate"><span class="pre">compute_gaussian_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Propagators.compute_velocity"><code class="docutils literal notranslate"><span class="pre">compute_velocity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Propagators.kepler_prop"><code class="docutils literal notranslate"><span class="pre">kepler_prop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.Propagators.sgp4_prop_TLE"><code class="docutils literal notranslate"><span class="pre">sgp4_prop_TLE()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#module-fspsim.utils.SpaceCatalogue">fspsim.utils.SpaceCatalogue module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_type"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.sim_object_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.sim_object_catalogue"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.sim_object_catalogue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.Catalogue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.repull_catalogues"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.repull_catalogues</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue2SpaceObjects"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.Catalogue2SpaceObjects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.CreateCatalogueActive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.CreateCatalogueAll()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.DownloadJSRCatalogueIfNewer"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.DownloadJSRCatalogueIfNewer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueJSR"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.PullCatalogueJSR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.PullCatalogueSpaceTrack"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.PullCatalogueSpaceTrack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.SpaceCatalogue.load_from_file"><code class="docutils literal notranslate"><span class="pre">SpaceCatalogue.load_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.check_json_file"><code class="docutils literal notranslate"><span class="pre">check_json_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.dump_pickle"><code class="docutils literal notranslate"><span class="pre">dump_pickle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.get_path"><code class="docutils literal notranslate"><span class="pre">get_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceCatalogue.load_pickle"><code class="docutils literal notranslate"><span class="pre">load_pickle()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#module-fspsim.utils.SpaceObject">fspsim.utils.SpaceObject module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.ObjectType"><code class="docutils literal notranslate"><span class="pre">ObjectType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.ObjectType.DEB"><code class="docutils literal notranslate"><span class="pre">ObjectType.DEB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.ObjectType.OTHER"><code class="docutils literal notranslate"><span class="pre">ObjectType.OTHER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.ObjectType.PAYLOAD"><code class="docutils literal notranslate"><span class="pre">ObjectType.PAYLOAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.ObjectType.ROCKET_BODY"><code class="docutils literal notranslate"><span class="pre">ObjectType.ROCKET_BODY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.ObjectType.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">ObjectType.UNKNOWN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus"><code class="docutils literal notranslate"><span class="pre">OperationalStatus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.B"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.B</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.D"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.D</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.NEGATIVE"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.NEGATIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.PARTIAL"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.PARTIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.POSITIVE"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.POSITIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.S"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.S</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.OperationalStatus.X"><code class="docutils literal notranslate"><span class="pre">OperationalStatus.X</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject"><code class="docutils literal notranslate"><span class="pre">SpaceObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.launch_date"><code class="docutils literal notranslate"><span class="pre">SpaceObject.launch_date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.decay_date"><code class="docutils literal notranslate"><span class="pre">SpaceObject.decay_date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.rso_name"><code class="docutils literal notranslate"><span class="pre">SpaceObject.rso_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.rso_type"><code class="docutils literal notranslate"><span class="pre">SpaceObject.rso_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.payload_operational_status"><code class="docutils literal notranslate"><span class="pre">SpaceObject.payload_operational_status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.object_type"><code class="docutils literal notranslate"><span class="pre">SpaceObject.object_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.application"><code class="docutils literal notranslate"><span class="pre">SpaceObject.application</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.operator"><code class="docutils literal notranslate"><span class="pre">SpaceObject.operator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.characteristic_length"><code class="docutils literal notranslate"><span class="pre">SpaceObject.characteristic_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.characteristic_area"><code class="docutils literal notranslate"><span class="pre">SpaceObject.characteristic_area</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.mass"><code class="docutils literal notranslate"><span class="pre">SpaceObject.mass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.source"><code class="docutils literal notranslate"><span class="pre">SpaceObject.source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.launch_site"><code class="docutils literal notranslate"><span class="pre">SpaceObject.launch_site</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.maneuverable"><code class="docutils literal notranslate"><span class="pre">SpaceObject.maneuverable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.spin_stabilized"><code class="docutils literal notranslate"><span class="pre">SpaceObject.spin_stabilized</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.apogee"><code class="docutils literal notranslate"><span class="pre">SpaceObject.apogee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.perigee"><code class="docutils literal notranslate"><span class="pre">SpaceObject.perigee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.propulsion_type"><code class="docutils literal notranslate"><span class="pre">SpaceObject.propulsion_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.epoch"><code class="docutils literal notranslate"><span class="pre">SpaceObject.epoch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.day_of_year"><code class="docutils literal notranslate"><span class="pre">SpaceObject.day_of_year</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.station_keeping"><code class="docutils literal notranslate"><span class="pre">SpaceObject.station_keeping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.ephemeris"><code class="docutils literal notranslate"><span class="pre">SpaceObject.ephemeris</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.sma"><code class="docutils literal notranslate"><span class="pre">SpaceObject.sma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.orbital_period"><code class="docutils literal notranslate"><span class="pre">SpaceObject.orbital_period</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.inc"><code class="docutils literal notranslate"><span class="pre">SpaceObject.inc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.argp"><code class="docutils literal notranslate"><span class="pre">SpaceObject.argp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.raan"><code class="docutils literal notranslate"><span class="pre">SpaceObject.raan</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.tran"><code class="docutils literal notranslate"><span class="pre">SpaceObject.tran</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.eccentricity"><code class="docutils literal notranslate"><span class="pre">SpaceObject.eccentricity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.meananomaly"><code class="docutils literal notranslate"><span class="pre">SpaceObject.meananomaly</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.cart_state"><code class="docutils literal notranslate"><span class="pre">SpaceObject.cart_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.C_d"><code class="docutils literal notranslate"><span class="pre">SpaceObject.C_d</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.tle"><code class="docutils literal notranslate"><span class="pre">SpaceObject.tle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.generate_cart"><code class="docutils literal notranslate"><span class="pre">SpaceObject.generate_cart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.impute_char_area"><code class="docutils literal notranslate"><span class="pre">SpaceObject.impute_char_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.impute_char_length"><code class="docutils literal notranslate"><span class="pre">SpaceObject.impute_char_length()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.impute_mass"><code class="docutils literal notranslate"><span class="pre">SpaceObject.impute_mass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.SpaceObject.prop_catobject"><code class="docutils literal notranslate"><span class="pre">SpaceObject.prop_catobject()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.verify_angle"><code class="docutils literal notranslate"><span class="pre">verify_angle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.verify_eccentricity"><code class="docutils literal notranslate"><span class="pre">verify_eccentricity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fspsim.utils.html#fspsim.utils.SpaceObject.verify_value"><code class="docutils literal notranslate"><span class="pre">verify_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fspsim.utils.html#module-fspsim.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-fspsim.simulate">
+<span id="fspsim-simulate-module"></span><h2>fspsim.simulate module<a class="headerlink" href="#module-fspsim.simulate" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.simulate.dump_pickle">
+<span class="sig-prename descclassname"><span class="pre">fspsim.simulate.</span></span><span class="sig-name descname"><span class="pre">dump_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.simulate.dump_pickle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.simulate.get_path">
+<span class="sig-prename descclassname"><span class="pre">fspsim.simulate.</span></span><span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.simulate.get_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.simulate.load_pickle">
+<span class="sig-prename descclassname"><span class="pre">fspsim.simulate.</span></span><span class="sig-name descname"><span class="pre">load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.simulate.load_pickle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.simulate.propagate_space_object">
+<span class="sig-prename descclassname"><span class="pre">fspsim.simulate.</span></span><span class="sig-name descname"><span class="pre">propagate_space_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fspsim.simulate.propagate_space_object" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.simulate.run_sim">
+<span class="sig-prename descclassname"><span class="pre">fspsim.simulate.</span></span><span class="sig-name descname"><span class="pre">run_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings:</span> <span class="pre">&lt;module</span> <span class="pre">'json'</span> <span class="pre">from</span> <span class="pre">'/Users/charlesc/anaconda3/lib/python3.11/json/__init__.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">future_constellations_file:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#fspsim.simulate.run_sim" title="Link to this definition">¶</a></dt>
+<dd><p>Propagates a list of space objects over a specified time range.</p>
+<p>The function retrieves space objects from a space catalogue (SATCAT), propagates each object
+up to a the specified time. This will save the output locally but will also return a list of propagated
+space ojects. A progress bar is displayed to track the propagation process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>-</em>) – A dictionary containing the following key-value pairs:</p></li>
+<li><p><strong>&quot;sim_start_date&quot;</strong> (<em>-</em>) – UTC start date for simulation (str)</p></li>
+<li><p><strong>&quot;sim_end_date&quot;</strong> (<em>-</em>) – UTC end date for simulation (str)</p></li>
+<li><p><strong>&quot;integrator_step_size&quot;</strong> (<em>-</em>) – Time step size for integrator (str, converted to int)</p></li>
+<li><p><strong>&quot;output_frequency&quot;</strong> (<em>-</em>) – Output frequency (str, converted to int)</p></li>
+<li><p><strong>&quot;scenario_name&quot;</strong> (<em>-</em>) – Name of the scenario (str)</p></li>
+<li><p><strong>&quot;integrator_type&quot;</strong> (<em>-</em>) – Type of integrator to use (str)</p></li>
+<li><p><strong>&quot;sgp4_long_term&quot;</strong> (<em>-</em>) – Boolean indicating if SGP4 long term propagation should be used (str, converted to bool)</p></li>
+<li><p><strong>&quot;force_model&quot;</strong> (<em>-</em>) – Force model settings (can be various types, depending on implementation)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:
+SATCAT Catalogue with updated ephemeris of the locations.
+Results are saved to pickle files in the directory: ‘src/fspsim/data/results/propagated_catalogs/’.</p>
+<p>Notes:
+- Each batch consists of a set number of space objects (defined by the batch_size variable).
+- The pickle files are saved with a filename pattern: ‘&lt;scenario_name&gt;_batch_&lt;batch_number&gt;.pickle’.
+- The propagation function used is ‘propagate_space_object’ (not defined in the provided code snippet).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fspsim.simulate.set_future_constellations">
+<span class="sig-prename descclassname"><span class="pre">fspsim.simulate.</span></span><span class="sig-name descname"><span class="pre">set_future_constellations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constellations</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#fspsim.simulate.set_future_constellations" title="Link to this definition">¶</a></dt>
+<dd><p>Incorporates user-specified launch predictions into the simulation.
+This will check that it is in the correct format
+and can be used by the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>constellations</strong> (<em>str</em>) – The path of the specified csv file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If it is in the correct format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-fspsim">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fspsim" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to FSPSim’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fspsim.utils.html" class="btn btn-neutral float-right" title="fspsim.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Indigo Brownhall, Charles Constant, Santosh Bhattarai, Lee Devlin, Marek Ziebart.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
