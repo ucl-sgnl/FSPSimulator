@@ -1603,96 +1603,6 @@ bool
 
 \end{fulllineitems}
 
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{load\_from\_file(file\_path}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-str) \sphinxhyphen{}> “SpaceCatalogue”:
-Loads a SpaceCatalogue instance from a file.
-
-\end{fulllineitems}
-
-\index{CreateCatalogueActive() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueActive()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive}}
-\pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueActive}}}{}{}
-\pysigstopsignatures
-\sphinxAtStartPar
-Merges the JSR and SpaceTrack active satellite catalogues.
-
-\end{fulllineitems}
-
-\index{CreateCatalogueAll() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueAll()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll}}
-\pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueAll}}}{}{}
-\pysigstopsignatures
-\sphinxAtStartPar
-Merges the entire JSR catalogue information with the entire SpaceTrack catalogue.
-Prioritizes SpaceTrack’s data in cases of conflicting information.
-
-\end{fulllineitems}
-
-\index{Catalogue2SpaceObjects() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{Catalogue2SpaceObjects()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue2SpaceObjects}}
-\pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{Catalogue2SpaceObjects}}}{}{{ $\rightarrow$ list\DUrole{p}{{[}}{\hyperref[\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject}]{\sphinxcrossref{SpaceObject}}}\DUrole{p}{{]}}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-Converts the current catalogue into a list of SpaceObjects. It prioritizes the SpaceTrack data
-for any conflicting information between JSR and SpaceTrack.
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{DownloadJSRCatalogueIfNewer(local\_path}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-str, url: str):
-Downloads a file from a given URL if it is newer than the local file.
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{PullCatalogueJSR(external\_dir}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-str):
-Updates the JSR catalogue files by downloading the latest version if available online.
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{PullCatalogueSpaceTrack(external\_dir}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-str):
-Downloads the entire SpaceTrack catalogue. Requires SpaceTrack login credentials in a ‘.env’ file.
-
-\end{fulllineitems}
-
 \begin{quote}\begin{description}
 \sphinxlineitem{Raises}\begin{itemize}
 \item {} 
@@ -1709,7 +1619,7 @@ Downloads the entire SpaceTrack catalogue. Requires SpaceTrack login credentials
 \index{Catalogue2SpaceObjects() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{Catalogue2SpaceObjects()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:id0}}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.Catalogue2SpaceObjects}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{Catalogue2SpaceObjects}}}{}{}
 \pysigstopsignatures
@@ -1735,7 +1645,7 @@ list{[}{\hyperref[\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject}
 \index{CreateCatalogueActive() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueActive()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:id1}}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueActive}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueActive}}}{}{}
 \pysigstopsignatures
@@ -1771,7 +1681,7 @@ None
 \index{CreateCatalogueAll() (fspsim.utils.SpaceCatalogue.SpaceCatalogue method)@\spxentry{CreateCatalogueAll()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:id2}}
+\phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceCatalogue.SpaceCatalogue.CreateCatalogueAll}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{CreateCatalogueAll}}}{}{}
 \pysigstopsignatures
@@ -2773,74 +2683,10 @@ str
 
 \end{fulllineitems}
 
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{impute\_char\_length(char\_length}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-float) \sphinxhyphen{}> float:
-Imputes a characteristic length based on the object type if the given value is None or 0.
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{impute\_char\_area(char\_area}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-float) \sphinxhyphen{}> float:
-Imputes a characteristic area based on the object type if the given value is None or 0.
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{impute\_mass(mass}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-Union{[}float, str{]}) \sphinxhyphen{}> float:
-Imputes a mass based on the object characteristic area if the given value is None or 0.
-
-\end{fulllineitems}
-
 \index{generate\_cart() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{generate\_cart()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{fspsim.utils:fspsim.utils.SpaceObject.SpaceObject.generate_cart}}
-\pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generate\_cart}}}{}{{ $\rightarrow$ np.array}}
-\pysigstopsignatures
-\sphinxAtStartPar
-Generates a starting cartesian state vector from keplerian elements.
-
-\end{fulllineitems}
-
-
-
-\begin{fulllineitems}
-
-\pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{prop\_catobject(jd\_start}}}
-\pysigstopsignatures
-\sphinxAtStartPar
-float, jd\_stop: float, step\_size: float, output\_freq: float):
-Propagates the object based on initial conditions, propagator type, and station keeping parameters.
-
-\end{fulllineitems}
-
-\index{generate\_cart() (fspsim.utils.SpaceObject.SpaceObject method)@\spxentry{generate\_cart()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{fspsim.utils:id3}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{generate\_cart}}}{}{}
 \pysigstopsignatures

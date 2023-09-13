@@ -1,0 +1,17 @@
+\selectlanguage *{english}
+\contentsline {chapter}{\numberline {1}fspsim package}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Subpackages}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}fspsim.utils package}{1}{subsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.1}Submodules}{1}{subsubsection.1.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.2}fspsim.utils.Conversions module}{1}{subsubsection.1.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.1.3}fspsim.utils.Formatting module}{8}{subsubsection.1.1.1.3}%
+\contentsline {subsubsection}{\numberline {1.1.1.4}fspsim.utils.LaunchModel module}{9}{subsubsection.1.1.1.4}%
+\contentsline {subsubsection}{\numberline {1.1.1.5}fspsim.utils.Propagators module}{10}{subsubsection.1.1.1.5}%
+\contentsline {subsubsection}{\numberline {1.1.1.6}fspsim.utils.SpaceCatalogue module}{12}{subsubsection.1.1.1.6}%
+\contentsline {subsubsection}{\numberline {1.1.1.7}fspsim.utils.SpaceObject module}{15}{subsubsection.1.1.1.7}%
+\contentsline {subsubsection}{\numberline {1.1.1.8}Module contents}{21}{subsubsection.1.1.1.8}%
+\contentsline {section}{\numberline {1.2}Submodules}{21}{section.1.2}%
+\contentsline {section}{\numberline {1.3}fspsim.simulate module}{21}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Module contents}{22}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Indices and tables}{23}{chapter.2}%
+\contentsline {chapter}{Python Module Index}{25}{section*.118}%
