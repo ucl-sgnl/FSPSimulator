@@ -103,31 +103,27 @@ FSPSim is a comprehensive tool designed to address the complexities and challeng
 \chapter{Motivation and Significance}
 \label{\detokenize{index:motivation-and-significance}}
 \sphinxAtStartPar
-Human space endeavors have expanded dramatically over the past decades, with a significant increase in the number of satellites currently in orbit.
-The rapid growth and potential impacts of satellite launches have led to the development of various models and the need for a more accessible and adaptable modeling framework.
-The FSPSim tool addresses this need by offering a transparent, configurable, and open\sphinxhyphen{}source solution. This tool empowers stakeholders to comprehend and address the potential impacts of satellite mega\sphinxhyphen{}constellations.
-FSPSim aims to make source\sphinxhyphen{}sink evolutionary models more accessible to a broader audience. It allows stakeholders to utilize modeling insights crafted by the community, promoting a more inclusive approach to understanding the effects of various decisions on the space environment.
+Human space endeavors have expanded dramatically over the past decades. The rapid growth and potential impacts of satellite launches have led to the development of various models. FSPSim offers a transparent, configurable, and open\sphinxhyphen{}source solution, making source\sphinxhyphen{}sink evolutionary models more accessible.
 
 \begin{figure}[htbp]
 \centering
-\capstart
 
 \noindent\sphinxincludegraphics[width=0.800\linewidth]{{FSPSim_system_diag_v1}.png}
-\caption{Overview of FSPSim’s architecture, showcasing how user inputs influence simulation parameters, the classes, and data sources they connect with, and the propagation mechanism.}\label{\detokenize{index:id1}}\end{figure}
+\end{figure}
 
 
-\chapter{Software Description}
+\section{Software Description}
 \label{\detokenize{index:software-description}}
 \sphinxAtStartPar
-FSPSim consists of various classes and modules designed to simulate the behavior and impact of space objects.
+FSPSim consists of various classes and modules:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{The SpaceCatalogue Class:} Manages all SpaceObject instances and fetches data from major space object catalogs.
+\sphinxstylestrong{The SpaceCatalogue Class:} Manages all SpaceObject instances.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{The SpaceObject Class:} Represents an individual object in space with detailed attributes.
+\sphinxstylestrong{The SpaceObject Class:} Represents an individual object in space.
 
 \item {} 
 \sphinxAtStartPar
@@ -135,34 +131,33 @@ FSPSim consists of various classes and modules designed to simulate the behavior
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{The Propagator Module:} Drives the propagation of all SpaceObjects within a given SpaceCatalog.
+\sphinxstylestrong{The Propagator Module:} Drives the propagation of all SpaceObjects.
 
 \end{itemize}
 
 
-\chapter{Software Functionalities}
+\section{Software Functionalities}
 \label{\detokenize{index:software-functionalities}}
 \sphinxAtStartPar
-Users specify simulation parameters using a JSON file. The results are saved in a pickle file and can be further analyzed using popular data science libraries.
+Users specify simulation parameters using a JSON file. The results are saved in a pickle file for further analysis.
 
 
-\chapter{Illustrative Examples}
+\section{Illustrative Examples}
 \label{\detokenize{index:illustrative-examples}}
 \sphinxAtStartPar
-Based on provided input parameters, users can generate various visualizations to analyze the simulation data.
+Users can generate various visualizations to analyze the simulation data.
 
 \begin{figure}[htbp]
 \centering
-\capstart
 
 \noindent\sphinxincludegraphics[width=0.800\linewidth]{{fspsim_example}.png}
-\caption{A sample altitude time\sphinxhyphen{}series plot generated from a simulation.}\label{\detokenize{index:id2}}\end{figure}
+\end{figure}
 
 
-\chapter{Current and Future Developments}
+\section{Current and Future Developments}
 \label{\detokenize{index:current-and-future-developments}}
 \sphinxAtStartPar
-Key areas of focus include refining the Launch Model and expanding the preliminary launch cost estimator.
+Key areas of focus include refining the Launch Model and expanding the launch cost estimator.
 
 
 \chapter{Contents}

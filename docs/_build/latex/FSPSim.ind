@@ -7,232 +7,232 @@
 
 
   \lettergroup{A}
-  \item \spxentry{apogee}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{application}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{argp}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
+  \item \spxentry{apogee}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{application}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{argp}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
 
   \indexspace
 
   \lettergroup{B}
-  \item \spxentry{B}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
+  \item \spxentry{B}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
 
   \indexspace
 
   \lettergroup{C}
-  \item \spxentry{C\_d}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{31}
-  \item \spxentry{calculate\_eccentricity()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{13}
-  \item \spxentry{calculate\_energy\_from\_semi\_major\_axis()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{14}
-  \item \spxentry{calculate\_form\_factor()}\spxextra{in module fspsim.utils.Formatting}, \hyperpage{20}
-  \item \spxentry{car2kep()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{14}
-  \item \spxentry{cart\_state}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{31}
-  \item \spxentry{Catalogue}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{24}
-  \item \spxentry{Catalogue2SpaceObjects()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{24}
-  \item \spxentry{characteristic\_area}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{characteristic\_length}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{check\_json\_file()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{26}
-  \item \spxentry{compute\_eccentric\_anomaly()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{22}
-  \item \spxentry{compute\_gaussian\_vectors()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{22}
-  \item \spxentry{compute\_velocity()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{23}
-  \item \spxentry{create\_subconstellation\_Space\_Objects()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{21}
-  \item \spxentry{CreateCatalogueActive()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{25}
-  \item \spxentry{CreateCatalogueAll()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{25}
+  \item \spxentry{C\_d}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{23}
+  \item \spxentry{calculate\_eccentricity()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{5}
+  \item \spxentry{calculate\_energy\_from\_semi\_major\_axis()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{6}
+  \item \spxentry{calculate\_form\_factor()}\spxextra{in module fspsim.utils.Formatting}, \hyperpage{12}
+  \item \spxentry{car2kep()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{6}
+  \item \spxentry{cart\_state}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{23}
+  \item \spxentry{Catalogue}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{16}
+  \item \spxentry{Catalogue2SpaceObjects()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{16}
+  \item \spxentry{characteristic\_area}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{characteristic\_length}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{check\_json\_file()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{18}
+  \item \spxentry{compute\_eccentric\_anomaly()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{14}
+  \item \spxentry{compute\_gaussian\_vectors()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{14}
+  \item \spxentry{compute\_velocity()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{15}
+  \item \spxentry{create\_subconstellation\_Space\_Objects()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{13}
+  \item \spxentry{CreateCatalogueActive()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{17}
+  \item \spxentry{CreateCatalogueAll()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{17}
 
   \indexspace
 
   \lettergroup{D}
-  \item \spxentry{D}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
-  \item \spxentry{day\_of\_year}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
-  \item \spxentry{DEB}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{27}
-  \item \spxentry{decay\_date}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{DownloadJSRCatalogueIfNewer()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{25}
-  \item \spxentry{dump\_pickle()}\spxextra{in module fspsim.simulate}, \hyperpage{33}
-  \item \spxentry{dump\_pickle()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{26}
+  \item \spxentry{D}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
+  \item \spxentry{day\_of\_year}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
+  \item \spxentry{DEB}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{19}
+  \item \spxentry{decay\_date}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{DownloadJSRCatalogueIfNewer()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{17}
+  \item \spxentry{dump\_pickle()}\spxextra{in module fspsim.simulate}, \hyperpage{25}
+  \item \spxentry{dump\_pickle()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{18}
 
   \indexspace
 
   \lettergroup{E}
-  \item \spxentry{earth\_moon\_vec()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{14}
-  \item \spxentry{earth\_sun\_vec()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{15}
-  \item \spxentry{eccentric\_to\_mean\_anomaly()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{15}
-  \item \spxentry{eccentricity}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{31}
-  \item \spxentry{ecef2eci\_astropy()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{15}
-  \item \spxentry{ephemeris}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
-  \item \spxentry{epoch}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
+  \item \spxentry{earth\_moon\_vec()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{6}
+  \item \spxentry{earth\_sun\_vec()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{7}
+  \item \spxentry{eccentric\_to\_mean\_anomaly()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{7}
+  \item \spxentry{eccentricity}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{23}
+  \item \spxentry{ecef2eci\_astropy()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{7}
+  \item \spxentry{ephemeris}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
+  \item \spxentry{epoch}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
 
   \indexspace
 
   \lettergroup{F}
   \item \spxentry{fspsim}
-    \subitem \spxentry{module}, \hyperpage{34}
+    \subitem \spxentry{module}, \hyperpage{26}
   \item \spxentry{fspsim.simulate}
-    \subitem \spxentry{module}, \hyperpage{33}
+    \subitem \spxentry{module}, \hyperpage{25}
   \item \spxentry{fspsim.utils}
-    \subitem \spxentry{module}, \hyperpage{33}
+    \subitem \spxentry{module}, \hyperpage{25}
   \item \spxentry{fspsim.utils.Conversions}
-    \subitem \spxentry{module}, \hyperpage{13}
+    \subitem \spxentry{module}, \hyperpage{5}
   \item \spxentry{fspsim.utils.Formatting}
-    \subitem \spxentry{module}, \hyperpage{20}
+    \subitem \spxentry{module}, \hyperpage{12}
   \item \spxentry{fspsim.utils.LaunchModel}
-    \subitem \spxentry{module}, \hyperpage{21}
+    \subitem \spxentry{module}, \hyperpage{13}
   \item \spxentry{fspsim.utils.Propagators}
-    \subitem \spxentry{module}, \hyperpage{22}
+    \subitem \spxentry{module}, \hyperpage{14}
   \item \spxentry{fspsim.utils.SpaceCatalogue}
-    \subitem \spxentry{module}, \hyperpage{24}
+    \subitem \spxentry{module}, \hyperpage{16}
   \item \spxentry{fspsim.utils.SpaceObject}
-    \subitem \spxentry{module}, \hyperpage{27}
-  \item \spxentry{future\_constellations\_csv\_handler()}\spxextra{in module fspsim.utils.Formatting}, \hyperpage{20}
+    \subitem \spxentry{module}, \hyperpage{19}
+  \item \spxentry{future\_constellations\_csv\_handler()}\spxextra{in module fspsim.utils.Formatting}, \hyperpage{12}
 
   \indexspace
 
   \lettergroup{G}
-  \item \spxentry{generate\_cart()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{31}
-  \item \spxentry{generate\_cospar\_id()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{16}
-  \item \spxentry{get\_day\_of\_year\_and\_fractional\_day()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{16}
-  \item \spxentry{get\_path()}\spxextra{in module fspsim.simulate}, \hyperpage{33}
-  \item \spxentry{get\_path()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{26}
-  \item \spxentry{global\_launch\_schedule()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{21}
+  \item \spxentry{generate\_cart()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{23}
+  \item \spxentry{generate\_cospar\_id()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{8}
+  \item \spxentry{get\_day\_of\_year\_and\_fractional\_day()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{8}
+  \item \spxentry{get\_path()}\spxextra{in module fspsim.simulate}, \hyperpage{25}
+  \item \spxentry{get\_path()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{18}
+  \item \spxentry{global\_launch\_schedule()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{13}
 
   \indexspace
 
   \lettergroup{I}
-  \item \spxentry{import\_configuration\_json()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{22}
-  \item \spxentry{impute\_char\_area()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{31}
-  \item \spxentry{impute\_char\_length()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{31}
-  \item \spxentry{impute\_mass()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{32}
-  \item \spxentry{inc}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
+  \item \spxentry{import\_configuration\_json()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{14}
+  \item \spxentry{impute\_char\_area()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{23}
+  \item \spxentry{impute\_char\_length()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{23}
+  \item \spxentry{impute\_mass()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{24}
+  \item \spxentry{inc}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
 
   \indexspace
 
   \lettergroup{J}
-  \item \spxentry{jd\_to\_utc()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{16}
+  \item \spxentry{jd\_to\_utc()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{8}
 
   \indexspace
 
   \lettergroup{K}
-  \item \spxentry{kep2car()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{16}
-  \item \spxentry{kepler\_prop()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{23}
+  \item \spxentry{kep2car()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{8}
+  \item \spxentry{kepler\_prop()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{15}
 
   \indexspace
 
   \lettergroup{L}
-  \item \spxentry{launch\_date}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{launch\_site}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{load\_from\_file()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue class method}, \hyperpage{26}
-  \item \spxentry{load\_pickle()}\spxextra{in module fspsim.simulate}, \hyperpage{33}
-  \item \spxentry{load\_pickle()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{27}
+  \item \spxentry{launch\_date}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{launch\_site}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{load\_from\_file()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue class method}, \hyperpage{18}
+  \item \spxentry{load\_pickle()}\spxextra{in module fspsim.simulate}, \hyperpage{25}
+  \item \spxentry{load\_pickle()}\spxextra{in module fspsim.utils.SpaceCatalogue}, \hyperpage{19}
 
   \indexspace
 
   \lettergroup{M}
-  \item \spxentry{maneuverable}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{mass}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{meananomaly}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{31}
+  \item \spxentry{maneuverable}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{mass}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{meananomaly}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{23}
   \item \spxentry{module}
-    \subitem \spxentry{fspsim}, \hyperpage{34}
-    \subitem \spxentry{fspsim.simulate}, \hyperpage{33}
-    \subitem \spxentry{fspsim.utils}, \hyperpage{33}
-    \subitem \spxentry{fspsim.utils.Conversions}, \hyperpage{13}
-    \subitem \spxentry{fspsim.utils.Formatting}, \hyperpage{20}
-    \subitem \spxentry{fspsim.utils.LaunchModel}, \hyperpage{21}
-    \subitem \spxentry{fspsim.utils.Propagators}, \hyperpage{22}
-    \subitem \spxentry{fspsim.utils.SpaceCatalogue}, \hyperpage{24}
-    \subitem \spxentry{fspsim.utils.SpaceObject}, \hyperpage{27}
+    \subitem \spxentry{fspsim}, \hyperpage{26}
+    \subitem \spxentry{fspsim.simulate}, \hyperpage{25}
+    \subitem \spxentry{fspsim.utils}, \hyperpage{25}
+    \subitem \spxentry{fspsim.utils.Conversions}, \hyperpage{5}
+    \subitem \spxentry{fspsim.utils.Formatting}, \hyperpage{12}
+    \subitem \spxentry{fspsim.utils.LaunchModel}, \hyperpage{13}
+    \subitem \spxentry{fspsim.utils.Propagators}, \hyperpage{14}
+    \subitem \spxentry{fspsim.utils.SpaceCatalogue}, \hyperpage{16}
+    \subitem \spxentry{fspsim.utils.SpaceObject}, \hyperpage{19}
 
   \indexspace
 
   \lettergroup{N}
-  \item \spxentry{NEGATIVE}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
+  \item \spxentry{NEGATIVE}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
 
   \indexspace
 
   \lettergroup{O}
-  \item \spxentry{object\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{ObjectType}\spxextra{class in fspsim.utils.SpaceObject}, \hyperpage{27}
-  \item \spxentry{OperationalStatus}\spxextra{class in fspsim.utils.SpaceObject}, \hyperpage{27}
-  \item \spxentry{operator}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{orbit\_classify()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{17}
-  \item \spxentry{orbital\_period}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
-  \item \spxentry{orbital\_period()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{17}
-  \item \spxentry{OTHER}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{27}
+  \item \spxentry{object\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{ObjectType}\spxextra{class in fspsim.utils.SpaceObject}, \hyperpage{19}
+  \item \spxentry{OperationalStatus}\spxextra{class in fspsim.utils.SpaceObject}, \hyperpage{19}
+  \item \spxentry{operator}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{orbit\_classify()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{9}
+  \item \spxentry{orbital\_period}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
+  \item \spxentry{orbital\_period()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{9}
+  \item \spxentry{OTHER}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{19}
 
   \indexspace
 
   \lettergroup{P}
-  \item \spxentry{PARTIAL}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
-  \item \spxentry{PAYLOAD}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{27}
-  \item \spxentry{payload\_operational\_status}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{perigee}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{POSITIVE}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
-  \item \spxentry{Prediction2SpaceObjects()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{21}
-  \item \spxentry{probe\_sun\_vec()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{17}
-  \item \spxentry{prop\_catobject()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{32}
-  \item \spxentry{propagate\_space\_object()}\spxextra{in module fspsim.simulate}, \hyperpage{33}
-  \item \spxentry{propulsion\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{PullCatalogueJSR()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{26}
-  \item \spxentry{PullCatalogueSpaceTrack()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{26}
+  \item \spxentry{PARTIAL}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
+  \item \spxentry{PAYLOAD}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{19}
+  \item \spxentry{payload\_operational\_status}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{perigee}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{POSITIVE}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
+  \item \spxentry{Prediction2SpaceObjects()}\spxextra{in module fspsim.utils.LaunchModel}, \hyperpage{13}
+  \item \spxentry{probe\_sun\_vec()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{9}
+  \item \spxentry{prop\_catobject()}\spxextra{fspsim.utils.SpaceObject.SpaceObject method}, \hyperpage{24}
+  \item \spxentry{propagate\_space\_object()}\spxextra{in module fspsim.simulate}, \hyperpage{25}
+  \item \spxentry{propulsion\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{PullCatalogueJSR()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{18}
+  \item \spxentry{PullCatalogueSpaceTrack()}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue method}, \hyperpage{18}
 
   \indexspace
 
   \lettergroup{R}
-  \item \spxentry{raan}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
-  \item \spxentry{repull\_catalogues}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{24}
-  \item \spxentry{ROCKET\_BODY}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{27}
-  \item \spxentry{rso\_name}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{rso\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{28}
-  \item \spxentry{run\_sim()}\spxextra{in module fspsim.simulate}, \hyperpage{33}
+  \item \spxentry{raan}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
+  \item \spxentry{repull\_catalogues}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{16}
+  \item \spxentry{ROCKET\_BODY}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{19}
+  \item \spxentry{rso\_name}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{rso\_type}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{20}
+  \item \spxentry{run\_sim()}\spxextra{in module fspsim.simulate}, \hyperpage{25}
 
   \indexspace
 
   \lettergroup{S}
-  \item \spxentry{S}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
-  \item \spxentry{set\_future\_constellations()}\spxextra{in module fspsim.simulate}, \hyperpage{34}
-  \item \spxentry{sgp4\_prop\_TLE()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{23}
-  \item \spxentry{sim\_object\_catalogue}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{24}
-  \item \spxentry{sim\_object\_type}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{24}
-  \item \spxentry{sma}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
-  \item \spxentry{source}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{SpaceCatalogue}\spxextra{class in fspsim.utils.SpaceCatalogue}, \hyperpage{24}
-  \item \spxentry{SpaceObject}\spxextra{class in fspsim.utils.SpaceObject}, \hyperpage{27}
-  \item \spxentry{spin\_stabilized}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{29}
-  \item \spxentry{station\_keeping}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
+  \item \spxentry{S}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
+  \item \spxentry{set\_future\_constellations()}\spxextra{in module fspsim.simulate}, \hyperpage{26}
+  \item \spxentry{sgp4\_prop\_TLE()}\spxextra{in module fspsim.utils.Propagators}, \hyperpage{15}
+  \item \spxentry{sim\_object\_catalogue}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{16}
+  \item \spxentry{sim\_object\_type}\spxextra{fspsim.utils.SpaceCatalogue.SpaceCatalogue attribute}, \hyperpage{16}
+  \item \spxentry{sma}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
+  \item \spxentry{source}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{SpaceCatalogue}\spxextra{class in fspsim.utils.SpaceCatalogue}, \hyperpage{16}
+  \item \spxentry{SpaceObject}\spxextra{class in fspsim.utils.SpaceObject}, \hyperpage{19}
+  \item \spxentry{spin\_stabilized}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{21}
+  \item \spxentry{station\_keeping}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
 
   \indexspace
 
   \lettergroup{T}
-  \item \spxentry{tle}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{31}
-  \item \spxentry{tle\_checksum()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{17}
-  \item \spxentry{tle\_convert()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{17}
-  \item \spxentry{tle\_exponent\_format()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{18}
-  \item \spxentry{tle\_parse()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{18}
-  \item \spxentry{TLE\_time()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{13}
-  \item \spxentry{tran}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{30}
-  \item \spxentry{true\_to\_eccentric\_anomaly()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{18}
-  \item \spxentry{true\_to\_mean\_anomaly()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{18}
+  \item \spxentry{tle}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{23}
+  \item \spxentry{tle\_checksum()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{9}
+  \item \spxentry{tle\_convert()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{9}
+  \item \spxentry{tle\_exponent\_format()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{10}
+  \item \spxentry{tle\_parse()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{10}
+  \item \spxentry{TLE\_time()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{5}
+  \item \spxentry{tran}\spxextra{fspsim.utils.SpaceObject.SpaceObject attribute}, \hyperpage{22}
+  \item \spxentry{true\_to\_eccentric\_anomaly()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{10}
+  \item \spxentry{true\_to\_mean\_anomaly()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{10}
 
   \indexspace
 
   \lettergroup{U}
-  \item \spxentry{UNKNOWN}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{27}
-  \item \spxentry{UNKNOWN}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
-  \item \spxentry{UTC\_step()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{13}
-  \item \spxentry{utc\_to\_jd()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{18}
+  \item \spxentry{UNKNOWN}\spxextra{fspsim.utils.SpaceObject.ObjectType attribute}, \hyperpage{19}
+  \item \spxentry{UNKNOWN}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
+  \item \spxentry{UTC\_step()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{5}
+  \item \spxentry{utc\_to\_jd()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{10}
 
   \indexspace
 
   \lettergroup{V}
-  \item \spxentry{v\_rel()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{19}
-  \item \spxentry{verify\_angle()}\spxextra{in module fspsim.utils.SpaceObject}, \hyperpage{32}
-  \item \spxentry{verify\_eccentricity()}\spxextra{in module fspsim.utils.SpaceObject}, \hyperpage{33}
-  \item \spxentry{verify\_value()}\spxextra{in module fspsim.utils.SpaceObject}, \hyperpage{33}
+  \item \spxentry{v\_rel()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{11}
+  \item \spxentry{verify\_angle()}\spxextra{in module fspsim.utils.SpaceObject}, \hyperpage{24}
+  \item \spxentry{verify\_eccentricity()}\spxextra{in module fspsim.utils.SpaceObject}, \hyperpage{25}
+  \item \spxentry{verify\_value()}\spxextra{in module fspsim.utils.SpaceObject}, \hyperpage{25}
 
   \indexspace
 
   \lettergroup{W}
-  \item \spxentry{write\_tle()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{19}
+  \item \spxentry{write\_tle()}\spxextra{in module fspsim.utils.Conversions}, \hyperpage{11}
 
   \indexspace
 
   \lettergroup{X}
-  \item \spxentry{X}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{27}
+  \item \spxentry{X}\spxextra{fspsim.utils.SpaceObject.OperationalStatus attribute}, \hyperpage{19}
 
 \end{sphinxtheindex}

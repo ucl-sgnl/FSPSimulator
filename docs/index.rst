@@ -1,10 +1,9 @@
 Welcome to FSPSim's documentation!
 ==================================
 
-FSPSim is a comprehensive tool designed to address the complexities and challenges of human space endeavors in the modern era.
-
 Motivation and Significance
 ---------------------------
+FSPSim is a comprehensive tool designed to address the complexities and challenges of human space endeavors in the modern era.
 Human space endeavors have expanded dramatically over the past decades. The rapid growth and potential impacts of satellite launches have led to the development of various models. FSPSim offers a transparent, configurable, and open-source solution, making source-sink evolutionary models more accessible.
 
 .. figure:: FSPSim_system_diag_v1.png
