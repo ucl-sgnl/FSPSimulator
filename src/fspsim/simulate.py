@@ -3,6 +3,7 @@ import json
 import pickle
 from tqdm import tqdm
 import traceback
+# warning! you will have to recompile with pip for the below code to work 
 from fspsim.utils.SpaceCatalogue import SpaceCatalogue, check_json_file
 from fspsim.utils.Conversions import utc_to_jd
 from fspsim.utils.Formatting import future_constellations_csv_handler
@@ -133,13 +134,18 @@ def run_sim(settings: json, future_constellations_file: str = None, save_locally
     print('Simulation complete')
 
 if __name__ == '__main__':
-    sims = os.listdir(get_path('src/fspsim/data/specify_simulations/'))
-    for sim in sims:
-        if sim.endswith('.json'):
-            print(f"Running simulation: {sim}")
-            settings = json.load(open(get_path(f'src/fspsim/data/specify_simulations/{sim}'), 'r'))
-            check_json_file(settings)#check if the json file is filled out correctly
-            # provide my own launch file # charles you might have to change this path
-            future_constellations_file = r'C:\Users\IT\Documents\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink.csv'
-            run_sim(settings, future_constellations_file, save_locally=True)
-            print(f"Simulation {sim} complete")    
+    # sims = os.listdir(get_path('src/fspsim/data/specify_simulations/'))
+    # for sim in sims:
+    #     if sim.endswith('.json'):
+    #         print(f"Running simulation: {sim}")
+    #         settings = json.load(open(get_path(f'src/fspsim/data/specify_simulations/{sim}'), 'r'))
+    #         check_json_file(settings)#check if the json file is filled out correctly
+    #         # provide my own launch file # charles you might have to change this path
+    #         future_constellations_file = r'C:\Users\IT\Documents\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink.csv'
+    #         run_sim(settings, future_constellations_file, save_locally=True)
+    #         print(f"Simulation {sim} complete")    
+
+    # Test simulation
+    settings = json.load(open(get_path(f'src/fspsim/data/specify_simulations/oneweb_starlink.json'), 'r'))
+    future_constellations_file = r'C:\Users\IT\Documents\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink.csv'
+    run_sim(settings, future_constellations_file, save_locally=True)

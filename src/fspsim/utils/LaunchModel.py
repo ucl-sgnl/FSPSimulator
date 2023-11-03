@@ -232,7 +232,7 @@ def Prediction2SpaceObjects(satellite_predictions_csv, simsettings):
                                                             launches_start_date = simsettings['launch_start_date']   
                                                          )                                                     
     
-    for dict in tqdm(metadata_dicts): #TODO: use the JSON file to set the agressivity and max launch rate etc.
+    for dict in tqdm(metadata_dicts, desc="Building Individual Satellites from Constellations"): #TODO: use the JSON file to set the agressivity and max launch rate etc.
         subconstellation_Space_Objects = create_subconstellation_Space_Objects(N=int(dict['N']), i = float(dict['i']), h=float(dict['h']), _soname=dict['_soname'], _application = dict['_application'], _owner= dict['_owner'], launch_schedule = sub_constellation_launch_dates[dict['_soname']], _mass=dict['_mass'], _area=dict['_area'], _length=dict['_length'], _maneuverable= dict['_maneuverable'], _propulsion=dict['_propulsion'])
         all_space_objects.extend(subconstellation_Space_Objects)
     return all_space_objects

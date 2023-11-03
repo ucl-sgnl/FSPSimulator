@@ -12,9 +12,13 @@ from dotenv import load_dotenv
 from ..utils.SpaceObject import SpaceObject
 from ..utils.Conversions import tle_parse
 from ..utils.LaunchModel import Prediction2SpaceObjects
+# from fspsim.utils.SpaceObject import SpaceObject
+# from fspsim.utils.Conversions import tle_parse
+# from fspsim.utils.LaunchModel import Prediction2SpaceObjects
 
 home = str(Path.home())
 home = home + '/.fspsim/'
+
 # firstly create a storage file in their home directory
 cataloguepath, resultspath, externalpath = os.path.join(home + str("/data/catalogue/")), os.path.join(home + str("/data/results/")), os.path.join(home + str("/data/external/"))
 os.makedirs(cataloguepath, exist_ok=True)
@@ -108,6 +112,7 @@ class SpaceCatalogue:
         self.sim_object_catalogue = settings["sim_object_catalogue"] # this can be "jsr", "spacetrack", or "both"
         repull_catalogues = settings["repull_catalogues"]
         self.Catalogue = []
+
         # raise exception if invalid sim_object_type or sim_object_catalogue is specified
         if self.sim_object_type not in ["active", "all", "debris"]:
             raise Exception("Invalid sim_object_type specified, must be 'active', 'all', or 'debris'")
@@ -134,7 +139,7 @@ class SpaceCatalogue:
 
         # If we are not repulling the catalogues just use the existing local catalogues
         else:
-            print("using existing local catalogues")
+            print("Using Local Catalogue Files")
             loaded_data = self.load_from_file(cataloguepath + 'SATCAT_before_prop.pickle')
             self.__dict__ = loaded_data.__dict__
 
@@ -149,8 +154,9 @@ class SpaceCatalogue:
         self.Catalogue2SpaceObjects()
         
         # Now add the predictions to the Catalogue attribute of the SpaceCatalogue instance by making a list of SpaceObjects using Prediction2SpaceObjects
-        predicted_space_objects = Prediction2SpaceObjects(satellite_predictions_csv = satellite_predictions_csv, simsettings=settings)
-        self.Catalogue.extend(predicted_space_objects)
+        # predicted_space_objects = Prediction2SpaceObjects(satellite_predictions_csv = satellite_predictions_csv, simsettings=settings)
+        # self.Catalogue.extend(predicted_space_objects)
+        print('im here')
         return None
     
     @classmethod
@@ -474,3 +480,8 @@ class SpaceCatalogue:
             with open(spacetrack_path, 'w') as f:
                 f.write(retDataStr)
         session.close()
+
+if __name__ == "__main__":
+    settings = json.load(open(get_path(f'src/fspsim/data/specify_simulations/oneweb_starlink.json'), 'r'))
+    future_constellations_file = r'C:\Users\IT\Documents\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink.csv'
+    satcat = SpaceCatalogue(settings, future_constellations=future_constellations_file)
