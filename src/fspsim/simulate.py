@@ -79,7 +79,6 @@ def run_sim(settings: json, future_constellations_file: str = None, save_locally
     - The propagation function used is 'propagate_space_object' (not defined in the provided code snippet).
     """
     if future_constellations_file:
-        # User defined fsp launch files
         # check if valid 
         if future_constellations_csv_handler(future_constellations_file):
             SATCAT = SpaceCatalogue(settings=settings, future_constellations=future_constellations_file)
@@ -88,6 +87,8 @@ def run_sim(settings: json, future_constellations_file: str = None, save_locally
     else:
         # Use default fsp launch files
         SATCAT = SpaceCatalogue(settings=settings)
+
+    # parse settings
     jd_start = float(utc_to_jd(settings["sim_start_date"]))
     jd_stop = float(utc_to_jd(settings["sim_end_date"]))
     step_size = int(settings["integrator_step_size"])
@@ -95,7 +96,7 @@ def run_sim(settings: json, future_constellations_file: str = None, save_locally
     scenario_name = str(settings["scenario_name"])
 
     # only select every 1000 objects in SATCAT.Catalogue
-    # SATCAT.Catalogue = SATCAT.Catalogue[::1000] 
+    SATCAT.Catalogue = SATCAT.Catalogue[::1000] 
 
     # Create a progress bar
     pbar = tqdm(total=len(SATCAT.Catalogue), desc="Propagating")
@@ -141,4 +142,4 @@ if __name__ == '__main__':
             # provide my own launch file # charles you might have to change this path
             future_constellations_file = r'C:\Users\IT\Documents\UCL\FSPSimulator\src\fspsim\data\prediction_csv\oneweb_starlink.csv'
             run_sim(settings, future_constellations_file, save_locally=True)
-            print(f"Simulation {sim} complete")
+            print(f"Simulation {sim} complete")    
