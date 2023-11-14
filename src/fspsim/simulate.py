@@ -97,7 +97,7 @@ def run_sim(settings: json, future_constellations_file: str = None, save_locally
     scenario_name = str(settings["scenario_name"])
 
     # only select every 1000 objects in SATCAT.Catalogue
-    SATCAT.Catalogue = SATCAT.Catalogue[::1000] 
+    #SATCAT.Catalogue = SATCAT.Catalogue[::1000] 
 
     # Create a progress bar
     pbar = tqdm(total=len(SATCAT.Catalogue), desc="Propagating")
